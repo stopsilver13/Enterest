@@ -10,12 +10,15 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
+import json
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ROOT_DIR = os.path.dirname(BASE_DIR)
 
+CONFIG_SECRET_DIR = os.path.join(ROOT_DIR, '.config_secret')
+CONFIG_SETTINGS_COMMON_FILE = os.path.join(CONFIG_SECRET_DIR, 'settings_common.json')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -44,6 +47,8 @@ INSTALLED_APPS = [
 
     'accounts',
     'sharespot',
+
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -81,9 +86,17 @@ WSGI_APPLICATION = 'enterest.wsgi.application'
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # }
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'HOST': 'enterest-db.c9hh8baknazr.ap-northeast-2.rds.amazonaws.com',
+        'PORT': '5432',
+        'NAME': 'deploy',
+        'USER': 'enterest',
+        'PASSWORD': '*dpsxjfptmxm13',
     }
 }
 
@@ -136,3 +149,17 @@ STATIC_ROOT = os.path.join(ROOT_DIR, 'staticfiles')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+
+# S3 Storage
+DEFAULT_FILE_STORAGE = 'enterest.storages.MediaStorage'
+STATICFILES_STORAGE = 'enterest.storages.StaticStorage'
+
+MEDIAFILES_LOCATION = 'media'
+STATICFILES_LOCATION = 'static'
+
+# AWS access
+config_secret = json.loads(open(CONFIG_SETTINGS_COMMON_FILE).read())
+AWS_ACCESS_KEY_ID = config_secret['aws']['access_key_id']
+AWS_SECRET_ACCESS_KEY = config_secret['aws']['secret_access_key']
+AWS_STORAGE_BUCKET_NAME = config_secret['aws']['s3_bucket_name']
