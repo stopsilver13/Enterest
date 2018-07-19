@@ -1,0 +1,144 @@
+.content {
+  width: 100%;
+  min-width: 768px;
+}
+.user_scrap_content {
+  width: 100%;
+  background-color: #f4f5f7;
+  padding-top: 48px;
+  padding-bottom: 48px;
+}
+.user_scrap_content_wrapper {
+  width: 1084px;
+  margin: 0 auto 0;
+  padding: 0 0 0 16px;
+}
+.scrap_category {
+  margin-bottom: 48px;
+}
+.category_title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 0 24px 0;
+}
+.scrap_list_place {
+  width: 200px;
+  height: 53px;
+  border-radius: 8px;
+  border: solid 4px #4a90e2;
+  display: inline-block;
+  padding: 35px 16px 0 24px;
+  margin: 0 16px 24px 0;
+}
+.scrap_list_place > p {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+}
+.scrap_list_place > p > i {
+  font-size: 16px;
+  float: right;
+}
+.scrap_events_set {
+  width: 255px;
+  background-color: #fff;
+  display: inline-block;
+  margin-right: 12px;
+  margin-bottom: 30px;
+}
+.scrap_events_pic {
+  width: 246px;
+  height: 162px;
+  background-image: url('example.jpg');
+  padding: 11px 0 0 9px;
+}
+.scrap_events_pic > div {
+  width: 64px;
+  height: 24px;
+  background-color: #7ed321;
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 2;
+  color: #ffffff;
+}
+.scrap_events_set_wrapper {
+  padding: 16px 16px;
+}
+.scrap_events_title {
+  font-size: 16px;
+  font-weight: bold;
+  text-align: left;
+  margin: 0 0 4px 0;
+}
+.scrap_events_info {
+  font-size: 12px;
+  letter-spacing: 0.2px;
+  text-align: left;
+  color: rgba(56, 59, 65, 0.54);
+  margin: 0 0 20px 0;
+}
+.scrap_events_rating {
+  width: 64px;
+  height: 12px;
+  background-color: grey;
+  display: inline-block;
+  margin: 0 8px 0 0;
+}
+.scrap_events_reviews {
+  font-size: 12px;
+  display: inline-block;
+  margin: 0;
+}
+.scrap_events_get_info {
+  margin-top: 12px;
+}
+.scrap_events_seat_info,
+.scrap_events_event_info {
+  width: 102px;
+  height: 27px;
+  border-radius: 4px;
+  border: solid 1px #4a90e2;
+  font-size: 12px;
+  font-weight: bold;
+  color: #4a90e2;
+  text-align: center;
+  display: inline-block;
+  vertical-align: middle;
+  padding-top: 13px;
+}
+.scrap_events_event_info {
+  float: right;
+}
+.show_more {
+  font-size: 16px;
+  font-weight: bold;
+  color: rgba(56, 59, 65, 0.54);
+  margin: 10px 0 12px 0;
+}
+.show_more > i {
+  margin-left: 8px;
+}
+.user_interest_list {
+  margin-bottom: 24px;
+}
+.user_interest_list > div {
+  height: 24px;
+  border-radius: 4px;
+  background-color: #a5d296;
+  font-size: 12px;
+  text-align: center;
+  line-height: 2.25;
+  color: #ffffff;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0 16px;
+  margin-right: 8px;
+}
+.user_interest_list > p {
+  font-size: 14px;
+  color: rgba(56, 59, 65, 0.54);
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 0 0 16px;
+}

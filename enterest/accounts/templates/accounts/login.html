@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+<!-- {% load socialaccount %} -->
+
+{% block head_extra %}
+
+<style>
+.login_title {
+    background-color: #f4f5f7;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.38);
+    font-family: "a고딕13";
+}
+.type_ur_idpw {
+    margin-top: 40px;
+}
+.type_ur_idpw input {
+    display: block;
+    border: solid 1px #f4f5f7;
+    margin: auto;
+    padding-left: 16px;
+    margin-bottom: 16px;
+}
+::placeholder {
+    font-family: "a고딕13";
+    font-size: 14px;
+    text-align: left;
+    color: rgba(0, 0, 0, 0.22);
+}
+:-ms-input-placeholder {
+    font-family: "a고딕13";
+    font-size: 14px;
+    text-align: left;
+    color: rgba(0, 0, 0, 0.22);
+}
+.btn_wrap {
+    text-align: center;
+    margin-top: 40px;
+}
+.go_login {
+    width: 320px;
+    height: 56px;
+    border: none;
+    border-radius: 3px;
+    background-color: #4a90e2;
+    margin: auto;
+    font-family: "a고딕15";
+    font-size: 16px;
+    text-align: center;
+    color: #ffffff;
+}
+.wrapper ul {
+    text-align: center;
+    margin-top: 24px;
+    padding-left: 0px;
+}
+.signup_or_find_list {
+    display: inline-block;
+    border-right: solid 1px #f4f5f7;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+.signup_or_find_list a {
+    font-family: "a고딕13";
+    font-size: 14px;
+    text-align: left;
+    color: rgba(0, 0, 0, 0.38);
+}
+.wrapper hr {
+    margin-top: 32px;
+    border-top: solid 1px #f4f5f7;
+}
+.sns_login {
+    font-family: "a고딕13";
+    font-size: 14px;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.54);
+    margin-top: 24px;
+}
+.sns_login_btn {
+    text-align: center;
+    margin-top: 24px;
+
+}
+.sns_logo {
+    width: 48px;
+    height: 48px;
+    margin-left: 12px;
+    margin-right: 12px;
+    margin-bottom: 56px;
+}
+.alert-danger {
+    margin: 0px;
+    margin-top: 24px;
+    color: #d0021b;
+    font-family: "a고딕13";
+    font-size: 12px;
+    text-align: center;
+    background-color: #fff;
+    border: none;
+}
+.alert {
+    padding: 0px;
+}
+
+@media(max-width:768px) {
+    .login_title {
+        height: 48px;
+        font-size: 18px;
+        padding-top: 14px;
+        margin-top: 8px;
+    }
+    .type_ur_idpw input {
+        width: 320px;
+        height: 48px;
+    }
+    .wrapper hr {
+        width: 88.88%;
+    }
+}
+
+@media(min-width: 768px) {
+    .wrapper {
+        width: 500px;
+        box-shadow: 0 1px 4px 0 #eeeeee;
+        margin: auto;
+        margin-bottom: 50px;
+        margin-top: 48px;
+    }
+    .login_title {
+        height: 72px;
+        font-size: 24px;
+        padding-top: 20px;
+    }
+    .type_ur_idpw input {
+        width: 320px;
+        height: 48px;
+    }
+    .wrapper hr {
+        width: 468px;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="content_">
+
+  <div class="wrapper">
+    <div class="login_title">로그인</div>
+    {% if form.errors %}
+      <div class="error_msg alert alert-danger">
+        아이디와 비밀번호를 확인해주세요!
+      </div>
+    {% endif %}
+
+    <form action="" method="POST">
+    {% csrf_token %}
+    <div class="type_ur_idpw">
+      <input type="text" name="username" placeholder="아이디">
+      <input type="password" name="password" placeholder="비밀번호">
+    </div>
+    <div class="btn_wrap"><button class="go_login">로그인</button></div>
+    </form>
+
+    <ul class="signup_or_find">
+      <li class="signup_or_find_list"><a href="{% url "signup_stage1" %}?next={{ request.GET.next }}">회원가입</a></li>
+      <li class="signup_or_find_list"><a href="{% url "finding_ID" %}">아이디찾기</a></li>
+      <li class="signup_or_find_list" style="border-right:none"><a href="{% url "finding_pw" %}">비밀번호찾기</a></li>
+    </ul>
+    <hr>
+    <p class="sns_login">SNS계정으로 로그인 / 회원가입</p>
+    <div class="sns_login_btn">
+      <a href="/accounts/facebook/login/?next=/accounts/signup/sns/?next={{ request.GET.next }}"><img src="{% static "img/logo/facebook.jpg" %}" class="sns_logo"></a>
+      <a href="/accounts/naver/login/?next=/accounts/signup/sns/?next={{ request.GET.next }}"><img src="{% static "img/logo/naver.jpg" %}" class="sns_logo"></a>
+      <a href="/accounts/kakao/login/?next=/accounts/signup/sns/?next={{ request.GET.next }}"><img src="{% static "img/logo/kakao.jpg" %}" class="sns_logo"></a>
+    </div>
+  </div>
+
+
+</div>
+{% endblock %}
+
+
+
+

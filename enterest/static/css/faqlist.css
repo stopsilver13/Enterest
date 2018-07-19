@@ -1,0 +1,109 @@
+.user_faq_content {
+  width: 1068px;
+  margin: 48px auto 0;
+  padding: 0 16px;
+}
+.user_faq_header {
+  padding-bottom: 32px;
+  border-bottom: solid 2px #383b41;
+}
+.header_left {
+  display: inline-block;
+  vertical-align: top;
+}
+.header_left > p {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 0 16px 0;
+}
+.header_left > h4 {
+  font-size: 16px;
+  font-weight: normal;
+  color: rgba(56, 59, 65, 0.54);
+  text-decoration: underline;
+  margin: 0;
+}
+.user_faq_header > button {
+  width: 288px;
+  height: 64px;
+  border-radius: 8px;
+  background-color: #4a90e2;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 0.7px;
+  color: #ffffff;
+  display: inline-block;
+  vertical-align: top;
+  float: right;
+}
+.faq_category {
+  border-bottom: solid 2px #383b41;
+  padding-bottom: 32px;
+}
+.faq_category > p {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 16px 0 ;
+}
+.faq_category > p > i {
+  font-size: 24px;
+  float: right;
+  margin-right: 16px;
+}
+.faq_category > hr {
+  border: solid 1px #ebecf0;
+}
+.faq_category_body {
+  margin-top: 30px;
+  -webkit-column-count: 2;
+  -moz-column-count: 2;
+  column-count: 2;
+  -webkit-column-gap: 32px;
+  -moz-column-gap: 32px;
+  column-gap: 32px;
+}
+.faq_questions {
+  margin-bottom: 24px;
+}
+.faq_questions > p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0 0 16px;
+}
+.faq_questions > h4 {
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 1.5;
+  color: rgba(56, 59, 65, 0.54);
+  margin: 0;
+}
+
+.user_faq_footer {
+  margin-top: 80px;
+  margin-bottom: 30px;
+}
+.user_faq_footer > p {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 0 16px 0;
+}
+.user_faq_footer > h4 {
+  font-size: 16px;
+  font-weight: normal;
+  letter-spacing: 0.7px;
+  color: rgba(56, 59, 65, 0.54);
+  margin: 0 0 32px 0;
+}
+.user_faq_footer > button {
+  width: 518px;
+  height: 88px;
+  border-radius: 8px;
+  background-color: #4a90e2;
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: #ffffff;
+}
+
+
+

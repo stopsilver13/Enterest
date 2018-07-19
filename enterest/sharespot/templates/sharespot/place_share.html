@@ -1,0 +1,107 @@
+{% extends "sharespot/place_base.html" %}}
+
+{% block title %}
+    {{ place.name }} 정보공유
+{% endblock %}
+
+{% block head_extra_place %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/place_share.css' %}">
+{% endblock %}
+
+{% block content_place %}
+  <div class="place_around_content">
+    <div class="place_around_content_wrapper">
+      <div class="posting_zone">
+        <div class="posting_zone_nav">
+          <div class="posting_zone_nav_compenent selected"> 전체 </div>
+          <div class="posting_zone_nav_compenent"> 밥집 </div>
+          <div class="posting_zone_nav_compenent"> 카페 </div>
+          <div class="posting_zone_nav_compenent"> 교통 </div>
+          <div class="posting_zone_nav_compenent"> 숙박 </div>
+          <div class="posting_zone_nav_compenent"> 볼거리 </div>
+          <div class="posting_zone_nav_compenent"> 놀거리 </div>
+        </div>
+        <div class="posting_input_section">
+          <div class="input_box">
+            <div class="input_left">
+              <div class="posting_place_info">
+                <div class="place_category"> 분류 선택 </div>
+                <div class="place_name"> 방문 장소,주소 </div>
+                <div class="place_pic"> 사진 </div>
+              </div>
+              <textarea placeholder="자유롭게 입력해주세요."></textarea>
+            </div>
+            <button> 등록 </button>
+          </div>
+        </div>
+        <div class="posts">
+          <div class="posts_wrapper">
+            <div class="posts_header">
+              <div> 밥집 </div>
+              <p> 칼라분식 <span> 18.6.14 </span> </p>
+            </div>
+            <div class="posts_body">
+              <p> 자유롭게 작성한 후기 생각보다 되게 작다 ㅋㅋㅋㅋ 거의 방 하나 크기라고 보면 될듯 .. 옛날 상가 분위기랑 어우러져서 독특한 느낌이다 아포가토를 시켰는데 커피가 안뜨거워서 잉?했는데 맛은 있었다 ㅎㅎㅎ 자유롭게 작성한 후기 생각보다 되게 작다 ㅋㅋㅋㅋ 거의 방 하나 크기라고 보면 될듯 .. 옛날 상가 분위기랑 어우러져서 독특한 느낌이다 아포가토를 시켰는데 커피가 안뜨거워서 잉?했는데 맛은 있었다 ㅎㅎㅎ </p>
+            </div>
+            <div class="posts_footer">
+              <p><i class="far fa-comment"></i> <span> 143 </span></p>
+              <p><i class="far fa-heart"></i> <span> 143 </span></p>
+            </div>
+            <div class="posts_reply">
+              <div class="writing_zone">
+                <div class="writing_zone_upper">
+                  <img src="example.jpg">
+                  <p> 닉네임닉네임 </p>
+                  <h4> 익명으로 변경 </h4>
+                </div>
+                <div class="writing_zone_bottom">
+                  <textarea placeholder="댓글을 입력하세요."></textarea>
+                  <button> 등록 </button>
+                </div>
+              </div>
+              <div class="replies">
+                <div class="replies_upper">
+                  <img src="example.jpg">
+                  <p> 닉네임닉네임 </p>
+                  <h4> 18.7.11 </h4>
+                </div>
+                <p class="replies_body">스핀스키는 야생동물 관리국의 의뢰를 받아 불법포획된 동물을 렌즈에 담을 수 있었습니다. 관리국 창고에는 죽은 동물로 만든 트로피, 의약품, 패션 소품 등 무려 130만개 제품이 쌓여 있었습니다. </p>
+              </div>
+              <div class="replies">
+                <div class="replies_upper">
+                  <img src="example.jpg">
+                  <p> 닉네임닉네임 </p>
+                  <h4> 18.7.11 </h4>
+                </div>
+                <p class="replies_body">스핀스키는 야생동물 관리국의 의뢰를 받아 불법포획된 동물을 렌즈에 담을 수 있었습니다. 관리국 창고에는 죽은 동물로 만든 트로피, 의약품, 패션 소품 등 무려 130만개 제품이 쌓여 있었습니다. </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="posts">
+          <div class="posts_wrapper">
+            <div class="posts_header">
+              <div> 밥집 </div>
+              <p> 칼라분식 <span> 18.6.14 </span> </p>
+            </div>
+            <div class="posts_body">
+              <p> 자유롭게 작성한 후기 생각보다 되게 작다 ㅋㅋㅋㅋ 거의 방 하나 크기라고 보면 될듯 .. 옛날 상가 분위기랑 어우러져서 독특한 느낌이다 아포가토를 시켰는데 커피가 안뜨거워서 잉?했는데 맛은 있었다 ㅎㅎㅎ 자유롭게 작성한 후기 생각보다 되게 작다 ㅋㅋㅋㅋ 거의 방 하나 크기라고 보면 될듯 .. 옛날 상가 분위기랑 어우러져서 독특한 느낌이다 아포가토를 시켰는데 커피가 안뜨거워서 잉?했는데 맛은 있었다 ㅎㅎㅎ </p>
+            </div>
+            <div class="posts_img">
+              <img src="example.jpg">
+              <img src="example.jpg">
+              <img src="example.jpg">
+              <div> 더 보기 </div>
+            </div>
+            <div class="posts_footer">
+              <p><i class="far fa-comment"></i> <span> 143 </span></p>
+              <p><i class="far fa-heart"></i> <span> 143 </span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="map"></div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,27 @@
+.place_content {
+  width: 100%;
+  min-width: 1100px;
+}
+.place_content_wrapper {
+  width: 1100px;
+  margin: 0 auto 0;
+}
+.place_basic_info {
+  width: 518px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 16px;
+}
+.place_basic_info_map {
+  width: 518px;
+  height: 328px;
+  background-color: blue;
+}
+.place_weather {
+  width: 518px;
+  height: 540px;
+  display: inline-block;
+  background-color: red;
+  vertical-align: middle;
+  margin-left: 32px;
+}

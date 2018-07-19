@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block head_extra %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/place_base.css' %}">
+
+  {% block head_extra_place %}
+  {% endblock %}
+
+{% endblock %}
+
+{% block_content %}
+<div class="content">
+  <div class="place_title_zone">
+    <div class="place_title_zone_wrapper">
+      <p>고척스카이돔<i class="far fa-heart"></i></p>
+    </div>
+  </div>
+
+  <div class="place_nav">
+    <div class="place_nav_wrapper">
+      <div class="place_nav_component" style="border-bottom: solid 1px black;">좌석뷰</div>
+      <div class="place_nav_component">기본정보</div>
+      <div class="place_nav_component">관련정보</div>
+      <div class="place_nav_component">이벤트정보</div>
+    </div>
+  </div>
+
+  {% block content_place %}
+  {% endblock %}
+
+</div>
+{% endblock %}

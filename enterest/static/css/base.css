@@ -1,0 +1,97 @@
+a:-webkit-any-link {
+  color: black;
+}
+body {
+  margin: none;
+}
+.navbar {
+  width: 100%;
+  min-width: 768px;
+  margin-bottom: 4px;
+}
+.navbar_wrapper {
+  width: 100%;
+  height: 48px;
+  max-width: 1100px;
+  margin: 0px auto 0px;
+  text-align: center;
+  padding-top: 4px;
+}
+.navbar_brand {
+  float: left;
+  margin-left: 16px;
+}
+.navbar_brand a {
+  text-decoration: none;
+  cursor: pointer;
+}
+.navbar_brand img {
+  width: 48px;
+  height: 48px;
+  display: inline-block;
+  background-color: black;
+  vertical-align: middle;
+}
+.navbar_brand p {
+  font-size: 24px;
+  display: inline-block;
+  margin: 0px 0px 0px 16px;
+  vertical-align: middle;
+}
+
+.navbar_search {
+  width: 360px;
+  text-align: center;
+  display: inline-block;
+}
+.navbar_search input{
+  width: 356px;
+  height: 28px;
+  text-align: center;
+  border: solid 1px #eee;
+  margin-top: 4px;
+}
+
+.navbar_right {
+  float: right;
+  margin: 4px 16px 0px 0px;
+}
+.navbar_register_review {
+  font-size: 14px;
+  line-height: 2.29;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  vertical-align: middle;
+}
+.navbar_username {
+  text-decoration: none;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 32px;
+}
+.navbar_username p {
+  font-size: 14px;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0px;
+}
+.navbar_username img {
+  width: 32px;
+  height: 32px;
+  background-color: black;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 16px;
+}
+
+.content {
+  width: 100%;
+  min-width: 768px;
+}
+.content_in {
+  width: 100%;
+  max-width: 1100px
+}
+
+

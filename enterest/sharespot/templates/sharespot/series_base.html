@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block head_extra %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/series_base.css' %}">
+
+  {% block head_extra_series %}
+  {% endblock %}
+
+{% endblock %}
+
+{% block_content %}
+<div class="content">
+  <div class="event_title_zone">
+    <div class="event_title_zone_wrapper">
+      <p>[프로야구]기아 vs 두산<i class="far fa-heart"></i></p>
+    </div>
+  </div>
+
+  <div class="event_nav">
+    <div class="event_nav_wrapper">
+      <div class="event_nav_component" style="border-bottom: solid 1px black;">기본정보</div>
+      <div class="event_nav_component">평점/리뷰</div>
+      <div class="event_nav_component">딥톡</div>
+      <div class="event_nav_component">좌석정보</div>
+      <div class="event_nav_component">예매</div>
+    </div>
+  </div>
+
+  {% block content_series %}
+  {% endblock %}
+
+</div>
+{% endblock %}

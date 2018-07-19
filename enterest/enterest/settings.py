@@ -44,6 +44,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 'django_extensions',
+
+    # 'rest_framework',
+
+    # 'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
+    # 'allauth.socialaccount.providers.facebook',
+    # 'allauth.socialaccount.providers.kakao',
+    # 'allauth.socialaccount.providers.naver',
 
     'accounts',
     'sharespot',
@@ -66,7 +76,9 @@ ROOT_URLCONF = 'enterest.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'enterest', 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -144,7 +156,7 @@ STATICFILES_DIRS = [
     STATIC_DIR,
 ]
 
-STATIC_ROOT = os.path.join(ROOT_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(ROOT_DIR, 'static')
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -152,11 +164,11 @@ MEDIA_URL = '/media/'
 
 
 # S3 Storage
-DEFAULT_FILE_STORAGE = 'enterest.storages.MediaStorage'
-STATICFILES_STORAGE = 'enterest.storages.StaticStorage'
+# DEFAULT_FILE_STORAGE = 'enterest.storages.MediaStorage'
+# STATICFILES_STORAGE = 'enterest.storages.StaticStorage'
 
-MEDIAFILES_LOCATION = 'media'
-STATICFILES_LOCATION = 'static'
+# MEDIAFILES_LOCATION = 'media'
+# STATICFILES_LOCATION = 'static'
 
 # AWS access
 config_secret = json.loads(open(CONFIG_SETTINGS_COMMON_FILE).read())

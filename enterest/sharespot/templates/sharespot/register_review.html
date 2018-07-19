@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}
+    리뷰등록
+{% endblock %}
+
+{% block head_extra %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/register_review.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="content">
+  <div class="register_review_title_zone">
+    <div class="register_review_title_zone_wrapper">
+      <p>리뷰/사진등록</p>
+    </div>
+  </div>
+
+  <div class="register_review_banner">
+  </div>
+
+  <div class="register_review_content">
+    <div class="event_review">
+      <p> 공연/경기 </p>
+      <div class="ur_event_info">
+        <div class="select_event">
+          <p class="label"> 공연/경기 정보 </p>
+          <select></select>
+        </div>
+        <div class="select_event_time">
+          <p class="label"> 방문날짜 </p>
+          <select></select>
+        </div>
+      </div>
+      <div class="ur_event_evaluation">
+        <div class="ur_event_rating">
+          <p class="label"> 종합평가 </p>
+          <div></div>
+        </div>
+        <textarea class="ur_event_comment" placeholder="공연에 대한 후기, 구성 등 자유롭게 적어주세요!" style="resize:none;"></textarea>
+      </div>
+      <div class="ur_event_emotion">
+        <p class="label">감정태그</p>
+        <div class="event_emotion_wrapper">
+          <button>입력</button>
+          <div class="selected_emotion_zone">
+            <div class="selected_emotion"> 소름끼치는 <i class="fas fa-times"></i></div>
+            <div class="selected_emotion"> 기분이 묘한 <i class="fas fa-times"></i></div>
+            <div class="selected_emotion"> 이거 유저가 추가 가능함? <i class="fas fa-times"></i></div>
+            <div class="selected_emotion"> 말도 안되는 <i class="fas fa-times"></i></div>
+            <div class="selected_emotion"> 온몸에 전율이 흐르는 <i class="fas fa-times"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="seat_review">
+      <p> 좌석 정보/평가 </p>
+      <div class="ur_seat_info">
+        <div class="select_place">
+          <p class="label"> 장소 </p>
+          <select></select>
+        </div>
+        <div class="select_block_and_seat">
+          <div class="select_block">
+            <p class="label"> 블럭 </p>
+            <select></select>
+          </div>
+          <div class="select_seat">
+            <p class="label"> (열)-좌석 </p>
+            <select></select>
+          </div>
+        </div>
+      </div>
+
+      <div class="seat_view_pic">
+      </div>
+
+      <div class="ur_seat_evaluation">
+        <div class="ur_seat_rating">
+          <div class="view_rating">
+            <p class="label"> 시야 </p>
+            <div></div>
+          </div>
+          <div class="excitement_rating">
+            <p class="label"> 현장열기 </p>
+            <div></div>
+          </div>
+        </div>
+        <textarea class="ur_seat_comment" placeholder="좌석에 대한 간단한 리뷰, 꿀팁 등 자유롭게 적어주세요!" style="resize:none;"></textarea>
+      </div>
+    </div>
+
+
+    <div class="agreement">
+      <input type="checkbox" name="review_agreement" value="review_agreement">
+      <label>작성한 내용은 실제 경험에 기반하였으며, 쉐어스팟이 이를 서비스에 활용할 수 있음에 동의합니다. </label>
+      <p>ShareSpot은 좌석을 예매하실 때 많은 유저분들께 도움이 될 수 있도록 작성해주신 내용을 서비스(좌석뷰, 마케팅 등)에 이용할 예정입니다. 내용에 거짓이 포함되어 있을 경우 운영자에 의해 삭제될 수 있습니다. </p>
+    </div>
+    <div class="btn_wrapper">
+      <button class="register"> 등록 </button>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends "accounts/base_accounts.html" %}
+
+{% load staticfiles %}
+
+{% block title %}
+    내 리워드
+{% endblock %}
+
+{% block head_extra_accounts %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/myrewards.css' %}">
+{% endblock %}
+
+{% block content_accounts %}
+
+  <div class="user_reward_content">
+    <div class="how_to_get_reward">
+
+    </div>
+    <div class="my_rewards">
+      <div class="my_rewards_header">
+        <p> 내 리워드 <span> 350 </span> </p>
+        <button> 적립하기(리뷰/사진등록) </button>
+      </div>
+      <div class="my_rewards_table">
+        <div class="table_head">
+          <div class="reward_get_use select_custom"> <select>
+            <option> 전체 </option>
+            <option> 사용 </option>
+            <option> 적립 </option>
+          </select> </div>
+          <div class="reward_date"> 날짜 </div>
+          <div class="reward_source"> 내역 </div>
+          <div class="reward_amount"> 리워드 </div>
+          <div class="reward_status"> 상태 </div>
+        </div>
+        <div class="table_body">
+          <div class="reward_get_use"> 적립 </div>
+          <div class="reward_date"> 2018/06/02 </div>
+          <div class="reward_source"> 공연 리뷰 작성 </div>
+          <div class="reward_amount" style="text-align: right;"> +100 </div>
+          <div class="reward_status"> 지급완료 </div>
+        </div>
+        <div class="table_body">
+          <div class="reward_get_use"> 적립 </div>
+          <div class="reward_date"> 2018/06/02 </div>
+          <div class="reward_source"> 공연 리뷰 작성 </div>
+          <div class="reward_amount" style="text-align: right;"> +100 </div>
+          <div class="reward_status"> 지급완료 </div>
+        </div>
+        <div class="table_body">
+          <div class="reward_get_use"> 적립 </div>
+          <div class="reward_date"> 2018/06/02 </div>
+          <div class="reward_source"> 공연 리뷰 작성 </div>
+          <div class="reward_amount" style="text-align: right;"> +100 </div>
+          <div class="reward_status"> 지급완료 </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reward_shop">
+      <p> 리워드샵 <span> 교환하시고자 하는 상품을 눌러주세요 :-) </span></p>
+      <div class="reward_item">
+        <div class="reward_item_img"></div>
+        <p class="reward_item_name"> 스타벅스 아메리카노(Tall) </p>
+        <p class="reward_item_price"> 1,000 </p>
+      </div>
+      <div class="reward_item">
+        <div class="reward_item_img"></div>
+        <p class="reward_item_name"> 스타벅스 아메리카노(Tall) </p>
+        <p class="reward_item_price"> 1,000 </p>
+      </div>
+      <div class="reward_item">
+        <div class="reward_item_img"></div>
+        <p class="reward_item_name"> 스타벅스 아메리카노(Tall) </p>
+        <p class="reward_item_price"> 1,000 </p>
+      </div>
+      <div class="reward_item">
+        <div class="reward_item_img"></div>
+        <p class="reward_item_name"> 스타벅스 아메리카노(Tall) </p>
+        <p class="reward_item_price"> 1,000 </p>
+      </div>
+      <div class="reward_item">
+        <div class="reward_item_img"></div>
+        <p class="reward_item_name"> 스타벅스 아메리카노(Tall) </p>
+        <p class="reward_item_price"> 1,000 </p>
+      </div>
+      <div class="reward_item">
+        <div class="reward_item_img"></div>
+        <p class="reward_item_name"> 스타벅스 아메리카노(Tall) </p>
+        <p class="reward_item_price"> 1,000 </p>
+      </div>
+      <div class="reward_item">
+        <div class="reward_item_img"></div>
+        <p class="reward_item_name"> 스타벅스 아메리카노(Tall) </p>
+        <p class="reward_item_price"> 1,000 </p>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

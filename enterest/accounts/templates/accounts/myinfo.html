@@ -1,0 +1,77 @@
+{% extends "accounts/base_accounts.html" %}
+
+{% block title %}
+    내 정보
+{% endblock %}
+
+{% block head_extra_accounts %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/myinfo.css' %}">
+{% endblock %}
+
+{% block content_accounts %}
+  <div class="user_info_content">
+    <div class="user_profile_pic">
+      <p class="section_title"> 프로필 사진 <span> 탈퇴하기 </span></p>
+      <div>
+        <img src="example.jpg">
+        <button> 변경 </button>
+      </div>
+    </div>
+
+    <div class="user_id">
+      <p class="section_title"> 아이디 </p>
+      <h4> yagujango </h4>
+    </div>
+
+    <div class="user_pwd">
+      <p class="section_title"> 비밀번호 </p>
+      <input type="password" name="new_pwd" placeholder="새 비밀번호 (알파벳,숫자 포함 8자 이상)">
+      <input type="password" name="confirm_pwd" placeholder="새 비밀번호 확인">
+    </div>
+
+    <div class="user_nickname">
+      <p class="section_title"> 닉네임 </p>
+      <input type="text" name="nickname" placeholder="마포구호랭이">
+    </div>
+
+    <div class="user_email">
+      <p class="section_title"> 이메일 </p>
+      <input type="email" name="email" placeholder="yagujango@gmail.com">
+    </div>
+
+    <div class="user_gender">
+      <p class="section_title"> 성별 </p>
+      <h4> 여 </h4>
+    </div>
+
+    <div class="user_birthyear">
+      <p class="section_title"> 출생년도 </p>
+      <div class="select_custom">
+        <select>
+          <option>1994</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="user_interest">
+        <p class="section_title">감정태그 <span>혹시 찾으시는 관심태그가 없으시다면, 문의를 통해 말씀해주시면 바로 등록해드리도록 하겠습니다 :-)</span></p>
+        <div class="user_interest_wrapper">
+          <button>입력</button>
+          <div class="selected_interest_zone">
+            <div class="selected_interest"> 블랙핑크 <i class="fas fa-times"></i></div>
+            <div class="selected_interest"> 방탄소년단 <i class="fas fa-times"></i></div>
+            <div class="selected_interest"> 기아 타이거즈 <i class="fas fa-times"></i></div>
+            <div class="selected_interest"> 장범준 <i class="fas fa-times"></i></div>
+            <div class="selected_interest"> 기아 타이거즈 <i class="fas fa-times"></i></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="user_phone">
+        <p class="section_title"> 휴대폰 번호 </p>
+        <input type="number" name="phone" placeholder="01012341234">
+      </div>
+
+      <button class="save"> 저장 </button>
+  </div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block head_extra %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/base_accounts.css' %}">
+
+  {% block head_extra_accounts %}
+  {% endblock %}
+
+{% endblock %}
+
+{% block content %}
+<div class="content">
+  <div class="userpage_title_zone">
+    <div class="userpage_title_zone_wrapper">
+      <img src="example.jpg" alt="">
+      <p>닉네임닉네임</p>
+    </div>
+  </div>
+
+  <div class="userpage_nav">
+    <div class="userpage_nav_wrapper">
+      <div class="userpage_nav_component">내 티켓</div>
+      <div class="userpage_nav_component">분석?</div>
+      <div class="userpage_nav_component">관심 이벤트</div>
+      <div class="userpage_nav_component">내 딥톡?</div>
+      <div class="userpage_nav_component">리워드</div>
+      <div class="userpage_nav_component" style="border-bottom: solid 1px black;">내 정보</div>
+      <div class="userpage_nav_component">FAQ</div>
+    </div>
+  </div>
+
+  {% block content_accounts %}
+  {% endblock %}
+
+</div>
+{% endblock %}

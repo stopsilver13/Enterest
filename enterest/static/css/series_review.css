@@ -1,0 +1,232 @@
+.event_review_content {
+  width: 1100px;
+  margin: 0 auto 0;
+}
+.event_review_top {
+  margin: 40px 0 0 16px;
+}
+.event_review_rating {
+  display: inline-block;
+}
+.event_review_rating > p {
+  font-size: 24px;
+  font-weight: bold;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0;
+}
+.event_review_rating > p > span {
+  font-size: 16px;
+  font-weight: normal;
+  letter-spacing: 0.3px;
+}
+.go_rate {
+  width: 88px;
+  height: 24px;
+  border-radius: 5px;
+  background-color: #c1c7d0;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 2;
+  text-align: center;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 16px;
+}
+.total_rating_zone {
+  margin: 24px 0 0 8px;
+}
+.total_rating_zone > p {
+  font-size: 32px;
+  font-weight: bold;
+  display: inline-block;
+  margin: 0;
+}
+.total_rating_zone > div {
+  width: 128px;
+  height: 24px;
+  background-color: grey;
+  display: inline-block;
+  margin-left: 16px;
+}
+.star_graph {
+  width: 285px;
+  height: 100px;
+  background-color: grey;
+  margin: 16px 0 0 12px;
+}
+.event_recommend {
+  display: inline-block;
+  float: right;
+}
+.event_recommend > p {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+}
+.recommend_reason_set {
+  width: 140px;
+  text-align: center;
+  display: inline-block;
+  margin-top: 24px;
+  margin-right: 96px;
+}
+.recommend_reason_set img {
+  width: 104px;
+  height: 104px;
+  margin-bottom: 16px;
+}
+.recommend_reason_set p {
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 0.3px;
+  margin: 0 0 4px 0;
+}
+.recommend_reason_set h4 {
+  font-size: 12px;
+  line-height: 1.33;
+  letter-spacing: 0.2px;
+  text-align: center;
+  color: rgba(56, 59, 65, 0.54);
+  margin: 0;
+}
+
+
+
+.event_review_bot {
+  width: 100%;
+  background-color: #f4f5f7;
+  margin-top: 48px;
+}
+.event_review_bot_wrapper {
+  width: 1100px;
+  margin: 0 auto 0;
+  padding-top: 42px;
+}
+.event_review_bot_header > p {
+  font-size: 24px;
+  font-weight: bold;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 0 0 16px;
+}
+.event_review_bot_header > p > span {
+  font-size: 16px;
+  font-weight: normal;
+  letter-spacing: 0.3px;
+}
+.go_review {
+  width: 88px;
+  height: 24px;
+  border-radius: 5px;
+  background-color: #c1c7d0;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 2;
+  text-align: center;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 16px;
+}
+.event_reviews_wrapper {
+  column-count: 3;
+}
+.event_reviews {
+  width: 297px;
+  padding: 24px;
+  background-color: white;
+  display: inline-block;
+  margin: 16px 0 0 16px;
+}
+.reviews_user_info {
+  display: inline-block;
+}
+.reviews_user_pic {
+  width: 48px;
+  height: 48px;
+  background-color: grey;
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
+}
+.reviews_user_profile {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 16px;
+}
+.reviews_user_profile > p {
+  font-size: 16px;
+  letter-spacing: 0.3px;
+  margin: 0 0 4px 0;
+}
+.reviews_user_profile > h4 {
+  font-size: 12px;
+  letter-spacing: 0.2px;
+  color: rgba(56, 59, 65, 0.54);
+  margin: 0;
+}
+.reviews_user_badge {
+  display: inline-block;
+  float: right;
+}
+.reviews_user_badge > div {
+  width: 48px;
+  height: 24px;
+  background-color: #4a90e2;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 2.2;
+  color: #ffffff;
+  display: inline-block;
+  margin-left: 8px;
+}
+.reviews_rating_zone {
+  margin-top: 16px;
+}
+.reviews_rating_zone > div {
+  width: 128px;
+  height: 24px;
+  background-color: grey;
+}
+.reviews_body {
+  padding-bottom: 16px;
+  border-bottom: solid 2px #ebecf0;
+}
+.reviews_body > img {
+  width: 100%;
+  margin-top: 24px;
+}
+.reviews_body > p {
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 1.75;
+  text-align: left;
+  margin: 16px 0 0 0;
+}
+.reviews_body > h4 {
+  font-size: 16px;
+  font-weight: normal;
+  color: rgba(56, 59, 65, 0.54);
+  margin: 16px 0 0 0;
+}
+.reviews_footer > p {
+  font-size: 12px;
+  font-weight: normal;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 16px 0 0 0;
+}
+.reviews_footer > i {
+  font-size: 20px;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 16px 8px 0 0;
+}
+
+
+
+
+
+
+

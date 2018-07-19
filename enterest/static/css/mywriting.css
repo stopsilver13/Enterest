@@ -1,0 +1,54 @@
+.user_mytalk_content {
+  width: 1068px;
+  margin: 48px auto 0;
+  padding: 0 16px;
+}
+.mytalk_section {
+  margin-bottom: 48px;
+}
+.section_title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 0 24px 0;
+}
+.mytalk_list {
+  width: 1066px;
+  min-height: 400px;
+  border: solid 1px #ebecf0;
+}
+.mytalk_list_tr {
+  height: 37px;
+  border-bottom: solid 1px #ebecf0;
+  padding-top: 19px;
+}
+.list_left {
+  width: 200px;
+  height: 100%;
+  padding-left: 16px;
+  display: inline-block;
+}
+.list_left > p {
+  font-size: 16px;
+  margin:0;
+}
+.list_right {
+  display: inline-block;
+}
+.list_right > p {
+  font-size: 16px;
+  display: inline-block;
+  margin: 0;
+}
+.list_right > p > i {
+  margin: 0 10px 0 18px;
+}
+.fa-chevron-right {
+  font-size: 16px;
+  color: #c1c7d0;
+  float: right;
+  margin-right: 16px;
+}
+
+
+
+

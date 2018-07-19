@@ -1,0 +1,85 @@
+
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="naver-site-verification" content="0de4a15439ad9b4b7f82afee15dd12c4a48bb1a5"/>
+  <link rel="canonical" href="">
+  <meta name="robots" content="follow">
+  <meta name="description" content="">
+
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <title>
+    {% block title %}
+      Enterest
+    {% endblock %}
+  </title>
+
+  <style>
+    @font-face {
+        font-family: "나눔바른고딕";
+          src: url("{% static "fonts/NanumBarunGothic.ttf" %}");
+        }
+    @font-face {
+        font-family: "나눔바른고딕B";
+        src: url("{% static "fonts/NanumBarunGothicBold.ttf" %}");
+    }
+    @font-face {
+        font-family: "나눔바른고딕L";
+        src: url("{% static "fonts/NanumBarunGothicLight.ttf" %}");
+    }
+    @media (max-width: 768px) {
+        .hide_in_phone {
+            display: none;
+        }
+    }
+    @media (min-width: 768px) {
+        .hide_in_web {
+            display: none;
+        }
+    }
+  </style>
+
+  {% block head_extra %}
+  {% endblock %}
+
+</head>
+<body>
+  <div class="navbar">
+    <div class="navbar_wrapper">
+
+      <div class="navbar_brand">
+        <a href="#"><img src="" alt="">
+        <p>ShareSpot</p></a>
+      </div>
+        <form class="navbar_search">
+          <input name="search" placeholder="&#xF002; 검색" style="font-family:Arial, FontAwesome">
+        </form>
+      <div class="navbar_right">
+        <a class="navbar_register_review" href="#">리뷰/사진등록</a>
+
+        <a class="navbar_username" href="#">
+          <p>유저이름</p>
+          <img src="" alt="">
+        </a>
+      </div>
+    </div>
+  </div>
+
+  {% block content %}
+  {% endblock %}
+
+
+  <div class="footer"></div>
+
+</body>
+</html>

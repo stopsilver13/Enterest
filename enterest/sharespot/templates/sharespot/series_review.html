@@ -1,0 +1,319 @@
+{% extends "sharespot/series_base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}
+    {{ series.name }} 리뷰
+{% endblock %}
+
+{% block head_extra_series %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/series_review.css' %}">
+{% endblock %}
+
+{% block content_series %}
+<div class="content">
+  <div class="event_title_zone">
+    <div class="event_title_zone_wrapper">
+      <p>[프로야구]기아 vs 두산<i class="far fa-heart"></i></p>
+    </div>
+  </div>
+
+
+  <div class="event_nav">
+    <div class="event_nav_wrapper">
+      <div class="event_nav_component">기본정보</div>
+      <div class="event_nav_component" style="border-bottom: solid 1px black;">평점/리뷰</div>
+      <div class="event_nav_component">딥톡</div>
+      <div class="event_nav_component">좌석정보</div>
+      <div class="event_nav_component">예매</div>
+    </div>
+  </div>
+
+
+  <div class="event_review_content">
+    <div class="event_review_top">
+      <div class="event_review_rating">
+        <p> 평점 <span> (154) </span> </p>
+        <div class="go_rate"> 평가 등록 </div>
+        <div class="total_rating_zone">
+          <p> 4.5 </p>
+          <div></div>
+        </div>
+        <div class="star_graph"></div>
+      </div>
+      <div class="event_recommend">
+        <p> 이런 분들께 추천해요! </p>
+        <div class="recommend_reason_set">
+          <img src="example.jpg">
+          <p> 탄탄한 스토리 </p>
+          <h4> 두산 베어스 팬분들께 추천! </h4>
+        </div>
+        <div class="recommend_reason_set">
+          <img src="example.jpg">
+          <p> 탄탄한 스토리 </p>
+          <h4> 두산 베어스 팬분들께 추천! </h4>
+        </div>
+        <div class="recommend_reason_set">
+          <img src="example.jpg">
+          <p> 탄탄한 스토리 </p>
+          <h4> 두산 베어스 팬분들께 추천! </h4>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="event_review_bot">
+    <div class="event_review_bot_wrapper">
+      <div class="event_review_bot_header">
+        <p> 공연리뷰 <span> (100) </span> </p>
+        <div class="go_review"> 리뷰 등록 </div>
+      </div>
+      <div class="event_reviews_wrapper">
+        <div class="event_reviews">
+          <div class="reviews_header">
+            <div class="reviews_user_info">
+              <div class="reviews_user_pic"></div>
+              <div class="reviews_user_profile">
+                <p> 유저닉네임 </p>
+                <h4> 2018년 6월 19일 </h4>
+              </div>
+            </div>
+            <div class="reviews_user_badge">
+              <div> 우수 </div>
+              <div> 우수 </div>
+            </div>
+          </div>
+          <div class="reviews_rating_zone">
+            <div></div>
+          </div>
+          <div class="reviews_body">
+            <p> 섹시하고 섹시하다! 재즈와 함께 흥이 절로 났던 공연이었습니다. 살인이라는 무거운 이야기이지만 결코 극은 무겁지 않고 벨마와 록시 외 배우들의 연기 그리고 오케스트라가 무대 위에 있다는 특이점, 많은 볼거리, 빠른 전개, 관객과 </p>
+            <h4> 더보기 </h4>
+          </div>
+          <div class="reviews_footer">
+            <i class="far fa-heart"></i>
+            <p>  1 </p>
+          </div>
+        </div>
+
+        <div class="event_reviews">
+          <div class="reviews_header">
+            <div class="reviews_user_info">
+              <div class="reviews_user_pic"></div>
+              <div class="reviews_user_profile">
+                <p> 유저닉네임 </p>
+                <h4> 2018년 6월 19일 </h4>
+              </div>
+            </div>
+            <div class="reviews_user_badge">
+              <div> 우수 </div>
+            </div>
+          </div>
+          <div class="reviews_rating_zone">
+            <div></div>
+          </div>
+          <div class="reviews_body">
+            <img src="example.jpg" alt="">
+            <p> 섹시하고 섹시하다! 재즈와 함께 흥이 절로 났던 공연이었습니다. 살인이라는 무거운 이야기이지만 결코 극은 무겁지 않고 벨마와 록시 외 배우들의 연기 그리고 오케스트라가 무대 위에 있다는 특이점, 많은 볼거리, 빠른 전개, 관객과 </p>
+            <h4> 더보기 </h4>
+          </div>
+          <div class="reviews_footer">
+            <i class="far fa-heart"></i>
+            <p>  2 </p>
+          </div>
+        </div>
+
+        <div class="event_reviews">
+          <div class="reviews_header">
+            <div class="reviews_user_info">
+              <div class="reviews_user_pic"></div>
+              <div class="reviews_user_profile">
+                <p> 유저닉네임 </p>
+                <h4> 2018년 6월 19일 </h4>
+              </div>
+            </div>
+            <div class="reviews_user_badge">
+              <div> 우수 </div>
+              <div> 우수 </div>
+            </div>
+          </div>
+          <div class="reviews_rating_zone">
+            <div></div>
+          </div>
+          <div class="reviews_body">
+            <p> 섹시하고 섹시하다! 재즈와 함께 흥이 절로 났던 공연이었습니다. 살인이라는 무거운 이야기이지만 결코 극은 무겁지 않고 벨마와 록시 외 배우들의 연기 그리고 오케스트라가 무대 위에 있다는 특이점, 많은 볼거리, 빠른 전개, 관객과의 호흡 등 왜 이렇게 사랑받는지 알게되었습니다. 벨마 역의 최정원배우님은 갈라쇼나 다른 공연에서 올댓재즈 많이 들어봤지만 극과 함께 어우러진 올댓재즈는 정말 최고였습니다. 무대에서 논다는게 이런거구나.. 했습니다. 그리고 슬픈 씬도 아닌데 갑자기 뭔가 벅차오르는게 팍팍한 일상 속에 내가 시카고를 보고 있는 지금이 너무 행복해서였는지 갑자기 눈물이 흘렀습니다ㅠㅠ.. 주변 사람들에게 시카고 꼭 보라고 추천하고 있습니다</p>
+          </div>
+          <div class="reviews_footer">
+            <i class="far fa-heart"></i>
+            <p>  3 </p>
+          </div>
+        </div>
+
+        <div class="event_reviews">
+          <div class="reviews_header">
+            <div class="reviews_user_info">
+              <div class="reviews_user_pic"></div>
+              <div class="reviews_user_profile">
+                <p> 유저닉네임 </p>
+                <h4> 2018년 6월 19일 </h4>
+              </div>
+            </div>
+            <div class="reviews_user_badge">
+              <div> 우수 </div>
+              <div> 우수 </div>
+            </div>
+          </div>
+          <div class="reviews_rating_zone">
+            <div></div>
+          </div>
+          <div class="reviews_body">
+            <p> 섹시하고 섹시하다! 재즈와 함께 흥이 절로 났던 공연이었습니다. 살인이라는 무거운 이야기이지만 결코 극은 무겁지 않고 벨마와 록시 외 배우들의 연기 그리고 오케스트라가 무대 위에 있다는 특이점, 많은 볼거리, 빠른 전개, 관객과 </p>
+            <h4> 더보기 </h4>
+          </div>
+          <div class="reviews_footer">
+            <i class="far fa-heart"></i>
+            <p>  4 </p>
+          </div>
+        </div>
+
+        <div class="event_reviews">
+          <div class="reviews_header">
+            <div class="reviews_user_info">
+              <div class="reviews_user_pic"></div>
+              <div class="reviews_user_profile">
+                <p> 유저닉네임 </p>
+                <h4> 2018년 6월 19일 </h4>
+              </div>
+            </div>
+            <div class="reviews_user_badge">
+              <div> 우수 </div>
+              <div> 우수 </div>
+            </div>
+          </div>
+          <div class="reviews_rating_zone">
+            <div></div>
+          </div>
+          <div class="reviews_body">
+            <p> 섹시하고 섹시하다! 재즈와 함께 흥이 절로 났던 공연이었습니다. 살인이라는 무거운 이야기이지만 결코 극은 무겁지 않고 벨마와 록시 외 배우들의 연기 그리고 오케스트라가 무대 위에 있다는 특이점, 많은 볼거리, 빠른 전개, 관객과 </p>
+            <h4> 더보기 </h4>
+          </div>
+          <div class="reviews_footer">
+            <i class="far fa-heart"></i>
+            <p>  5 </p>
+          </div>
+        </div>
+
+        <div class="event_reviews">
+          <div class="reviews_header">
+            <div class="reviews_user_info">
+              <div class="reviews_user_pic"></div>
+              <div class="reviews_user_profile">
+                <p> 유저닉네임 </p>
+                <h4> 2018년 6월 19일 </h4>
+              </div>
+            </div>
+            <div class="reviews_user_badge">
+              <div> 우수 </div>
+              <div> 우수 </div>
+            </div>
+          </div>
+          <div class="reviews_rating_zone">
+            <div></div>
+          </div>
+          <div class="reviews_body">
+            <p> 섹시하고 섹시하다! 재즈와 함께 흥이 절로 났던 공연이었습니다. 살인이라는 무거운 이야기이지만 결코 극은 무겁지 않고 벨마와 록시 외 배우들의 연기 그리고 오케스트라가 무대 위에 있다는 특이점, 많은 볼거리, 빠른 전개, 관객과 </p>
+            <h4> 더보기 </h4>
+          </div>
+          <div class="reviews_footer">
+            <i class="far fa-heart"></i>
+            <p>  6 </p>
+          </div>
+        </div>
+
+        <div class="event_reviews">
+          <div class="reviews_header">
+            <div class="reviews_user_info">
+              <div class="reviews_user_pic"></div>
+              <div class="reviews_user_profile">
+                <p> 유저닉네임 </p>
+                <h4> 2018년 6월 19일 </h4>
+              </div>
+            </div>
+            <div class="reviews_user_badge">
+              <div> 우수 </div>
+              <div> 우수 </div>
+            </div>
+          </div>
+          <div class="reviews_rating_zone">
+            <div></div>
+          </div>
+          <div class="reviews_body">
+            <p> 섹시하고 섹시하다! 재즈와 함께 흥이 절로 났던 공연이었습니다. 살인이라는 무거운 이야기이지만 결코 극은 무겁지 않고 벨마와 록시 외 배우들의 연기 그리고 오케스트라가 무대 위에 있다는 특이점, 많은 볼거리, 빠른 전개, 관객과 </p>
+            <h4> 더보기 </h4>
+          </div>
+          <div class="reviews_footer">
+            <i class="far fa-heart"></i>
+            <p>  7 </p>
+          </div>
+        </div>
+
+        <div class="event_reviews">
+          <div class="reviews_header">
+            <div class="reviews_user_info">
+              <div class="reviews_user_pic"></div>
+              <div class="reviews_user_profile">
+                <p> 유저닉네임 </p>
+                <h4> 2018년 6월 19일 </h4>
+              </div>
+            </div>
+            <div class="reviews_user_badge">
+              <div> 우수 </div>
+              <div> 우수 </div>
+            </div>
+          </div>
+          <div class="reviews_rating_zone">
+            <div></div>
+          </div>
+          <div class="reviews_body">
+            <p> 섹시하고 섹시하다! 재즈와 함께 흥이 절로 났던 공연이었습니다. 살인이라는 무거운 이야기이지만 결코 극은 무겁지 않고 벨마와 록시 외 배우들의 연기 그리고 오케스트라가 무대 위에 있다는 특이점, 많은 볼거리, 빠른 전개, 관객과 </p>
+            <h4> 더보기 </h4>
+          </div>
+          <div class="reviews_footer">
+            <i class="far fa-heart"></i>
+            <p>  8 </p>
+          </div>
+        </div>
+
+        <div class="event_reviews">
+          <div class="reviews_header">
+            <div class="reviews_user_info">
+              <div class="reviews_user_pic"></div>
+              <div class="reviews_user_profile">
+                <p> 유저닉네임 </p>
+                <h4> 2018년 6월 19일 </h4>
+              </div>
+            </div>
+            <div class="reviews_user_badge">
+              <div> 우수 </div>
+              <div> 우수 </div>
+            </div>
+          </div>
+          <div class="reviews_rating_zone">
+            <div></div>
+          </div>
+          <div class="reviews_body">
+            <p> 섹시하고 섹시하다! 재즈와 함께 흥이 절로 났던 공연이었습니다. 살인이라는 무거운 이야기이지만 결코 극은 무겁지 않고 벨마와 록시 외 배우들의 연기 그리고 오케스트라가 무대 위에 있다는 특이점, 많은 볼거리, 빠른 전개, 관객과 섹시하고 섹시하다! 재즈와 함께 흥이 절로 났던 공연이었습니다. 살인이라는 무거운 이야기이지만 결코 극은 무겁지 않고 벨마와 록시 외 배우들의 연기 그리고 오케스트라가 무대 위에 있다는 특이점, 많은 볼거리, 빠른 전개, 관객과</p>
+            <h4> 더보기 </h4>
+          </div>
+          <div class="reviews_footer">
+            <i class="far fa-heart"></i>
+            <p>  9 </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
