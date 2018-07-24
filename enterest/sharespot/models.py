@@ -1,5 +1,9 @@
+from collections import Counter
+
 from django.conf import settings
 from django.db import models
+
+from accounts.models import RewardHistory
 
 
 # TODO(완) : 좋아요/관심 공용 모델 > 좋아요와 관심등록은 같은 기능?!
@@ -73,18 +77,19 @@ class Place(models.Model):
 
     name = models.CharField(max_length=20)
     en_name = models.CharField(max_length=30)
-    bg = models.ImageField(upload_to='place/')  # 추후 업로드 경로 수정
+    bg = models.ImageField(upload_to='Place/')
     division_set = models.ManyToManyField(Division)
     region = models.CharField(
         max_length=10,
         choices=REGION_CHOICES,
     )
     address = models.CharField(max_length=100)
+    lat_lon = models.CharField(max_length=20)  # float로 할까 고민되지만 일단 위도경도 묶어서 캐릭터로
     contact = models.CharField(max_length=20, blank=True, null=True)
     website = models.CharField(max_length=50, blank=True, null=True)
     explain = models.TextField(blank=True, null=True)
-    # 지도 관련 속성
-    # 날씨 관련 속성
+
+    # 날씨 관련 속성 --> 일단은 보류
 
     def __str__(self):
         return self.name
@@ -133,6 +138,17 @@ class Block(models.Model):
         block_name = self.section.space.name + '-' + self.name
         return block_name
 
+    def get_block_color(self, series):
+        # series = Series.objcets.get(en_name=series)
+        level_list = Seat.objects.filter(block=self, level__series_set__in=series).values_list('level__pk')
+        if len(level_list) == 0:
+            main_color = '#fff'  # 좌석이 없는 블럭 색: 일단 흰색으로
+
+        else:
+            main_level_pk = Counter(level_list).most_common(1)[0][0]
+            main_color = SeatLevel.objects.get(pk=main_level_pk).color
+        return main_color
+
 
 class SeatLevel(models.Model):
     space = models.ForeignKey(Space)
@@ -165,6 +181,10 @@ class Seat(models.Model):
         return seat_name
 
 
+def seat_img_name(instance, filename):
+    return '/'.join(['seat/img', instance.seat.block.section.space.place, instance.seat.block.section.space, instance.seat.block.section, instance.seat.block, filename])
+
+
 class SeatImg(models.Model):
 
     ZOOM_CHOICES = (
@@ -180,18 +200,31 @@ class SeatImg(models.Model):
         null=True,
     )
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    history = models.OneToOneField(RewardHistory, blank=True, null=True)
     review = models.ForeignKey('SeatReview', blank=True, null=True)  # 좀 고민됨
-    img = models.ImageField(upload_to='seat/')  # 추후 업로드 경로 수정
+    img = models.ImageField(upload_to=seat_img_name)
 
     status = models.CharField(
         max_length=10,
         choices=ZOOM_CHOICES,
-        default='ready',
+        default='none',
     )  # no zoom이면 노줌 뱃지 / # normalize이면 가이드준수 뱃지
 
-    badge_set = models.ManyToManyField('SeatImgBadge')
+    badge_set = models.ManyToManyField('SeatImgBadge')  # 등록시 자동지급
 
     is_confirmed = models.BooleanField(default=False)  # True이면 공개
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if self.is_confirmed:
+            self.history.status = 'complete'
+            self.history.save()
+            super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        super().delete(*args, **kwargs)
+        if self.history:
+            self.history.delete()
 
 
 class SeatImgBadge(models.Model):
@@ -231,7 +264,6 @@ class Series(LikeMixinModel):
 
     intro_title = models.CharField(max_length=100)
     intro_content = models.TextField(blank=True, null=True)
-    img = models.ImageField(upload_to='series/')  # 추후 업로드 경로 수정
     announce = models.TextField(blank=True, null=True)
     appear_link = models.URLField(blank=True, null=True)
 
@@ -252,8 +284,19 @@ class Series(LikeMixinModel):
         return star_num_list
 
 
+class SeriesImg(models.Model):
+    series = models.ForeignKey(
+        Series,
+        related_name='image_set',
+        blank=True,
+        null=True,
+    )
+    img = models.ImageField(upload_to='Series/', blank=True, null=True)
+
+
 class Event(models.Model):
     series = models.ForeignKey(Series)
+    name = models.CharField(max_length=20, blank=True, null=True)
     start = models.DateTimeField()
     end = models.DateTimeField(blank=True, null=True)
     appear_set = models.ManyToManyField('Appear')
@@ -272,7 +315,7 @@ class Appear(LikeMixinModel):
     division_set = models.ManyToManyField(Division)
     is_team = models.BooleanField(default=False)
     role = models.CharField(max_length=20, blank=True, null=True)
-    img = models.ImageField(upload_to='appear/', blank=True, null=True)  # 추후 업로드 경로 수정 & default 지정
+    img = models.ImageField(upload_to='Appear/', blank=True, null=True)  # default 지정
 
     def __str__(self):
         return self.name
@@ -304,7 +347,7 @@ class TicketImg(models.Model):
         blank=True,
         null=True,
     )
-    img = models.ImageField(upload_to='ticket/', blank=True, null=True)  # 추후 업로드 경로 수정 & default는 시리즈 이미지
+    img = models.ImageField(upload_to='ticket/%Y/%m/%d', blank=True, null=True)  # default는 기본 이미지
 
     def __str__(self):
         img_name = self.ticket.user.username + ' -' + str(self.ticket.pk)
@@ -333,6 +376,7 @@ class Emotion(models.Model):
 
 class EventReview(LikeMixinModel):
     ticket = models.OneToOneField(Ticket, related_name='event_review')
+    history = models.OneToOneField(RewardHistory, blank=True, null=True)
     event = models.ForeignKey(Event)
     total_star = models.PositiveSmallIntegerField(default=0)
     content = models.TextField(blank=True, null=True)
@@ -340,12 +384,26 @@ class EventReview(LikeMixinModel):
     badge_set = models.ManyToManyField('EventReviewBadge')
     anony_name = models.CharField(max_length=10, blank=True, null=True)
 
+    is_confirmed = models.BooleanField(default=False)  # True이면 공개
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         review_name = self.event.series.name
         return review_name
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if self.is_confirmed:
+            self.history.status = 'complete'
+            self.history.save()
+            super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        super().delete(*args, **kwargs)
+        if self.history:
+            self.history.delete()
 
 
 class EventReviewBadge(models.Model):
@@ -358,12 +416,16 @@ class EventReviewBadge(models.Model):
 
 class SeatReview(LikeMixinModel):
     ticket = models.OneToOneField(Ticket, related_name='seat_review')
+    history = models.OneToOneField(RewardHistory, blank=True, null=True)
     seat = models.ForeignKey(Seat)
+    real_seat_name = models.CharField(max_length=100)
     view_star = models.PositiveSmallIntegerField(default=0)
     real_star = models.PositiveSmallIntegerField(default=0)
     content = models.TextField(blank=True, null=True)
     badge_set = models.ManyToManyField('SeatReviewBadge')
     anony_name = models.CharField(max_length=10, blank=True, null=True)
+
+    is_confirmed = models.BooleanField(default=False)  # True이면 공개
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -371,6 +433,18 @@ class SeatReview(LikeMixinModel):
     def __str__(self):
         review_name = self.seat.block.section.space.name + ' ' + self.seat.block.name + '블럭 ' + self.seat.name
         return review_name
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if self.is_confirmed:
+            self.history.status = 'complete'
+            self.history.save()
+            super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        super().delete(*args, **kwargs)
+        if self.history:
+            self.history.delete()
 
 
 class SeatReviewBadge(models.Model):
@@ -402,8 +476,8 @@ class ShareInfo(LikeMixinModel):
 
     name = models.CharField(max_length=30)
     address = models.CharField(max_length=100, blank=True, null=True)
+    lat_lon = models.CharField(max_length=20, blank=True, null=True)  # float로 할까 고민되지만 일단 위도경도 묶어서 캐릭터로
     content = models.TextField()
-    # 지도 관련 속성
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -418,7 +492,7 @@ class ShareInfoImg(models.Model):
         ShareInfo,
         related_name='image_set',
     )
-    img = models.ImageField(upload_to='share_info/', blank=True, null=True)  # 추후 업로드 경로 수정
+    img = models.ImageField(upload_to='ShareInfo/%Y/%m/%d', blank=True, null=True)
 
 
 class ShareInfoComment(models.Model):

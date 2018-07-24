@@ -2,6 +2,10 @@ from django.conf import settings
 from django.db import models
 
 
+def profile_img_name(instance, filename):
+    return '/'.join(['Profile', instance.user.username, filename])
+
+
 class Profile(models.Model):
 
     SEX_CHOICES = (
@@ -10,7 +14,7 @@ class Profile(models.Model):
     )
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL)
-    img = models.ImageField(upload_to='profile/')  # 추후 업로드 경로 수정 & default 지정
+    img = models.ImageField(upload_to=profile_img_name)  # default 지정
     nick_name = models.CharField(max_length=8, blank=True, null=True)
     sex = models.CharField(
         max_length=10,
@@ -51,16 +55,43 @@ class UserReward(models.Model):
 
 
 class RewardHistory(models.Model):
+    STATUS_CHOICES = (
+        ('ready', '지급대기'),
+        ('complete', '지급완료'),
+        ('reject', '취소/거절')
+    )
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name='reward_history_set',
     )
     reason = models.CharField(max_length=30)
-    amout = models.SmallIntegerField()
+    amount = models.SmallIntegerField()
+    status = models.CharField(
+        max_length=10,
+        choices=STATUS_CHOICES,
+        default='ready',
+    )
     is_complete = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        # 저장을 여기서 한번 해줘야 되나...
+        if not self.is_complete:
+            if self.status == 'complete':
+                self.user.reward += self.amount
+                self.user.reward.save()
+
+                self.is_complete = True
+                super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        super().delete(*args, **kwargs)
+        if self.is_complete:
+            self.user.reward += (self.amount)*(-1)
+            self.user.reward.save()
 
 # on_delete 이용해서 리뷰 삭제되면 히스토리도 삭제되고, 삭제시 해당 과정을 거꾸로 (적립이면 사용, 사용이면 적립) 하도록?
 
@@ -76,7 +107,7 @@ class Gift(models.Model):
     category = models.ForeignKey(GiftCategory, blank=True, null=True)
     name = models.CharField(max_length=20)
     price = models.PositiveIntegerField(default=0)
-    img = models.ImageField(upload_to='gift/')  # 추후 업로드 경로 수정
+    img = models.ImageField(upload_to='Gift/')
 
     def __str__(self):
         return self.name
@@ -84,10 +115,24 @@ class Gift(models.Model):
 
 class GiftRequest(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    history = models.OneToOneField(RewardHistory)
     gift = models.ForeignKey(Gift)
+    is_complete = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if self.is_complete:
+            self.history.status = 'complete'
+            self.history.save()
+            super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        super().delete(*args, **kwargs)
+        if self.history:
+            self.history.delete()
 
 
 class FAQCategory(models.Model):

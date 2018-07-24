@@ -20,7 +20,7 @@ def main(request):
 
 def register_review(request):  # ?ticket_id=
     # 리뷰 수정시
-    if request.GET['ticket_id']:
+    if 'ticket_id' in request.GET:
         ticket_id = request.GET['ticket_id']
         ticket = Ticket.objects.get(id=ticket_id)
 
