@@ -1,37 +1,34 @@
-@media (min-width: 768px) {
+@media (max-width: 768px) {
   .user_reward_content  {
-    width: 1100px;
-    padding-top: 40px;
+    width: 100%;
     margin: 0 auto 0;
   }
   .how_to_get_reward {
     width: 100%;
     height: 64px;
     background-color: #f4f5f7;
-    float: right;
-    display: inline-block;
-    vertical-align: top;
-    margin-right: 16px;
   }
   .my_rewards {
-    height: 600px;
-    border: solid 1px #ebecf0;
+    width: 100%;
+    height: 369px;
     display: inline-block;
     vertical-align: top;
     overflow-y: scroll;
+    margin: 0 auto 0;
   }
+
   .my_rewards_header {
-    width: 696px;
-    height: 88px;
+    width: 100%;
+    height: 64px;
     border-bottom: solid 1px #ebecf0;
-    padding: 0 24px;
+    padding: 0 16px;
   }
   .my_rewards_header > p {
     font-family: "나눔바른고딕B";
-    font-size: 24px;
+    font-size: 20px;
     color: #000;
     margin: 0;
-    line-height: 88px;
+    line-height: 64px;
     display: inline-block;
     vertical-align: middle;
   }
@@ -39,144 +36,107 @@
     margin-left: 16px;
   }
   .my_rewards_header > button {
-    width: 160px;
-    height: 48px;
+    width: 96px;
+    height: 39px;
     background-color: #c1c7d0;
     border-radius: 5px;
     font-family: "나눔바른고딕";
     font-size: 14px;
-    font-weight: normal;
-    line-height: 48px;
+    line-height: 39px;
     float: right;
     display: inline-block;
     vertical-align: middle;
-    margin-top: 20px;
+    margin-top: 12px;
   }
   div.table_head {
-    height: 48px;
+    height: 40px;
     font-weight: bold;
     border-bottom: solid 1px #ebecf0;
     padding: 0 0 0 24px;
   }
   div.table_head > div {
-    line-height: 48px;
+    line-height: 40px;
     color: rgba(56, 59, 65, 0.54);
   }
   div.table_body {
-    height: 54px;
+    height: 46px;
     border-bottom: solid 1px #ebecf0;
     padding: 0 0 0 24px;
   }
   div.table_body > div {
-    line-height: 54px;
+    line-height: 46px;
   }
-  .select_custom {
-    height: 99%;
-    text-align: center;
-    position: relative;
-  }
-  .select_custom select {
-    width: 61px;
-    height: 100%;
-    border: none;
-    background-color: #fff;
-    font-size: 16px;
-    font-weight: bold;
-    color: rgba(56, 59, 65, 0.54);
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-  }
-  .select_custom:after {
-    content: '\f078';
-    font: normal normal normal 17px/1 FontAwesome;
-    top: 14px;
-    right: 0px;
-    padding-left: 8px;
-    position: absolute;
-    pointer-events: none;
-  }
-  select::-ms-expand {
+  .reward_get_use,
+  .reward_date {
     display: none;
   }
-  .reward_get_use {
-    width: 48px;
-    font-family: "나눔바른고딕";
-    font-size: 16px;
-    text-align: left;
-    display: inline-block;
-  }
-  .reward_date {
-    width: 100px;
-    font-family: "나눔바른고딕";
-    font-size: 16px;
-    text-align: left;
-    margin-left: 24px;
-    display: inline-block;
-  }
   .reward_source {
-    width: 248px;
+    width: 155px;
     font-family: "나눔바른고딕";
-    font-size: 16px;
+    font-size: 14px;
     text-align: left;
-    margin-left: 24px;
     display: inline-block;
   }
   .reward_amount {
-    width: 60px;
+    width: 40px;
     font-family: "나눔바른고딕";
-    font-size: 16px;
+    font-size: 14px;
     text-align: center;
     display: inline-block;
     margin-left: 24px;
   }
   .reward_status {
-    width: 90px;
+    width: 80px;
     font-family: "나눔바른고딕";
-    font-size: 16px;
+    font-size: 14px;
     text-align: center;
-    margin-left: 24px;
+    margin: 0 16px 0 24px;
     display: inline-block;
+    float: right;
   }
 
   .reward_shop {
-    margin-top: 48px;
+    margin-top: 20px;
     padding: 0 16px;
   }
   .reward_shop > p {
-    font-size: 24px;
-    font-weight: bold;
+    font-family: "나눔바른고딕B";
+    font-size: 20px;
+    margin: 0;
   }
   .reward_shop > p > span {
-    font-size: 16px;
+    font-family: "나눔바른고딕";
+    font-size: 14px;
     font-weight: normal;
     color: rgba(56, 59, 65, 0.54);
     margin-left: 8px;
   }
   .reward_item {
-    width: 247px;
-    margin: 16px 16px 0 0;
+    width: 163px;
+    margin: 16px 4px 0 0;
     display: inline-block;
   }
   .reward_item_img {
-    width: 247px;
-    height: 247px;
+    width: 163px;
+    height: 163px;
     border: solid 1px #ebecf0;
   }
   .reward_item_name {
-    font-size: 14px;
+    font-family: "나눔바른고딕";
+    font-size: 12px;
     text-align: center;
-    margin: 16px 0 8px 0;
+    margin: 12px 0 8px 0;
   }
   .reward_item_price {
-    font-size: 16px;
+    font-family: "나눔바른고딕";
+    font-size: 14px;
     text-align: center;
     margin: 0;
   }
 }
 
 
-@media (max-width: 768px) {
+@media (min-width: 768px) {
   .user_reward_content  {
     width: 1100px;
     padding-top: 40px;
@@ -322,10 +282,12 @@
     padding: 0 16px;
   }
   .reward_shop > p {
+    font-family: "나눔바른고딕B";
     font-size: 24px;
     font-weight: bold;
   }
   .reward_shop > p > span {
+    font-family: "나눔바른고딕";
     font-size: 16px;
     font-weight: normal;
     color: rgba(56, 59, 65, 0.54);
@@ -342,11 +304,13 @@
     border: solid 1px #ebecf0;
   }
   .reward_item_name {
+    font-family: "나눔바른고딕";
     font-size: 14px;
     text-align: center;
     margin: 16px 0 8px 0;
   }
   .reward_item_price {
+    font-family: "나눔바른고딕";
     font-size: 16px;
     text-align: center;
     margin: 0;

@@ -1,26 +1,25 @@
-<!-- {% extends "base.html" %} -->
+{% extends "base.html" %}
 
-<!-- {% load staticfiles %}
-{% load socialaccount %} -->
+{% load staticfiles %}
 
-<!-- {% block head_extra %} -->
+{% block head_extra %}
 <link rel="stylesheet" type="text/css" href="login.css">
-<!-- {% endblock %} -->
+{% endblock %}
 
-<!-- {% block content %} -->
+{% block content %}
 <div class="content">
 
 
   <div class="login_content">
     <div class="login_title"> 로그인 </div>
-<!--     {% if form.errors %}
+    {% if form.errors %}
       <div class="error_msg alert alert-danger">
         아이디와 비밀번호를 확인해주세요!
       </div>
-    {% endif %} -->
+    {% endif %}
     <div class="login_content_wrapper">
       <form action="" method="POST">
-    <!--   {% csrf_token %} -->
+      {% csrf_token %}
         <div class="type_ur_idpw">
           <input type="text" name="username" placeholder="아이디">
           <input type="password" name="password" placeholder="비밀번호">
@@ -47,7 +46,7 @@
 
 
 </div>
-<!-- {% endblock %} -->
+{% endblock %}
 
 
 

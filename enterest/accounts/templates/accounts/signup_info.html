@@ -1,1 +1,81 @@
-여기는 두번째 회원가입 페이지
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block head_extra %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/signup_info.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content_in">
+<div class="wrapper">
+  <div class="signup_title">회원가입</div>
+
+  <form action="" method="POST">
+  {% csrf_token %}
+  <div class="signup_content">
+    <div class="email_part">
+      <p>이메일</p>
+      <input class="text_input" type="email" name="email" {% if form.email.value != None %} value="{{ form.email.value }}" {% endif %} required>
+    </div>
+    <div class="nickname_part">
+      <p>닉네임</p>
+      <input class="text_input" type="text" name="nickname" required>
+    </div>
+    <div class="ur_sex_part">
+      <p>성별</p>
+      <div class="select_ur_sex">
+        <div> 남 </div>
+        <div> 여 </div>
+      </div>
+    </div>
+    <div class="birthday_part">
+      <p>생년월일</p>
+      <div class="select_section">
+        <select class="sel_year" name="year">
+          <option value="">-</option>
+          {% for num in year %}
+          <option value="{{ num }}">{{ num }}</option>
+          {% endfor %}
+        </select>
+        <h class="year_month_day">년</h>
+        <select class="sel_month_day" name="month">
+          <option value="">-</option>
+          {% for num in month %}
+          <option value="{{ num }}">{{ num }}</option>
+          {% endfor %}
+        </select>
+        <h class="year_month_day">월</h>
+        <select class="sel_month_day"  name="day">
+          <option value="">-</option>
+          {% for num in day %}
+          <option value="{{ num }}">{{ num }}</option>
+          {% endfor %}
+        </select>
+        <h class="year_month_day">일</h>
+      </div>
+    </div>
+    <div class="user_interest">
+      <p> 감정태그 </p>
+      <h4>혹시 찾으시는 관심태그가 없으시다면, 문의를 통해 말씀해주시면 바로 등록해드리도록 하겠습니다 :-) </h4>
+      <div class="user_interest_wrapper">
+        <button>입력</button>
+        <div class="selected_interest_zone">
+          <div class="selected_interest"> 블랙핑크 <i class="fas fa-times"></i></div>
+          <div class="selected_interest"> 방탄소년단 <i class="fas fa-times"></i></div>
+          <div class="selected_interest"> 장범준 <i class="fas fa-times"></i></div>
+          <div class="selected_interest"> 장범준 <i class="fas fa-times"></i></div>
+          <div class="selected_interest"> 기아 타이거즈 <i class="fas fa-times"></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="user_phone">
+      <p class="section_title"> 휴대폰 번호 </p>
+      <input type="number" name="phone" placeholder="01012341234">
+    </div>
+    <button class="go_signup">회원가입</button>
+  </div>
+  </form>
+</div>
+</div>
+{% endblock %}
