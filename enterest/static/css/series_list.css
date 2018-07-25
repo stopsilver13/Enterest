@@ -1,187 +1,439 @@
-.content {
-  width: 100%;
-  min-width: 768px;
-}
-.main_title_zone {
-  width: 100%;
-  min-width: 1100px;
-  height: 184px;
-  background-size: 100%;
-  background-color: rgb(16, 133, 255, 0.2);
-}
-.main_title_zone_wrapper {
-  width: 1100px;
-  text-align: center;
-  padding-top: 60px;
-  margin: 0 auto 0;
-}
-.main_title_zone_wrapper > p {
-  font-size: 56px;
-  font-weight: bold;
-  line-height: 1.14;
-  text-align: center;
-  margin: 0;
+@media (max-width: 768px) {
+  .content {
+    width: 100%;
+    max-width: 768px;
+  }
+  .series_list_title_zone {
+    width: 100%;
+    height: 100px;
+    background-size: 100%;
+    background-color: rgb(16, 133, 255, 0.2);
+  }
+  .series_list_title_zone_wrapper {
+    text-align: center;
+    margin: 0 auto 0;
+  }
+  .series_list_title_zone_wrapper > p {
+    font-family: "나눔바른고딕B";
+    font-size: 24px;
+    line-height: 100px;
+    text-align: center;
+    margin: 0;
+  }
+
+  .series_list_nav {
+    width: 100%;
+    height: 40px;
+    background-color: #4a90e2;
+  }
+  .series_list_nav_wrapper {
+    height: 100%;
+    padding-left: 16px;
+  }
+  .series_list_nav_component {
+    width: 50px;
+    line-height: 36px;
+    font-size: 12px;
+    color: #fff;
+    text-align: center;
+    display: inline-block;
+    margin: 0 16px 0 0;
+  }
+
+  .navbar_outer {
+    width: 100%;
+    height: 40px;
+    border-bottom: solid 1px #f4f5f7;
+  }
+  nav.navbar {
+    width: 375px;
+    height: 40px;
+    padding: 0 0 0 16px;
+  }
+  .nav-item {
+    height: 40px;
+/*    margin-right: 24px;*/
+  }
+  .nav-item > .nav-link {
+    font-family: "나눔바른고딕B";
+    font-size: 12px;
+    line-height: 40px;
+    color: #000;
+    text-decoration: none;
+    padding: 0;
+    margin-right: 16px;
+  }
+  .navbar-expand .navbar-nav .nav-link {
+     padding-right: 12px;
+     padding-left: 0;
+  }
+  .region_item {
+    border-left: solid 1px #f4f5f7;
+    padding-left: 16px;
+  }
+  .dropdown-menu {
+    top: 35px;
+  }
+  /*.series_list_filter {
+    width: 100%;
+    height: 64px;
+    border-bottom: solid 1px #ebecf0;
+  }
+  .series_list_filter_wrapper {
+    width: 1100px;
+    height: 64px;
+    margin: 0 auto 0;
+  }
+  div.series_list_filter_when,
+  div.series_list_filter_city,
+  div.series_list_filter_place {
+    height: 63px;
+    position: relative;
+    display: inline-block;
+    border-right: solid 1px #ebecf0;
+  }
+  .series_list_filter_when select,
+  .series_list_filter_city select,
+  .series_list_filter_place select {
+    width: 200px;
+    height: 100%;
+    border: none;
+    background-color: #fff;
+    font-size: 16px;
+    padding: 0 0 0 16px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
+  .series_list_filter_when:after{
+    content: '\f078';
+    font: normal normal normal 17px/1 FontAwesome;
+    color: #000;
+    top: 6px;
+    right: 24px;
+    padding: 15px 0px 0px 8px;
+    position: absolute;
+    pointer-events: none;
+  }
+  .series_list_filter_city:after,
+  .series_list_filter_place:after {
+    content: '\f078';
+    font: normal normal normal 17px/1 FontAwesome;
+    color: #000;
+    top: 6px;
+    right: 24px;
+    padding: 15px 0px 0px 8px;
+    position: absolute;
+    pointer-events: none;
+  }
+  select::-ms-expand {
+    display: none;
+  }
+
+  .series_list_content {
+    width: 100%;
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+  .series_list_content_wrapper {
+    width: 1084px;
+    margin: 0 auto 0;
+    padding: 0 16px;
+  }
+  .series_list_content_wrapper > p {
+    text-align: right;
+    font-family: "나눔바른고딕";
+    font-size: 12px;
+    font-weight: 300;
+    color: rgba(56, 59, 65, 0.54);
+  }
+  .series_list_content_wrapper > p > span {
+    padding: 0 8px;
+  }
+  .series_list_content_wrapper > p > span:first-child {
+    border-right: solid 1px rgba(56, 59, 65, 0.54);
+  }
+  .series_list_content_wrapper > p > span.selected {
+    color: black;
+  }*/
+  .event_results_set {
+    width: 253px;
+    background-color: #fff;
+    display: inline-block;
+    margin-right: 12px;
+    margin-bottom: 30px;
+    border: solid 1px #ebecf0;
+  }
+  .event_results_pic {
+    height: 162px;
+    padding: 11px 0 0 9px;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+  .event_results_pic > div {
+    width: 64px;
+    height: 24px;
+    background-color: #7ed321;
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 2;
+    color: #ffffff;
+  }
+  .event_results_set_wrapper {
+    padding: 16px 16px;
+  }
+  .event_results_title {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: left;
+    margin: 0 0 4px 0;
+  }
+  .event_results_info {
+    font-size: 12px;
+    letter-spacing: 0.2px;
+    text-align: left;
+    color: rgba(56, 59, 65, 0.54);
+    margin: 0 0 20px 0;
+  }
+  .event_results_rating {
+    width: 64px;
+    height: 12px;
+    background-color: grey;
+    display: inline-block;
+    margin: 0 8px 0 0;
+  }
+  .event_results_reviews {
+    font-size: 12px;
+    display: inline-block;
+    margin: 0;
+  }
+  .event_results_get_info {
+    margin-top: 12px;
+  }
+  .event_results_seat_info,
+  .event_results_event_info {
+    width: 102px;
+    height: 27px;
+    border-radius: 4px;
+    border: solid 1px #4a90e2;
+    font-size: 12px;
+    font-weight: bold;
+    color: #4a90e2;
+    text-align: center;
+    display: inline-block;
+    vertical-align: middle;
+    padding-top: 13px;
+  }
+  .event_results_event_info {
+    float: right;
+  }
+
 }
 
-.main_eventlist_nav {
-  width: 100%;
-  height: 64px;
-  min-width: 1100px;
-  background-color: #4a90e2;
-}
-.main_eventlist_nav_wrapper {
-  width: 1100px;
-  height: 100%;
-  margin: 0 auto 0;
-}
-.main_eventlist_nav_component {
-  width: 70px;
-  height: 60px;
-  line-height: 64px;
-  font-size: 16px;
-  color: #fff;
-  text-align: center;
-  display: inline-block;
-  margin: 0 0 0 16px;
-}
+@media (min-width: 768px) {
+  .content {
+    width: 100%;
+    min-width: 768px;
+  }
+  .series_list_title_zone {
+    width: 100%;
+    min-width: 1100px;
+    height: 184px;
+    background-size: 100%;
+    background-color: rgb(16, 133, 255, 0.2);
+  }
+  .series_list_title_zone_wrapper {
+    width: 1100px;
+    text-align: center;
+    padding-top: 60px;
+    margin: 0 auto 0;
+  }
+  .series_list_title_zone_wrapper > p {
+    font-size: 56px;
+    font-weight: bold;
+    line-height: 1.14;
+    text-align: center;
+    margin: 0;
+  }
 
-.main_eventlist_filter {
-  width: 100%;
-  height: 64px;
-  border-bottom: solid 1px #ebecf0;
-}
-.main_eventlist_filter_wrapper {
-  width: 1100px;
-  height: 64px;
-  margin: 0 auto 0;
-}
-div.main_eventlist_filter_when,
-div.main_eventlist_filter_city,
-div.main_eventlist_filter_place {
-  height: 100%;
-  position: relative;
-  display: inline-block;
-  margin-left: 16px;
-  padding-right: 44px;
-  border-right: solid 1px #ebecf0;
-}
-.main_eventlist_filter_when select,
-.main_eventlist_filter_city select,
-.main_eventlist_filter_place select {
-  height: 100%;
-  border: none;
-  background-color: #fff;
-  font-size: 16px;
-  padding: 0px 16px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
+  .series_list_nav {
+    width: 100%;
+    height: 64px;
+    min-width: 1100px;
+    background-color: #4a90e2;
+  }
+  .series_list_nav_wrapper {
+    width: 1100px;
+    height: 100%;
+    margin: 0 auto 0;
+  }
+  .series_list_nav_component {
+    width: 70px;
+    height: 60px;
+    line-height: 64px;
+    font-size: 16px;
+    color: #fff;
+    text-align: center;
+    display: inline-block;
+    margin: 0 0 0 16px;
+  }
 
-.main_eventlist_filter_when:after{
-  content: '\f078';
-  font: normal normal normal 17px/1 FontAwesome;
-  color: #000;
-  top: 6px;
-  right: 24px;
-  padding: 15px 0px 0px 8px;
-  position: absolute;
-  pointer-events: none;
-}
-.main_eventlist_filter_city:after,
-.main_eventlist_filter_place:after {
-  content: '\f078';
-  font: normal normal normal 17px/1 FontAwesome;
-  color: #000;
-  top: 6px;
-  right: 24px;
-  padding: 15px 0px 0px 8px;
-  position: absolute;
-  pointer-events: none;
-}
-select::-ms-expand {
-  display: none;
-}
+  .series_list_filter {
+    width: 100%;
+    height: 64px;
+    border-bottom: solid 1px #ebecf0;
+  }
+  .series_list_filter_wrapper {
+    width: 1100px;
+    height: 64px;
+    margin: 0 auto 0;
+  }
+  div.series_list_filter_when,
+  div.series_list_filter_city,
+  div.series_list_filter_place {
+    height: 63px;
+    position: relative;
+    display: inline-block;
+    border-right: solid 1px #ebecf0;
+  }
+  .series_list_filter_when select,
+  .series_list_filter_city select,
+  .series_list_filter_place select {
+    width: 200px;
+    height: 100%;
+    border: none;
+    background-color: #fff;
+    font-size: 16px;
+    padding: 0 0 0 16px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
 
-.main_eventlist_content {
-  width: 100%;
-  padding-top: 48px;
-  padding-bottom: 48px;
-}
-.main_eventlist_content_wrapper {
-  width: 1084px;
-  margin: 0 auto 0;
-  padding: 0 0 0 16px;
-}
-.event_results_set {
-  width: 253px;
-  background-color: #fff;
-  display: inline-block;
-  margin-right: 12px;
-  margin-bottom: 30px;
-  border: solid 1px #ebecf0;
-}
-.event_results_pic {
-  height: 162px;
-  padding: 11px 0 0 9px;
-  background-repeat: no-repeat;
-  background-size: contain;
-}
-.event_results_pic > div {
-  width: 64px;
-  height: 24px;
-  background-color: #7ed321;
-  text-align: center;
-  font-size: 12px;
-  font-weight: bold;
-  line-height: 2;
-  color: #ffffff;
-}
-.event_results_set_wrapper {
-  padding: 16px 16px;
-}
-.event_results_title {
-  font-size: 16px;
-  font-weight: bold;
-  text-align: left;
-  margin: 0 0 4px 0;
-}
-.event_results_info {
-  font-size: 12px;
-  letter-spacing: 0.2px;
-  text-align: left;
-  color: rgba(56, 59, 65, 0.54);
-  margin: 0 0 20px 0;
-}
-.event_results_rating {
-  width: 64px;
-  height: 12px;
-  background-color: grey;
-  display: inline-block;
-  margin: 0 8px 0 0;
-}
-.event_results_reviews {
-  font-size: 12px;
-  display: inline-block;
-  margin: 0;
-}
-.event_results_get_info {
-  margin-top: 12px;
-}
-.event_results_seat_info,
-.event_results_event_info {
-  width: 102px;
-  height: 27px;
-  border-radius: 4px;
-  border: solid 1px #4a90e2;
-  font-size: 12px;
-  font-weight: bold;
-  color: #4a90e2;
-  text-align: center;
-  display: inline-block;
-  vertical-align: middle;
-  padding-top: 13px;
-}
-.event_results_event_info {
-  float: right;
+  .series_list_filter_when:after{
+    content: '\f078';
+    font: normal normal normal 17px/1 FontAwesome;
+    color: #000;
+    top: 6px;
+    right: 24px;
+    padding: 15px 0px 0px 8px;
+    position: absolute;
+    pointer-events: none;
+  }
+  .series_list_filter_city:after,
+  .series_list_filter_place:after {
+    content: '\f078';
+    font: normal normal normal 17px/1 FontAwesome;
+    color: #000;
+    top: 6px;
+    right: 24px;
+    padding: 15px 0px 0px 8px;
+    position: absolute;
+    pointer-events: none;
+  }
+  select::-ms-expand {
+    display: none;
+  }
+
+  .series_list_content {
+    width: 100%;
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+  .series_list_content_wrapper {
+    width: 1084px;
+    margin: 0 auto 0;
+    padding: 0 16px;
+  }
+  .series_list_content_wrapper > p {
+    text-align: right;
+    font-family: "나눔바른고딕";
+    font-size: 12px;
+    font-weight: 300;
+    color: rgba(56, 59, 65, 0.54);
+  }
+  .series_list_content_wrapper > p > span {
+    padding: 0 8px;
+  }
+  .series_list_content_wrapper > p > span:first-child {
+    border-right: solid 1px rgba(56, 59, 65, 0.54);
+  }
+  .series_list_content_wrapper > p > span.selected {
+    color: black;
+  }
+  .event_results_set {
+    width: 253px;
+    background-color: #fff;
+    display: inline-block;
+    margin-right: 12px;
+    margin-bottom: 30px;
+    border: solid 1px #ebecf0;
+  }
+  .event_results_pic {
+    height: 162px;
+    padding: 11px 0 0 9px;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+  .event_results_pic > div {
+    width: 64px;
+    height: 24px;
+    background-color: #7ed321;
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 2;
+    color: #ffffff;
+  }
+  .event_results_set_wrapper {
+    padding: 16px 16px;
+  }
+  .event_results_title {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: left;
+    margin: 0 0 4px 0;
+  }
+  .event_results_info {
+    font-size: 12px;
+    letter-spacing: 0.2px;
+    text-align: left;
+    color: rgba(56, 59, 65, 0.54);
+    margin: 0 0 20px 0;
+  }
+  .event_results_rating {
+    width: 64px;
+    height: 12px;
+    background-color: grey;
+    display: inline-block;
+    margin: 0 8px 0 0;
+  }
+  .event_results_reviews {
+    font-size: 12px;
+    display: inline-block;
+    margin: 0;
+  }
+  .event_results_get_info {
+    margin-top: 12px;
+  }
+  .event_results_seat_info,
+  .event_results_event_info {
+    width: 102px;
+    height: 27px;
+    border-radius: 4px;
+    border: solid 1px #4a90e2;
+    font-size: 12px;
+    font-weight: bold;
+    color: #4a90e2;
+    text-align: center;
+    display: inline-block;
+    vertical-align: middle;
+    padding-top: 13px;
+  }
+  .event_results_event_info {
+    float: right;
+  }
+
 }

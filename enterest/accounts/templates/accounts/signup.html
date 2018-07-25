@@ -1,1 +1,113 @@
-캬캬
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block head_extra %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'css/signup.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="wrapper">
+  <div class="signup_title">회원가입</div>
+  <div class="signup_content">
+
+    <form action="" method="POST">
+    {% csrf_token %}
+
+      <div class="id_part">
+        <p>아이디</p>
+        <input class="text_input" type="text" name="username" {% if form.username.value != None %} value="{{ form.username.value }}" {% endif %} required>
+        {% if form.username.errors %}
+          <div class="error_msg alert alert-danger">
+            {% for error in form.username.errors %}
+              {{ error }}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+      <div class="password_part">
+        <p>비밀번호 <span>* 알파벳/숫자를 모두 포함하여 8자 이상 입력해주세요.</span></p>
+        <input class="text_input" type="password" name="password1" {% if form.password1.value != None %} value="{{ form.password1.value }}" {% endif %} required>
+        {% if form.password.errors %}
+          <div class="error_msg alert alert-danger">
+            {% for error in form.password.errors %}
+              {{ error }}
+            {% endfor %}
+          </div>
+        {% endif %}
+        <input class="text_input" type="password" name="password2" {% if form.password2.value != None %} value="{{ form.password2.value }}" {% endif %} required>
+        {% if form.password2.errors %}
+          <div class="alert alert-danger">
+            {% for error in form.password2.errors %}
+              {{ error }}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="agreement_part">
+        <div class="agree_all">
+          <input type="checkbox" id="agree_all" name="agree_all">
+          <label for="agree_all">전체동의</label>
+        </div>
+        <div class="agree_detail">
+          <input type="checkbox" id="access_term" name="access_term">
+          <label for="access_term">(필수) 쉐어스팟 이용약관 동의</label>
+          <a href="" class="agreement_content">자세히 보기</a>
+          <br>
+          <input type="checkbox" id="personal_info" name="personal_info">
+          <label for="personal_info">(필수) 개인정보 수집 및 이용 동의</label>
+          <a href="" class="agreement_content">자세히 보기</a>
+        </div>
+    </div>
+    <button class="go_next">다음</button>
+    </form>
+  </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.go_next').css('background-color', '#eeeeee')
+  $('.go_next').prop('disabled', 'disabled')
+
+  $('#agree_all').click(function(){
+    if( $('#agree_all').prop('checked') ) {
+      $('#access_term').prop('checked', true);
+      $('#personal_info').prop('checked', true);
+      $('.go_next').css('background-color', '#b70000');
+      $('.go_next').prop('disabled', "")
+    } else {
+      $('#access_term').prop('checked', false);
+      $('#personal_info').prop('checked', false);
+      $('.go_next').css('background-color', '#eeeeee');
+      $('.go_next').prop('disabled', "disabled")
+    }
+  })
+
+  $('#personal_info').click(function(){
+    if( $('#access_term').prop('checked') && $('#personal_info').prop('checked') ) {
+      $('.go_next').css('background-color', '#b70000')
+      $('.go_next').prop('disabled', "")
+      $('#agree_all').prop('checked', true);
+    } else {
+      $('.go_next').css('background-color', '#eeeeee')
+      $('.go_next').prop('disabled', "disabled")
+      $('#agree_all').prop('checked', false)
+    }
+  })
+  $('#access_term').click(function(){
+    if( $('#personal_info').prop('checked') && $('#access_term').prop('checked') ) {
+      $('.go_next').css('background-color', '#b70000')
+      $('.go_next').prop('disabled', "")
+      $('#agree_all').prop('checked', true);
+    } else {
+      $('.go_next').css('background-color', '#eeeeee')
+      $('.go_next').prop('disabled', "disabled")
+      $('#agree_all').prop('checked', false)
+    }
+  })
+})
+</script>
+{% endblock %}

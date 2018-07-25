@@ -15,8 +15,12 @@
   <link rel="stylesheet" href="{% static 'css/base.css' %}">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
 
   <title>
     {% block title %}
@@ -54,20 +58,20 @@
 
 </head>
 <body>
-  <div class="navbar">
-    <div class="navbar_wrapper">
+  <div class="base_header hide_in_phone">
+    <div class="base_header_wrapper">
 
-      <div class="navbar_brand">
+      <div class="base_header_brand">
         <a href="#"><img src="" alt="">
         <p>ShareSpot</p></a>
       </div>
-        <form class="navbar_search">
-          <input name="search" placeholder="&#xF002; 검색" style="font-family:Arial, FontAwesome">
-        </form>
-      <div class="navbar_right">
-        <a class="navbar_register_review" href="#">리뷰/사진등록</a>
+      <form class="base_header_search">
+        <input name="search" placeholder="&#xF002; 검색" style="font-family:Arial, FontAwesome">
+      </form>
+      <div class="base_header_right">
+        <a class="base_header_register_review" href="#">리뷰/사진등록</a>
 
-        <a class="navbar_username" href="#">
+        <a class="base_header_username" href="#">
           <p>유저이름</p>
           <img src="" alt="">
         </a>
@@ -75,6 +79,20 @@
     </div>
   </div>
 
+  <div class="base_header hide_in_web">
+    <div class="base_header_wrapper">
+
+      <div class="base_header_menu_bar"></div>
+      <a href="#"><div class="base_header_brand">
+        <img src="" alt="">
+        <p>ShareSpot</p>
+      </div></a>
+
+      <div class="base_header_right">
+        <div></div>
+      </div>
+    </div>
+  </div>
   {% block content %}
   {% endblock %}
 
