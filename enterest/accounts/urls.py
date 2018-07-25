@@ -1,9 +1,13 @@
 from accounts import views
+from django.contrib.auth import views as auth_views
 from django.conf.urls import url
 
 urlpatterns = [
-    # 로그인
-    # 회원가입
+
+    url(r'^login/$', views.login, name='login'),
+    url(r'^logout/$', auth_views.logout, name='logout'),
+    url(r'^signup/$', views.signup, name='signup'),
+    url(r'^signup/info$', views.signup_info, name='signup_info'),
 
     url(r'^myticket/$', views.myticket, name='myticket'),
     url(r'^mywriting/$', views.mywriting, name='mywriting'),
