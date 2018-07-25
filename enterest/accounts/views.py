@@ -8,6 +8,18 @@ from accounts.models import RewardHistory, Gift, GiftRequest, FAQCategory
 import datetime
 
 
+def signup(request):
+    return render(request, 'accounts/signup.html')
+
+
+def signup_info(request):
+    return render(request, 'accounts/signup_info.html')
+
+
+def login(request):
+    return render(request, 'accounts/login.html')
+
+
 @login_required
 def myinfo(request):
     user = request.user
