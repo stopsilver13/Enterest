@@ -26,323 +26,74 @@
   <div class="main_banner_zone">
 
   </div>
-  <div class="main_nav">
-    <div class="main_nav_wrapper">
-      <div class="main_nav_component"> 장소 바로가기 </div>
-      <div class="main_filter_baseball_stadium">
-        <select>
-          <option value="0"> 프로야구 경기장 </option>
-          <option value="1"> 광주 기아챔피언스필드 </option>
-          <option value="2"> 서울 잠실야구장 </option>
-          <option value="3"> 마산 NC야구장 </option>
-          <option value="4"> 서울 고척스카이돔 </option>
-          <option value="5"> 대구 삼성라이온즈파크 </option>
-          <option value="6"> 대전 한화생명이글스파크 </option>
-          <option value="7"> 부산 사직야구장 </option>
-          <option value="8"> 수원 KT위즈파크 </option>
-        </select>
+  <div class="navbar_outer">
+    <nav class="navbar navbar-expand">
+      <span class="navbar-brand"> 장소 바로가기 </span>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              경기장
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+           <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              콘서트장
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+           <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              극장
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+        </ul>
       </div>
-      <div class="main_filter_concert">
-        <select>
-          <option value="0"> 콘서트장 </option>
-          <option value="1"> 서울 </option>
-          <option value="2"> 부산 </option>
-          <option value="3"> 인천 </option>
-          <option value="4"> 대구 </option>
-          <option value="5"> 광주 </option>
-          <option value="6"> 대전 </option>
-          <option value="7"> 울산 </option>
-          <option value="8"> 경기 </option>
-          <option value="9"> 강원 </option>
-          <option value="10"> 충북 </option>
-          <option value="11"> 충남 </option>
-          <option value="12"> 경북 </option>
-        </select>
-      </div>
-      <div class="main_filter_theater">
-        <select>
-          <option value="0"> 극장 </option>
-          <option value="1">Audi</option>
-          <option value="2">BMW</option>
-          <option value="3">Citroen</option>
-          <option value="4">Ford</option>
-          <option value="5">Honda</option>
-          <option value="6">Jaguar</option>
-          <option value="7">Land Rover</option>
-          <option value="8">Mercedes</option>
-          <option value="9">Mini</option>
-          <option value="10">Nissan</option>
-          <option value="11">Toyota</option>
-          <option value="12">Volvo</option>
-        </select>
-      </div>
-    </div>
+    </nav>
   </div>
-
 
   <div class="main_content">
     <div class="main_content_wrapper">
       <div class="eventlist_section">
         <p> 전체 </p>
+        <h3 class="hide_in_web"> 모두 보기  <i class="fas fa-chevron-right"></i> </h4>
         <div class="eventlist_section_list">
-          <div class="event_results_set">
-            <div class="event_results_pic" style="background-image: url({% static 'img/example.jpg' %});">
-              <div>sports</div>
-            </div>
-            <div class="event_results_set_wrapper">
-              <p class="event_results_title"> 두산 vs LG </p>
-              <p class="event_results_info"> 2018년 7월 3일 잠실 주경기장 </p>
-              <div class="event_results_rating"></div>
-              <h4 class="event_results_reviews"> (100) </h4>
-              <div class="event_results_get_info">
-                <div class="event_results_seat_info"> 좌석 정보 </div>
-                <div class="event_results_event_info"> 공연 정보 </div>
-              </div>
-            </div>
-          </div>
-          <div class="event_results_set">
-            <div class="event_results_pic">
-              <div>sports</div>
-            </div>
-            <div class="event_results_set_wrapper">
-              <p class="event_results_title"> 두산 vs LG </p>
-              <p class="event_results_info"> 2018년 7월 3일 잠실 주경기장 </p>
-              <div class="event_results_rating"></div>
-              <h4 class="event_results_reviews"> (100) </h4>
-              <div class="event_results_get_info">
-                <div class="event_results_seat_info"> 좌석 정보 </div>
-                <div class="event_results_event_info"> 공연 정보 </div>
-              </div>
-            </div>
-          </div>
-          <div class="event_results_set">
-            <div class="event_results_pic">
-              <div>sports</div>
-            </div>
-            <div class="event_results_set_wrapper">
-              <p class="event_results_title"> 두산 vs LG </p>
-              <p class="event_results_info"> 2018년 7월 3일 잠실 주경기장 </p>
-              <div class="event_results_rating"></div>
-              <h4 class="event_results_reviews"> (100) </h4>
-              <div class="event_results_get_info">
-                <div class="event_results_seat_info"> 좌석 정보 </div>
-                <div class="event_results_event_info"> 공연 정보 </div>
-              </div>
-            </div>
-          </div>
-          <div class="event_results_set">
-            <div class="event_results_pic">
-              <div>sports</div>
-            </div>
-            <div class="event_results_set_wrapper">
-              <p class="event_results_title"> 두산 vs LG </p>
-              <p class="event_results_info"> 2018년 7월 3일 잠실 주경기장 </p>
-              <div class="event_results_rating"></div>
-              <h4 class="event_results_reviews"> (100) </h4>
-              <div class="event_results_get_info">
-                <div class="event_results_seat_info"> 좌석 정보 </div>
-                <div class="event_results_event_info"> 공연 정보 </div>
-              </div>
-            </div>
-          </div>
-          <div class="event_results_set">
-            <div class="event_results_pic">
-              <div>sports</div>
-            </div>
-            <div class="event_results_set_wrapper">
-              <p class="event_results_title"> 두산 vs LG </p>
-              <p class="event_results_info"> 2018년 7월 3일 잠실 주경기장 </p>
-              <div class="event_results_rating"></div>
-              <h4 class="event_results_reviews"> (100) </h4>
-              <div class="event_results_get_info">
-                <div class="event_results_seat_info"> 좌석 정보 </div>
-                <div class="event_results_event_info"> 공연 정보 </div>
-              </div>
-            </div>
-          </div>
-          <div class="event_results_set">
-            <div class="event_results_pic">
-              <div>sports</div>
-            </div>
-            <div class="event_results_set_wrapper">
-              <p class="event_results_title"> 두산 vs LG </p>
-              <p class="event_results_info"> 2018년 7월 3일 잠실 주경기장 </p>
-              <div class="event_results_rating"></div>
-              <h4 class="event_results_reviews"> (100) </h4>
-              <div class="event_results_get_info">
-                <div class="event_results_seat_info"> 좌석 정보 </div>
-                <div class="event_results_event_info"> 공연 정보 </div>
-              </div>
-            </div>
-          </div>
-          <div class="event_results_set">
-            <div class="event_results_pic">
-              <div>sports</div>
-            </div>
-            <div class="event_results_set_wrapper">
-              <p class="event_results_title"> 두산 vs LG </p>
-              <p class="event_results_info"> 2018년 7월 3일 잠실 주경기장 </p>
-              <div class="event_results_rating"></div>
-              <h4 class="event_results_reviews"> (100) </h4>
-              <div class="event_results_get_info">
-                <div class="event_results_seat_info"> 좌석 정보 </div>
-                <div class="event_results_event_info"> 공연 정보 </div>
-              </div>
-            </div>
-          </div>
-          <div class="event_results_set">
-            <div class="event_results_pic">
-              <div>sports</div>
-            </div>
-            <div class="event_results_set_wrapper">
-              <p class="event_results_title"> 두산 vs LG </p>
-              <p class="event_results_info"> 2018년 7월 3일 잠실 주경기장 </p>
-              <div class="event_results_rating"></div>
-              <h4 class="event_results_reviews"> (100) </h4>
-              <div class="event_results_get_info">
-                <div class="event_results_seat_info"> 좌석 정보 </div>
-                <div class="event_results_event_info"> 공연 정보 </div>
-              </div>
-            </div>
-          </div>
+          {% include 'sharespot/series_set.html' with request=request %}
         </div>
-        <h4> 모두 보기 <i class="fas fa-chevron-right"></i> </h4>
+        <h4 class="hide_in_phone"> 모두 보기 <i class="fas fa-chevron-right"></i> </h4>
       </div>
 
 
       <div class="eventlist_section">
-          <p> 스포츠 </p>
-          <div class="eventlist_section_list">
-            <div class="event_results_set">
-              <div class="event_results_pic">
-                <div>sports</div>
-              </div>
-              <div class="event_results_set_wrapper">
-                <p class="event_results_title"> 두산 vs LG </p>
-                <p class="event_results_info"> 2018년 7월 3일 잠실 주경기장 </p>
-                <div class="event_results_rating"></div>
-                <h4 class="event_results_reviews"> (100) </h4>
-                <div class="event_results_get_info">
-                  <div class="event_results_seat_info"> 좌석 정보 </div>
-                  <div class="event_results_event_info"> 공연 정보 </div>
-                </div>
-              </div>
-            </div>
-            <div class="event_results_set">
-              <div class="event_results_pic">
-                <div>sports</div>
-              </div>
-              <div class="event_results_set_wrapper">
-                <p class="event_results_title"> 두산 vs LG </p>
-                <p class="event_results_info"> 2018년 7월 3일 잠실 주경기장 </p>
-                <div class="event_results_rating"></div>
-                <h4 class="event_results_reviews"> (100) </h4>
-                <div class="event_results_get_info">
-                  <div class="event_results_seat_info"> 좌석 정보 </div>
-                  <div class="event_results_event_info"> 공연 정보 </div>
-                </div>
-              </div>
-            </div>
-            <div class="event_results_set">
-              <div class="event_results_pic">
-                <div>sports</div>
-              </div>
-              <div class="event_results_set_wrapper">
-                <p class="event_results_title"> 두산 vs LG </p>
-                <p class="event_results_info"> 2018년 7월 3일 잠실 주경기장 </p>
-                <div class="event_results_rating"></div>
-                <h4 class="event_results_reviews"> (100) </h4>
-                <div class="event_results_get_info">
-                  <div class="event_results_seat_info"> 좌석 정보 </div>
-                  <div class="event_results_event_info"> 공연 정보 </div>
-                </div>
-              </div>
-            </div>
-            <div class="event_results_set">
-              <div class="event_results_pic">
-                <div>sports</div>
-              </div>
-              <div class="event_results_set_wrapper">
-                <p class="event_results_title"> 두산 vs LG </p>
-                <p class="event_results_info"> 2018년 7월 3일 잠실 주경기장 </p>
-                <div class="event_results_rating"></div>
-                <h4 class="event_results_reviews"> (100) </h4>
-                <div class="event_results_get_info">
-                  <div class="event_results_seat_info"> 좌석 정보 </div>
-                  <div class="event_results_event_info"> 공연 정보 </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <h4> 모두 보기 <i class="fas fa-chevron-right"></i> </h4>
+        <p> 스포츠 </p>
+        <h3 class="hide_in_web"> 모두 보기 <i class="fas fa-chevron-right"></i> </h4>
+        <div class="eventlist_section_list">
+          {% include 'sharespot/series_set.html' with request=request %}
         </div>
+        <h4 class="hide_in_phone"> 모두 보기 <i class="fas fa-chevron-right"></i> </h4>
+      </div>
 
-        <div class="eventlist_section">
-          <p> 뮤지컬 </p>
-          <div class="eventlist_section_list">
-            <div class="event_results_set">
-              <div class="event_results_pic">
-                <div>sports</div>
-              </div>
-              <div class="event_results_set_wrapper">
-                <p class="event_results_title"> 두산 vs LG </p>
-                <p class="event_results_info"> 2018년 7월 3일 잠실 주경기장 </p>
-                <div class="event_results_rating"></div>
-                <h4 class="event_results_reviews"> (100) </h4>
-                <div class="event_results_get_info">
-                  <div class="event_results_seat_info"> 좌석 정보 </div>
-                  <div class="event_results_event_info"> 공연 정보 </div>
-                </div>
-              </div>
-            </div>
-            <div class="event_results_set">
-              <div class="event_results_pic">
-                <div>sports</div>
-              </div>
-              <div class="event_results_set_wrapper">
-                <p class="event_results_title"> 두산 vs LG </p>
-                <p class="event_results_info"> 2018년 7월 3일 잠실 주경기장 </p>
-                <div class="event_results_rating"></div>
-                <h4 class="event_results_reviews"> (100) </h4>
-                <div class="event_results_get_info">
-                  <div class="event_results_seat_info"> 좌석 정보 </div>
-                  <div class="event_results_event_info"> 공연 정보 </div>
-                </div>
-              </div>
-            </div>
-            <div class="event_results_set">
-              <div class="event_results_pic">
-                <div>sports</div>
-              </div>
-              <div class="event_results_set_wrapper">
-                <p class="event_results_title"> 두산 vs LG </p>
-                <p class="event_results_info"> 2018년 7월 3일 잠실 주경기장 </p>
-                <div class="event_results_rating"></div>
-                <h4 class="event_results_reviews"> (100) </h4>
-                <div class="event_results_get_info">
-                  <div class="event_results_seat_info"> 좌석 정보 </div>
-                  <div class="event_results_event_info"> 공연 정보 </div>
-                </div>
-              </div>
-            </div>
-            <div class="event_results_set">
-              <div class="event_results_pic">
-                <div>sports</div>
-              </div>
-              <div class="event_results_set_wrapper">
-                <p class="event_results_title"> 두산 vs LG </p>
-                <p class="event_results_info"> 2018년 7월 3일 잠실 주경기장 </p>
-                <div class="event_results_rating"></div>
-                <h4 class="event_results_reviews"> (100) </h4>
-                <div class="event_results_get_info">
-                  <div class="event_results_seat_info"> 좌석 정보 </div>
-                  <div class="event_results_event_info"> 공연 정보 </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <h4> 모두 보기 <i class="fas fa-chevron-right"></i> </h4>
+      <div class="eventlist_section">
+        <p> 뮤지컬 </p>
+        <h3 class="hide_in_web"> 모두 보기 <i class="fas fa-chevron-right"></i> </h4>
+        <div class="eventlist_section_list">
+          {% include 'sharespot/series_set.html' with request=request %}
         </div>
+        <h4 class="hide_in_phone"> 모두 보기 <i class="fas fa-chevron-right"></i> </h4>
       </div>
     </div>
 
@@ -355,22 +106,22 @@
             <p> 리워드 설명 </p>
             <h4> 리뷰/사진 등록에 있는 촉진문구 </h4>
           </div>
-          <div class="reward_promo_set" style="margin: 0 100px">
-            <div></div>
-            <p> 리워드 설명 </p>
-            <h4> 리뷰/사진 등록에 있는 촉진문구 </h4>
-          </div>
           <div class="reward_promo_set">
             <div></div>
             <p> 리워드 설명 </p>
             <h4> 리뷰/사진 등록에 있는 촉진문구 </h4>
           </div>
+          <!-- <div class="reward_promo_set">
+            <div></div>
+            <p> 리워드 설명 </p>
+            <h4> 리뷰/사진 등록에 있는 촉진문구 </h4>
+          </div> -->
         </div>
         <button> 리뷰/사진 등록 </button>
       </div>
     </div>
 
-    <div class="numbers">
+    <div class="numbers hide_in_phone">
       <div class="numbers_wrapper">
         <p> Numbers </p>
         <div class="numbers_explanation">

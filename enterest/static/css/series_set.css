@@ -1,0 +1,159 @@
+@media (max-width: 768px) {
+  .series_set {
+    width: 163px;
+    background-color: #fff;
+    display: inline-block;
+    margin-right: 8px;
+    margin-bottom: 30px;
+    border: solid 1px #ebecf0;
+  }
+  .series_pic {
+    height: 110px;
+    padding: 8px 0 0 8px;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+  .series_pic > div {
+    width: 40px;
+    height: 16px;
+    background-color: #7ed321;
+    text-align: center;
+    font-family: "나눔바른고딕B";
+    font-size: 12px;
+    line-height: 16px;
+    color: #ffffff;
+  }
+  .series_set_wrapper {
+    padding: 8px 8px 12px;
+  }
+  .series_title {
+    font-family: "나눔바른고딕B";
+    font-size: 14px;
+    text-align: left;
+    margin: 0 0 4px 0;
+  }
+  .series_info {
+    font-family: "나눔바른고딕";
+    font-size: 11px;
+    letter-spacing: 0.2px;
+    text-align: left;
+    color: rgba(56, 59, 65, 0.54);
+    margin: 0;
+  }
+  .series_rating_reviews {
+    margin: 16px 0 8px 0;
+  }
+  .series_rating_reviews > div {
+    width: 64px;
+    height: 12px;
+    background-color: grey;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .series_rating_reviews > h4 {
+    font-family: "나눔바른고딕";
+    font-size: 12px;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 0 0 8px;
+  }
+  .series_seat_info,
+  .series_event_info {
+    width: 69px;
+    height: 32px;
+    border-radius: 4px;
+    border: solid 1px #4a90e2;
+    font-size: 12px;
+    font-weight: bold;
+    color: #4a90e2;
+    line-height: 27px;
+    text-align: center;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .series_seat_info {
+    float: right;
+  }
+}
+@media (min-width: 768px) {
+  .series_set {
+    width: 253px;
+    background-color: #fff;
+    display: inline-block;
+    margin-right: 8px;
+    margin-bottom: 30px;
+    border: solid 1px #ebecf0;
+  }
+  .series_pic {
+    height: 172px;
+    padding: 11px 0 0 9px;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+  .series_pic > div {
+    width: 64px;
+    height: 24px;
+    background-color: #7ed321;
+    text-align: center;
+    font-family: "나눔바른고딕B";
+    font-size: 12px;
+    line-height: 24px;
+    color: #ffffff;
+  }
+  .series_set_wrapper {
+    padding: 16px 16px;
+  }
+  .series_title {
+    font-family: "나눔바른고딕B";
+    font-size: 16px;
+    text-align: left;
+    margin: 0 0 4px 0;
+  }
+  .series_info {
+    font-family: "나눔바른고딕";
+    font-size: 12px;
+    letter-spacing: 0.2px;
+    text-align: left;
+    color: rgba(56, 59, 65, 0.54);
+    margin: 0 0 16px 0;
+  }
+  .series_rating_reviews {
+    margin: 16px 0 16px 0;
+  }
+  .series_rating_reviews > div {
+    width: 64px;
+    height: 12px;
+    background-color: grey;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 8px 0 0;
+  }
+  .series_rating_reviews > h4 {
+    font-family: "나눔바른고딕";
+    font-size: 12px;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 0 0 8px;
+  }
+  .series_get_info {
+    margin-top: 12px;
+  }
+  .series_seat_info,
+  .series_event_info {
+    width: 104px;
+    height: 40px;
+    border-radius: 4px;
+    border: solid 1px #4a90e2;
+    font-size: 12px;
+    font-weight: bold;
+    color: #4a90e2;
+    line-height: 40px;
+    text-align: center;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .series_seat_info {
+    float: right;
+  }
+}
+

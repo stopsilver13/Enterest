@@ -104,4 +104,20 @@
       <div class="map"></div>
     </div>
   </div>
+
+
+<script>
+$(function(){
+  var map_position = $('.map').offset().top;
+  $(window).scroll(function(){
+    if( $(window).scrollTop() >= map_position ) {
+         $("#navi").css("position","fixed");
+         $("#navi").css("top","0");
+    } else {
+         $("#navi").css("position","relative");
+         $("#navi").css("top","");
+    }
+  })
+})
+</script>
 {% endblock %}
