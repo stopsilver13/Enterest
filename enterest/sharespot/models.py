@@ -6,12 +6,12 @@ from django.db import models
 from accounts.models import RewardHistory
 
 
-# TODO(완) : 좋아요/관심 공용 모델 > 좋아요와 관심등록은 같은 기능?!
-
 class LikeMixinModel(models.Model):
     liker_set = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
         related_name='liked_%(class)s_set',
+        blank=True,
+        null=True,
     )
 
     class Meta:
@@ -30,6 +30,39 @@ class LikeMixinModel(models.Model):
         else:
             self.liker_set.add(user)
         return not liked_before
+
+
+class ThankMixinModel(models.Model):
+    thanked_set = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        related_name='liked_%(class)s_set',
+        blank=True,
+        null=True,
+    )
+
+    class Meta:
+        abstract = True
+
+    def count_thanked(self):
+        return self.thanked_set.count()
+
+    def is_thanked_by(self, user):
+        return self.thanked_set.filter(pk=user.pk).exists()
+
+    def say_thank(self, user):
+        thanked_before = self.is_liked_by(user)
+        if thanked_before:
+            return thanked_before
+        else:
+            self.thanked_set.add(user)
+            reward_history = RewardHistory.objects.create(
+                user=self.ticket.user,
+                reason='내 리뷰에 대한 {}님의 감사표현'.format(user),  # 추후 정해야함
+                amount=10,  # 추후 정해야함
+            )
+            reward_history.status = 'complete'
+            reward_history.save()
+            return not thanked_before
 
 
 class Category(models.Model):
@@ -210,7 +243,11 @@ class SeatImg(models.Model):
         default='none',
     )  # no zoom이면 노줌 뱃지 / # normalize이면 가이드준수 뱃지
 
-    badge_set = models.ManyToManyField('SeatImgBadge')  # 등록시 자동지급
+    badge_set = models.ManyToManyField(
+        'SeatImgBadge',
+        blank=True,
+        null=True,
+    )  # 등록시 자동지급
 
     is_confirmed = models.BooleanField(default=False)  # True이면 공개
 
@@ -260,7 +297,11 @@ class Series(LikeMixinModel):
     start = models.DateField()
     end = models.DateField()
     space = models.ForeignKey(Space)
-    seatlevel_set = models.ManyToManyField(SeatLevel)
+    seatlevel_set = models.ManyToManyField(
+        SeatLevel,
+        blank=True,
+        null=True,
+    )
 
     intro_title = models.CharField(max_length=100)
     intro_content = models.TextField(blank=True, null=True)
@@ -299,7 +340,11 @@ class Event(models.Model):
     name = models.CharField(max_length=20, blank=True, null=True)
     start = models.DateTimeField()
     end = models.DateTimeField(blank=True, null=True)
-    appear_set = models.ManyToManyField('Appear')
+    appear_set = models.ManyToManyField(
+        'Appear',
+        blank=True,
+        null=True,
+    )
 
     def __str__(self):
         event_name = self.series.name + '-' + str(self.start.strftime("%Y. %m. %d."))
@@ -374,14 +419,22 @@ class Emotion(models.Model):
         return self.eventreview_set.count()  # 작동 여부 점검 필요
 
 
-class EventReview(LikeMixinModel):
+class EventReview(ThankMixinModel):
     ticket = models.OneToOneField(Ticket, related_name='event_review')
     history = models.OneToOneField(RewardHistory, blank=True, null=True)
     event = models.ForeignKey(Event)
     total_star = models.PositiveSmallIntegerField(default=0)
     content = models.TextField(blank=True, null=True)
-    emotion_set = models.ManyToManyField(Emotion)
-    badge_set = models.ManyToManyField('EventReviewBadge')
+    emotion_set = models.ManyToManyField(
+        Emotion,
+        blank=True,
+        null=True,
+    )
+    badge_set = models.ManyToManyField(
+        'EventReviewBadge',
+        blank=True,
+        null=True,
+    )
     anony_name = models.CharField(max_length=10, blank=True, null=True)
 
     is_confirmed = models.BooleanField(default=False)  # True이면 공개
@@ -414,7 +467,7 @@ class EventReviewBadge(models.Model):
         return self.name
 
 
-class SeatReview(LikeMixinModel):
+class SeatReview(ThankMixinModel):
     ticket = models.OneToOneField(Ticket, related_name='seat_review')
     history = models.OneToOneField(RewardHistory, blank=True, null=True)
     seat = models.ForeignKey(Seat)
@@ -422,7 +475,11 @@ class SeatReview(LikeMixinModel):
     view_star = models.PositiveSmallIntegerField(default=0)
     real_star = models.PositiveSmallIntegerField(default=0)
     content = models.TextField(blank=True, null=True)
-    badge_set = models.ManyToManyField('SeatReviewBadge')
+    badge_set = models.ManyToManyField(
+        'SeatReviewBadge',
+        blank=True,
+        null=True,
+    )
     anony_name = models.CharField(max_length=10, blank=True, null=True)
 
     is_confirmed = models.BooleanField(default=False)  # True이면 공개
@@ -530,6 +587,7 @@ class TalkTopic(models.Model):
 
 class Talk(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    # design = models.ForeignKey('TalkDesign', blank=True, null=True)
     anony_name = models.CharField(max_length=10, blank=True, null=True)
     topic = models.ForeignKey(TalkTopic)
     content = models.TextField()
@@ -539,3 +597,14 @@ class Talk(models.Model):
 
     def __str__(self):
         return self.content
+
+
+# 톡톡 말풍선 디자인 -> 좀더 기획이 나온 뒤에 추가
+
+# class TalkDesign(models.Model):
+#     name = models.CharField(max_length=20)
+#     img = models.ImageField(upload_to='TalkDesign/', blank=True, null=True)
+#     explain = models.CharField(max_length=200)
+
+#     def __str__(self):
+#         return self.name
