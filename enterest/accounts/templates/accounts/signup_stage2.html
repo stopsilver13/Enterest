@@ -1,0 +1,307 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load socialaccount %}
+
+{% block head_extra %}
+<style>
+.signup_title {
+    background-color: #fafafa;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.38);
+    font-family: "a고딕13";
+}
+
+.signup_content p {
+    font-family: "a고딕13";
+    font-size: 12px;
+    text-align: left;
+    color: rgba(0, 0, 0, 0.87);
+    margin-bottom: 0px;
+}
+.myteam_part {
+    margin-top: 16px;
+}
+.myteam_part span {
+    color: #d0021b;
+    font-size: 10px;
+    float: right;
+}
+
+.ur_sex_part {
+    margin-top: 16px;
+}
+.male_part, .female_part {
+    display: inline-block;
+    margin-left: 8px;
+    margin-right: 32px;
+    margin-top: 24px;
+}
+[type="radio"]:checked,
+[type="radio"]:not(:checked) {
+    display: none;
+}
+[type="radio"]:checked + label,
+[type="radio"]:not(:checked) + label {
+    position: relative;
+    padding-left: 24px;
+    cursor: pointer;
+    display: inline-block;
+    height: 14px;
+    font-family: "a고딕13";
+    font-size: 12px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 16px;
+    letter-spacing: normal;
+    color: rgba(0, 0, 0, 0.87);
+}
+[type="radio"]:checked + label:before,
+[type="radio"]:not(:checked) + label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #eeeeee;
+    border-radius: 100%;
+    background: #ffffff;
+}
+[type="radio"]:checked + label:after,
+[type="radio"]:not(:checked) + label:after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: #b70000;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    border-radius: 100%;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+[type="radio"]:not(:checked) + label:after {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+}
+[type="radio"]:checked + label:after {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+.birthday_part {
+    margin-top: 32px;
+}
+.select_section {
+    margin-top: 8px;
+}
+.year_month_day {
+    font-family: "a고딕13";
+    font-size: 14px;
+    text-align: left;
+    color: rgba(0, 0, 0, 0.38);
+    display: inline-block;
+}
+.birthday_part select {
+    display: inline-block;
+    border: solid 1px #eeeeee;
+    background-color: #fff;
+}
+
+.address_part {
+    margin-top: 16px;
+}
+.go_signup {
+    height: 56px;
+    border-radius: 3px;
+    background-color: #b70000;
+    font-family: "a고딕15";
+    font-size: 16px;
+    text-align: center;
+    color: #ffffff;
+    margin-top: 48px;
+    border: none;
+}
+
+@media(max-width: 768px) {
+    .signup_title {
+        height: 48px;
+        font-size: 18px;
+        padding-top: 14px;
+        margin-top: 8px;
+    }
+    .nickname_part {
+        margin-top: 16px;
+    }
+    .signup_content {
+        padding-left: 5.55%;
+        padding-right: 5.55%;
+    }
+    .text_input {
+        width: 100%;
+        height: 48px;
+        border: solid 1px #eeeeee;
+        margin-top: 8px;
+        padding-left: 8px;
+    }
+    .myteam_part select,
+    .address_part select {
+        width: 100%;
+        height: 48px;
+        border: solid 1px #eeeeee;
+        background-color: #fff;
+        margin-top: 8px;
+        padding-left: 8px;
+    }
+    .sel_year {
+        width: 28%;
+        height: 48px;
+        margin-right: 6px;
+        padding-left: 8px;
+    }
+    .sel_month_day {
+        width: 22%;
+        height: 48px;
+        margin-left: 7px;
+        margin-right: 6px;
+        padding-left: 8px;
+    }
+    .go_signup {
+        width: 100%;
+        margin-bottom: 80px;
+    }
+}
+
+@media(min-width: 768px) {
+    .wrapper {
+        width: 500px;
+        box-shadow: 0 1px 4px 0 #eeeeee;
+        margin: auto;
+        margin-bottom: 50px;
+        margin-top: 48px;
+    }
+    .signup_title {
+        height: 72px;
+        font-size: 24px;
+        padding-top: 20px;
+    }
+    .signup_content {
+        padding-left: 90px;
+        padding-right: 90px;
+    }
+    .text_input {
+        width: 320px;
+        height: 48px;
+        border: solid 1px #eeeeee;
+        margin-top: 8px;
+        padding-left: 8px;
+    }
+    .myteam_part select,
+    .address_part select {
+        width: 320px;
+        height: 48px;
+        border: solid 1px #eeeeee;
+        background-color: #fff;
+        margin-top: 8px;
+        padding-left: 8px;
+    }
+    .sel_year {
+        width: 90px;
+        height: 48px;
+        margin-right: 6px;
+        padding-left: 8px;
+    }
+    .sel_month_day {
+        width: 70px;
+        height: 48px;
+        margin-left: 7px;
+        margin-right: 6px;
+        padding-left: 8px;
+    }
+    .nickname_part {
+        margin-top: 24px;
+    }
+    .go_signup {
+        width: 320px;
+        margin-bottom: 56px;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="content_in">
+<div class="wrapper">
+    <div class="signup_title">회원가입</div>
+
+    <form action="" method="POST">
+    {% csrf_token %}
+    <div class="signup_content">
+        <div class="nickname_part">
+            <p>닉네임</p>
+            <input class="text_input" type="text" name="nickname" required>
+        </div>
+        <div class="myteam_part">
+            <p>응원하는 팀 <span>&lowast; 가입 후 변경불가하오니 신중히 선택해주시기 바랍니다.</span></p>
+            <select name="team">
+                <option>-</option>
+                {% for myteam in team %}
+                <option value="{{ myteam.pk }}">{{ myteam.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="ur_sex_part">
+            <p>성별</p>
+            <div class="male_part">
+                <input type="radio" id="male" name="sex" value="남">
+                <label for="male">남</label>
+            </div>
+            <div class="female_part">
+                <input type="radio" id="female" name="sex" value="여">
+                <label for="female">여</label>
+            </div>
+        </div>
+        <div class="birthday_part">
+            <p>생년월일</p>
+            <div class="select_section">
+                <select class="sel_year" name="year">
+                    <option value="">-</option>
+                    {% for num in year %}
+                    <option value="{{ num }}">{{ num }}</option>
+                    {% endfor %}
+                </select>
+                <h class="year_month_day">년</h>
+                <select class="sel_month_day" name="month">
+                    <option value="">-</option>
+                    {% for num in month %}
+                    <option value="{{ num }}">{{ num }}</option>
+                    {% endfor %}
+                </select>
+                <h class="year_month_day">월</h>
+                <select class="sel_month_day"  name="day">
+                    <option value="">-</option>
+                    {% for num in day %}
+                    <option value="{{ num }}">{{ num }}</option>
+                    {% endfor %}
+                </select>
+                <h class="year_month_day">일</h>
+            </div>
+        </div>
+        <div class="address_part">
+            <p>주소</p>
+            <select name="address">
+                <option value="">-</option>
+                    {% for region in address %}
+                    <option value="{{ region }}">{{ region }}</option>
+                    {% endfor %}
+            </select>
+        </div>
+        <button class="go_signup">회원가입</button>
+    </div>
+    </form>
+</div>
+</div>
+{% endblock %}
