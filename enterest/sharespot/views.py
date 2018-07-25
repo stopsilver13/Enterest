@@ -87,10 +87,12 @@ def register_review(request):  # ?ticket_id=
 
 def place_basic(request, space):
     # TODO: 날씨
-    place = Space.objects.get(en_name=space).place
+    space = Space.objects.get(en_name=space)
+    place = space.place
 
     return render(request, 'sharespot/place_basic.html', {
         'place': place,
+        'space': space,
     })
 
 

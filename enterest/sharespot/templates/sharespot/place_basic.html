@@ -1,5 +1,7 @@
 {% extends "sharespot/place_base.html" %}
 
+{% load staticfiles %}
+
 {% block title %}
     {{ place.name }} 기본정보
 {% endblock %}
@@ -13,9 +15,14 @@
   <div class="place_content">
     <div class="place_content_wrapper">
       <div class="place_basic_info">
-        <p><i class="fas fa-info-circle"></i>  서울 광진구 천호대로 117길 4 </p>
-        <p><i class="fas fa-info-circle"></i>  02-1941-2853</p>
-        <p><i class="fas fa-info-circle"></i>  www.skysky.com</p>
+        <p><i class="fas fa-info-circle"></i> {{ place.address }}</p>
+        <p><i class="fas fa-info-circle"></i> {{ place.contact }}</p>
+        <p><i class="fas fa-info-circle"></i> {{ place.website }}</p>
+        <p><i class="fas fa-info-circle"></i>
+          {% for words in place.split_explain %}
+            {{ words }}<br>
+          {% endfor %}
+        </p>
         <div class="place_basic_info_map"></div>
       </div>
 
