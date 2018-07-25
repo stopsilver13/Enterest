@@ -27,6 +27,7 @@
 
     <div class="user_pwd">
       <p class="section_title"> 비밀번호 </p>
+      <input type="password" name="present_pwd" placeholder="현재 비밀번호">
       <input type="password" name="new_pwd" placeholder="새 비밀번호 (알파벳,숫자 포함 8자 이상)">
       <input type="password" name="confirm_pwd" placeholder="새 비밀번호 확인">
     </div>
@@ -46,17 +47,13 @@
       <h4> 여 </h4>
     </div>
 
-    <div class="user_birthyear">
-      <p class="section_title"> 출생년도 </p>
-      <div class="select_custom">
-        <select>
-          <option>1994</option>
-        </select>
-      </div>
+    <div class="user_birth">
+      <p class="section_title"> 생년월일 </p>
+      <h4> 1991년 3월 11일</h4>
     </div>
 
     <div class="user_interest">
-        <p class="section_title">감정태그 <span>혹시 찾으시는 관심태그가 없으시다면, 문의를 통해 말씀해주시면 바로 등록해드리도록 하겠습니다 :-)</span></p>
+        <p class="section_title">감정태그 <br class="hide_in_web"><span>혹시 찾으시는 관심태그가 없으시다면, <br class="hide_in_web"> 문의를 통해 말씀해주시면 바로 등록해드리도록 하겠습니다 :-)</span></p>
         <div class="user_interest_wrapper">
           <button> 입력 </button>
           <div class="selected_interest_zone">
@@ -73,7 +70,8 @@
         <p class="section_title"> 휴대폰 번호 </p>
         <input type="number" name="phone" placeholder="01012341234">
       </div>
-
-      <button class="save"> 저장 </button>
+      <div class="save_outer">
+        <button class="save"> 저장 </button>
+      </div>
   </div>
 {% endblock %}
