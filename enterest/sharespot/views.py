@@ -113,14 +113,18 @@ def place_space(request, space):
 
 
 def place_share(request, space):
-    place = Space.objects.get(en_name=space).place
+    user = request.user
+    space = Space.objects.get(en_name=space)
+    place = space.place
     share_info = ShareInfo.objects.filter(place=place)
     share_category = ShareInfoCategory.objects.all()
 
     # TODO: if request.method == 'POST':
 
     return render(request, 'sharespot/place_share.html', {
+        'user': user,
         'place': place,
+        'space': space,
         'share_category': share_category,
         'share_info': share_info,
     })
