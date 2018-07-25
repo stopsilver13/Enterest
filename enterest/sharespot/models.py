@@ -11,7 +11,6 @@ class LikeMixinModel(models.Model):
         settings.AUTH_USER_MODEL,
         related_name='liked_%(class)s_set',
         blank=True,
-        null=True,
     )
 
     class Meta:
@@ -37,7 +36,6 @@ class ThankMixinModel(models.Model):
         settings.AUTH_USER_MODEL,
         related_name='liked_%(class)s_set',
         blank=True,
-        null=True,
     )
 
     class Meta:
@@ -126,6 +124,9 @@ class Place(models.Model):
 
     def __str__(self):
         return self.name
+
+    def split_explain(self):
+        return self.explain.split('&')
 
 
 class Space(LikeMixinModel):
@@ -246,7 +247,6 @@ class SeatImg(models.Model):
     badge_set = models.ManyToManyField(
         'SeatImgBadge',
         blank=True,
-        null=True,
     )  # 등록시 자동지급
 
     is_confirmed = models.BooleanField(default=False)  # True이면 공개
@@ -297,11 +297,7 @@ class Series(LikeMixinModel):
     start = models.DateField()
     end = models.DateField()
     space = models.ForeignKey(Space)
-    seatlevel_set = models.ManyToManyField(
-        SeatLevel,
-        blank=True,
-        null=True,
-    )
+    seatlevel_set = models.ManyToManyField(SeatLevel)
 
     intro_title = models.CharField(max_length=100)
     intro_content = models.TextField(blank=True, null=True)
@@ -340,11 +336,7 @@ class Event(models.Model):
     name = models.CharField(max_length=20, blank=True, null=True)
     start = models.DateTimeField()
     end = models.DateTimeField(blank=True, null=True)
-    appear_set = models.ManyToManyField(
-        'Appear',
-        blank=True,
-        null=True,
-    )
+    appear_set = models.ManyToManyField('Appear')
 
     def __str__(self):
         event_name = self.series.name + '-' + str(self.start.strftime("%Y. %m. %d."))
@@ -428,12 +420,10 @@ class EventReview(ThankMixinModel):
     emotion_set = models.ManyToManyField(
         Emotion,
         blank=True,
-        null=True,
     )
     badge_set = models.ManyToManyField(
         'EventReviewBadge',
         blank=True,
-        null=True,
     )
     anony_name = models.CharField(max_length=10, blank=True, null=True)
 
@@ -478,7 +468,6 @@ class SeatReview(ThankMixinModel):
     badge_set = models.ManyToManyField(
         'SeatReviewBadge',
         blank=True,
-        null=True,
     )
     anony_name = models.CharField(max_length=10, blank=True, null=True)
 
