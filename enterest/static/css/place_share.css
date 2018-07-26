@@ -4,12 +4,13 @@
 }
 .place_around_content_wrapper {
   width: 1068px;
-  padding: 0 16px;
+  /*padding: 0 16px;*/
   margin: 0 auto 0;
 }
 .posting_zone {
   width: 696px;
   min-height: 694px;
+  margin-bottom: 80px;
   border: solid 1px #ebecf0;
   display: inline-block;
 }
@@ -276,6 +277,7 @@ div.selected {
 .map {
   width: 340px;
   height: 694px;
+  margin-left: 32px;
   background-color: yellow;
   display: inline-block;
   float: right;

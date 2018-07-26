@@ -11,15 +11,18 @@
     height: 110px;
     padding: 8px 0 0 8px;
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: cover;
+    background-position: center;
   }
   .series_pic > div {
-    width: 40px;
+    /*width: 40px;*/
     height: 16px;
+    padding: 0px 4px;
     background-color: #7ed321;
+    display: inline-block;
     text-align: center;
     font-family: "나눔바른고딕B";
-    font-size: 12px;
+    font-size: 10px;
     line-height: 16px;
     color: #ffffff;
   }
@@ -88,12 +91,15 @@
     height: 172px;
     padding: 11px 0 0 9px;
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: cover;
+    background-position: center;
   }
   .series_pic > div {
-    width: 64px;
+    /*width: 64px;*/
     height: 24px;
+    padding: 0px 8px;
     background-color: #7ed321;
+    display: inline-block;
     text-align: center;
     font-family: "나눔바른고딕B";
     font-size: 12px;
