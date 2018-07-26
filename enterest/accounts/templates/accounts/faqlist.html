@@ -1,5 +1,6 @@
 {% extends "accounts/base_accounts.html" %}
 
+{% load staticfiles %}
 {% block title %}
     FAQ 자주하는 질문
 {% endblock %}
@@ -11,16 +12,13 @@
 {% block content_accounts %}
   <div class="user_faq_content">
     <div class="user_faq_header">
-      <div class="header_left">
-        <p> 자주 묻는 질문</p>
-        <h4> 이외에 궁금한 점이 있으시다면, 1:1 상담으로 문의해주세요! (평일 10:00~18:00 / 주말, 공휴일 제외) </h4>
-      </div>
-      <button> 1:1 상담 </button>
+      <p> 자주 묻는 질문</p>
+      <h4> <span> 이외에 궁금한 점이 있으시다면, 1:1 상담으로 문의해주세요! </span>(평일 10:00~18:00 / 주말, 공휴일 제외) </h4>
     </div>
     <div class="faq_category">
-      <p> Spotshare (5) <i class="fas fa-angle-down"></i></p>
-      <hr>
-      <div class="faq_category_body">
+      <p class="category_title"> Spotshare (5) <i class="fas fa-angle-down"></i></p>
+      <hr class="closed">
+      <div class="faq_category_body closed">
         <div class="faq_questions">
           <p> 어떤 내용이 궁금하신가요?어떤 내용이 궁금하신가요? </p>
           <h4> 답변은 다음과 같습니다. 단순히 입구에 들어오는 방문객을 육안으로 세거나 카메라로 카운팅하는 수준을 넘어서, 오프라인도 온라인 어날리틱스 수준의 고도화 된 측정도구가 필요합니다. </h4>
@@ -53,9 +51,9 @@
     </div>
 
     <div class="faq_category">
-      <p> Spotshare (5) <i class="fas fa-angle-down"></i></p>
-      <hr>
-      <div class="faq_category_body">
+      <p class="category_title"> Spotshare (5) <i class="fas fa-angle-down"></i></p>
+      <hr class="closed">
+      <div class="faq_category_body closed">
         <div class="faq_questions">
           <p> 어떤 내용이 궁금하신가요?어떤 내용이 궁금하신가요? </p>
           <h4> 답변은 다음과 같습니다. 단순히 입구에 들어오는 방문객을 육안으로 세거나 카메라로 카운팅하는 수준을 넘어서, 오프라인도 온라인 어날리틱스 수준의 고도화 된 측정도구가 필요합니다. </h4>
@@ -88,9 +86,9 @@
     </div>
 
     <div class="faq_category">
-      <p> Spotshare (5) <i class="fas fa-angle-down"></i></p>
-      <hr>
-      <div class="faq_category_body">
+      <p class="category_title"> Spotshare (5) <i class="fas fa-angle-down"></i></p>
+      <hr class="closed">
+      <div class="faq_category_body closed">
         <div class="faq_questions">
           <p> 어떤 내용이 궁금하신가요?어떤 내용이 궁금하신가요? </p>
           <h4> 답변은 다음과 같습니다. 단순히 입구에 들어오는 방문객을 육안으로 세거나 카메라로 카운팅하는 수준을 넘어서, 오프라인도 온라인 어날리틱스 수준의 고도화 된 측정도구가 필요합니다. </h4>
@@ -129,4 +127,20 @@
     </div>
   </div>
 
+
+<script>
+$(document).ready(function(){
+  $('.category_title').click(function() {
+    var self = $(this);
+    if ( self.siblings('hr').hasClass('closed') ) {
+      self.siblings('hr').removeClass('closed');
+      self.siblings('.faq_category_body').removeClass('closed');
+    } else {
+      self.siblings('hr').addClass('closed');
+      self.siblings('.faq_category_body').addClass('closed');
+    }
+
+  });
+});
+</script>
 {% endblock %}
