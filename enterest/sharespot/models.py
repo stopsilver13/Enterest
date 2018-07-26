@@ -312,7 +312,11 @@ class Series(LikeMixinModel):
 
     def get_series_star(self):
         avg_dict = EventReview.objects.filter(event__series=self).aggregate(models.Avg('total_star'))  # 성능 의심되긴 함
-        return avg_dict['total_star__avg']
+
+        if avg_dict['total_star__avg'] == None:
+            return 0.0
+        else:
+            return avg_dict['total_star__avg']
 
     def get_star_num(self):
         star_num_list = []
