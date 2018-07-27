@@ -1,209 +1,474 @@
-.myticket_filter {
-  width: 1100px;
-  height: 64px;
-  margin: 0 auto 0;
-}
-div.myticket_filter_genre,
-div.myticket_filter_when,
-div.myticket_filter_where {
-  position: relative;
-  display: inline-block;
-  margin-left: 16px;
-}
-.myticket_filter_genre select,
-.myticket_filter_when select,
-.myticket_filter_where select {
-  height: 100%;
-  border: none;
-  background-color: #fff;
-  font-size: 16px;
-  padding-left: 16px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
-.myticket_filter_genre select {
-  width: 100px;
-}.myticket_filter_when select {
-  width: 120px;
-}.myticket_filter_where select {
-  width: 70px;
-}
-.myticket_filter_genre:after,
-.myticket_filter_when:after,
-.myticket_filter_where:after {
-  content: '\f078';
-  font: normal normal normal 17px/1 FontAwesome;
-  color: #000;
-  top: 6px;
-  right: 0px;
-  padding: 15px 0px 0px 8px;
-  position: absolute;
-  pointer-events: none;
-}
-select::-ms-expand {
-  display: none;
+@media (max-width:768px) {
+  .myticket_filter {
+    width: 100%;
+    height: 40px;
+    margin: 0 auto 0;
+  }
+  div.myticket_filter_genre,
+  div.myticket_filter_when,
+  div.myticket_filter_where {
+    position: relative;
+    display: inline-block;
+  }
+  .myticket_filter_genre select,
+  .myticket_filter_when select,
+  .myticket_filter_where select {
+    height: 100%;
+    border: none;
+    background-color: #fff;
+    font-family: "나눔바른고딕B";
+    font-size: 12px;
+    line-height: 40px;
+    padding-left: 16px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+  .myticket_filter_genre select {
+    width: 120px;
+  }.myticket_filter_when select {
+    width: 130px;
+  }.myticket_filter_where select {
+    width: 80px;
+  }
+  .myticket_filter_genre:after,
+  .myticket_filter_when:after,
+  .myticket_filter_where:after {
+    content: '\f078';
+    font: normal normal normal 17px/1 FontAwesome;
+    color: #000;
+    line-height: 40px;
+    top: 0px;
+    right: 20%;
+    padding: 0px 0px 0px 8px;
+    position: absolute;
+    pointer-events: none;
+  }
+  select::-ms-expand {
+    display: none;
+  }
+
+  .mytickets_zone {
+    width: 100%;
+    background-color: #f4f5f7;
+  }
+  .mytickets_zone_wrapper {
+    width: 100%;
+    margin: 0 auto 0;
+    padding: 24px 15px 0;
+  }
+  .tickets_count {
+    font-family: "나눔바른고딕";
+    font-size: 16px;
+    color: #383b41;
+    margin: 0 0 24px;
+  }
+  .mytickets {
+    width: 345px;
+    margin: 0 auto 16px;
+  }
+  .mytickets_content_wrapper h3 {
+    font-family: "나눔바른고딕";
+    font-size: 12px;
+    font-weight: 300;
+    color: rgba(56, 59, 65, 0.54);
+    margin: 0;
+  }
+  .mytickets_content_wrapper h4 {
+    font-family: "나눔바른고딕";
+    font-size: 14px;
+    font-weight: normal;
+    color: #4a90e2;
+    margin: 0;
+  }
+  .mytickets_header {
+    width: 345px;
+    height: 25px;
+    background-color: #9055a2;
+    padding: 0 0 0 16px;
+  }
+  .mytickets_header > p {
+    font-family: "나눔바른고딕";
+    font-size: 16px;
+    color: #ffffff;
+    line-height: 25px;
+    opacity: 0.7;
+    margin: 0;
+  }
+  .mytickets_img img {
+    width: 100%;
+    height: 270px;
+  }
+  .mytickets_content_wrapper {
+    width: 100%;
+    background-color: #ffffff;
+  }
+  .mytickets_event {
+    border-bottom: solid 1px #f4f5f7;
+    padding: 16px;
+  }
+  .mytickets_event > p {
+    font-family: "나눔바른고딕B";
+    font-size: 24px;
+    margin: 0 0 16px 0;
+  }
+  .event_date_time,
+  .event_venue {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .event_venue {
+    margin-left: 24px;
+  }
+  .event_date_time > p,
+  .event_venue > p {
+    font-family: "나눔바른고딕";
+    font-size: 14px;
+    margin: 8px 0 0 0;
+  }
+  .mytickets_event_evaluation {
+    border-bottom: solid 1px #f4f5f7;
+    padding: 16px;
+  }
+  .event_rating > div {
+    width: 128px;
+    height: 24px;
+    background-color: grey;
+    margin-top: 8px;
+  }
+  .event_emotions,
+  .event_review {
+    margin-top: 16px;
+  }
+  .event_emotions div {
+    height: 24px;
+    background-color: #d499b9;
+    border-radius: 4px;
+    font-family: "나눔바른고딕";
+    font-size: 12px;
+    line-height: 24px;
+    color: #ffffff;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0 16px 0 16px;
+    margin: 8px 8px 0 0;
+  }
+  .event_review > p {
+    font-family: "나눔바른고딕";
+    font-size: 14px;
+    line-height: 1.43;
+    margin: 8px 0 8px;
+  }
+  .mytickets_seat_info {
+    border-bottom: solid 1px #f4f5f7;
+    padding: 16px;
+  }
+  .seat_number > p {
+    font-family: "나눔바른고딕";
+    font-size: 14px;
+    margin: 8px 0 0 0;
+  }
+  .seat_evaluation {
+    margin-top: 16px;
+  }
+  .seat_rating {
+    margin-top: 8px;
+  }
+  .seat_view_rating,
+  .seat_view_rating > p,
+  .seat_view_rating > div,
+  .seat_excitement_rating,
+  .seat_excitement_rating > p,
+  .seat_excitement_rating > div {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .seat_excitement_rating {
+    margin-left: 16px;
+  }
+  .seat_view_rating > p,
+  .seat_excitement_rating > p {
+    font-family: "나눔바른고딕";
+    font-size: 14px;
+    margin: 0;
+  }
+  .seat_view_rating > div,
+  .seat_excitement_rating > div {
+    width: 88px;
+    height: 16px;
+    background-color: grey;
+    margin-left: 8px;
+  }
+  .seat_review {
+    font-family: "나눔바른고딕";
+    font-size: 14px;
+    line-height: 1.43;
+    margin: 16px 0 8px 0;
+  }
+  .fold_ticket {
+    height: 48px;
+    text-align: center;
+  }
+  .fold_ticket > i {
+    font-size: 24px;
+    line-height: 48px;
+    color: #c1c7d0;
+  }
+
+  .modal-dialog {
+    width: 100%;
+    margin: 0;
+  }
+  .modal-content {
+    min-height: 100%;
+  }
+  .modal-header {
+    height: 48px;
+    background-color: #9055a2;
+    text-align: center;
+    padding: 12px 16px;
+  }
+  .modal-header > a,
+  .modal-header > p {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .modal-header > p {
+    font-family: "나눔바른고딕";
+    font-size: 16px;
+    color: rgb(255, 255, 255, 0.7);
+    margin: 0;
+  }
+  .modal_close {
+    width: 16px;
+    height: 16px;
+  }
+  .modal-body {
+    padding: 0;
+  }
 }
 
-.mytickets_zone {
-  width: 100%;
-  height: 2550px;
-  background-color: #f4f5f7;
-}
-.mytickets_zone_wrapper {
-  width: 1100px;
-  margin: 0 auto 0;
-  padding-top: 48px;
-}
-.tickets_count {
-  font-size: 24px;
-  font-weight: bold;
-  margin: 0 0 24px 16px;
-}
-.mytickets {
-  width: 345px;
-  margin: 0 0 40px 16px;
-  display: inline-block;
-  vertical-align: middle;
-}
-.mytickets h3 {
-  font-size: 12px;
-  font-weight: 300;
-  color: rgba(56, 59, 65, 0.54);
-  margin: 0;
-}
-.mytickets h4 {
-  font-size: 14px;
-  font-weight: normal;
-  color: #4a90e2;
-  margin: 0;
-}
-.mytickets_header {
-  width: 329px;
-  height: 25px;
-  background-color: #9055a2;
-  background-image: url('genre.png');
-  padding: 7px 0 0 16px;
-}
-.mytickets_header > p {
-  font-size: 16px;
-  color: #ffffff;
-  opacity: 0.7;
-  margin: 0;
-}
-.mytickets_img img {
-  width: 345px;
-  height: 248px;
-}
-.mytickets_content_wrapper {
-  width: 345px;
-  background-color: #ffffff;
-}
-.mytickets_event {
-  border-bottom: solid 1px #f4f5f7;
-  padding: 16px;
-}
-.mytickets_event > p {
-  font-size: 24px;
-  font-weight: bold;
-  margin: 0 0 16px 0;
-}
-.event_date_time,
-.event_venue {
-  display: inline-block;
-  vertical-align: middle;
-}
-.event_venue {
-  margin-left: 24px;
-}
-.event_date_time > p,
-.event_venue > p {
-  font-size: 14px;
-  margin: 8px 0 0 0;
-}
-.mytickets_event_evaluation {
-  border-bottom: solid 1px #f4f5f7;
-  padding: 14px 16px 16px 16px;
-}
-.event_rating > div {
-  width: 128px;
-  height: 24px;
-  background-color: grey;
-  margin-top: 8px;
-}
-.event_emotions,
-.event_review {
-  margin-top: 16px;
-}
-.event_emotions div {
-  height: 24px;
-  background-color: #d499b9;
-  border-radius: 4px;
-  font-size: 12px;
-  line-height: 2.25;
-  color: #ffffff;
-  display: inline-block;
-  vertical-align: middle;
-  padding: 0 16px 0 16px;
-  margin: 8px 8px 0 0;
-}
-.event_review > p {
-  font-size: 14px;
-  line-height: 1.43;
-  margin: 8px 0 8px;
-}
-.mytickets_seat_info {
-  border-bottom: solid 1px #f4f5f7;
-  padding: 16px;
-}
-.seat_number > p {
-  font-size: 14px;
-  margin: 8px 0 0 0;
-}
-.seat_evaluation {
-  margin-top: 16px;
-}
-.seat_rating {
-  margin-top: 8px;
-}
-.seat_view_rating,
-.seat_view_rating > p,
-.seat_view_rating > div,
-.seat_excitement_rating,
-.seat_excitement_rating > p,
-.seat_excitement_rating > div {
-  display: inline-block;
-  vertical-align: middle;
-}
-.seat_excitement_rating {
-  margin-left: 16px;
-}
-.seat_view_rating > p,
-.seat_excitement_rating > p {
-  font-size: 14px;
-  margin: 0;
-}
-.seat_view_rating > div,
-.seat_excitement_rating > div {
-  width: 88px;
-  height: 16px;
-  background-color: grey;
-  margin-left: 8px;
-}
-.seat_review {
-  font-size: 14px;
-  line-height: 1.43;
-  margin: 16px 0 8px 0;
-}
-.fold_ticket {
-  height: 36px;
-  text-align: center;
-  padding-top: 12px;
-}
-.fold_ticket > i {
-  font-size: 24px;
-  color: #c1c7d0;
-}
 
+
+@media (min-width:768px) {
+  .myticket_filter {
+    width: 1100px;
+    height: 64px;
+    margin: 0 auto 0;
+  }
+  div.myticket_filter_genre,
+  div.myticket_filter_when,
+  div.myticket_filter_where {
+    position: relative;
+    display: inline-block;
+  }
+  .myticket_filter_genre select,
+  .myticket_filter_when select,
+  .myticket_filter_where select {
+    height: 100%;
+    border: none;
+    background-color: #fff;
+    font-family: "나눔바른고딕B";
+    font-size: 16px;
+    line-height: 64px;
+    padding-left: 16px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+  .myticket_filter_genre select {
+    width: 140px;
+  }.myticket_filter_when select {
+    width: 150px;
+  }.myticket_filter_where select {
+    width: 100px;
+  }
+  .myticket_filter_genre:after,
+  .myticket_filter_when:after,
+  .myticket_filter_where:after {
+    content: '\f078';
+    font: normal normal normal 17px/1 FontAwesome;
+    color: #000;
+    line-height: 64px;
+    top: 0px;
+    right: 24px;
+    padding: 0px 0px 0px 8px;
+    position: absolute;
+    pointer-events: none;
+  }
+  select::-ms-expand {
+    display: none;
+  }
+
+  .mytickets_zone {
+    width: 100%;
+    background-color: #f4f5f7;
+  }
+  .mytickets_zone_wrapper {
+    width: 1100px;
+    margin: 0 auto 0;
+    padding: 40px 16px 0 16px;
+  }
+  .tickets_count {
+    font-family: "나눔바른고딕";
+    font-size: 16px;
+    color: #383b41;
+    margin-bottom: 24px;
+  }
+  .mytickets {
+    width: 345px;
+    margin: 0 8px 40px 0;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .mytickets h3 {
+    font-family: "나눔바른고딕";
+    font-size: 12px;
+    font-weight: 300;
+    color: rgba(56, 59, 65, 0.54);
+    margin: 0;
+  }
+  .mytickets h4 {
+    font-family: "나눔바른고딕";
+    font-size: 14px;
+    font-weight: normal;
+    color: #4a90e2;
+    margin: 8px 0 0;
+  }
+  .mytickets_header {
+    width: 345px;
+    height: 25px;
+    background-color: #9055a2;
+
+    padding: 0 0 0 16px;
+  }
+  .mytickets_header > p {
+    font-family: "나눔바른고딕";
+    font-size: 16px;
+    color: #ffffff;
+    line-height: 25px;
+    opacity: 0.7;
+    margin: 0;
+  }
+  .mytickets_img img {
+    width: 345px;
+    height: 248px;
+  }
+  .mytickets_content_wrapper {
+    width: 345px;
+    background-color: #ffffff;
+  }
+  .mytickets_event {
+    border-bottom: solid 1px #f4f5f7;
+    padding: 16px;
+  }
+  .mytickets_event > p {
+    font-family: "나눔바른고딕B";
+    font-size: 24px;
+    margin: 0 0 16px 0;
+  }
+  .event_date_time,
+  .event_venue {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .event_venue {
+    margin-left: 24px;
+  }
+  .event_date_time > p,
+  .event_venue > p {
+    font-family: "나눔바른고딕";
+    font-size: 14px;
+    margin: 8px 0 0 0;
+  }
+  .mytickets_event_evaluation {
+    border-bottom: solid 1px #f4f5f7;
+    padding: 16px;
+  }
+  .event_rating > div {
+    width: 128px;
+    height: 24px;
+    background-color: grey;
+    margin-top: 8px;
+  }
+  .event_emotions,
+  .event_review {
+    margin-top: 16px;
+  }
+  .event_emotions div {
+    height: 24px;
+    background-color: #d499b9;
+    border-radius: 4px;
+    font-family: "나눔바른고딕";
+    font-size: 12px;
+    line-height: 24px;
+    color: #ffffff;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0 16px 0 16px;
+    margin: 8px 8px 0 0;
+  }
+  .event_review > p {
+    font-family: "나눔바른고딕";
+    font-size: 14px;
+    line-height: 1.43;
+    margin: 8px 0 0;
+  }
+  .mytickets_seat_info {
+    border-bottom: solid 1px #f4f5f7;
+    padding: 16px;
+  }
+  .seat_number > p {
+    font-family: "나눔바른고딕";
+    font-size: 14px;
+    margin: 8px 0 0 0;
+  }
+  .seat_evaluation {
+    margin-top: 16px;
+  }
+  .seat_rating {
+    margin-top: 8px;
+  }
+  .seat_view_rating,
+  .seat_view_rating > p,
+  .seat_view_rating > div,
+  .seat_excitement_rating,
+  .seat_excitement_rating > p,
+  .seat_excitement_rating > div {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .seat_excitement_rating {
+    margin-left: 16px;
+  }
+  .seat_view_rating > p,
+  .seat_excitement_rating > p {
+    font-family: "나눔바른고딕";
+    font-size: 14px;
+    margin: 0;
+  }
+  .seat_view_rating > div,
+  .seat_excitement_rating > div {
+    width: 88px;
+    height: 16px;
+    background-color: grey;
+    margin-left: 8px;
+  }
+  .seat_review {
+    font-family: "나눔바른고딕";
+    font-size: 14px;
+    line-height: 1.43;
+    margin: 16px 0 0 0;
+  }
+  .fold_ticket {
+    height: 48px;
+    text-align: center;
+  }
+  .fold_ticket > i {
+    font-size: 24px;
+    line-height: 48px;
+    color: #c1c7d0;
+  }
+}
 
 

@@ -69,12 +69,12 @@
   <div class="mytickets_zone">
     <div class="mytickets_zone_wrapper">
       <p class="tickets_count"> 총 32장 </p>
-      <div class="mytickets">
-        <div class="mytickets_header">
+      <div class="mytickets" id="call_modal">
+        <div class="mytickets_header" style="background-image: url('{% static 'img/genre.png' %}');">
           <p> Musical </p>
         </div>
-        <div class="mytickets_img">
-          <img src="example.jpg">
+        <div class="mytickets_img hide_in_phone">
+          <img src="{% static 'img/example.jpg' %}">
         </div>
         <div class="mytickets_content_wrapper">
           <div class="mytickets_event">
@@ -88,7 +88,7 @@
               <p> 예술의 전당 콘서트홀 </p>
             </div>
           </div>
-          <div class="mytickets_event_evaluation">
+          <div class="mytickets_event_evaluation hide_in_phone">
             <div class="event_rating">
               <h3> 종합평가 </h3>
               <div></div>
@@ -107,7 +107,7 @@
               <h4> 더보기 </h4>
             </div>
           </div>
-          <div class="mytickets_seat_info">
+          <div class="mytickets_seat_info hide_in_phone">
             <div class="seat_number">
               <h3> 좌석 </h3>
               <p> 레드지정석 105블럭 3-15번 </p>
@@ -128,17 +128,17 @@
               <h4> 더보기 </h4>
             </div>
           </div>
-          <div class="fold_ticket">
+          <div class="fold_ticket hide_in_phone">
             <i class="fas fa-angle-up"></i>
           </div>
         </div>
       </div>
 
       <div class="mytickets">
-        <div class="mytickets_header">
+        <div class="mytickets_header" style="background-image: url('{% static 'img/genre.png' %}');">
           <p> Musical </p>
         </div>
-        <div class="mytickets_img">
+        <div class="mytickets_img hide_in_phone">
           <img src="example.jpg">
         </div>
         <div class="mytickets_content_wrapper">
@@ -153,7 +153,7 @@
               <p> 예술의 전당 콘서트홀 </p>
             </div>
           </div>
-          <div class="mytickets_event_evaluation">
+          <div class="mytickets_event_evaluation hide_in_phone">
             <div class="event_rating">
               <h3> 종합평가 </h3>
               <div></div>
@@ -172,7 +172,7 @@
               <h4> 더보기 </h4>
             </div>
           </div>
-          <div class="mytickets_seat_info">
+          <div class="mytickets_seat_info hide_in_phone">
             <div class="seat_number">
               <h3> 좌석 </h3>
               <p> 레드지정석 105블럭 3-15번 </p>
@@ -193,17 +193,17 @@
               <h4> 더보기 </h4>
             </div>
           </div>
-          <div class="fold_ticket">
+          <div class="fold_ticket hide_in_phone">
             <i class="fas fa-angle-up"></i>
           </div>
         </div>
       </div>
 
       <div class="mytickets">
-        <div class="mytickets_header">
+        <div class="mytickets_header" style="background-image: url('{% static 'img/genre.png' %}');">
           <p> Musical </p>
         </div>
-        <div class="mytickets_img">
+        <div class="mytickets_img hide_in_phone">
           <img src="example.jpg">
         </div>
         <div class="mytickets_content_wrapper">
@@ -218,7 +218,7 @@
               <p> 예술의 전당 콘서트홀 </p>
             </div>
           </div>
-          <div class="mytickets_event_evaluation">
+          <div class="mytickets_event_evaluation hide_in_phone">
             <div class="event_rating">
               <h3> 종합평가 </h3>
               <div></div>
@@ -237,7 +237,7 @@
               <h4> 더보기 </h4>
             </div>
           </div>
-          <div class="mytickets_seat_info">
+          <div class="mytickets_seat_info hide_in_phone">
             <div class="seat_number">
               <h3> 좌석 </h3>
               <p> 레드지정석 105블럭 3-15번 </p>
@@ -258,16 +258,17 @@
               <h4> 더보기 </h4>
             </div>
           </div>
-          <div class="fold_ticket">
+          <div class="fold_ticket hide_in_phone">
             <i class="fas fa-angle-up"></i>
           </div>
         </div>
       </div>
+
       <div class="mytickets">
-        <div class="mytickets_header">
+        <div class="mytickets_header" style="background-image: url('{% static 'img/genre.png' %}');">
           <p> Musical </p>
         </div>
-        <div class="mytickets_img">
+        <div class="mytickets_img hide_in_phone">
           <img src="example.jpg">
         </div>
         <div class="mytickets_content_wrapper">
@@ -282,7 +283,7 @@
               <p> 예술의 전당 콘서트홀 </p>
             </div>
           </div>
-          <div class="mytickets_event_evaluation">
+          <div class="mytickets_event_evaluation hide_in_phone">
             <div class="event_rating">
               <h3> 종합평가 </h3>
               <div></div>
@@ -301,7 +302,7 @@
               <h4> 더보기 </h4>
             </div>
           </div>
-          <div class="mytickets_seat_info">
+          <div class="mytickets_seat_info hide_in_phone">
             <div class="seat_number">
               <h3> 좌석 </h3>
               <p> 레드지정석 105블럭 3-15번 </p>
@@ -322,140 +323,94 @@
               <h4> 더보기 </h4>
             </div>
           </div>
-          <div class="fold_ticket">
+          <div class="fold_ticket hide_in_phone">
             <i class="fas fa-angle-up"></i>
           </div>
         </div>
       </div>
-      <div class="mytickets">
-        <div class="mytickets_header">
+
+    </div>
+  </div>
+
+  <div class="modal fade" id="ticket_modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <a data-dismiss="modal"><img class="modal_close hide_in_web" src="{% static 'img/delete.png' %}"></a>
           <p> Musical </p>
+          <a data-dismiss="modal"><img class="modal_close hide_in_web" src="{% static 'img/delete.png' %}"></a>
         </div>
-        <div class="mytickets_img">
-          <img src="example.jpg">
-        </div>
-        <div class="mytickets_content_wrapper">
-          <div class="mytickets_event">
-            <p> 노트르담 드 파리 </p>
-            <div class="event_date_time">
-              <h3> DATE&TIME </h3>
-              <p> 2018.6.19  3:00 PM </p>
-            </div>
-            <div class="event_venue">
-              <h3> VENUE </h3>
-              <p> 예술의 전당 콘서트홀 </p>
-            </div>
+        <div class="modal-body">
+          <div class="mytickets_img">
+            <img src="{% static 'img/example.jpg' %}">
           </div>
-          <div class="mytickets_event_evaluation">
-            <div class="event_rating">
-              <h3> 종합평가 </h3>
-              <div></div>
-            </div>
-            <div class="event_emotions">
-              <h3> 감정태그 </h3>
-              <div> 짜릿한 </div>
-              <div> 뭔가 아쉬운 </div>
-              <div> 소름끼치는 </div>
-              <div> 가슴이 먹먹한 </div>
-              <div> 온몸에 전율이 흐르는 </div>
-            </div>
-            <div class="event_review">
-              <h3> 이벤트 리뷰 </h3>
-              <p> 섹시하고 섹시하다! 공연리뷰를 적는 곳 길게 적을 수도 있으니까 우선은 조금 길게 써보겠음~~섹시하고 섹시해 최대 세줄까지 보여주고 더보여주기 </p>
-              <h4> 더보기 </h4>
-            </div>
-          </div>
-          <div class="mytickets_seat_info">
-            <div class="seat_number">
-              <h3> 좌석 </h3>
-              <p> 레드지정석 105블럭 3-15번 </p>
-            </div>
-            <div class="seat_evaluation">
-              <h3> 평가 </h3>
-              <div class="seat_rating">
-                <div class="seat_view_rating">
-                  <p> 시야 </p>
-                  <div></div>
-                </div>
-                <div class="seat_excitement_rating">
-                  <p> 열기 </p>
-                  <div></div>
-                </div>
+          <div class="mytickets_content_wrapper">
+            <div class="mytickets_event">
+              <p> 노트르담 드 파리 </p>
+              <div class="event_date_time">
+                <h3> DATE&TIME </h3>
+                <p> 2018.6.19  3:00 PM </p>
               </div>
-              <p class="seat_review"> 좌석 리뷰를 적는 곳 길게 적을 수도 있으니까 우선은 조금 길게 써보겠음~~의자가 푹신합니당 최대 세줄까지 보여주고 더보여주기 </p>
-              <h4> 더보기 </h4>
-            </div>
-          </div>
-          <div class="fold_ticket">
-            <i class="fas fa-angle-up"></i>
-          </div>
-        </div>
-      </div>
-      <div class="mytickets">
-        <div class="mytickets_header">
-          <p> Musical </p>
-        </div>
-        <div class="mytickets_img">
-          <img src="example.jpg">
-        </div>
-        <div class="mytickets_content_wrapper">
-          <div class="mytickets_event">
-            <p> 노트르담 드 파리 </p>
-            <div class="event_date_time">
-              <h3> DATE&TIME </h3>
-              <p> 2018.6.19  3:00 PM </p>
-            </div>
-            <div class="event_venue">
-              <h3> VENUE </h3>
-              <p> 예술의 전당 콘서트홀 </p>
-            </div>
-          </div>
-          <div class="mytickets_event_evaluation">
-            <div class="event_rating">
-              <h3> 종합평가 </h3>
-              <div></div>
-            </div>
-            <div class="event_emotions">
-              <h3> 감정태그 </h3>
-              <div> 짜릿한 </div>
-              <div> 뭔가 아쉬운 </div>
-              <div> 소름끼치는 </div>
-              <div> 가슴이 먹먹한 </div>
-              <div> 온몸에 전율이 흐르는 </div>
-            </div>
-            <div class="event_review">
-              <h3> 이벤트 리뷰 </h3>
-              <p> 섹시하고 섹시하다! 공연리뷰를 적는 곳 길게 적을 수도 있으니까 우선은 조금 길게 써보겠음~~섹시하고 섹시해 최대 세줄까지 보여주고 더보여주기 </p>
-              <h4> 더보기 </h4>
-            </div>
-          </div>
-          <div class="mytickets_seat_info">
-            <div class="seat_number">
-              <h3> 좌석 </h3>
-              <p> 레드지정석 105블럭 3-15번 </p>
-            </div>
-            <div class="seat_evaluation">
-              <h3> 평가 </h3>
-              <div class="seat_rating">
-                <div class="seat_view_rating">
-                  <p> 시야 </p>
-                  <div></div>
-                </div>
-                <div class="seat_excitement_rating">
-                  <p> 열기 </p>
-                  <div></div>
-                </div>
+              <div class="event_venue">
+                <h3> VENUE </h3>
+                <p> 예술의 전당 콘서트홀 </p>
               </div>
-              <p class="seat_review"> 좌석 리뷰를 적는 곳 길게 적을 수도 있으니까 우선은 조금 길게 써보겠음~~의자가 푹신합니당 최대 세줄까지 보여주고 더보여주기 </p>
-              <h4> 더보기 </h4>
             </div>
-          </div>
-          <div class="fold_ticket">
-            <i class="fas fa-angle-up"></i>
+            <div class="mytickets_event_evaluation">
+              <div class="event_rating">
+                <h3> 종합평가 </h3>
+                <div></div>
+              </div>
+              <div class="event_emotions">
+                <h3> 감정태그 </h3>
+                <div> 짜릿한 </div>
+                <div> 뭔가 아쉬운 </div>
+                <div> 소름끼치는 </div>
+                <div> 가슴이 먹먹한 </div>
+                <div> 온몸에 전율이 흐르는 </div>
+              </div>
+              <div class="event_review">
+                <h3> 이벤트 리뷰 </h3>
+                <p> 섹시하고 섹시하다! 공연리뷰를 적는 곳 길게 적을 수도 있으니까 우선은 조금 길게 써보겠음~~섹시하고 섹시해 최대 세줄까지 보여주고 더보여주기 </p>
+                <h4> 더보기 </h4>
+              </div>
+            </div>
+            <div class="mytickets_seat_info">
+              <div class="seat_number">
+                <h3> 좌석 </h3>
+                <p> 레드지정석 105블럭 3-15번 </p>
+              </div>
+              <div class="seat_evaluation">
+                <h3> 평가 </h3>
+                <div class="seat_rating">
+                  <div class="seat_view_rating">
+                    <p> 시야 </p>
+                    <div></div>
+                  </div>
+                  <div class="seat_excitement_rating">
+                    <p> 열기 </p>
+                    <div></div>
+                  </div>
+                </div>
+                <p class="seat_review"> 좌석 리뷰를 적는 곳 길게 적을 수도 있으니까 우선은 조금 길게 써보겠음~~의자가 푹신합니당 최대 세줄까지 보여주고 더보여주기 </p>
+                <h4> 더보기 </h4>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
+
+<script>
+  $(document).ready(function(){
+    var winwidth = document.body.clientWidth;
+    if ( winwidth <= 768) {
+      $('#call_modal').click(function(){
+        $('#ticket_modal').modal();
+      });
+    };
+  });
+</script>
 {% endblock %}
