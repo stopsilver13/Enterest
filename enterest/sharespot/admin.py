@@ -141,7 +141,7 @@ class EventReviewAdmin(admin.ModelAdmin):
     list_filter = ['total_star', 'is_confirmed']
 
     def is_write_content(self, content):
-        if self.content:
+        if content:
             return '리뷰작성'
         else:
             return '리뷰미작성'
@@ -157,7 +157,7 @@ class SeatReviewAdmin(admin.ModelAdmin):
     list_filter = ['view_star', 'real_star', 'is_confirmed']
 
     def is_write_content(self, content):
-        if self.content:
+        if content:
             return '리뷰작성'
         else:
             return '리뷰미작성'

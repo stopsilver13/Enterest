@@ -10,20 +10,20 @@
 
 {% endblock %}
 
-{% block_content %}
+{% block content %}
 <div class="content">
-  <div class="event_title_zone">
+  <div class="event_title_zone" style="background-image: url({{ series. }})">
     <div class="event_title_zone_wrapper">
-      <p>[프로야구]기아 vs 두산<i class="far fa-heart"></i></p>
+      <p>[{{ series.division.name }}] {{ series.name }}<i class="far fa-heart"></i></p>
     </div>
   </div>
 
   <div class="event_nav">
     <div class="event_nav_wrapper">
-      <div class="event_nav_component" style="border-bottom: solid 1px black;">기본정보</div>
-      <div class="event_nav_component">평점/리뷰</div>
-      <div class="event_nav_component">딥톡</div>
-      <div class="event_nav_component">좌석정보</div>
+      <a href="{% url "sharespot:series_basic" series.en_name %}"><div class="event_nav_component" style="border-bottom: solid 1px black;">기본정보</div></a>
+      <a href="{% url "sharespot:series_review" series.en_name %}"><div class="event_nav_component">평점/리뷰</div></a>
+      <a href="{% url "sharespot:series_talk_list" series.en_name %}"><div class="event_nav_component">딥톡</div></a>
+      <a href="{% url "sharespot:place_space" series.space.en_name %}"><div class="event_nav_component">좌석정보</div></a>
       <div class="event_nav_component">예매</div>
     </div>
   </div>

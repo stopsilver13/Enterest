@@ -1,6 +1,7 @@
 {% extends "sharespot/place_base.html" %}
 
 {% load staticfiles %}
+{% load humanize %}
 
 {% block title %}
     {{ space.name }}
@@ -18,84 +19,86 @@
         <div class="seat_price">
           <div class="seat_price_thead">
             <div class="price_thead_level"> 좌석등급 </div>
-            <div class="price_thead_price"> 주중 </div>
-            <div class="price_thead_price"> 주말 </div>
+            <div class="price_thead_price">{{ close_series.seatlevel_set.first.note }}</div>
           </div>
           <div class="seat_price_tbody">
+            {% for level in close_series.seatlevel_set.all %}
             <div class="seat_price_tr">
-              <div class="price_thead_level">
+              <div class="price_tbody_level">
+                <div class="block_level_color" style="background-color: {{ level.color  }};"></div>
+                {{ level.name }}
+              </div>
+              <div class="price_tbody_price">{{ level.price|intcomma }}</div>
+              <div class="block_oneword_intro">{{ level.explain }}</div>
+            </div>
+            {% endfor %}
+            <div class="seat_price_tr">
+              <div class="price_tbody_level">
                 <div class="block_level_color" style="background-color: red;"></div>
                 레드지정석
               </div>
-              <div class="price_thead_price"> 114,000 </div>
-              <div class="price_thead_price"> 114,000 </div>
+              <div class="price_tbody_price"> 114,000 </div>
+              <div class="price_tbody_price"> 114,000 </div>
               <div class="block_oneword_intro">응원열기가 뜨거운 좌석으로, 예매난이도가 높습니다!</div>
             </div>
             <div class="seat_price_tr">
-              <div class="price_thead_level">
+              <div class="price_tbody_level">
                 <div class="block_level_color" style="background-color: red;"></div>
                 레드지정석
               </div>
-              <div class="price_thead_price"> 114,000 </div>
-              <div class="price_thead_price"> 114,000 </div>
+              <div class="price_tbody_price"> 114,000 </div>
+              <div class="price_tbody_price"> 114,000 </div>
               <div class="block_oneword_intro">응원열기가 뜨거운 좌석으로, 예매난이도가 높습니다!</div>
             </div>
             <div class="seat_price_tr">
-              <div class="price_thead_level">
+              <div class="price_tbody_level">
                 <div class="block_level_color" style="background-color: red;"></div>
                 레드지정석
               </div>
-              <div class="price_thead_price"> 114,000 </div>
-              <div class="price_thead_price"> 114,000 </div>
+              <div class="price_tbody_price"> 114,000 </div>
+              <div class="price_tbody_price"> 114,000 </div>
               <div class="block_oneword_intro">응원열기가 뜨거운 좌석으로, 예매난이도가 높습니다!</div>
             </div>
             <div class="seat_price_tr">
-              <div class="price_thead_level">
+              <div class="price_tbody_level">
                 <div class="block_level_color" style="background-color: red;"></div>
                 레드지정석
               </div>
-              <div class="price_thead_price"> 114,000 </div>
-              <div class="price_thead_price"> 114,000 </div>
+              <div class="price_tbody_price"> 114,000 </div>
+              <div class="price_tbody_price"> 114,000 </div>
               <div class="block_oneword_intro">응원열기가 뜨거운 좌석으로, 예매난이도가 높습니다!</div>
             </div>
             <div class="seat_price_tr">
-              <div class="price_thead_level">
+              <div class="price_tbody_level">
                 <div class="block_level_color" style="background-color: red;"></div>
                 레드지정석
               </div>
-              <div class="price_thead_price"> 114,000 </div>
-              <div class="price_thead_price"> 114,000 </div>
+              <div class="price_tbody_price"> 114,000 </div>
+              <div class="price_tbody_price"> 114,000 </div>
               <div class="block_oneword_intro">응원열기가 뜨거운 좌석으로, 예매난이도가 높습니다!</div>
             </div>
             <div class="seat_price_tr">
-              <div class="price_thead_level">
+              <div class="price_tbody_level">
                 <div class="block_level_color" style="background-color: red;"></div>
                 레드지정석
               </div>
-              <div class="price_thead_price"> 114,000 </div>
-              <div class="price_thead_price"> 114,000 </div>
-              <div class="block_oneword_intro">응원열기가 뜨거운 좌석으로, 예매난이도가 높습니다!</div>
-            </div>
-            <div class="seat_price_tr">
-              <div class="price_thead_level">
-                <div class="block_level_color" style="background-color: red;"></div>
-                레드지정석
-              </div>
-              <div class="price_thead_price"> 114,000 </div>
-              <div class="price_thead_price"> 114,000 </div>
+              <div class="price_tbody_price"> 114,000 </div>
+              <div class="price_tbody_price"> 114,000 </div>
               <div class="block_oneword_intro">응원열기가 뜨거운 좌석으로, 예매난이도가 높습니다!</div>
             </div>
           </div>
         </div>
         <div class="event_at_place">
           <div class="event_at_place_set">
-            <div class="event_at_place_pic">
-              <div>sports</div>
+            <div class="event_at_place_pic" style="background-image: url({{ close_series.image_set.first.img.url }});">
+              <div>{{ close_series.division.name }}</div>
             </div>
-            <p class="event_at_place_title"> 두산 vs LG </p>
-            <p class="event_at_place_info"> 2018년 7월 3일 잠실 주경기장 </p>
-            <div class="event_at_place_rating"></div>
-            <h4 class="event_at_place_reviews"> (100) </h4>
+            <div class="event_at_place_set_wrapper">
+              <p class="event_at_place_title">{{ close_series.name }}</p>
+              <p class="event_at_place_info">{{ close_series.start|date:"Y.m.d."}} ~ {{ close_series.end|date:"Y.m.d."}} {{ close_series.space.name }} </p>
+              <div class="event_at_place_rating"></div>
+              <h4 class="event_at_place_reviews">{{ close_series.get_series_star }} ( {{ close_series.get_series_review_count }} )</h4>
+            </div>
           </div>
         </div>
       </div>
@@ -103,75 +106,101 @@
 
     <div class="place_rating_section">
       <div class="howmany_views_reviews">
-        <p class="place_name"> 고척스카이돔 </p>
-        <p class="count_views_reviews"> 좌석뷰 845장 ・ 리뷰 132개 </p>
+        <p class="place_name">{{ space.name }}</p>
+        <p class="count_views_reviews"> 좌석뷰 {{ space.get_space_view_count|intcomma }} 장 ・ 리뷰 {{ space.get_space_review.count|intcomma }} 개 </p>
       </div>
       <div class="place_total_rating">
         <div class="place_total_rating_header">
-          <p> 전체 평점 <span> (154) </span> </p>
+          <p> 전체 평점 <span>( {{ space.get_space_review.count|intcomma }} )</span> </p>
           <div class="go_rate"> 평가 등록 </div>
         </div>
         <div class="event_review_rating">
           <h4 class="which_rating"> 시야 </h4>
           <div class="total_rating_zone">
-            <p> 4.5 </p>
+            <p>{{ space.get_space_view_star|intcomma }}</p>
             <div></div>
           </div>
-          <div class="star_graph"></div>
+          <div class="star_graph">
+            {% for num in space.get_view_star_num %}
+              {{ num }}
+            {% endfor %}
+          </div>
         </div>
         <div class="event_review_rating">
           <h4 class="which_rating"> 현장열기 </h4>
           <div class="total_rating_zone">
-            <p> 4.5 </p>
+            <p>{{ space.get_space_real_star|intcomma }}</p>
             <div></div>
           </div>
-          <div class="star_graph"></div>
+          <div class="star_graph">
+            {% for num in space.get_real_star_num %}
+              {{ num }}
+            {% endfor %}
+          </div>
         </div>
       </div>
     </div>
 
     <div class="place_review_section">
       <div class="place_review_section_header">
-        <p> 전체 리뷰 <span> (154) </span> </p>
+        <p> 전체 리뷰 <span>( {{ space.get_space_review.count|intcomma }} )</span> </p>
         <div class="go_rate"> 리뷰 등록 </div>
       </div>
+
+
       <div class="place_review_section_body">
+        {% for review in space.get_space_review %}
         <div class="place_reviews">
           <div class="reviews_header">
             <div class="reviews_user_info">
-              <div class="reviews_user_pic"></div>
+              {% if review.anony_name %}
+              <div class="reviews_user_pic" style="background-image: url({% static "img/anony.png" %}) "></div>
+              {% else %}
+              <div class="reviews_user_pic" style="background-image: url({{ review.ticket.user.profile.img.url }}) "></div>
+              {% endif %}
               <div class="reviews_user_profile">
-                <p> 유저닉네임 </p>
-                <h4> 2018년 6월 19일 </h4>
+                {% if review.anony_name %}
+                  <p>{{ review.anony_name }}</p>
+                {% else %}
+                  <p>{{ review.ticket.user.profile.nick_name }}</p>
+                {% endif %}
+                <h4>{{ review.created_at|date:"Y년 m월 d일" }}</h4>
               </div>
             </div>
             <div class="reviews_user_badge">
-              <div> 우수 </div>
-              <div> 우수 </div>
+              {% for badge in review.badge_set.all %}
+                <div style="background-color: {{ badge.color }};">{{ badge.name }}</div>
+              {% endfor %}
             </div>
           </div>
           <div class="seat_info_in_review">
-            레드지정석<br>315블럭 31-1번
+            {{ review.seat.level.name }}<br>{{ review.seat.block.name }} 블럭 {{ review.seat.name }} 번
           </div>
           <div class="reviews_rating_zone">
             <div class="which_rating_in_review">
               <p> 시야 </p>
-              <div></div>
+              <div>{{ review.view_star }}</div>
             </div>
             <div class="which_rating_in_review">
               <p> 현장열기 </p>
-              <div></div>
+              <div>{{ review.real_star }}</div>
             </div>
           </div>
+
           <div class="reviews_body">
-            <p> 섹시하고 섹시하다! 재즈와 함께 흥이 절로 났던 공연이었습니다. 살인이라는 무거운 이야기이지만 결코 극은 무겁지 않고 벨마와 록시 외 배우들의 연기 그리고 오케스트라가 무대 위에 있다는 특이점, 많은 볼거리, 빠른 전개, 관객과 </p>
+            <img src="{{ review.seatimg_set.first.img.url }}" alt="">
+            {% if review.content %}
+            <p>{{ review.content }}</p>
             <h4> 더보기 </h4>
+            {% endif %}
           </div>
           <div class="reviews_footer">
             <i class="far fa-heart"></i>
-            <p>  7 </p>
+            <p>{{ review.count_thanked }}</p>
           </div>
         </div>
+        {% endfor %}
+
 
         <div class="place_reviews">
           <div class="reviews_header">

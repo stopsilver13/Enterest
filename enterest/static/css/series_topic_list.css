@@ -1,0 +1,60 @@
+.event_talk_left {
+  width: 340px;
+  border: solid 1px #ebecf0;
+  display: inline-block;
+  vertical-align: top;
+}
+.topic_searchbar {
+  width: 100%;
+  height: 64px;
+  padding: 12px 0 0 16px;
+  border-bottom: solid 1px #ebecf0;
+  /*background-color: #f4f5f7;*/
+}
+.topic_searchbar > input {
+  width: 308px;
+  height: 40px;
+  padding-left: 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f4f5f7;
+  /*border: solid 2px #383b41;*/
+}
+.add_topic {
+  border-bottom: solid 1px #ebecf0;
+}
+.add_topic > p {
+  color: #4a90e2;
+  margin: 16px 0 16px 24px;
+}
+.topic_zone {
+  height: 868px;
+  overflow-y: auto;
+}
+.topic_zone > a:hover {
+  text-decoration: none;
+  color: #000;
+}
+.topic_zone div:hover {
+  background-color: #fafafa;
+}
+.topic_zone > hr {
+  margin: 0px 16px;
+  border-top: solid 1px #ebecf0;
+}
+
+.topic {
+  width: 100%;
+  padding: 16px;
+  /*border-bottom: solid 1px #ebecf0;*/
+}
+.topic > p {
+  font-size: 16px;
+  margin: 0 0 8px 0;
+}
+.topic > h4 {
+  font-size: 12px;
+  font-weight: normal;
+  color: rgba(56, 59, 65, 0.54);
+  margin: 0;
+}

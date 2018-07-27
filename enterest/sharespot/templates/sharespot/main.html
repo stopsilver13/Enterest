@@ -31,16 +31,22 @@
       <span class="navbar-brand"> 장소 바로가기 </span>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              경기장
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </li>
+          {% for division in divisions %}
+            {% if division.space_set.exists %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ division.name }}
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                {% for space in division.space_set.all %}
+                  <a class="dropdown-item" href="{% url "sharespot:place_space" space.en_name %}">{{ space.name }}</a>
+                {% endfor %}
+              </div>
+            </li>
+            {% endif %}
+          {% endfor %}
+
+
            <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               콘서트장
@@ -77,24 +83,18 @@
         <h4 class="hide_in_phone"> 모두 보기 <i class="fas fa-chevron-right"></i> </h4>
       </div>
 
-
-      <div class="eventlist_section">
-        <p> 스포츠 </p>
-        <h3 class="hide_in_web"> 모두 보기 <i class="fas fa-chevron-right"></i> </h4>
-        <div class="eventlist_section_list">
-          {% include 'sharespot/series_set.html' with request=request %}
+      {% for division in divisions %}
+        {% if division.series_set.exists %}
+        <div class="eventlist_section">
+          <p>{{ division.name }}</p>
+          <h3 class="hide_in_web"> 모두 보기 <i class="fas fa-chevron-right"></i> </h4>
+          <div class="eventlist_section_list">
+            {% include 'sharespot/series_set.html' with request=request series_all=division.series_set.all %}
+          </div>
+          <h4 class="hide_in_phone"> 모두 보기 <i class="fas fa-chevron-right"></i> </h4>
         </div>
-        <h4 class="hide_in_phone"> 모두 보기 <i class="fas fa-chevron-right"></i> </h4>
-      </div>
-
-      <div class="eventlist_section">
-        <p> 뮤지컬 </p>
-        <h3 class="hide_in_web"> 모두 보기 <i class="fas fa-chevron-right"></i> </h4>
-        <div class="eventlist_section_list">
-          {% include 'sharespot/series_set.html' with request=request %}
-        </div>
-        <h4 class="hide_in_phone"> 모두 보기 <i class="fas fa-chevron-right"></i> </h4>
-      </div>
+        {% endif %}
+      {% endfor %}
     </div>
 
     <div class="reward_promotion">
