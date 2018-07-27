@@ -1,0 +1,55 @@
+{% extends "sharespot/series_base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}
+    {{ series.name }} Talk
+{% endblock %}
+
+{% block head_extra_series %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/series_talk_list.css' %}">
+{% endblock %}
+
+{% block content_series %}
+  <div class="event_talk_content">
+
+    {% include 'sharespot/series_topic_list.html' with request=request %}
+
+    <div class="event_talk_right">
+      {% for talk in talks %}
+      <div class="topic_title">
+        <p>{{ talk.topic.content }}</p>
+        <h4>{{ talk.topic.explain }}</h4>
+      </div>
+      <div class="talks_zone">
+        <div class="talks">
+          <div class="talks_profile">
+            <p>
+              {% if talk.anony_name %}
+                <img src="{% static "img/anony.png" %}" alt="">
+                {{ talk.anony_name }} &nbsp;
+              {% else %}
+                <img src="{{ talk.user.profile.img.url }}" alt="">
+                {{ talk.user.profile.nick_name }} &nbsp;
+              {% endif %}
+              <span>{{ talk.created_at|date:"Y.m.d f A"}}</span>
+              <span>&middot; 신고</span>
+            </p>
+          </div>
+          <div class="talks_body">
+            <p>{{ talk.content }}</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+
+<script>
+$(document).ready(function(){
+  $('.talks_zone').animate({scrollTop: $('div.talks').last().offset().top}, 'fast');
+});
+</script>
+
+{% endblock %}

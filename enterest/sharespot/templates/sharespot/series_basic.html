@@ -1,5 +1,7 @@
 {% extends "sharespot/series_base.html" %}
 
+{% load staticfiles %}
+
 {% block title %}
     {{ series.name }} 기본정보
 {% endblock %}
@@ -13,37 +15,49 @@
     <div class="event_content_wrapper">
       <div class="event_introduction">
         <div class="event_intro_text">
-          <p>“미리 보는 2018 가을야구 - 한 문장”</p>
-          <h4>(공연을 소개하는 내용들, 줄거리라던가 콘서트 소개글이라던가 야구면 팀 소개를 해줄 수도 있을 듯... 아무튼 이 이벤트에 대해 소개하는 글)연인과 이별하고 씻는 일조차 할 수 없는 깊은 무기력에 빠진 경애가 그 잔인했던 여름 내내 그나마 할 수 있는 일은 연애를 상담하는 페이스북 페이지에 편지를 쓰는 것이었다. 그런데 심상한 솔루션을 답신으로 보내주곤 했던 연애상담 페이지 ‘언니는 죄가 없다’의 운영자 ‘언니’를 경애는 몇년 뒤 회사에서 만나게 된다. 반도미싱 영업부의 팀원 없는 팀장대리로, 낙하산이라는 오욕을 견디는 상수는 퇴근 뒤 밤에는 ‘언니’라는 이름으로 이중생활을 이어나가고 있었던 것이다. 그렇게 한 회사에서 팀장과 팀원으로 만나게 된 경애와 상수 사이에는 사실 그들도 모르는 연결고리가 또 하나 숨겨져 있었다. 1999년 인천 호프집 화재사건에서 소중한 친구를 잃은 두 사람. 경애는 동시에 그 사고의 생존자이기도 했다. 그 연결고리를 알지 못한 채 둘은 서로에게 마음을 열게 되고 점점 더 특별한 애틋함으로 다가가게 되는데…… 일견 두 사람의 연애서사로 읽히기도 하는 『경애의 마음』은 한가지 독법으로 읽기에는 소재가 다양하고 의미가 풍부해 자칫하면 이 작품에 산재한 많은 키워드를 놓칠 수 있다. 경애가 반도미싱의 부당함에 맞서 벌이는 파업과 그 파업에 가담했던 다른 동료들,.</h4>
+          <p>“ {{ series.intro_title }} ”</p>
+          <h4>
+            {% for words in series.split_intro_content %}
+              {{ words }} <br>
+            {% endfor %}
+          </h4>
         </div>
-        <div class="event_intro_img"></div>
+        <div class="event_intro_img" style="background-image: url({{ series.image_set.first.img.url }})"></div>
       </div>
 
       <div class="event_time_place">
         <div class="event_time">
           <p> 날짜 및 시간 </p>
-          <div></div>
+          <div>
+            {% for event in series.event_set.all %}
+              {{ event.start }}
+            {% endfor %}
+          </div>
         </div>
         <div class="event_place">
           <p> 장소 </p>
-          <h4>고척스카이돔</h4>
-          <h5>서울 광진구 천호대로 117길 (기본주소)</h5>
-          <div class="e_place_rating_review">
-            <div class="e_place_rating">
-              <div class="e_place_view_rating">
-                <label>시야</label>
-                <div></div>
+
+          <a href="{% url "sharespot:place_space" series.space.en_name %}">
+            <h4>{{ series.space.name }}</h4>
+            <h5>{{ series.space.place.address }}</h5>
+            <div class="e_place_rating_review">
+              <div class="e_place_rating">
+                <div class="e_place_view_rating">
+                  <label>시야</label>
+                  <div>{{ series.space.get_space_view_star }}</div>
+                </div>
+                <div class="e_place_excitement_rating">
+                  <label>현장열기</label>
+                  <div>{{ series.space.get_space_real_star }}</div>
+                </div>
               </div>
-              <div class="e_place_excitement_rating">
-                <label>현장열기</label>
-                <div></div>
+              <div class="e_place_review">
+                좌석뷰 {{ series.space.get_space_view_count }} 장  ・ 리뷰 {{ series.space.get_space_review.count }}개
               </div>
             </div>
-            <div class="e_place_review">
-              좌석뷰 843장  ・ 리뷰 175개
-            </div>
-          </div>
-          <div class="e_place_map"></div>
+          </a>
+
+          <div class="e_place_map">{{ series.space.place.lat_lon }}</div>
         </div>
       </div>
 
@@ -51,44 +65,32 @@
         <div class="event_etc_left">
           <div class="event_casting">
             <p> 출연자 </p>
-            <div class="casting_schedule"> 캐스팅 스케쥴 </div>
+            <a href="{{ series.appear_link }}"><div class="casting_schedule"> 캐스팅 스케쥴 </div></a>
             <div class="actor_introduction">
+              {% for appear in series.get_series_appear %}
               <div class="actor_info">
-                <div class="actor_pic"></div>
-                <p>배우이름</p>
+                <div class="actor_pic" style="background-image: url({{ appear.img.url }})"></div>
+                <p>{{ appear.name }}</p>
               </div>
-              <div class="actor_info">
-                <div class="actor_pic"></div>
-                <p>배우이름</p>
-              </div>
-              <div class="actor_info">
-                <div class="actor_pic"></div>
-                <p>배우이름</p>
-              </div>
-              <div class="actor_info">
-                <div class="actor_pic"></div>
-                <p>배우이름</p>
-              </div>
+              {% endfor %}
             </div>
           </div>
           <div class="event_etc">
             <p> 안내 </p>
             <ol>
-              <li>어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</li>
-              <li>어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</li>
-              <li>어쩌구저쩌구어쩌구저쩌구</li>
-              <li>어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</li>
-              <li>어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</li>
-              <li>어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</li>
-              <li>어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</li>
-              <li>어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</li>
-              <li>어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구</li>
+              {% for words in series.split_announce %}
+              <li>{{ words }}</li>
+              {% endfor %}
             </ol>
           </div>
         </div>
         <div class="event_etc_right">
           <p> 가격 </p>
-          <div></div>
+          <div>
+            {% for level in series.seatlevel_set.all %}
+              {{ level.name }} {{ level.price }} <br>
+            {% endfor %}
+          </div>
         </div>
       </div>
 

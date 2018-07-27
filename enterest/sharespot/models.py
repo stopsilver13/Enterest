@@ -1,4 +1,4 @@
-from collections import Counter
+from collections import Counter, defaultdict
 
 from django.conf import settings
 from django.db import models
@@ -142,16 +142,36 @@ class Space(LikeMixinModel):
     def get_space_view_count(self):
         return SeatImg.objects.filter(seat__block__section__space=self).count()
 
-    def get_space_review_count(self):
-        return SeatReview.objects.filter(seat__block__section__space=self).count()
+    def get_space_review(self):
+        return SeatReview.objects.filter(seat__block__section__space=self)
 
     def get_space_view_star(self):
         avg_dict = SeatReview.objects.filter(seat__block__section__space=self).aggregate(models.Avg('view_star'))  # 성능 의심되긴 함
-        return avg_dict['view_star__avg']
+
+        if avg_dict['view_star__avg'] is None:
+            return 0.0
+        else:
+            return avg_dict['view_star__avg']
+
+    def get_view_star_num(self):
+        star_num_list = []
+        for i in range(1, 6):
+            star_num_list.append(SeatReview.objects.filter(seat__block__section__space=self, view_star=i).count())
+        return star_num_list
 
     def get_space_real_star(self):
         avg_dict = SeatReview.objects.filter(seat__block__section__space=self).aggregate(models.Avg('real_star'))  # 성능 의심되긴 함
-        return avg_dict['real_star__avg']
+
+        if avg_dict['real_star__avg'] is None:
+            return 0.0
+        else:
+            return avg_dict['real_star__avg']
+
+    def get_real_star_num(self):
+        star_num_list = []
+        for i in range(1, 6):
+            star_num_list.append(SeatReview.objects.filter(seat__block__section__space=self, real_star=i).count())
+        return star_num_list
 
 
 class Section(models.Model):
@@ -182,6 +202,40 @@ class Block(models.Model):
             main_level_pk = Counter(level_list).most_common(1)[0][0]
             main_color = SeatLevel.objects.get(pk=main_level_pk).color
         return main_color
+
+    def get_space_view_count(self):
+        return SeatImg.objects.filter(seat__block__section__space=self).count()
+
+    def get_space_review(self):
+        return SeatReview.objects.filter(seat__block__section__space=self)
+
+    def get_space_view_star(self):
+        avg_dict = SeatReview.objects.filter(seat__block__section__space=self).aggregate(models.Avg('view_star'))  # 성능 의심되긴 함
+
+        if avg_dict['view_star__avg'] is None:
+            return 0.0
+        else:
+            return avg_dict['view_star__avg']
+
+    def get_view_star_num(self):
+        star_num_list = []
+        for i in range(1, 6):
+            star_num_list.append(SeatReview.objects.filter(seat__block__section__space=self, view_star=i).count())
+        return star_num_list
+
+    def get_space_real_star(self):
+        avg_dict = SeatReview.objects.filter(seat__block__section__space=self).aggregate(models.Avg('real_star'))  # 성능 의심되긴 함
+
+        if avg_dict['real_star__avg'] is None:
+            return 0.0
+        else:
+            return avg_dict['real_star__avg']
+
+    def get_real_star_num(self):
+        star_num_list = []
+        for i in range(1, 6):
+            star_num_list.append(SeatReview.objects.filter(seat__block__section__space=self, real_star=i).count())
+        return star_num_list
 
 
 class SeatLevel(models.Model):
@@ -216,7 +270,7 @@ class Seat(models.Model):
 
 
 def seat_img_name(instance, filename):
-    return '/'.join(['seat/img', instance.seat.block.section.space.place, instance.seat.block.section.space, instance.seat.block.section, instance.seat.block, filename])
+    return '/'.join(['seat/img', instance.seat.block.section.space.place.name, instance.seat.block.section.space.name, instance.seat.block.section.name, instance.seat.block.name, filename])
 
 
 class SeatImg(models.Model):
@@ -254,9 +308,9 @@ class SeatImg(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         if self.is_confirmed:
+            super().save(*args, **kwargs)
             self.history.status = 'complete'
             self.history.save()
-            super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         super().delete(*args, **kwargs)
@@ -307,13 +361,13 @@ class Series(LikeMixinModel):
     def __str__(self):
         return self.name
 
-    def get_series_review_count(self):
-        return EventReview.objects.filter(event__series=self).count()
+    def get_series_review(self):
+        return EventReview.objects.filter(event__series=self)
 
     def get_series_star(self):
         avg_dict = EventReview.objects.filter(event__series=self).aggregate(models.Avg('total_star'))  # 성능 의심되긴 함
 
-        if avg_dict['total_star__avg'] == None:
+        if avg_dict['total_star__avg'] is None:
             return 0.0
         else:
             return avg_dict['total_star__avg']
@@ -323,6 +377,37 @@ class Series(LikeMixinModel):
         for i in range(1, 6):
             star_num_list.append(EventReview.objects.filter(event__series=self, total_star=i).count())
         return star_num_list
+
+    def get_series_appear(self):
+        events = self.event_set.values_list('pk', flat=True)
+        appears = Appear.objects.none()
+        for event in events:
+            appears |= Event.objects.get(pk=event).appear_set
+
+        return appears.distinct()
+
+    # TODO:
+    def get_emotion_set(self):
+        series_event_pk = self.event_set.values_list('pk', flat=True)
+        all_emotions = Emotion.objects.all()
+        result = dict()
+
+        for emotion in all_emotions:
+            if emotion.eventreview_set.exists():
+                emotion_event_pk = emotion.eventreview_set.values_list('event__pk', flat=True)
+                emotion_dict = Counter(emotion_event_pk)
+
+                for pk in series_event_pk:
+                    if pk in emotion_dict.keys():
+                        result[emotion] = result.get(emotion, 0) + emotion_dict[pk]
+
+        return sorted(result.items(), key=lambda kv: kv[1], reverse=True)[:10]
+
+    def split_intro_content(self):
+        return self.intro_content.split('&')
+
+    def split_announce(self):
+        return self.announce.split('&')
 
 
 class SeriesImg(models.Model):
@@ -388,7 +473,7 @@ class TicketImg(models.Model):
         blank=True,
         null=True,
     )
-    img = models.ImageField(upload_to='ticket/%Y/%m/%d', blank=True, null=True)  # default는 기본 이미지
+    img = models.ImageField(upload_to='ticket/%Y/%m/%d', blank=True, null=True)  # default는 기본 이미지 아놔 경로수정안함
 
     def __str__(self):
         img_name = self.ticket.user.username + ' -' + str(self.ticket.pk)
@@ -411,8 +496,9 @@ class Emotion(models.Model):
     def __str__(self):
         return self.name
 
-    def get_quote_count(self):
-        return self.eventreview_set.count()  # 작동 여부 점검 필요
+    @property
+    def get_quote_count(self, series):
+        return self.eventreview_set.filter(event__series=series).count()  # 작동 여부 점검 필요
 
 
 class EventReview(ThankMixinModel):
@@ -443,9 +529,10 @@ class EventReview(ThankMixinModel):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         if self.is_confirmed:
+            super().save(*args, **kwargs)
+
             self.history.status = 'complete'
             self.history.save()
-            super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         super().delete(*args, **kwargs)
@@ -487,9 +574,10 @@ class SeatReview(ThankMixinModel):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         if self.is_confirmed:
+            super().save(*args, **kwargs)
+
             self.history.status = 'complete'
             self.history.save()
-            super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         super().delete(*args, **kwargs)

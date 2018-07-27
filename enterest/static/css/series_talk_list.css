@@ -4,6 +4,7 @@
   padding: 0px 16px;
 }
 
+
 .event_talk_right {
   width: 696px;
   margin-left: 28px;
@@ -25,8 +26,6 @@
   margin: 0;
 }
 .talks_zone {
-  height: 664px;
-  overflow-y: auto;
   margin-bottom: 16px;
 }
 .talks {

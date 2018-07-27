@@ -97,10 +97,9 @@ class RewardHistory(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        # 저장을 여기서 한번 해줘야 되나...
         if not self.is_complete:
             if self.status == 'complete':
-                self.user.reward += self.amount
+                self.user.reward.reward += self.amount
                 self.user.reward.save()
 
                 self.is_complete = True
@@ -109,7 +108,7 @@ class RewardHistory(models.Model):
     def delete(self, *args, **kwargs):
         super().delete(*args, **kwargs)
         if self.is_complete:
-            self.user.reward += (self.amount)*(-1)
+            self.user.reward.reward += (self.amount)*(-1)
             self.user.reward.save()
 
 # on_delete 이용해서 리뷰 삭제되면 히스토리도 삭제되고, 삭제시 해당 과정을 거꾸로 (적립이면 사용, 사용이면 적립) 하도록?
@@ -144,9 +143,10 @@ class GiftRequest(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         if self.is_complete:
+            super().save(*args, **kwargs)
+
             self.history.status = 'complete'
             self.history.save()
-            super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         super().delete(*args, **kwargs)

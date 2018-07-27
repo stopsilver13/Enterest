@@ -1,0 +1,53 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/series_topic_list.css' %}">
+
+<div class="event_talk_left">
+  <div class="topic_searchbar">
+    <input placeholder="&#xF002; &nbsp;&nbsp;&nbsp;&nbsp; 이야기거리 찾기" style="font-family:Arial, FontAwesome">
+  </div>
+  <div class="add_topic">
+    <p> <i class="fas fa-plus"></i> &nbsp; 이야기거리 추가하기 </p>
+  </div>
+  <div class="topic_zone">
+    {% for tp in topics %}
+    <a href="{% url "sharespot:series_talk" series.en_name tp.pk %}"><div class="topic">
+      <p>{{ tp.content }} ( {{ tp.talk_set.count }} ) </p>
+      <h4>{{ tp.explain }}</h4>
+    </div></a>
+    <hr>
+    {% endfor %}
+
+
+    <div class="topic">
+      <p> 마지막 장면에 대해서 어떻게 분석, 해석 하셨어요? (104) </p>
+      <h4> 간단한 설명을 쓰는 부분 저는 이렇게 해석했는데 다른 분들의 생각은 어떤지 궁금합니다. </h4>
+    </div>
+    <hr>
+    <div class="topic">
+      <p> 어떤 인물이 가장 기억에 남으세요? (104) </p>
+      <h4> 간단한 설명을 쓰는 부분 </h4>
+    </div>
+    <hr>
+    <div class="topic">
+      <p> 어떤 인물이 가장 기억에 남으세요? (104) </p>
+      <h4> 간단한 설명을 쓰는 부분 </h4>
+    </div>
+    <hr>
+    <div class="topic">
+      <p> 어떤 인물이 가장 기억에 남으세요? (104) </p>
+      <h4> 간단한 설명을 쓰는 부분 </h4>
+    </div>
+    <hr>
+    <div class="topic">
+      <p> 마지막 장면에 대해서 어떻게 분석, 해석 하셨어요? (104) </p>
+      <h4> 간단한 설명을 쓰는 부분 저는 이렇게 해석했는데 다른 분들의 생각은 어떤지 궁금합니다. </h4>
+    </div>
+    <hr>
+    <div class="topic">
+      <p> 마지막 장면에 대해서 어떻게 분석, 해석 하셨어요? (104) </p>
+      <h4> 간단한 설명을 쓰는 부분 저는 이렇게 해석했는데 다른 분들의 생각은 어떤지 궁금합니다. </h4>
+    </div>
+    <hr>
+  </div>
+</div>

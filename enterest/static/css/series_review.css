@@ -3,10 +3,13 @@
   margin: 0 auto 0;
 }
 .event_review_top {
-  margin: 40px 0 0 16px;
+  min-height: 304px;
+  padding: 40px 16px 54px 16px;
 }
 .event_review_rating {
   display: inline-block;
+  vertical-align: top;
+  margin-right: 72px;
 }
 .event_review_rating > p {
   font-size: 24px;
@@ -27,14 +30,14 @@
   background-color: #c1c7d0;
   font-size: 14px;
   font-weight: bold;
-  line-height: 2;
+  line-height: 24px;
   text-align: center;
   display: inline-block;
   vertical-align: middle;
   margin-left: 16px;
 }
 .total_rating_zone {
-  margin: 24px 0 0 8px;
+  margin: 16px 0 0 8px;
 }
 .total_rating_zone > p {
   font-size: 32px;
@@ -53,54 +56,42 @@
   width: 285px;
   height: 100px;
   background-color: grey;
-  margin: 16px 0 0 12px;
+  margin: 16px 0 0 8px;
 }
 .event_recommend {
   display: inline-block;
-  float: right;
+  vertical-align: top;
 }
 .event_recommend > p {
   font-size: 24px;
   font-weight: bold;
+  vertical-align: middle;
   margin: 0;
-}
-.recommend_reason_set {
-  width: 140px;
-  text-align: center;
-  display: inline-block;
-  margin-top: 24px;
-  margin-right: 96px;
-}
-.recommend_reason_set img {
-  width: 104px;
-  height: 104px;
   margin-bottom: 16px;
 }
-.recommend_reason_set p {
-  font-size: 16px;
-  font-weight: bold;
-  letter-spacing: 0.3px;
-  margin: 0 0 4px 0;
-}
-.recommend_reason_set h4 {
+.event_recommend > div {
+  height: 32px;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #ebecf0;
   font-size: 12px;
-  line-height: 1.33;
-  letter-spacing: 0.2px;
+  font-weight: bold;
   text-align: center;
+  line-height: 32px;
   color: rgba(56, 59, 65, 0.54);
-  margin: 0;
+  padding: 0px 16px;
+  margin-right: 12px;
 }
-
 
 
 .event_review_bot {
   width: 100%;
   background-color: #f4f5f7;
-  margin-top: 48px;
 }
 .event_review_bot_wrapper {
   width: 1100px;
   margin: 0 auto 0;
+  padding: 0px 16px;
   padding-top: 42px;
 }
 .event_review_bot_header > p {
@@ -108,7 +99,7 @@
   font-weight: bold;
   display: inline-block;
   vertical-align: middle;
-  margin: 0 0 0 16px;
+  margin: 0;
 }
 .event_review_bot_header > p > span {
   font-size: 16px;
@@ -122,7 +113,7 @@
   background-color: #c1c7d0;
   font-size: 14px;
   font-weight: bold;
-  line-height: 2;
+  line-height: 24px;
   text-align: center;
   display: inline-block;
   vertical-align: middle;
@@ -132,11 +123,11 @@
   column-count: 3;
 }
 .event_reviews {
-  width: 297px;
+  width: 345px;
   padding: 24px;
   background-color: white;
   display: inline-block;
-  margin: 16px 0 0 16px;
+  margin: 16px 0 0 0;
 }
 .reviews_user_info {
   display: inline-block;
@@ -145,6 +136,9 @@
   width: 48px;
   height: 48px;
   background-color: grey;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   border-radius: 50%;
   display: inline-block;
   vertical-align: middle;
@@ -210,18 +204,21 @@
   color: rgba(56, 59, 65, 0.54);
   margin: 16px 0 0 0;
 }
+.reviews_footer {
+  padding-top: 16px;
+}
 .reviews_footer > p {
   font-size: 12px;
   font-weight: normal;
   display: inline-block;
   vertical-align: middle;
-  margin: 16px 0 0 0;
+  margin: 0px;
 }
 .reviews_footer > i {
   font-size: 20px;
   display: inline-block;
   vertical-align: middle;
-  margin: 16px 8px 0 0;
+  margin: 0 8px 0 0;
 }
 
 

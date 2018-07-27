@@ -1,4 +1,4 @@
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.shortcuts import render
 
 from sharespot.models import Division, Place, Space, Series, Ticket, Emotion, EventReview, SeatReview, ShareInfoCategory, ShareInfo, TalkTopic, Talk
@@ -100,10 +100,12 @@ def place_space(request, space):
     space = Space.objects.get(en_name=space)
     place = space.place
     now = datetime.datetime.now()
-    if Series.objects.get(Q(start__lte=now, end__gte=now)).exists():
-        close_series = Series.objects.get(Q(start__gte=now, end__lte=now))
+    if Series.objects.filter(Q(start__lte=now, end__gte=now, space=space)).exists():
+        close_series = Series.objects.get(Q(start__lte=now, end__gte=now, space=space))
+    elif Series.objects.filter(start__gte=now, space=space).exists():
+        close_series = Series.objects.filter(start__gte=now, space=space).order_by('start').first()
     else:
-        close_series = Series.objects.filter(start__gte=now).order_by('start').first()
+        close_series = Series.objects.filter(end__lte=now, space=space).order_by('-end').first()
 
     return render(request, 'sharespot/place_space.html', {
         'place': place,
@@ -161,19 +163,16 @@ def series_review(request, series):
     series = Series.objects.get(en_name=series)
     reviews = EventReview.objects.filter(event__series=series)
 
-    emotions = Emotion.objects.annotate(quote_time=eventreview_set.filter(event__series=series).count()).order_by('-quote_time')  # 흠... 아마 에러날듯
-
     return render(request, 'sharespot/series_review.html', {
         'series': series,
         'reviews': reviews,
-        'emotions': emotions,
     })
 
 
 def series_talk_list(request, series):
     series = Series.objects.get(en_name=series)
     topics = TalkTopic.objects.filter(series=series)
-    talks = Talk.objects.filter(topic__series=series)  # 몇개까지 보여줄 것? 페이지네이션? 더보기?
+    talks = Talk.objects.filter(topic__series=series).order_by('-pk')  # 몇개까지 보여줄 것? 페이지네이션? 더보기?
 
     return render(request, 'sharespot/series_talk_list.html', {
         'series': series,
@@ -183,11 +182,13 @@ def series_talk_list(request, series):
 
 
 def series_talk(request, series, topic):
+    series = Series.objects.get(en_name=series)
     topic = TalkTopic.objects.get(pk=topic)
     topics = TalkTopic.objects.filter(series=series)
     talks = Talk.objects.filter(topic=topic)  # 몇개까지 보여줄 것? 페이지네이션? 더보기?
 
     return render(request, 'sharespot/series_talk.html', {
+        'series': series,
         'topic': topic,
         'topics': topics,
         'talks': talks,
@@ -196,18 +197,5 @@ def series_talk(request, series, topic):
 # 이야깃거리 생성/수정/(삭제) ajax
 # 이야기 생성/수정/삭제 ajax
 # 각 행동에 대해 페이지 리로딩 여부는 생각을 해봐야 할듯
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

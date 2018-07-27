@@ -11,90 +11,84 @@
 {% endblock %}
 
 {% block content_series %}
-<div class="content">
-  <div class="event_title_zone">
-    <div class="event_title_zone_wrapper">
-      <p>[프로야구]기아 vs 두산<i class="far fa-heart"></i></p>
-    </div>
-  </div>
-
-
-  <div class="event_nav">
-    <div class="event_nav_wrapper">
-      <div class="event_nav_component">기본정보</div>
-      <div class="event_nav_component" style="border-bottom: solid 1px black;">평점/리뷰</div>
-      <div class="event_nav_component">딥톡</div>
-      <div class="event_nav_component">좌석정보</div>
-      <div class="event_nav_component">예매</div>
-    </div>
-  </div>
-
-
   <div class="event_review_content">
     <div class="event_review_top">
       <div class="event_review_rating">
-        <p> 평점 <span> (154) </span> </p>
+        <p> 평점 <span>( {{ series.get_series_review.count }} )</span> </p>
         <div class="go_rate"> 평가 등록 </div>
         <div class="total_rating_zone">
-          <p> 4.5 </p>
+          <p>{{ series.get_series_star }}</p>
           <div></div>
         </div>
-        <div class="star_graph"></div>
+        <div class="star_graph">
+          {% for num in series.get_star_num %}
+            {{ num }}
+          {% endfor %}
+        </div>
       </div>
       <div class="event_recommend">
-        <p> 이런 분들께 추천해요! </p>
-        <div class="recommend_reason_set">
-          <img src="example.jpg">
-          <p> 탄탄한 스토리 </p>
-          <h4> 두산 베어스 팬분들께 추천! </h4>
-        </div>
-        <div class="recommend_reason_set">
-          <img src="example.jpg">
-          <p> 탄탄한 스토리 </p>
-          <h4> 두산 베어스 팬분들께 추천! </h4>
-        </div>
-        <div class="recommend_reason_set">
-          <img src="example.jpg">
-          <p> 탄탄한 스토리 </p>
-          <h4> 두산 베어스 팬분들께 추천! </h4>
-        </div>
+        <p>감정 태그</p>
+        {% for emotion in series.get_emotion_set %}
+          <div>
+          {% for content in emotion %}
+            &nbsp;{{ content }}&nbsp;
+          {% endfor %}
+          </div>
+        {% endfor %}
       </div>
     </div>
   </div>
-
   <div class="event_review_bot">
     <div class="event_review_bot_wrapper">
       <div class="event_review_bot_header">
-        <p> 공연리뷰 <span> (100) </span> </p>
+        <p> 공연리뷰 <span>( {{ series.get_series_review.count }} )</span> </p>
         <div class="go_review"> 리뷰 등록 </div>
       </div>
       <div class="event_reviews_wrapper">
+        {% for review in reviews %}
         <div class="event_reviews">
           <div class="reviews_header">
             <div class="reviews_user_info">
-              <div class="reviews_user_pic"></div>
+              {% if review.anony_name %}
+              <div class="reviews_user_pic" style="background-image: url({% static "img/anony.png" %})"></div>
+              {% else %}
+              <div class="reviews_user_pic" style="background-image: url({{ review.ticket.user.profile.img.url }});"></div>
+              {% endif %}
               <div class="reviews_user_profile">
-                <p> 유저닉네임 </p>
-                <h4> 2018년 6월 19일 </h4>
+                {% if review.anony_name %}
+                  <p>{{ review.anony_name }}</p>
+                {% else %}
+                  <p>{{ review.ticket.user.profile.nick_name }}</p>
+                {% endif %}
+                <h4>{{ review.created_at|date:"Y년 m월 d일" }}</h4>
               </div>
             </div>
             <div class="reviews_user_badge">
-              <div> 우수 </div>
-              <div> 우수 </div>
+              {% for badge in review.badge_set.all %}
+                <div style="background-color: {{ badge.color }};">{{ badge.name }}</div>
+              {% endfor %}
             </div>
           </div>
           <div class="reviews_rating_zone">
-            <div></div>
+            <div>{{ review.total_star }}</div>
           </div>
+
           <div class="reviews_body">
-            <p> 섹시하고 섹시하다! 재즈와 함께 흥이 절로 났던 공연이었습니다. 살인이라는 무거운 이야기이지만 결코 극은 무겁지 않고 벨마와 록시 외 배우들의 연기 그리고 오케스트라가 무대 위에 있다는 특이점, 많은 볼거리, 빠른 전개, 관객과 </p>
+            <img src="{{ review.ticket.image_set.first.img.url }}" alt="">
+            {% if review.content %}
+            <p>{{ review.content }}</h4>
             <h4> 더보기 </h4>
+            {% endif %}
           </div>
+
           <div class="reviews_footer">
             <i class="far fa-heart"></i>
-            <p>  1 </p>
+            <p>{{ review.count_thanked }}</p>
           </div>
         </div>
+        {% endfor %}
+
+
 
         <div class="event_reviews">
           <div class="reviews_header">
@@ -313,7 +307,5 @@
       </div>
     </div>
   </div>
-
-</div>
 
 {% endblock %}
