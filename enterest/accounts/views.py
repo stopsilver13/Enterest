@@ -5,6 +5,8 @@ from django.shortcuts import render, redirect
 from sharespot.models import Series, Ticket, TalkTopic
 from accounts.models import RewardHistory, Gift, GiftRequest, FAQCategory
 
+from accounts.forms import ImageUploadForm
+
 import datetime
 
 
@@ -25,21 +27,21 @@ def myinfo(request):
     user = request.user
 
     if request.method == 'POST':
+        form = ImageUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            user.profile.img = form.cleaned_data['image']
+
         new_pw1 = request.POST.get('new_password1')
         nick_name = request.POST.get('nick_name')
         email = request.POST.get('email')
-        birth = request.POST.get('birth')
         phone = request.POST.get('phone')
 
         if new_pw1 != '':
             user.set_password(new_pw1)
-
         if nick_name != '':
             user.profile.nick_name = nick_name
         if email != '':
             user.email = email
-        if birth != '':
-            user.profile.phone = birth
         if phone != '':
             user.profile.phone = phone
 
@@ -85,12 +87,13 @@ def mylike(request):
 
     # 관심 appear들의 다가오는 이벤트를 한 쿼리셋으로 묶기; 방법이 구린거 같아서 추후 성능보고 좀더 고민 ㅠ.ㅠ
     appear_series = []
-    for appear in user.liked_appear_set:
-        appear_series += appear.event_set.filter(start__gte=now).values_list('series', flat=True)
+    for appear in user.liked_appear_set.all():
+        appear_series += appear.event_set.filter(start__lte=now).values_list('series__pk', flat=True)
+        print(appear_series)
 
     queryset = Series.objects.none()
     for series in list(set(appear_series))[:25]:
-        queryset |= Series.objects.get(name=series)
+        queryset = queryset | Series.objects.filter(pk=series)
 
     queryset = queryset.order_by('start')
 
@@ -103,7 +106,11 @@ def mylike(request):
 @login_required
 def mywriting(request):
     user = request.user
-    joined_topics = TalkTopic.objects.filter(is_joined=True)  # 에러각
+    topics = user.talk_set.values_list('topic__pk', flat=True)
+
+    joined_topics = TalkTopic.objects.none()
+    for topic in list(set(topics)):
+        joined_topics = joined_topics | TalkTopic.objects.filter(pk=topic)
 
     return render(request, 'accounts/mywriting.html', {
         'user': user,

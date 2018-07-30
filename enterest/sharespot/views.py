@@ -137,6 +137,7 @@ def place_share(request, space):
 
 def series_list(request):  # ?division= ?place=
     # TODO: 필터링 방식에 따라 변동 가능성 있음
+    divisions = Division.objects.all()
     if 'place' in request.GET:
         place = Place.objects.get(en_name=request.GET['place'])
         series_all = Series.objects.filter(space__place=place)
@@ -147,6 +148,7 @@ def series_list(request):  # ?division= ?place=
         series_all = Series.objects.all()
 
     return render(request, 'sharespot/series_list.html', {
+        'divisions': divisions,
         'series_all': series_all,
     })
 

@@ -16,10 +16,14 @@
     <div class="user_scrap_content_wrapper">
       <div class="scrap_category scrap_place">
         <p class="category_title"> 관심 장소 </p>
+        {% if user.liked_space_set.exists %}
         <div class="scrap_list">
-          <div class="scrap_list_place">
-            <p> 고척스카이돔 <i class="fas fa-chevron-right"></i></p>
-          </div>
+          {% for space in user.liked_space_set.all  %}
+          <a href="{% url "sharespot:place_space" space.en_name %}"><div class="scrap_list_place">
+            <p> {{ space.name }} <i class="fas fa-chevron-right"></i></p>
+          </div></a>
+          {% endfor %}
+
           <div class="scrap_list_place">
             <p> 고척스카이돔 <i class="fas fa-chevron-right"></i></p>
           </div>
@@ -33,30 +37,41 @@
             <p> 고척스카이돔 <i class="fas fa-chevron-right"></i></p>
           </div>
         </div>
+        {% else %}
+        <div class="no_liked">
+          관심 등록한 목록이 없습니다. 관심 등록하시면 편리합니다 :-)
+        </div>
+        {% endif %}
       </div>
 
       <div class="scrap_category">
         <p class="category_title"> 관심 이벤트 </p>
+        {% if user.liked_series_set.exists %}
         <div class="scrap_list">
-          {% include 'sharespot/series_set.html' with request=request series_all=series_all %}
+          {% include 'sharespot/series_set.html' with request=request series_all=user.liked_series_set.all %}
           <p class="show_more hide_in_phone"> 더보기 <i class="fas fa-chevron-right"></i> </p>
         </div>
+        {% endif %}
       </div>
 
       <div class="scrap_category">
         <p class="category_title" style="margin-bottom: 16px"> 관심 아티스트/팀의 다가오는 이벤트 </p>
+        {% if user.liked_appear_set.exists %}
         <div class="user_interest_list">
+          {% for appear in user.liked_appear_set.all %}
+          <div style="background-color: {{ appear.division_set.first.color }};">{{ appear.name }}</div>
+          {% endfor %}
           <div>아이유</div>
-          <div>두산 베어스</div>
           <div>아티스트 명</div>
           <div>방탄소년단</div>
           <div>장범준</div>
           <p> 수정 </p>
         </div>
         <div class="scrap_list">
-          {% include 'sharespot/series_set.html' with request=request series_all=series_all %}
+          {% include 'sharespot/series_set.html' with request=request series_all=queryset %}
           <p class="show_more hide_in_phone"> 더보기 <i class="fas fa-chevron-right"></i> </p>
         </div>
+        {% endif %}
       </div>
     </div>
   </div>

@@ -1,5 +1,5 @@
 .user_mytalk_content {
-  width: 1068px;
+  width: 1100px;
   margin: 48px auto 0;
   padding: 0 16px;
 }
@@ -12,38 +12,61 @@
   margin: 0 0 24px 0;
 }
 .mytalk_list {
-  width: 1066px;
-  min-height: 400px;
+  width: 100%;
+  max-height: 400px;
+  overflow: auto;
   border: solid 1px #ebecf0;
+  border-top: none;
+}
+.mytalk_list > a:hover {
+  text-decoration: none;
+  color: #000;
 }
 .mytalk_list_tr {
-  height: 37px;
-  border-bottom: solid 1px #ebecf0;
-  padding-top: 19px;
+  height: 54px;
+  border-top: solid 1px #ebecf0;
+}
+.mytalk_list_tr:hover {
+  background-color: #fafafa;
 }
 .list_left {
-  width: 200px;
-  height: 100%;
+  min-width: 256px;
+  max-width: 256px;
+  height: 54px;
+  overflow: auto;
+  white-space: nowrap;
   padding-left: 16px;
   display: inline-block;
+  vertical-align: middle;
 }
 .list_left > p {
   font-size: 16px;
-  margin:0;
+  line-height: 54px;
+  margin: 0;
 }
 .list_right {
+  max-width: 780px;
+  height: 54px;
+  padding-left: 16px;
   display: inline-block;
+  vertical-align: middle;
 }
 .list_right > p {
+  max-width: 660px;
+  overflow: auto;
+  white-space: nowrap;
   font-size: 16px;
+  line-height: 54px;
   display: inline-block;
   margin: 0;
 }
 .list_right > p > i {
+  line-height: 54px;
   margin: 0 10px 0 18px;
 }
 .fa-chevron-right {
   font-size: 16px;
+  line-height: 54px;
   color: #c1c7d0;
   float: right;
   margin-right: 16px;

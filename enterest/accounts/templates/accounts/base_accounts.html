@@ -14,19 +14,19 @@
 <div class="content">
   <div class="userpage_title_zone">
     <div class="userpage_title_zone_wrapper">
-      <img src="{% static 'img/example.jpg' %}" alt="">
-      <p>닉네임닉네임</p>
+      <img src="{{ user.profile.img.url }}" alt="">
+      <p>{{ user.profile.nick_name }}</p>
     </div>
   </div>
 
   <div class="userpage_nav">
     <div class="userpage_nav_wrapper">
-      <div class="userpage_nav_component">내 티켓</div>
-      <div class="userpage_nav_component">관심</div>
-      <div class="userpage_nav_component">내 글</div>
-      <div class="userpage_nav_component">리워드</div>
-      <div class="userpage_nav_component">내 정보</div>
-      <div class="userpage_nav_component">FAQ</div>
+      <a href="{% url "myticket" %}"><div class="userpage_nav_component">내 티켓</div></a>
+      <a href="{% url "mylike" %}"><div class="userpage_nav_component">관심</div></a>
+      <a href="{% url "mywriting" %}"><div class="userpage_nav_component">내 글</div></a>
+      <a href="{% url "myreward" %}"><div class="userpage_nav_component">리워드</div></a>
+      <a href="{% url "myinfo" %}"><div class="userpage_nav_component">내 정보</div></a>
+      <a href="{% url "faqlist" %}"><div class="userpage_nav_component">FAQ</div></a>
     </div>
   </div>
 

@@ -1,6 +1,8 @@
 {% extends "accounts/base_accounts.html" %}
 
 {% load staticfiles %}
+{% load mathfilters %}
+{% load humanize %}
 
 {% block title %}
     내 리워드
@@ -16,7 +18,7 @@
     <div class="user_reward_content_wrapper">
       <div class="my_rewards">
         <div class="my_rewards_header">
-          <p> 내 티끌 <span> 350 </span> </p>
+          <p> 내 티끌 <span> {{ user.reward.reward }} </span> </p>
           <button> 티끌모으기 </button>
         </div>
         <div class="my_rewards_table">
@@ -33,75 +35,90 @@
             <div class="reward_amount"> 리워드 </div>
             <div class="reward_status"> 상태 </div>
           </div>
-          <div class="table_body">
-            <div class="reward_get_use"> 적립 </div>
-            <div class="reward_date"> 2018/06/02 </div>
-            <div class="reward_source"> 공연 리뷰 작성 </div>
-            <div class="reward_amount" style="text-align: right;"> +100 </div>
-            <div class="reward_status"> 지급완료 </div>
-          </div>
-          <div class="table_body">
-            <div class="reward_get_use"> 적립 </div>
-            <div class="reward_date"> 2018/06/02 </div>
-            <div class="reward_source"> 공연 리뷰 작성 </div>
-            <div class="reward_amount" style="text-align: right;"> +100 </div>
-            <div class="reward_status"> 지급완료 </div>
-          </div>
-          <div class="table_body">
-            <div class="reward_get_use"> 적립 </div>
-            <div class="reward_date"> 2018/06/02 </div>
-            <div class="reward_source"> 공연 리뷰 작성 </div>
-            <div class="reward_amount" style="text-align: right;"> +100 </div>
-            <div class="reward_status"> 지급완료 </div>
-          </div>
-          <div class="table_body">
-            <div class="reward_get_use"> 적립 </div>
-            <div class="reward_date"> 2018/06/02 </div>
-            <div class="reward_source"> 공연 리뷰 작성 </div>
-            <div class="reward_amount" style="text-align: right;"> +100 </div>
-            <div class="reward_status"> 지급완료 </div>
-          </div>
-          <div class="table_body">
-            <div class="reward_get_use"> 적립 </div>
-            <div class="reward_date"> 2018/06/02 </div>
-            <div class="reward_source"> 공연 리뷰 작성 </div>
-            <div class="reward_amount" style="text-align: right;"> +100 </div>
-            <div class="reward_status"> 지급완료 </div>
-          </div>
-          <div class="table_body">
-            <div class="reward_get_use"> 적립 </div>
-            <div class="reward_date"> 2018/06/02 </div>
-            <div class="reward_source"> 공연 리뷰 작성 </div>
-            <div class="reward_amount" style="text-align: right;"> +100 </div>
-            <div class="reward_status"> 지급완료 </div>
-          </div>
-          <div class="table_body">
-            <div class="reward_get_use"> 적립 </div>
-            <div class="reward_date"> 2018/06/02 </div>
-            <div class="reward_source"> 공연 리뷰 작성 </div>
-            <div class="reward_amount" style="text-align: right;"> +100 </div>
-            <div class="reward_status"> 지급완료 </div>
-          </div>
-          <div class="table_body">
-            <div class="reward_get_use"> 적립 </div>
-            <div class="reward_date"> 2018/06/02 </div>
-            <div class="reward_source"> 공연 리뷰 작성 </div>
-            <div class="reward_amount" style="text-align: right;"> +100 </div>
-            <div class="reward_status"> 지급완료 </div>
-          </div>
-          <div class="table_body">
-            <div class="reward_get_use"> 적립 </div>
-            <div class="reward_date"> 2018/06/02 </div>
-            <div class="reward_source"> 공연 리뷰 작성 </div>
-            <div class="reward_amount" style="text-align: right;"> +100 </div>
-            <div class="reward_status"> 지급완료 </div>
-          </div>
-          <div class="table_body">
-            <div class="reward_get_use"> 적립 </div>
-            <div class="reward_date"> 2018/06/02 </div>
-            <div class="reward_source"> 공연 리뷰 작성 </div>
-            <div class="reward_amount" style="text-align: right;"> +100 </div>
-            <div class="reward_status"> 지급완료 </div>
+          <div class="table_body_wrap">
+            {% for history in user.reward_history_set.all %}
+            <div class="table_body">
+              <div class="reward_get_use">
+                {% if history.amount > 0 %} 적립
+                {% else %} 사용
+                {% endif %}
+              </div>
+              <div class="reward_date">{{ history.created_at|date:"Y/m/d" }}</div>
+              <div class="reward_source">{{ history.reason }}</div>
+              <div class="reward_amount" style="text-align: right;">
+                {% if history.amount > 0 %}
+                + {{ history.amount }}
+                {% else %}
+                - {{ history.amount|abs }}
+                {% endif %}
+
+              </div>
+              <div class="reward_status">{{ history.get_status_display }}</div>
+            </div>
+            {% endfor %}
+            <div class="table_body">
+              <div class="reward_get_use"> 적립 </div>
+              <div class="reward_date"> 2018/06/02 </div>
+              <div class="reward_source"> 공연 리뷰 작성 </div>
+              <div class="reward_amount" style="text-align: right;"> +100 </div>
+              <div class="reward_status"> 지급완료 </div>
+            </div>
+            <div class="table_body">
+              <div class="reward_get_use"> 적립 </div>
+              <div class="reward_date"> 2018/06/02 </div>
+              <div class="reward_source"> 공연 리뷰 작성 </div>
+              <div class="reward_amount" style="text-align: right;"> +100 </div>
+              <div class="reward_status"> 지급완료 </div>
+            </div>
+            <div class="table_body">
+              <div class="reward_get_use"> 적립 </div>
+              <div class="reward_date"> 2018/06/02 </div>
+              <div class="reward_source"> 공연 리뷰 작성 </div>
+              <div class="reward_amount" style="text-align: right;"> +100 </div>
+              <div class="reward_status"> 지급완료 </div>
+            </div>
+            <div class="table_body">
+              <div class="reward_get_use"> 적립 </div>
+              <div class="reward_date"> 2018/06/02 </div>
+              <div class="reward_source"> 공연 리뷰 작성 </div>
+              <div class="reward_amount" style="text-align: right;"> +100 </div>
+              <div class="reward_status"> 지급완료 </div>
+            </div>
+            <div class="table_body">
+              <div class="reward_get_use"> 적립 </div>
+              <div class="reward_date"> 2018/06/02 </div>
+              <div class="reward_source"> 공연 리뷰 작성 </div>
+              <div class="reward_amount" style="text-align: right;"> +100 </div>
+              <div class="reward_status"> 지급완료 </div>
+            </div>
+            <div class="table_body">
+              <div class="reward_get_use"> 적립 </div>
+              <div class="reward_date"> 2018/06/02 </div>
+              <div class="reward_source"> 공연 리뷰 작성 </div>
+              <div class="reward_amount" style="text-align: right;"> +100 </div>
+              <div class="reward_status"> 지급완료 </div>
+            </div>
+            <div class="table_body">
+              <div class="reward_get_use"> 적립 </div>
+              <div class="reward_date"> 2018/06/02 </div>
+              <div class="reward_source"> 공연 리뷰 작성 </div>
+              <div class="reward_amount" style="text-align: right;"> +100 </div>
+              <div class="reward_status"> 지급완료 </div>
+            </div>
+            <div class="table_body">
+              <div class="reward_get_use"> 적립 </div>
+              <div class="reward_date"> 2018/06/02 </div>
+              <div class="reward_source"> 공연 리뷰 작성 </div>
+              <div class="reward_amount" style="text-align: right;"> +100 </div>
+              <div class="reward_status"> 지급완료 </div>
+            </div>
+            <div class="table_body">
+              <div class="reward_get_use"> 적립 </div>
+              <div class="reward_date"> 2018/06/02 </div>
+              <div class="reward_source"> 공연 리뷰 작성 </div>
+              <div class="reward_amount" style="text-align: right;"> +100 </div>
+              <div class="reward_status"> 지급완료 </div>
+            </div>
           </div>
         </div>
       </div>
@@ -113,24 +130,20 @@
 
 
     <div class="reward_shop">
-      <p> 리워드샵 <span> 교환하시고자 하는 상품을 눌러주세요 :-) </span></p>
+      <p> 티끌 모아 태산 <span> 교환하시고자 하는 상품을 눌러주세요 :-) </span></p>
+      {% for gift in gifts %}
       <div class="reward_item" id="menu-1">
-        <div class="reward_item_img"></div>
-        <p class="reward_item_store"> 스타벅스 </p>
-        <p class="reward_item_name"> 아메리카노(Tall) </p>
-        <p class="reward_item_price"> 1,000 </p>
+        <div class="reward_item_img" style="background-image: url({{ gift.img.url }})"></div>
+        <p class="reward_item_store">{{ gift.category }}</p>
+        <p class="reward_item_name">{{ gift.name }}</p>
+        <p class="reward_item_price">{{ gift.price|intcomma }}</p>
       </div>
+      {% endfor %}
       <div class="reward_item">
         <div class="reward_item_img"></div>
         <p class="reward_item_store"> 스타벅스 </p>
         <p class="reward_item_name"> 아메리카노(Tall) </p>
-        <p class="reward_item_price"> 1,000 </p>
-      </div>
-      <div class="reward_item">
-        <div class="reward_item_img"></div>
-        <p class="reward_item_store"> 스타벅스 </p>
-        <p class="reward_item_name"> 아메리카노(Tall) </p>
-        <p class="reward_item_price"> 1,000 </p>
+        <p class="reward_item_price">1,000</p>
       </div>
       <div class="reward_item">
         <div class="reward_item_img"></div>

@@ -77,6 +77,8 @@ class Division(models.Model):
     category = models.ForeignKey(Category)
     name = models.CharField(max_length=20)
     en_name = models.CharField(max_length=30)
+    main_color = models.CharField(max_length=10, blank=True, null=True)
+    color = models.CharField(max_length=10, blank=True, null=True)
 
     def __str__(self):
         division_name = self.category.name + '-' + self.name
@@ -473,7 +475,7 @@ class TicketImg(models.Model):
         blank=True,
         null=True,
     )
-    img = models.ImageField(upload_to='ticket/%Y/%m/%d', blank=True, null=True)  # default는 기본 이미지 아놔 경로수정안함
+    img = models.ImageField(upload_to='TicketImg/%Y/%m/%d', blank=True, null=True)  # default는 기본 이미지 아놔 경로수정안함
 
     def __str__(self):
         img_name = self.ticket.user.username + ' -' + str(self.ticket.pk)

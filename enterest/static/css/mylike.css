@@ -5,15 +5,16 @@
   }
   .user_scrap_content_wrapper {
     width: 100%;
+    min-height: 600px;
     margin: 0 auto 0;
-    padding: 24px 16px 0;
+    padding: 24px 0px 40px 16px;
   }
   .scrap_category {
     margin-bottom: 32px;
   }
-  .scrap_place {
+  /*.scrap_place {
     border-bottom: solid 1px #ebecf0;
-  }
+  }*/
   .category_title {
     font-family: "나눔바른고딕B";
     font-size: 20px;
@@ -23,6 +24,7 @@
     height: 54px;
     border-top: solid 1px #ebecf0;
     padding-right: 16px;
+    margin-right: 16px;
   }
   .scrap_list_place > p {
     font-family:"나눔바른고딕B";
@@ -37,7 +39,12 @@
   }
   .scrap_list {
     width: 100%;
-    overflow-x: scroll;
+    overflow: auto;
+    white-space: nowrap;
+  }
+  .scrap_list .series_set {
+    margin-right: 4px;
+    margin-bottom: 0px;
   }
   .user_interest_list {
     margin-bottom: 8px;
@@ -54,7 +61,7 @@
     display: inline-block;
     vertical-align: middle;
     padding: 0 16px;
-    margin: 0 8px 12px 0;
+    margin: 0 4px 12px 0;
   }
   .user_interest_list > p {
     font-family: "나눔바른고딕";
@@ -64,21 +71,28 @@
     vertical-align: middle;
     margin: 0 0 12px 16px;
   }
+
+  .no_liked {
+    min-height: 60px;
+    line-height: 60px;
+    padding-bottom: 18px;
+  }
 }
 
 
 @media (min-width:768px) {
   .user_scrap_content {
     width: 100%;
+    min-height: 800px;
     background-color: #f4f5f7;
   }
   .user_scrap_content_wrapper {
     width: 1100px;
     margin: 0 auto 0;
-    padding: 40px 16px 0;
+    padding: 40px 16px;
   }
   .scrap_category {
-    margin-bottom: 48px;
+    margin-bottom: 32px;
   }
   .category_title {
     font-family: "나눔바른고딕B";
@@ -86,30 +100,31 @@
     margin: 0 0 24px 0;
   }
   .scrap_list_place {
-    width: 255px;
-    height: 88px;
-    border-radius: 8px;
-    border: solid 4px #4a90e2;
+    width: 254px;
+    height: 70px;
+    border-radius: 2px;
+    border: solid 1px #4a90e2;
     display: inline-block;
-    padding: 0 16px 0 24px;
-    margin: 0 16px 24px 0;
+    padding: 0px 20px;
+    margin: 0 10px 18px 0;
   }
   .scrap_list_place > p {
     font-family:"나눔바른고딕B";
     font-size: 16px;
-    line-height: 88px;
+    line-height: 68px;
     margin: 0;
   }
   .scrap_list_place > p > i {
     font-size: 16px;
-    line-height: 88px;
+    line-height: 68px;
     float: right;
   }
   .show_more {
     font-family: "나눔바른고딕B";
     font-size: 16px;
     color: rgba(56, 59, 65, 0.54);
-    margin: 10px 0 12px 0;
+    margin: 0;
+    padding-bottom: 18px;
   }
   .show_more > i {
     margin-left: 8px;
@@ -138,6 +153,12 @@
     display: inline-block;
     vertical-align: middle;
     margin: 0 0 0 16px;
+  }
+
+  .no_liked {
+    min-height: 60px;
+    line-height: 60px;
+    padding-bottom: 18px;
   }
 }
 

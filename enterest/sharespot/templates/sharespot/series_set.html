@@ -5,14 +5,14 @@
 {% for series in series_all %}
   <div class="series_set">
     <div class="series_pic" style="background-image: url({{ series.image_set.first.img.url }});">
-      <div>{{ series.division.name }}</div>
+      <div style="background-color: {{ series.division.main_color }}">{{ series.division.name }}</div>
     </div>
     <div class="series_set_wrapper">
       <p class="series_title">{{ series.name }}</p>
       <p class="series_info">{{ series.start|date:"Y.m.d."}} ~ {{ series.end|date:"Y.m.d."}} <br> {{ series.space.name }} </p>
       <div class="series_rating_reviews">
         <div></div>
-        <h4>{{ series.get_series_star }} ( {{ series.get_series_review_count }} )</h4>
+        <h4>{{ series.get_series_star }} ( {{ series.get_series_review.count }} )</h4>
       </div>
       <div class="series_get_info">
         <a href="{% url "sharespot:series_basic" series.en_name %}"><div class="series_event_info"> 공연 정보 </div></a>

@@ -16,6 +16,80 @@
     <div class="mytalk_section">
       <p class="section_title"> 내가 던진 이야깃거리 </p>
       <div class="mytalk_list">
+        {% for topic in user.talktopic_set.all %}
+        <a href="{% url "sharespot:series_talk" topic.series.en_name topic.pk %}"><div class="mytalk_list_tr">
+          <div class="list_left">
+            <p>[{{ topic.series.division.name }}] {{ topic.series.name }}</p>
+          </div>
+          <div class="list_right">
+            <p>{{ topic.content }}</p>
+            <p> <i class="far fa-comment"></i> {{ topic.talk_set.count }}</p>
+          </div>
+          <i class="fas fa-chevron-right"></i>
+        </div></a>
+        {% endfor %}
+
+
+        <div class="mytalk_list_tr">
+          <div class="list_left">
+            <p>[장르장르] 여긴작품명자리여긴작품명자리여긴작품명자리여긴작품명자리</p>
+          </div>
+          <div class="list_right">
+            <p> 어떤 주인공이 가장 기억에 남으세요? 어떤 주인공이 가장 기억에 남으세요? 어떤 주인공이 가장 기억에 남으세요? 어떤 주인공이 가장 기억에 남으세요?</p>
+            <p> <i class="far fa-comment"></i> 103 </p>
+          </div>
+          <i class="fas fa-chevron-right"></i>
+        </div>
+        <div class="mytalk_list_tr">
+          <div class="list_left">
+            <p>[장르장르] 여긴작품명자리</p>
+          </div>
+          <div class="list_right">
+            <p> 어떤 주인공이 가장 기억에 남으세요? </p>
+            <p> <i class="far fa-comment"></i> 103 <i class="far fa-heart"></i> 103 </p>
+          </div>
+          <i class="fas fa-chevron-right"></i>
+        </div>
+        <div class="mytalk_list_tr">
+          <div class="list_left">
+            <p>[장르장르] 여긴작품명자리</p>
+          </div>
+          <div class="list_right">
+            <p> 어떤 주인공이 가장 기억에 남으세요? </p>
+            <p> <i class="far fa-comment"></i> 103 <i class="far fa-heart"></i> 103 </p>
+          </div>
+          <i class="fas fa-chevron-right"></i>
+        </div>
+        <div class="mytalk_list_tr">
+          <div class="list_left">
+            <p>[장르장르] 여긴작품명자리</p>
+          </div>
+          <div class="list_right">
+            <p> 어떤 주인공이 가장 기억에 남으세요? </p>
+            <p> <i class="far fa-comment"></i> 103 <i class="far fa-heart"></i> 103 </p>
+          </div>
+          <i class="fas fa-chevron-right"></i>
+        </div>
+        <div class="mytalk_list_tr">
+          <div class="list_left">
+            <p>[장르장르] 여긴작품명자리</p>
+          </div>
+          <div class="list_right">
+            <p> 어떤 주인공이 가장 기억에 남으세요? </p>
+            <p> <i class="far fa-comment"></i> 103 <i class="far fa-heart"></i> 103 </p>
+          </div>
+          <i class="fas fa-chevron-right"></i>
+        </div>
+        <div class="mytalk_list_tr">
+          <div class="list_left">
+            <p>[장르장르] 여긴작품명자리</p>
+          </div>
+          <div class="list_right">
+            <p> 어떤 주인공이 가장 기억에 남으세요? </p>
+            <p> <i class="far fa-comment"></i> 103 <i class="far fa-heart"></i> 103 </p>
+          </div>
+          <i class="fas fa-chevron-right"></i>
+        </div>
         <div class="mytalk_list_tr">
           <div class="list_left">
             <p>[장르장르] 여긴작품명자리</p>
@@ -59,9 +133,24 @@
 
       </div>
     </div>
+
     <div class="mytalk_section">
       <p class="section_title"> 내가 참여한 이야깃거리 </p>
       <div class="mytalk_list">
+        {% for topic in joined_topics %}
+        <a href="{% url "sharespot:series_talk" topic.series.en_name topic.pk %}"><div class="mytalk_list_tr">
+          <div class="list_left">
+            <p>[{{ topic.series.division.name }}] {{ topic.series.name }}</p>
+          </div>
+          <div class="list_right">
+            <p>{{ topic.content }}</p>
+            <p> <i class="far fa-comment"></i> {{ topic.talk_set.count }}</p>
+          </div>
+          <i class="fas fa-chevron-right"></i>
+        </div></a>
+        {% endfor %}
+
+
         <div class="mytalk_list_tr">
           <div class="list_left">
             <p>[장르장르] 여긴작품명자리</p>
@@ -97,16 +186,20 @@
     <div class="mytalk_section">
       <p class="section_title"> 내가 쓴 장소정보 </p>
       <div class="mytalk_list">
+        {% for info in user.shareinfo_set.all %}
         <div class="mytalk_list_tr">
           <div class="list_left">
-            <p>여긴장소이름자리</p>
+            <p>{{ info.place.name }}</p>
           </div>
           <div class="list_right">
-            <p> [카페] 프릳츠 커피 로스터스 </p>
-            <p> <i class="far fa-comment"></i> 103 <i class="far fa-heart"></i> 103 </p>
+            <p> [{{ info.category }}] {{ info.name }} </p>
+            <p> <i class="far fa-comment"></i> {{ info.shareinfocomment_set.count }} <i class="far fa-heart"></i> {{ info.count_liked }} </p>
           </div>
           <i class="fas fa-chevron-right"></i>
         </div>
+        {% endfor %}
+
+
         <div class="mytalk_list_tr">
           <div class="list_left">
             <p>여긴장소이름자리</p>
