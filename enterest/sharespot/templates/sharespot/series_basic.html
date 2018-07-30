@@ -101,57 +101,8 @@
   <div class="other_events">
     <div class="other_events_wrapper">
       <p>이 이벤트를 본 유저들의 관심이벤트</p>
-      <div class="other_events_set">
-        <div class="other_events_pic">
-          <div>sports</div>
-        </div>
-        <p class="other_events_title"> 두산 vs LG </p>
-        <p class="other_events_info"> 2018년 7월 3일 잠실 주경기장 </p>
-        <div class="other_events_rating"></div>
-        <h4 class="other_events_reviews"> (100) </h4>
-        <div class="other_events_get_info">
-          <div class="other_events_seat_info"> 좌석 정보 </div>
-          <div class="other_events_event_info"> 공연 정보 </div>
-        </div>
-      </div>
-      <div class="other_events_set">
-        <div class="other_events_pic">
-          <div>sports</div>
-        </div>
-        <p class="other_events_title"> 두산 vs LG </p>
-        <p class="other_events_info"> 2018년 7월 3일 잠실 주경기장 </p>
-        <div class="other_events_rating"></div>
-        <h4 class="other_events_reviews"> (100) </h4>
-        <div class="other_events_get_info">
-          <div class="other_events_seat_info"> 좌석 정보 </div>
-          <div class="other_events_event_info"> 공연 정보 </div>
-        </div>
-      </div>
-      <div class="other_events_set">
-        <div class="other_events_pic">
-          <div>sports</div>
-        </div>
-        <p class="other_events_title"> 두산 vs LG </p>
-        <p class="other_events_info"> 2018년 7월 3일 잠실 주경기장 </p>
-        <div class="other_events_rating"></div>
-        <h4 class="other_events_reviews"> (100) </h4>
-        <div class="other_events_get_info">
-          <div class="other_events_seat_info"> 좌석 정보 </div>
-          <div class="other_events_event_info"> 공연 정보 </div>
-        </div>
-      </div>
-      <div class="other_events_set">
-        <div class="other_events_pic">
-          <div>sports</div>
-        </div>
-        <p class="other_events_title"> 두산 vs LG </p>
-        <p class="other_events_info"> 2018년 7월 3일 잠실 주경기장 </p>
-        <div class="other_events_rating"></div>
-        <h4 class="other_events_reviews"> (100) </h4>
-        <div class="other_events_get_info">
-          <div class="other_events_seat_info"> 좌석 정보 </div>
-          <div class="other_events_event_info"> 공연 정보 </div>
-        </div>
+      <div class="ohter_events_list">
+        {% include 'sharespot/series_set.html' with request=request series_all=series_all %}
       </div>
     </div>
   </div>
