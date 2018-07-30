@@ -56,9 +56,9 @@
   .user_pwd {
     margin-top: 32px;
   }
-  .user_pwd > input[name='present_pwd'],
-  .user_pwd > input[name='new_pwd'],
-  .user_pwd > input[name='confirm_pwd'] {
+  .user_pwd > input[name='old_password'],
+  .user_pwd > input[name='new_password1'],
+  .user_pwd > input[name='new_password2'] {
     width: 320px;
     height: 48px;
     border: solid 1px #eeeeee;
@@ -69,7 +69,7 @@
   .user_nickname {
     margin-top: 32px;
   }
-  .user_nickname > input[name='nickname'],
+  .user_nickname > input[name='nick_name'],
   .user_email > input[name='email'] {
     width: 320px;
     height: 48px;
@@ -208,7 +208,15 @@
     display: inline-block;
     vertical-align: middle;
   }
-  .user_profile_pic button {
+  .user_profile_pic input {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+  .user_profile_pic label {
     width: 112px;
     height: 40px;
     border: solid 1px #ebecf0;
@@ -216,10 +224,13 @@
     background-color: #ebecf0;
     font-family: "나눔바른고딕B";
     font-size: 14px;
+    text-align: center;
+    line-height: 40px;
     color: rgba(56, 59, 65, 0.54);
     display: inline-block;
     vertical-align: middle;
     margin-left: 24px;
+    cursor: pointer;
   }
   .user_id {
     margin-top: 36px;
@@ -234,9 +245,9 @@
   .user_pwd {
     margin-top: 36px;
   }
-  .user_pwd > input[name='present_pwd'],
-  .user_pwd > input[name='new_pwd'],
-  .user_pwd > input[name='confirm_pwd'] {
+  .user_pwd > input[name='old_password'],
+  .user_pwd > input[name='new_password1'],
+  .user_pwd > input[name='new_password2'] {
     width: 320px;
     height: 48px;
     border: solid 1px #eeeeee;
@@ -246,7 +257,7 @@
   .user_nickname {
     margin-top: 36px;
   }
-  .user_nickname > input[name='nickname'],
+  .user_nickname > input[name='nick_name'],
   .user_email > input[name='email'] {
     width: 320px;
     height: 48px;

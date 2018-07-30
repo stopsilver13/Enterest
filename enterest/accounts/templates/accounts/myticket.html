@@ -68,64 +68,73 @@
 
   <div class="mytickets_zone">
     <div class="mytickets_zone_wrapper">
-      <p class="tickets_count"> 총 32장 </p>
+      <p class="tickets_count"> 총 &nbsp;{{ tickets.count }}장 </p>
+      {% for ticket in tickets %}
       <div class="mytickets" id="call_modal">
-        <div class="mytickets_header" style="background-image: url('{% static 'img/genre.png' %}');">
-          <p> Musical </p>
+        <div class="mytickets_header" style="background-image: url('{% static 'img/genre.png' %}'); background-color: {{ ticket.event_review.event.series.division.main_color }};">
+          <p>{{ ticket.event_review.event.series.division.name }}</p>
         </div>
+        {% if ticket.image_set.exists %}
         <div class="mytickets_img hide_in_phone">
-          <img src="{% static 'img/example.jpg' %}">
+          <img src="{{ ticket.image_set.first.img.url }}">
         </div>
+        {% endif %}
         <div class="mytickets_content_wrapper">
           <div class="mytickets_event">
-            <p> 노트르담 드 파리 </p>
+            <p>{{ ticket.event_review.event }}</p>
             <div class="event_date_time">
               <h3> DATE&TIME </h3>
-              <p> 2018.6.19  3:00 PM </p>
+              <p>{{ ticket.event_review.event.start|date:"Y.m.d f A" }}</p>
             </div>
             <div class="event_venue">
               <h3> VENUE </h3>
-              <p> 예술의 전당 콘서트홀 </p>
+              <p>{{ ticket.event_review.event.series.space.name }}</p>
             </div>
           </div>
           <div class="mytickets_event_evaluation hide_in_phone">
             <div class="event_rating">
               <h3> 종합평가 </h3>
-              <div></div>
+              <div>{{ ticket.event_review.total_star }}</div>
             </div>
             <div class="event_emotions">
               <h3> 감정태그 </h3>
-              <div> 짜릿한 </div>
-              <div> 뭔가 아쉬운 </div>
-              <div> 소름끼치는 </div>
-              <div> 가슴이 먹먹한 </div>
-              <div> 온몸에 전율이 흐르는 </div>
+              {% for emotion in ticket.event_review.emotion_set.all %}
+              <div style="background-color: {{ ticket.event_review.event.series.division.color }};">{{ emotion.name }}</div>
+              {% endfor %}
             </div>
             <div class="event_review">
               <h3> 이벤트 리뷰 </h3>
-              <p> 섹시하고 섹시하다! 공연리뷰를 적는 곳 길게 적을 수도 있으니까 우선은 조금 길게 써보겠음~~섹시하고 섹시해 최대 세줄까지 보여주고 더보여주기 </p>
+              {% if ticket.event_review.content %}
+              <p>{{ ticket.event_review.content }}</p>
               <h4> 더보기 </h4>
+              {% else %}
+              <div class="no_review">등록된 이벤트 리뷰가 없습니다 ㅠ.ㅠ</div>
+              {% endif %}
             </div>
           </div>
           <div class="mytickets_seat_info hide_in_phone">
             <div class="seat_number">
               <h3> 좌석 </h3>
-              <p> 레드지정석 105블럭 3-15번 </p>
+              <p> {{ ticket.seat_review.seat.level.name }} {{ ticket.seat_review.seat.block.name }} 블럭 {{ ticket.seat_review.seat.name }} 번 </p>
             </div>
             <div class="seat_evaluation">
               <h3> 평가 </h3>
               <div class="seat_rating">
                 <div class="seat_view_rating">
                   <p> 시야 </p>
-                  <div></div>
+                  <div>{{ ticket.seat_review.view_star }}</div>
                 </div>
                 <div class="seat_excitement_rating">
                   <p> 열기 </p>
-                  <div></div>
+                  <div>{{ ticket.seat_review.real_star }}</div>
                 </div>
               </div>
-              <p class="seat_review"> 좌석 리뷰를 적는 곳 길게 적을 수도 있으니까 우선은 조금 길게 써보겠음~~의자가 푹신합니당 최대 세줄까지 보여주고 더보여주기 </p>
+              {% if ticket.seat_review.content %}
+              <p class="seat_review">{{ ticket.seat_review.content }}</p>
               <h4> 더보기 </h4>
+              {% else %}
+              <div class="no_review">등록된 좌석 리뷰가 없습니다 ㅠ.ㅠ</div>
+              {% endif %}
             </div>
           </div>
           <div class="fold_ticket hide_in_phone">
@@ -133,6 +142,7 @@
           </div>
         </div>
       </div>
+      {% endfor %}
 
       <div class="mytickets">
         <div class="mytickets_header" style="background-image: url('{% static 'img/genre.png' %}');">
