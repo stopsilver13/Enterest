@@ -57,11 +57,12 @@
   letter-spacing: 0.4px;
   margin: 0 0 16px 0;
 }
-.event_time div {
+.event_time {
   width: 518px;
-  height: 480px;
-  border: solid 1px #c1c7d0;
-  background-color: grey;
+}
+#calendar {
+  max-width: 900px;
+  margin: 0 auto;
 }
 .event_place {
   float: right;
