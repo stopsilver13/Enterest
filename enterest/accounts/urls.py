@@ -14,5 +14,6 @@ urlpatterns = [
     url(r'^mylike/$', views.mylike, name='mylike'),
     url(r'^myreward/$', views.myreward, name='myreward'),
     url(r'^myinfo/$', views.myinfo, name='myinfo'),
+    url(r'^myinfo/check/pw/$', views.checking_pw, name='checking_pw'), # 비밀번호 확인 ajax
     url(r'^faq/$', views.faqlist, name='faqlist'),
 ]

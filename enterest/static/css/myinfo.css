@@ -65,7 +65,19 @@
     padding-left: 8px;
     margin-top: 8px;
   }
-
+  .pwd_correct {
+    font-family: "나눔바른고딕";
+    font-size: 10px;
+    color: blue;
+  }
+  .pwd_incorrect {
+    font-family: "나눔바른고딕";
+    font-size: 10px;
+    color: red;
+  }
+  .pwd_warning_hide {
+    display: none;
+  }
   .user_nickname {
     margin-top: 32px;
   }
@@ -253,6 +265,21 @@
     border: solid 1px #eeeeee;
     padding-left: 8px;
     margin-top: 8px;
+  }
+  .pwd_correct {
+    font-family: "나눔바른고딕";
+    font-size: 10px;
+    color: blue;
+    margin-top: 4px;
+  }
+  .pwd_incorrect {
+    font-family: "나눔바른고딕";
+    font-size: 10px;
+    color: red;
+    margin-top: 4px;
+  }
+  .pwd_warning_hide {
+    display: none;
   }
   .user_nickname {
     margin-top: 36px;

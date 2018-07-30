@@ -60,9 +60,9 @@ def myinfo(request):
 def checking_pw(request):
     # 유저가 프로필 수정을 누르면 old_pw, new_pw1/2가 빈칸인지 아닌지를 판별 -> 모두 빈칸이 아니면 셋 다 채워져 있는지 판별 -> 셋다 채워져 있을 경우, new_pw1/2가 일치하는지 판별 -> 모두 빈칸이라면 바로 submit, 일부만 채워져 있으면 submit 막고 "비밀번호 변경을 원하시면 모두 채워주세요" 알림, 셋다 채워져 있고 new_pw1/2 일치하면 여기로 보내고 'match' 뜨면 submit, 일치하지 않으면 "변경하시고자 하는 비밀번호와 비밀번호 확인이 일치하지 않습니다" 알림
 
-    if request.method == 'GET':
+    if request.method == 'POST':
         user = request.user
-        old_pw = request.GET.get('old_password')
+        old_pw = request.POST.get('old_password')
         if user.check_password(old_pw):
             return HttpResponse('match')
         else:
