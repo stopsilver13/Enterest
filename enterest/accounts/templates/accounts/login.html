@@ -3,7 +3,7 @@
 {% load staticfiles %}
 
 {% block head_extra %}
-<link rel="stylesheet" type="text/css" href="login.css">
+<link rel="stylesheet" type="text/css" href="{% static "css/login.css" %}">
 {% endblock %}
 
 {% block content %}
@@ -30,16 +30,16 @@
       </form>
 
       <ul class="signup_or_find">
-        <li class="signup_or_find_list"><a href="{% url "signup_stage1" %}?next={{ request.GET.next }}"> 회원가입 </a></li>
-        <li class="signup_or_find_list"><a href="{% url "finding_ID" %}"> 아이디찾기 </a></li>
-        <li class="signup_or_find_list" style="border-right:none"><a href="{% url "finding_pw" %}"> 비밀번호찾기 </a></li>
+        <li class="signup_or_find_list"><a href="{% url "signup" %}?next={{ request.GET.next }}"> 회원가입 </a></li>
+        <li class="signup_or_find_list"> 아이디찾기 </li>
+        <li class="signup_or_find_list" style="border-right:none"> 비밀번호찾기 </li>
       </ul>
 
       <p class="sns_login">SNS계정으로 로그인 / 회원가입</p>
       <div class="sns_login_btn">
-        <a href="/accounts/facebook/login/?next=/accounts/signup/sns/?next={{ request.GET.next }}"><img src="{% static "img/logo/facebook.jpg" %}"></a>
-        <a href="/accounts/naver/login/?next=/accounts/signup/sns/?next={{ request.GET.next }}"><img src="{% static "img/logo/naver.jpg" %}"></a>
-        <a href="/accounts/kakao/login/?next=/accounts/signup/sns/?next={{ request.GET.next }}"><img src="{% static "img/logo/kakao.jpg" %}"></a>
+        <a href="/accounts/facebook/login/?next=/accounts/signup/info/?next={{ request.GET.next }}"><img src="{% static "img/logo/facebook.jpg" %}"></a>
+        <a href="/accounts/naver/login/?next=/accounts/signup/info/?next={{ request.GET.next }}"><img src="{% static "img/logo/naver.jpg" %}"></a>
+        <a href="/accounts/kakao/login/?next=/accounts/signup/info/?next={{ request.GET.next }}"><img src="{% static "img/logo/kakao.jpg" %}"></a>
       </div>
     </div>
   </div>

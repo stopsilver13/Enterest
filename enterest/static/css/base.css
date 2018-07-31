@@ -39,8 +39,8 @@ body {
   .base_header_brand > img {
     width: 32px;
     height: 32px;
-    display: inline-block;
     background-color: black;
+    display: inline-block;
     vertical-align: middle;
   }
   .base_header_brand > p {
@@ -82,6 +82,10 @@ body {
     float: left;
     margin-left: 16px;
   }
+  .base_header_brand > a:hover {
+    text-decoration: none;
+    color: #000;
+  }
   .base_header_brand a {
     text-decoration: none;
     cursor: pointer;
@@ -89,8 +93,8 @@ body {
   .base_header_brand img {
     width: 48px;
     height: 48px;
-    display: inline-block;
     background-color: black;
+    display: inline-block;
     vertical-align: middle;
   }
   .base_header_brand p {
@@ -117,6 +121,10 @@ body {
     float: right;
     margin: 8px 16px 0px 0px;
   }
+  .base_header_right > a:hover {
+    text-decoration: none;
+    color: #000;
+  }
   .base_header_register_review {
     font-size: 14px;
     line-height: 2.29;
@@ -140,9 +148,18 @@ body {
   .base_header_username img {
     width: 32px;
     height: 32px;
-    background-color: black;
+    border-radius: 50%;
     display: inline-block;
     vertical-align: middle;
     margin-left: 16px;
+  }
+  .base_header_nologin {
+    margin-left: 32px;
+    font-size: 14px;
+    line-height: 2.29;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    vertical-align: middle;
   }
 }

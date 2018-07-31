@@ -132,7 +132,7 @@
     <div class="reward_shop">
       <p> 티끌 모아 태산 <span> 교환하시고자 하는 상품을 눌러주세요 :-) </span></p>
       {% for gift in gifts %}
-      <div class="reward_item" id="menu-1">
+      <div class="reward_item" id="gift-{{ gift.pk }}">
         <div class="reward_item_img" style="background-image: url({{ gift.img.url }})"></div>
         <p class="reward_item_store">{{ gift.category }}</p>
         <p class="reward_item_name">{{ gift.name }}</p>
@@ -175,23 +175,27 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-body">
-            <a data-dismiss="modal"><img class="modal_close" src="{% static 'img/delete.png' %}"></a>
+            <a data-dismiss="modal"><img class="modal_close" src="{{ gift.img.url }}"></a>
             <p> 교환권 신청 </p>
             <div class="modal_item">
               <img src="{% static 'img/icedamericano.jpg' %}">
-              <h3> 스타벅스 </h3>
-              <h4> 아메리카노(Tall) </h4>
-              <p> 1,000 사용 </p>
+              <h3>{{ gift.category }}</h3>
+              <h4>{{ gift.name }}</h4>
+              <p>{{ gift.price|intcomma }} 사용 </p>
             </div>
-            <div class="user_contact">
-              <p> 교환권을 받으실 전화번호를 확인해주세요. </p>
-              <input type="text" name="phone_number" placeholder="01012341234">
-            </div>
-            <div class="apply_zone">
-              <p> 신청 후에는 상품 변경, 환불이 불가능합니다. </p>
-              <button data-dismiss="modal" class="cancel"> 취소 </button>
-              <button class="apply"> 신청 </button>
-            </div>
+            <form action="" method="POST">
+              {% csrf_token %}
+              <input type="text" name="gift" value="{{ gift.pk }}" style="display: none;">
+              <div class="user_contact">
+                <p> 교환권을 받으실 전화번호를 확인해주세요. </p>
+                <input type="text" name="phone" value="{{ user.profile.phone }}" required>
+              </div>
+              <div class="apply_zone">
+                <p> 신청 후에는 상품 변경, 환불이 불가능합니다. </p>
+                <button data-dismiss="modal" class="cancel"> 취소 </button>
+                <button class="apply"> 신청 </button>
+              </div>
+            </form>
           </div>
           <div class="modal-footer">
             <div class="precautions">
@@ -208,7 +212,7 @@
 
 <script>
 $(document).ready(function(){
-  $('#menu-1').click(function(){
+  $('#gift-1').click(function(){
     $('.modal').modal();
   })
 })

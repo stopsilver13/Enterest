@@ -1,25 +1,80 @@
+from django.conf import settings
+from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.views import login as auth_login
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 from sharespot.models import Series, Ticket, TalkTopic
-from accounts.models import RewardHistory, Gift, GiftRequest, FAQCategory
+from accounts.models import Profile, RewardHistory, Gift, GiftRequest, FAQCategory
 
 from accounts.forms import ImageUploadForm
+
+from allauth.socialaccount.models import SocialApp
+from allauth.socialaccount.templatetags.socialaccount import get_providers
 
 import datetime
 
 
 def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+            return redirect('/accounts/signup/info/?next='+request.GET.get('next', '/'))
+
     return render(request, 'accounts/signup.html')
 
 
 def signup_info(request):
-    return render(request, 'accounts/signup_info.html')
+    user = request.user
+    has_profile = Profile.objects.filter(user=user).exists()
+    if has_profile:
+        return redirect(request.GET.get('next', '/'))
+
+    year = [x for x in range(2017, 1950, -1)]
+    month = [x for x in range(1, 13)]
+    day = [x for x in range(1, 32)]
+
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        nick_name = request.POST.get('nick_name')
+        sex = request.POST.get('sex')
+        birth = request.POST.get('year') + '-' + request.POST.get('month') + '-' + request.POST.get('day')
+        phone = request.POST.get('phone')
+
+        user.email = email
+        user.save()
+
+        Profile.objects.create(user=user, nick_name=nick_name, sex=sex, birth=birth, phone=phone)
+
+        return redirect(request.GET.get('next', '/'))
+
+    return render(request, 'accounts/signup_info.html', {
+        'year': year,
+        'month': month,
+        'day': day,
+    })
 
 
-def login(request):
-    return render(request, 'accounts/login.html')
+def login_custom(request):
+    providers = []
+
+    for provider in get_providers():  # 활성화된 provider 목록을 가져옴.
+        try:
+            provider.social_app = SocialApp.objects.get(provider=provider.id, sites=settings.SITE_ID)
+        except SocialApp.DoesNotExist:
+            provider.social_app = None
+        providers.append(provider)
+
+    return auth_login(request,
+                      template_name='accounts/login.html',
+                      extra_context={'providers': providers})
 
 
 @login_required
@@ -67,6 +122,13 @@ def checking_pw(request):
             return HttpResponse('match')
         else:
             return HttpResponse('mis_match')
+
+
+def user_delete(request):
+    user = request.user
+    user.delete()
+
+    return redirect('/')
 
 
 @login_required
@@ -138,10 +200,6 @@ def myreward(request):
             reason=gift.name + ' 교환',
             amount=gift.price*(-1),
         )
-
-        # 유저 리워드 차감
-        user.reward.use_point(gift.price)
-        user.reward.save()
 
         return redirect(request.path)
 
