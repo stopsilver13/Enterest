@@ -29,7 +29,7 @@
       </div>
       <div class="password_part">
         <p>비밀번호 <span>* 알파벳/숫자를 모두 포함하여 8자 이상 입력해주세요.</span></p>
-        <input class="text_input" type="password" name="password1" {% if form.password1.value != None %} value="{{ form.password1.value }}" {% endif %} required>
+        <input class="text_input" type="password" placeholder="비밀번호" name="password1" {% if form.password1.value != None %} value="{{ form.password1.value }}" {% endif %} required>
         {% if form.password.errors %}
           <div class="error_msg alert alert-danger">
             {% for error in form.password.errors %}
@@ -37,7 +37,7 @@
             {% endfor %}
           </div>
         {% endif %}
-        <input class="text_input" type="password" name="password2" {% if form.password2.value != None %} value="{{ form.password2.value }}" {% endif %} required>
+        <input class="text_input" type="password" placeholder="비밀번호 확인" name="password2" {% if form.password2.value != None %} value="{{ form.password2.value }}" {% endif %} required>
         {% if form.password2.errors %}
           <div class="alert alert-danger">
             {% for error in form.password2.errors %}

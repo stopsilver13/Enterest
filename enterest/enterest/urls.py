@@ -17,10 +17,13 @@ from django.conf import settings
 from django.conf.urls import url, include
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.shortcuts import redirect
 
 urlpatterns = [
+    url(r'^$', lambda request: redirect('sharespot:main')),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('accounts.urls')),
+    url(r'^accounts/', include('allauth.urls')),
     url(r'^sharespot/', include('sharespot.urls', namespace='sharespot')),
 ]
 

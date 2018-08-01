@@ -27,7 +27,7 @@
   {% csrf_token %}
   <div class="user_info_content">
     <div class="user_profile_pic">
-      <p class="section_title"> 프로필 사진 <span> 탈퇴하기 </span></p>
+      <p class="section_title"> 프로필 사진 <span><a href="{% url "user_delete" %}" onclick="return confirm('정말 탈퇴하시겠습니까?')"> 탈퇴하기 </a></span></p>
       <div>
         <img src="{{ user.profile.img.url }}" id="output_img">
         <input id="file" type="file" accept="image/*" name="image" onchange="preview_image(event)">
