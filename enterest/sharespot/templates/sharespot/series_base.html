@@ -12,19 +12,19 @@
 
 {% block content %}
 <div class="content">
-  <div class="event_title_zone" style="background-image: url({{ series. }})">
-    <div class="event_title_zone_wrapper">
-      <p>[{{ series.division.name }}] {{ series.name }}<i class="far fa-heart"></i></p>
+  <div class="series_title_zone"> <!--  style="background-image: url({{ series. }})" -->
+    <div class="series_title_zone_wrapper">
+      <p>[{{ series.division.name }}] {{ series.name }}<i class="far fa-star"></i></i></p>
     </div>
   </div>
 
-  <div class="event_nav">
-    <div class="event_nav_wrapper">
-      <a href="{% url "sharespot:series_basic" series.en_name %}"><div class="event_nav_component">기본정보</div></a>
-      <a href="{% url "sharespot:series_review" series.en_name %}"><div class="event_nav_component">평점/리뷰</div></a>
-      <a href="{% url "sharespot:series_talk_list" series.en_name %}"><div class="event_nav_component">딥톡</div></a>
-      <a href="{% url "sharespot:place_space" series.space.en_name %}"><div class="event_nav_component">좌석정보</div></a>
-      <div class="event_nav_component">예매</div>
+  <div class="series_nav">
+    <div class="series_nav_wrapper">
+      <a href="{% url "sharespot:series_basic" series.en_name %}"><div class="series_nav_component" id="series_basic_info"> 기본정보 </div></a>
+      <a href="{% url "sharespot:series_review" series.en_name %}"><div class="series_nav_component" id="series_rating_review"> 평점/리뷰 </div></a>
+      <a href="{% url "sharespot:series_talk_list" series.en_name %}"><div class="series_nav_component" id="series_waglewagle"> 와글와글 </div></a>
+      <a href="{% url "sharespot:place_space" series.space.en_name %}"><div class="series_nav_component" id="series_view_info"> 좌석정보 </div></a>
+      <div class="series_nav_component" id="series_ticketing"> 예매 </div>
     </div>
   </div>
 
@@ -32,4 +32,23 @@
   {% endblock %}
 
 </div>
+
+
+<script>
+$(document).ready(function(){
+  $('.fa-star').click(function(){
+    var self = $(this);
+    if( self.hasClass('far') ){
+      alert('[{{ series.division.name }}] {{ series.name }}이(가) 즐겨찾기에 추가되었습니다.')
+      self.removeClass('far');
+      self.addClass('fas');
+    } else {
+      alert('[{{ series.division.name }}] {{ series.name }}이(가) 즐겨찾기에서 제외되었습니다.')
+      self.removeClass('fas');
+      self.addClass('far');
+    }
+
+  })
+})
+</script>
 {% endblock %}

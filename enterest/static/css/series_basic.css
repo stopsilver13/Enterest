@@ -1,250 +1,531 @@
-.event_content {
-  width: 100%;
-  min-width: 1100px;
-  padding-bottom: 48px;
-}
-.event_content_wrapper {
-  width: 1100px;
-  margin: 0 auto 0;
-}
-.event_introduction {
-  padding: 42px 16px 0 16px;
-}
-.event_intro_text {
-  height: 230px;
-  display: inline-block;
-  vertical-align: middle;
-}
-.event_intro_text p {
-  font-family: "나눔바른고딕B";
-  font-size: 24px;
-  line-height: 1.67;
-  text-align: left;
-  margin: 0 0 16px 0;
-}
-.event_intro_text h4 {
-  width: 696px;
-  font-family: "나눔바른고딕";
-  font-size: 14px;
-  text-align: left;
-  margin: 0;
-}
-.event_intro_img {
-  width: 340px;
-  height: 230px;
-  /*border: solid 1px #b3bac5;*/
-  /*background-color: grey;*/
-  background-repeat: no-repeat;
-  background-size: contain;
-  display: inline-block;
-  vertical-align: middle;
-  float: right;
+@media (max-width:768px) {
+  #series_basic_info {
+    color: #262626;
+    border-bottom: solid 2px #262626;
+  }
+  .event_content {
+    width: 100%;
+    min-width: 375px;
+    padding: 24px 16px
+  }
+  .event_content_wrapper {
+    width: 100%;
+    margin: 0 auto 0;
+  }
+  .event_intro_text p {
+    font-family: "나눔바른고딕B";
+    font-size: 20px;
+    color: #262626;
+    margin: 0 0 16px 0;
+  }
+  .event_intro_text h4 {
+    font-family: "나눔바른고딕";
+    font-size: 14px;
+    color: #262626;
+    line-height: 1.5;
+    margin: 0;
+  }
+  .event_intro_img {
+    padding-top: 24px;
+    overflow: auto;
+    white-space: nowrap;
+  }
+  .event_intro_img img {
+    width: 160px;
+    height: 108px;
+    border: solid 1px #b3bac5;
+    background-color: grey;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  .event_time_place {
+    padding-top: 32px;
+  }
+  .event_time p,
+  .event_place p {
+    font-family: "나눔바른고딕B";
+    font-size: 20px;
+    color: #262626;
+    margin: 0 0 16px 0;
+  }
+  .event_time,
+  .event_place {
+    width: 100%;
+  }
+  #calendar {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .event_place {
+    padding-top: 32px;
+  }
+  .event_place > a:hover {
+    color: #000;
+    text-decoration: none;
+  }
+  .event_place h4 {
+    font-family: "나눔바른고딕B";
+    font-size: 14px;
+    color: #262626;
+    margin: 0 0 8px 0;
+  }
+  .event_place h5 {
+    font-family: "나눔바른고딕";
+    font-size: 14px;
+    color: rgba(38, 38, 38, 0.7);
+    margin: 0;
+  }
+  .e_place_rating_review {
+    width: 100%;
+    padding: 16px 0;
+  }
+  .e_place_rating {
+    display: inline-block;
+  }
+  .e_place_view_rating,
+  .e_place_excitement_rating {
+    display: inline-block;
+  }
+  .e_place_view_rating label,
+  .e_place_excitement_rating label,
+  .e_place_view_rating > div,
+  .e_place_excitement_rating > div {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0px;
+  }
+  .e_place_view_rating label,
+  .e_place_excitement_rating label {
+    font-family: "나눔바른고딕";
+    font-size: 12px;
+    color: #262626;
+  }
+  .e_place_view_rating > div,
+  .e_place_excitement_rating > div {
+    width: 64px;
+    height: 12px;
+    font-size: 12px; /*이거 임시로 써놓은거 지워야함*/
+    background-color: grey;
+  }
+  .e_place_review {
+    font-family: "나눔바른고딕";
+    font-size: 12px;
+    color: rgba(38, 38, 38, 0.7);
+    padding-top: 8px;
+  }
+  .e_place_map {
+    width: 100%;
+    height: 250px;
+  }
+
+  .event_etc_info {
+    padding-top: 32px;
+  }
+  .event_casting > p {
+    font-family: "나눔바른고딕B";
+    font-size: 20px;
+    color: #262626;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0px;
+  }
+  .event_casting div.casting_schedule {
+    height: 22px;
+    font-family: "나눔바른고딕B";
+    font-size: 10px;
+    color: #bb213c;
+    line-height: 22px;
+    text-align: center;
+    border: solid 1px #bb213c;
+    border-radius: 5px;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0px 8px;
+    margin-left: 16px;
+  }
+  .event_casting div.casting_schedule:hover {
+    color: #fff;
+    background-color: #bb213c;
+  }
+  .actor_introduction {
+    padding-top: 32px;
+  }
+  .actor_info {
+    text-align: center;
+    display: inline-block;
+    margin-right: 24px;
+  }
+  .actor_pic {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    margin: 0 auto;
+    overflow: auto;
+    white-space: nowrap;
+  }
+  .actor_info > p {
+    font-family: "나눔바른고딕B";
+    font-size: 16px;
+    color: #262626;
+    text-align: center;
+    margin: 14px 0 0 0;
+  }
+  .event_etc_price {
+    padding-top: 40px;
+  }
+  .event_etc_price > p {
+    font-family: "나눔바른고딕B";
+    font-size: 20px;
+    color: #262626;
+    margin: 0 0 16px 0;
+  }
+  .price_table {
+    width: 100%;
+  }
+  .price_thead {
+    font-family: "나눔바른고딕";
+    font-size: 14px;
+    color: rgba(38, 38, 38, 0.7);
+    line-height: 40px;
+  }
+  .price_thead > .price_tr {
+    border-bottom: solid 1px #e6e6e6;
+  }
+  .price_tr {
+    padding: 0 25px 0 16px;
+  }
+  .price_tbody {
+    font-family: "나눔바른고딕";
+    font-size: 14px;
+    color: #262626;
+    line-height: 48px;
+  }
+  .seat_level, .level_price {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .level_price {
+    width: 70px;
+    text-align: center;
+    float: right;
+  }
+  .event_etc {
+    padding-top: 40px;
+  }
+  .event_etc > p {
+    font-family: "나눔바른고딕B";
+    font-size: 20px;
+    color: #262626;
+    margin: 0 0 16px 0;
+  }
+  .event_etc ol {
+    -webkit-padding-start: 16px;
+  }
+  .event_etc li {
+    font-family: "나눔바른고딕";
+    font-size: 16px;
+    color: #262626;
+    line-height: 1.5;
+  }
+/*  .other_events {
+    width: 100%;
+    background-color: #f4f5f7;
+    padding: 40px 0 64px;
+  }
+  .other_events_wrapper {
+    width: 1100px;
+    padding: 0 16px;
+    margin: 0 auto 0;
+  }
+  .other_events_wrapper > p {
+    font-family: "나눔바른고딕B";
+    font-size: 24px;
+    line-height: 1.67;
+    text-align: left;
+    margin: 0;
+  }
+  .other_events_list {
+    padding-top: 40px;
+  }*/
 }
 
 
-.event_time_place {
-  padding: 42px 16px 0 16px;
-}
-.event_time,
-.event_place {
-  display: inline-block;
-  vertical-align: middle;
-}
-.event_time p,
-.event_place p {
-  font-family: "나눔바른고딕B";
-  font-size: 24px;
-  letter-spacing: 0.4px;
-  margin: 0 0 16px 0;
-}
-.event_time {
-  width: 518px;
-}
-#calendar {
-  max-width: 900px;
-  margin: 0 auto;
-}
-.event_place {
-  float: right;
-}
-.event_place > a:hover {
-  color: #000;
-  text-decoration: none;
-}
-.event_place h4 {
-  font-family: "나눔바른고딕";
-  font-size: 16px;
-  line-height: 1.5;
-  text-decoration: underline;
-  margin: 0 0 8px 0;
-}
-.event_place h5 {
-  font-family: "나눔바른고딕";
-  font-size: 16px;
-  text-align: left;
-  color: rgba(56, 59, 65, 0.54);
-  margin: 0;
-}
-.e_place_rating_review {
-  width: 100%;
-  margin-top: 16px;
-}
-.e_place_rating {
-  display: inline-block;
-}
-.e_place_view_rating,
-.e_place_excitement_rating {
-  display: inline-block;
-}
-.e_place_view_rating label,
-.e_place_excitement_rating label,
-.e_place_view_rating > div,
-.e_place_excitement_rating > div {
-  display: inline-block;
-  vertical-align: middle;
-  margin: 0px;
-}
-.e_place_view_rating label,
-.e_place_excitement_rating label {
-  font-family: "나눔바른고딕";
-  font-size: 12px;
-}
-.e_place_view_rating > div,
-.e_place_excitement_rating > div {
-  width: 64px;
-  height: 12px;
-  font-size: 12px; /*이거 임시로 써놓은거 지워야함*/
-  background-color: grey;
-}
-.e_place_review {
-  font-family: "나눔바른고딕";
-  font-size: 12px;
-  text-align: left;
-  color: rgba(56, 59, 65, 0.54);
-  display: inline-block;
-  float: right;
-}
-.e_place_map {
-  width: 518px;
-  height: 375px;
-  background-color: grey;
-  margin-top: 16px;
-}
 
-.event_etc_info {
-  padding: 48px 16px 0 16px;
-}
-.event_etc_left,
-.event_etc_right {
-  display: inline-block;
-  vertical-align: top;
-}
-.event_casting {
-  padding-bottom: 48px;
-}
-.event_casting > p {
-  font-family: "나눔바른고딕B";
-  font-size: 24px;
-  letter-spacing: 0.4px;
-  display: inline-block;
-  margin: 0px;
-  vertical-align: middle;
-}
-.event_casting div.casting_schedule {
-  height: 24px;
-  font-family: "나눔바른고딕";
-  font-size: 14px;
-  line-height: 24px;
-  text-align: center;
-  background-color: #c1c7d0;
-  border-radius: 5px;
-  display: inline-block;
-  padding: 0px 8px;
-  margin-left: 16px;
-  vertical-align: middle;
-}
-.event_casting div.casting_schedule:hover {
-  color: #000;
-}
-.actor_introduction {
-  margin-top: 40px;
-}
-.actor_info {
-  display: inline-block;
-  margin-right: 24px;
-}
-.actor_pic {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-}
-.actor_info > p {
-  width: 100px;
-  font-family: "나눔바른고딕B";
-  font-size: 16px;
-  letter-spacing: 0.3px;
-  text-align: center;
-  margin: 8px 0 0 0;
-}
-.event_etc {
-  min-height: 276px;
-}
-.event_etc > p {
-  font-size: 24px;
-  font-weight: bold;
-  letter-spacing: 0.4px;
-  margin: 0 0 16px 0;
-}
-.event_etc ol {
-  -webkit-padding-start: 16px;
-}
-.event_etc li {
-  width: 518px;
-  font-family: "나눔바른고딕";
-  font-size: 16px;
-  line-height: 1.5;
-  letter-spacing: normal;
-}
-.event_etc_right {
-  float: right;
-}
-.event_etc_right > p {
-  font-family: "나눔바른고딕B";
-  font-size: 24px;
-  letter-spacing: 0.4px;
-  margin: 0 0 16px 0;
-}
-.event_etc_right > div {
-  width: 518px;
-  height: 480px;
-  border: solid 1px #b3bac5;
-}
+@media (min-width:768px) {
+  #series_basic_info {
+    color: #262626;
+    border-bottom: solid 2px #262626;
+  }
+  .event_content {
+    width: 100%;
+    min-width: 1100px;
+  }
+  .event_content_wrapper {
+    width: 1100px;
+    padding: 42px 16px 48px 16px;
+    margin: 0 auto 0;
+  }
+  .event_intro_text {
+    height: 230px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .event_intro_text p {
+    font-family: "나눔바른고딕B";
+    font-size: 24px;
+    color: #262626;
+    margin: 0 0 16px 0;
+  }
+  .event_intro_text h4 {
+    width: 696px;
+    font-family: "나눔바른고딕";
+    font-size: 14px;
+    color: #262626;
+    line-height: 1.5;
+    margin: 0;
+  }
+  .event_intro_img {
+    width: 340px;
+    height: 230px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: inline-block;
+    vertical-align: middle;
+    float: right;
+  }
+
+  .event_time_place {
+    padding-top: 42px;
+  }
+  .event_time,
+  .event_place {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .event_time p,
+  .event_place p {
+    font-family: "나눔바른고딕B";
+    font-size: 24px;
+    color: #262626;
+    margin: 0 0 16px 0;
+  }
+  .event_time {
+    width: 518px;
+  }
+  #calendar {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .event_place {
+    float: right;
+  }
+  .event_place > a:hover {
+    color: #000;
+    text-decoration: none;
+  }
+  .event_place h4 {
+    font-family: "나눔바른고딕B";
+    font-size: 16px;
+    color: #262626;
+    margin: 0 0 8px 0;
+  }
+  .event_place h5 {
+    font-family: "나눔바른고딕";
+    font-size: 16px;
+    text-align: left;
+    color: rgba(38, 38, 38, 0.7);
+    margin: 0;
+  }
+  .e_place_rating_review {
+    width: 100%;
+    margin-top: 16px;
+  }
+  .e_place_rating {
+    display: inline-block;
+  }
+  .e_place_view_rating,
+  .e_place_excitement_rating {
+    display: inline-block;
+  }
+  .e_place_view_rating label,
+  .e_place_excitement_rating label,
+  .e_place_view_rating > div,
+  .e_place_excitement_rating > div {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0px;
+  }
+  .e_place_view_rating label,
+  .e_place_excitement_rating label {
+    font-family: "나눔바른고딕";
+    font-size: 12px;
+    color: #262626;
+  }
+  .e_place_view_rating > div,
+  .e_place_excitement_rating > div {
+    width: 64px;
+    height: 12px;
+    font-size: 12px; /*이거 임시로 써놓은거 지워야함*/
+    background-color: grey;
+  }
+  .e_place_review {
+    font-family: "나눔바른고딕";
+    font-size: 12px;
+    color: rgba(38, 38, 38, 0.7);
+    display: inline-block;
+    float: right;
+  }
+  .e_place_map {
+    width: 518px;
+    height: 375px;
+    margin-top: 16px;
+  }
+
+  .event_etc_info {
+    padding-top: 48px;
+  }
+  .event_casting,
+  .event_etc_place {
+    display: inline-block;
+    vertical-align: top;
+  }
+  .event_casting {
+    padding-bottom: 64px;
+  }
+  .event_casting > p {
+    font-family: "나눔바른고딕B";
+    font-size: 24px;
+    color: #262626;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0px;
+  }
+  .event_casting div.casting_schedule {
+    height: 22px;
+    font-family: "나눔바른고딕B";
+    font-size: 10px;
+    color: #bb213c;
+    line-height: 22px;
+    text-align: center;
+    border: solid 1px #bb213c;
+    border-radius: 5px;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0px 8px;
+    margin-left: 16px;
+  }
+  .event_casting div.casting_schedule:hover {
+    color: #fff;
+    background-color: #bb213c;
+  }
+  .actor_introduction {
+    padding-top: 40px;
+  }
+  .actor_info {
+    display: inline-block;
+    margin-right: 24px;
+  }
+  .actor_pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+  }
+  .actor_info > p {
+    font-family: "나눔바른고딕B";
+    font-size: 16px;
+    color: #262626;
+    text-align: center;
+    margin: 8px 0 0 0;
+  }
+  .event_etc_price {
+    float: right;
+  }
+  .event_etc_price > p {
+    font-family: "나눔바른고딕B";
+    font-size: 24px;
+    color: #262626;
+    margin: 0 0 16px 0;
+  }
+  .price_table {
+    width: 518px;
+  }
+  .price_thead {
+    font-family: "나눔바른고딕";
+    font-size: 14px;
+    color: rgba(38, 38, 38, 0.7);
+    line-height: 40px;
+  }
+  .price_thead > .price_tr {
+    border-bottom: solid 1px #e6e6e6;
+  }
+  .price_tr {
+    padding: 0 25px 0 16px;
+  }
+  .price_tbody {
+    font-family: "나눔바른고딕";
+    font-size: 16px;
+    color: #262626;
+    line-height: 48px;
+  }
+  .seat_level, .level_price {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .level_price {
+    width: 70px;
+    text-align: center;
+    float: right;
+  }
+  .event_etc {
+    max-width: 518px;
+    min-height: 276px;
+  }
+  .event_etc > p {
+    font-family: "나눔바른고딕B";
+    font-size: 24px;
+    color: #262626;
+    margin: 0 0 16px 0;
+  }
+  .event_etc ol {
+    -webkit-padding-start: 16px;
+  }
+  .event_etc li {
+    font-family: "나눔바른고딕";
+    font-size: 14px;
+    color: #262626;
+    line-height: 1.5;
+  }
 
 
-.other_events {
-  width: 100%;
-  background-color: #f4f5f7;
-  padding: 40px 0 64px;
-}
-.other_events_wrapper {
-  width: 1100px;
-  padding: 0 16px;
-  margin: 0 auto 0;
-}
-.other_events_wrapper > p {
-  font-family: "나눔바른고딕B";
-  font-size: 24px;
-  line-height: 1.67;
-  text-align: left;
-  margin: 0;
-}
-.other_events_list {
-  padding-top: 40px;
-}
 
+/*  .other_events {
+    width: 100%;
+    background-color: #f4f5f7;
+    padding: 40px 0 64px;
+  }
+  .other_events_wrapper {
+    width: 1100px;
+    padding: 0 16px;
+    margin: 0 auto 0;
+  }
+  .other_events_wrapper > p {
+    font-family: "나눔바른고딕B";
+    font-size: 24px;
+    line-height: 1.67;
+    text-align: left;
+    margin: 0;
+  }
+  .other_events_list {
+    padding-top: 40px;
+  }*/
 
+}
 
 

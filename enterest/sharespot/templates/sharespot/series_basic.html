@@ -7,9 +7,9 @@
 {% endblock %}
 
 {% block head_extra_series %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/series_basic.css' %}">
 <link href="{% static 'css/fullcalendar.min.css' %}" rel='stylesheet' />
 <link href="{% static 'css/fullcalendar.print.min.css' %}" rel='stylesheet' media='print' />
+<link rel="stylesheet" type="text/css" href="{% static 'css/series_basic.css' %}">
 <script src="{% static 'js/moment.min.js' %}"></script>
 <script src="{% static 'js/fullcalendar.min.js' %}"></script>
 <script src="{% static 'js/jquery.rwdImageMaps.min.js' %}"></script>
@@ -129,7 +129,32 @@
             {% endfor %}
           </h4>
         </div>
-        <div class="event_intro_img" style="background-image: url({{ series.image_set.first.img.url }})"></div>
+        <!-- 웹용 캐러셀 -->
+        <div class="event_intro_img hide_in_phone" data-ride="carousel">
+          <ol>
+            <!-- 여기 for문 돌리기(data-slide-to 뒤에 번호 돌리기) -->
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+            <!-- for문 끝 -->
+          </ol>
+
+          <div>
+            <!-- 여기는 사진 for문 -->
+            <img src="{{ series.image_set.first.img.url }}">
+            <img src="{{ series.image_set.first.img.url }}">
+            <img src="{{ series.image_set.first.img.url }}">
+            <!-- for문 끝 -->
+          </div>
+        </div>
+        <!-- 모바일용 이미지 나열 -->
+        <div class="event_intro_img_container hide_in_web">
+          <div class="event_intro_img">
+            <img src="{{ series.image_set.first.img.url }}">
+            <img src="{{ series.image_set.first.img.url }}">
+            <img src="{{ series.image_set.first.img.url }}">
+          </div>
+        </div>
       </div>
 
       <div class="event_time_place">
@@ -170,55 +195,70 @@
       </div>
 
       <div class="event_etc_info">
-        <div class="event_etc_left">
-          <div class="event_casting">
-            <p> 출연자 </p>
-            <a href="{{ series.appear_link }}"><div class="casting_schedule"> 캐스팅 스케쥴 </div></a>
-            <div class="actor_introduction">
-              {% for appear in series.get_series_appear %}
-              <div class="actor_info">
-                <div class="actor_pic" style="background-image: url({{ appear.img.url }})"></div>
-                <p>{{ appear.name }}</p>
-              </div>
-              {% endfor %}
+        <div class="event_casting">
+          <p> 출연 </p>
+          <a href="{{ series.appear_link }}"><div class="casting_schedule"> 더보기 </div></a>
+          <div class="actor_introduction">
+            {% for appear in series.get_series_appear %}
+            <div class="actor_info">
+              <div class="actor_pic" style="background-image: url({{ appear.img.url }})"></div>
+              <p>{{ appear.name }}</p>
             </div>
-          </div>
-          <div class="event_etc">
-            <p> 안내 </p>
-            <ol>
-              {% for words in series.split_announce %}
-              <li>{{ words }}</li>
-              {% endfor %}
-            </ol>
+            {% endfor %}
           </div>
         </div>
-        <div class="event_etc_right">
+        <div class="event_etc_price">
           <p> 가격 </p>
-          <div>
+          <div class="price_table">
+            <div class="price_thead">
+              <div class="price_tr">
+                <div class="seat_level"> 좌석등급 </div>
+                <div class="level_price"> 가격 </div>
+              </div>
+            </div>
+            <div class="price_tbody">
             {% for level in series.seatlevel_set.all %}
-              {{ level.name }} {{ level.price }} <br>
+              <div class="price_tr">
+                <div class="seat_level"> {{ level.name }} </div>
+                <div class="level_price"> {{ level.price }} </div>
+              </div>
+              <div class="price_tr">
+                <div class="seat_level"> {{ level.name }} </div>
+                <div class="level_price"> {{ level.price }} </div>
+              </div>
+              <div class="price_tr">
+                <div class="seat_level"> {{ level.name }} </div>
+                <div class="level_price"> {{ level.price }} </div>
+              </div>
             {% endfor %}
           </div>
         </div>
       </div>
-
-
+      <div class="event_etc">
+        <p> 기타 안내 </p>
+        <ol>
+          {% for words in series.split_announce %}
+          <li>{{ words }}</li>
+          {% endfor %}
+        </ol>
+      </div>
     </div>
   </div>
 
-  <div class="other_events">
+<!--   <div class="other_events">
     <div class="other_events_wrapper">
       <p>이 이벤트를 본 유저들의 관심이벤트</p>
       <div class="ohter_events_list">
         {% include 'sharespot/series_set.html' with request=request series_all=series_all %}
       </div>
     </div>
-  </div>
+  </div> -->
 </div>
 
 
 <script>
 $(document).ready(function(){
+  // 지도
   var mapOptions = {
     center: new naver.maps.LatLng( {{ series.space.place.lat_lon }} ),
     zoom: 11,

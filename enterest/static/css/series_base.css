@@ -1,44 +1,103 @@
+@media (max-width:768px) {
+  .series_title_zone {
+    width: 100%;
+    min-width: 375px;
+    background-color: rgba(26, 0, 4, 0.8);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background: linear-gradient(to right, rgba(26, 0, 4, 0.8), rgba(0, 0, 0, 0.5));
+    padding: 44px 0 20px;
+  }
+  .series_title_zone_wrapper {
+    width: 375px;
+    margin: 0 auto 0;
+    padding-left: 16px;
+  }
+  .series_title_zone_wrapper > p {
+    font-family: "나눔바른고딕B";
+    font-size: 24px;
+    color: #fff;
+    margin: 0;
+  }
+  .series_title_zone_wrapper > p > i {
+    font-size: 16px;
+    margin-left: 12px;
+  }
+  .fas {
+    color: #f35966;
+  }
+  .series_nav {
+    width: 100%;
+    min-width: 375px;
+    background-color: #fff;
+    border-bottom: solid 1px #e6e6e6;
+  }
+  .series_nav_wrapper {
+    width: 375px;
+    margin: 0 auto 0;
+  }
+  .series_nav_component {
+    width: 19%;
+    font-family: "나눔바른고딕B";
+    font-size: 12px;
+    color: rgb(38, 38, 38, 0.35);
+    line-height: 40px;
+    text-align: center;
+    display: inline-block;
+    margin: 0;
+  }
+}
 
-.event_title_zone {
-  width: 100%;
-  min-width: 1100px;
-  height: 240px;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  background-color: grey;
-  background-blend-mode: screen;
-}
-.event_title_zone_wrapper {
-  width: 1100px;
-  padding: 136px 0 0 16px;
-  margin: 0 auto 0;
-}
-.event_title_zone_wrapper > p {
-  font-size: 48px;
-  float: left;
-}
-.event_title_zone_wrapper > p > i {
-  font-size: 24px;
-  margin-left: 20px;
-}
-
-
-.event_nav {
-  width: 100%;
-  height: 64px;
-  min-width: 1100px;
-  background-color: #fff;
-}
-.event_nav_wrapper {
-  width: 1100px;
-  margin: 0 auto 0;
-}
-.event_nav_component {
-  width: 70px;
-  font-size: 14px;
-  line-height: 64px;
-  text-align: center;
-  display: inline-block;
-  margin: 0 26px 0 16px;
+@media (min-width:768px) {
+  .series_title_zone {
+    width: 100%;
+    min-width: 1100px;
+    background-color: rgba(26, 0, 4, 0.8);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background: linear-gradient(to right, rgba(26, 0, 4, 0.8), rgba(0, 0, 0, 0.5));
+    padding: 90px 0 22px;
+  }
+  .series_title_zone_wrapper {
+    width: 1100px;
+    padding-left: 16px;
+    margin: 0 auto 0;
+  }
+  .series_title_zone_wrapper > p {
+    font-family: "나눔바른고딕B";
+    font-size: 48px;
+    color: #fff;
+    margin: 0;
+  }
+  .series_title_zone_wrapper > p > i {
+    font-size: 24px;
+    margin-left: 20px;
+  }
+  .fas {
+    color: #f35966;
+  }
+  .series_nav {
+    width: 100%;
+    height: 64px;
+    min-width: 1100px;
+    background-color: #fff;
+    border-bottom: solid 1px #e6e6e6;
+  }
+  .series_nav_wrapper {
+    width: 1100px;
+    padding-left: 16px;
+    margin: 0 auto 0;
+  }
+  .series_nav_component {
+    width: 120px;
+    font-family: "나눔바른고딕B";
+    font-size: 16px;
+    color: rgb(38, 38, 38, 0.35);
+    line-height: 62px;
+    text-align: center;
+    display: inline-block;
+    margin-right: 8px;
+  }
 }

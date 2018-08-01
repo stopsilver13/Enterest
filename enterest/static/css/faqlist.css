@@ -135,6 +135,18 @@
   .closed {
     display: none;
   }
+  .rotated {
+    animation: rotated 0.5s;
+    transform: rotateZ(180deg);
+  }
+  @keyframes rotated {
+    0% {
+      transform: rotateZ(0);
+    }
+    100% {
+      transform: rotateZ(180deg);
+    }
+  }
   .faq_category > hr {
     border: solid 1px #ebecf0;
   }

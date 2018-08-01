@@ -116,9 +116,11 @@ $(document).ready(function(){
     if ( self.siblings('hr').hasClass('closed') ) {
       self.siblings('hr').removeClass('closed');
       self.siblings('.faq_category_body').removeClass('closed');
+      self.children('i').addClass('rotated');
     } else {
       self.siblings('hr').addClass('closed');
       self.siblings('.faq_category_body').addClass('closed');
+      self.children('i').removeClass('rotated');
     }
 
   });
