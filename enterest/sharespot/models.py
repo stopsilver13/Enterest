@@ -1,9 +1,12 @@
-from collections import Counter, defaultdict
+from collections import Counter
 
 from django.conf import settings
 from django.db import models
+from django.db.models import Q
 
 from accounts.models import RewardHistory
+
+import datetime
 
 
 class LikeMixinModel(models.Model):
@@ -175,6 +178,18 @@ class Space(LikeMixinModel):
             star_num_list.append(SeatReview.objects.filter(seat__block__section__space=self, real_star=i).count())
         return star_num_list
 
+    def get_close_series(self):
+        now = datetime.datetime.now()
+
+        if Series.objects.filter(Q(start__lte=now, end__gte=now, space=self)).exists():
+            series = Series.objects.get(Q(start__lte=now, end__gte=now, space=self))
+        elif Series.objects.filter(start__gte=now, space=self).exists():
+            series = Series.objects.filter(start__gte=now, space=self).order_by('start').first()
+        else:
+            series = Series.objects.filter(end__lte=now, space=self).order_by('-end').first()
+
+        return series
+
 
 class Section(models.Model):
     space = models.ForeignKey(Space)
@@ -194,9 +209,15 @@ class Block(models.Model):
         block_name = self.section.space.name + '-' + self.name
         return block_name
 
-    def get_block_color(self, series):
-        # series = Series.objcets.get(en_name=series)
-        level_list = Seat.objects.filter(block=self, level__series_set__in=series).values_list('level__pk')
+    def get_block_color(self):
+        series = self.section.space.get_close_series()
+        all_seat = Seat.objects.none()
+
+        for level in series.seatlevel_set.all():
+            all_seat |= level.seat_set
+
+        level_list = all_seat.filter(block=self).values_list('level__pk', flat=True)
+
         if len(level_list) == 0:
             main_color = '#fff'  # 좌석이 없는 블럭 색: 일단 흰색으로
 
