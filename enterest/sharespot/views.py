@@ -1,5 +1,5 @@
-from django.db.models import Q
-from django.shortcuts import render
+from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404
 
 from sharespot.models import Division, Place, Space, Series, Ticket, Emotion, EventReview, SeatReview, ShareInfoCategory, ShareInfo, TalkTopic, Talk
 
@@ -129,7 +129,7 @@ def place_share(request, space):
 
 def series_list(request):  # ?division= ?place=
     # TODO: 필터링 방식에 따라 변동 가능성 있음
-    divisions = Division.objects.all()
+    divisions = Division.objects.all().order_by('pk')
     if 'place' in request.GET:
         place = Place.objects.get(en_name=request.GET['place'])
         series_all = Series.objects.filter(space__place=place)
@@ -168,6 +168,8 @@ def series_talk_list(request, series):
     topics = TalkTopic.objects.filter(series=series)
     talks = Talk.objects.filter(topic__series=series).order_by('-pk')  # 몇개까지 보여줄 것? 페이지네이션? 더보기?
 
+    # 이야기거리 생성
+
     return render(request, 'sharespot/series_talk_list.html', {
         'series': series,
         'topics': topics,
@@ -181,6 +183,8 @@ def series_talk(request, series, topic):
     topics = TalkTopic.objects.filter(series=series)
     talks = Talk.objects.filter(topic=topic)  # 몇개까지 보여줄 것? 페이지네이션? 더보기?
 
+    # 이야기거리 생성
+
     return render(request, 'sharespot/series_talk.html', {
         'series': series,
         'topic': topic,
@@ -188,8 +192,48 @@ def series_talk(request, series, topic):
         'talks': talks,
     })
 
-# 이야깃거리 생성/수정/(삭제) ajax
-# 이야기 생성/수정/삭제 ajax
+
+def series_talk_create(request, series, topic):
+    user = request.user
+    topic = TalkTopic.objects.get(pk=topic)
+
+    if request.method == 'POST':
+        anony_name = request.POST.get('anony_name')
+        content = request.POST.get('content')
+
+        talk = Talk.objects.create(
+            user=user,
+            anony_name=anony_name,
+            topic=topic,
+            content=content,
+        )
+
+        return HttpResponse(talk.created_at)
+    return render(request)
+
+
+def series_talk_edit(request, series, topic):
+    if request.method == 'POST':
+        talk_pk = request.POST.get('talk_pk')
+        new_content = request.POST.get('new_content')
+
+        talk = get_object_or_404(Talk, pk=talk_pk)
+        talk.content = new_content
+        talk.save()
+
+        return HttpResponse('complete')
+    return render(request)
+
+
+def series_talk_delete(request, series, topic):
+    if request.method == 'GET':
+        talk_pk = request.POST.get('talk_pk')
+
+        talk = get_object_or_404(Talk, pk=talk_pk)
+        talk.delete()
+
+        return HttpResponse('complete')
+    return render(request)
+
+
 # 각 행동에 대해 페이지 리로딩 여부는 생각을 해봐야 할듯
-
-

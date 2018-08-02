@@ -1,6 +1,7 @@
 {% extends "sharespot/series_base.html" %}
 
 {% load staticfiles %}
+{% load humanize %}
 
 {% block title %}
     {{ series.name }} 기본정보
@@ -19,8 +20,12 @@
     $('img[usemap]').rwdImageMaps();
   });
 
-  </script>
-  <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=SeKYIswoSWFlblzvLR07"></script>
+</script>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=SeKYIswoSWFlblzvLR07"></script>
+{% endblock %}
+
+{% block content_series %}
+
 <script>
 
   $(document).ready(function() {
@@ -38,7 +43,7 @@
       },
       defaultView: 'month',
       fixedWeekCount: true,
-      defaultDate: '2018-03-12',
+      defaultDate: '{{ series.start|date:"Y-m-d" }}',
       titleFormat: 'YYYY년 MM월',
       listDayFormat:'YYYY년 MM월 DD일',
       listDayAltFormat: false,
@@ -55,69 +60,19 @@
       editable: false,
       eventLimit: true, // allow "more" link when too many events
       events: [
+      {% for event in series.event_set.all %}
         {
-          title: 'All Day Event',
-          start: '2018-03-01',
+          title: '{{ event.name }}',
+          start: '{{ event.start|date:"c" }}',
         },
-        {
-          title: 'Long Event',
-          start: '2018-03-07',
-          end: '2018-03-10'
-        },
-        {
-          id: 999,
-          title: 'Repeating Event',
-          start: '2018-03-09T16:00:00'
-        },
-        {
-          id: 999,
-          title: 'Repeating Event',
-          start: '2018-03-16T16:00:00'
-        },
-        {
-          title: 'Conference',
-          start: '2018-03-11',
-          end: '2018-03-13'
-        },
-        {
-          title: 'Meeting',
-          start: '2018-03-12T10:30:00',
-          end: '2018-03-12T12:30:00'
-        },
-        {
-          title: 'Lunch',
-          start: '2018-03-12T12:00:00'
-        },
-        {
-          title: 'Meeting',
-          start: '2018-03-12T14:30:00'
-        },
-        {
-          title: 'Happy Hour',
-          start: '2018-03-12T17:30:00'
-        },
-        {
-          title: 'Dinner',
-          start: '2018-03-12T20:00:00'
-        },
-        {
-          title: 'Birthday Party',
-          start: '2018-03-13T07:00:00'
-        },
-        {
-          title: 'Click for Google',
-          url: 'http://google.com/',
-          start: '2018-03-28'
-        }
+      {% endfor %}
       ]
     });
 
   });
 
 </script>
-{% endblock %}
 
-{% block content_series %}
   <div class="event_content">
     <div class="event_content_wrapper">
       <div class="event_introduction">
@@ -130,8 +85,8 @@
           </h4>
         </div>
         <!-- 웹용 캐러셀 -->
-        <div class="event_intro_img hide_in_phone" data-ride="carousel">
-          <ol>
+        <div id="myCarousel" class="carousel slide event_intro_img hide_in_phone" data-ride="carousel">
+          <ol class="carousel-indicators">
             <!-- 여기 for문 돌리기(data-slide-to 뒤에 번호 돌리기) -->
             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
             <li data-target="#myCarousel" data-slide-to="1"></li>
@@ -139,20 +94,26 @@
             <!-- for문 끝 -->
           </ol>
 
-          <div>
-            <!-- 여기는 사진 for문 -->
-            <img src="{{ series.image_set.first.img.url }}">
-            <img src="{{ series.image_set.first.img.url }}">
-            <img src="{{ series.image_set.first.img.url }}">
-            <!-- for문 끝 -->
+          <div class="carousel-inner">
+            {% for img in series.image_set.all %}
+              {% if forloop.first %}
+              <div class="item active">
+                <img src="{{ img.img.url }}">
+              </div>
+              {% else %}
+              <div class="item">
+                <img src="{{ img.img.url }}">
+              </div>
+              {% endif %}
+            {% endfor %}
           </div>
         </div>
         <!-- 모바일용 이미지 나열 -->
         <div class="event_intro_img_container hide_in_web">
           <div class="event_intro_img">
-            <img src="{{ series.image_set.first.img.url }}">
-            <img src="{{ series.image_set.first.img.url }}">
-            <img src="{{ series.image_set.first.img.url }}">
+            {% for img in series.image_set.all %}
+            <img src="{{ img.img.url }}">
+            {% endfor %}
           </div>
         </div>
       </div>
@@ -160,7 +121,7 @@
       <div class="event_time_place">
         <div class="event_time">
           <p> 날짜 및 시간 </p>
-<!--           <div>
+          <!-- <div>
             {% for event in series.event_set.all %}
               {{ event.start }}
             {% endfor %}
@@ -220,15 +181,7 @@
             {% for level in series.seatlevel_set.all %}
               <div class="price_tr">
                 <div class="seat_level"> {{ level.name }} </div>
-                <div class="level_price"> {{ level.price }} </div>
-              </div>
-              <div class="price_tr">
-                <div class="seat_level"> {{ level.name }} </div>
-                <div class="level_price"> {{ level.price }} </div>
-              </div>
-              <div class="price_tr">
-                <div class="seat_level"> {{ level.name }} </div>
-                <div class="level_price"> {{ level.price }} </div>
+                <div class="level_price"> {{ level.price|intcomma }} </div>
               </div>
             {% endfor %}
           </div>

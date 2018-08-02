@@ -288,6 +288,14 @@
     line-height: 1.5;
     margin: 0;
   }
+  .carousel-indicators li {
+    width: 8px;
+    height: 8px;
+  }
+  .carousel-indicators .active {
+    width: 10px;
+    height: 10px;
+  }
   .event_intro_img {
     width: 340px;
     height: 230px;
