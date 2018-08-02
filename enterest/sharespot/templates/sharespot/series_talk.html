@@ -17,12 +17,15 @@
 
       <div class="event_talk_right">
         <div class="mobile_wagle_header hide_in_web">
-          <i class="fas fa-arrow-left"></i>
-          <p> {{ series.name }} </p>
+          <a href="{% url 'sharespot:series_talk_list' series.en_name %}"><i class="fas fa-arrow-left"></i></a>
+          <p>  {{ series.name }} </p>
         </div>
         <div class="topic_title">
-          <p>{{ topic.content }}</p>
-          <h4>{{ topic.explain }}</h4>
+          <i class="fas fa-angle-down hide_in_web"></i>
+          <div class="topic_title_text">
+            <p>{{ topic.content }}</p>
+            <h4>{{ topic.explain }}</h4>
+          </div>
         </div>
         <div class="talks_zone">
           {% for talk in talks %}
@@ -91,18 +94,24 @@
             </div>
           </div>
         </div>
-        <p class="go_first"><i class="fas fa-caret-up"></i> 첫글보기</p>
+        <p class="go_first hide_in_phone"><i class="fas fa-caret-up"></i> 첫글보기</p>
+        <div class="mobile_wagle_footer hide_in_web">
+          <div id="mobile_go_first"> 첫글 보기 </div>
+          <div id="go_write"> 글쓰기 </div>
+        </div>
         <div class="write_ur_talk">
           <div class="writer_profile">
-            <p><img src="{{ user.profile.img.url }}" alt=""> {{ user.profile.nick_name }} <span> 익명으로 변경 </span> </p>
+            <p><img src="{{ user.profile.img.url }}" alt="" class="hide_in_phone"> {{ user.profile.nick_name }} <span> 익명으로 변경 </span> </p>
             <!-- 익명으로 변경 선택시 -->
             <!-- <p><img src="{% static "img/anony.png" %}" alt=""> 랜덤익명생성 <spa임> 닉네임으로 변경 </span> </p> -->
 
-            <h4>(!) 신고 5회 누적 시 익명으로 변경이 불가능하오니 유의하시기 바랍니다.</h4>
+            <h4 class="hide_in_phone">(!) 신고 5회 누적 시 익명으로 변경이 불가능하오니 유의하시기 바랍니다.</h4>
           </div>
           <div class="write_zone">
-            <textarea placeholder="당신의 생각을 말해주세요."></textarea>
-            <button disabled style="cursor: default"> 등록 </button>
+            <div class="write_zone_wrapper">
+              <textarea placeholder="당신의 생각을 말해주세요."></textarea>
+              <button disabled style="cursor: default"> 등록 </button>
+            </div>
           </div>
         </div>
       </div>
@@ -112,19 +121,59 @@
 
 <script>
 $(document).ready(function(){
-  $('.talks_zone').animate({scrollTop: $('div.talks').last().offset().top}, 'fast');
+  var winwidth = document.body.clientWidth;
+  if ( winwidth >= 768) {
+    $('.talks_zone').animate({scrollTop: $('div.talks').last().offset().top}, 'fast');
+  }
+
+});
+
+
+var el, up, ps, totalHeight;
+$('.topic_title > i').click(function() {
+  totalHeight = 0;
+  el = $(this);
+  up = el.parent().children('.topic_title_text');
+  ps = up.find('p');
+  h4 = up.find('h4');
+
+  if ( el.hasClass('rotated') ) {
+    h4.hide();
+    up.css({'height': 40, 'max-height' : 40});
+    el.removeClass('rotated');
+
+  } else {
+    ps.each(function() {
+      totalHeight += $(this).outerHeight() + h4.outerHeight() + 8;
+    });
+
+    up
+      .css({
+        'height' : up.height(),
+        'max-height' : 9999
+      })
+      .animate({
+        "height": totalHeight
+      });
+    h4.show();
+    el.addClass('rotated');
+
+    return false;
+  }
 });
 
 // 첫글보기
 $('.go_first').click(function() {
   $('.talks_zone').animate({scrollTop: 0}, 'fast');
 });
+$('#mobile_go_first').click(function() {
+  $('html, body').animate({scrollTop: 0}, 'fast');
+});
 
 // 등록버튼 활성화 비활성화
 var length;
 $('.write_zone > textarea').keyup(function() {
   length = $(this).val();
-  console.log(length)
   if( length != '' ) {
     $('.write_zone > button')
       .css({'background-color': '#bb213c', 'cursor': 'pointer'})
@@ -135,6 +184,19 @@ $('.write_zone > textarea').keyup(function() {
       .prop('disabled', 'disabled')
   }
 });
+
+
+$('#go_write').click(function() {
+  $(this).parent().hide();
+  $('.write_ur_talk').show();
+})
+
+
+$('.write_zone_wrapper > button').click(function(e) {
+  e.preventDefault();
+
+  $.post(url, )
+})
 </script>
 
 {% endblock %}
