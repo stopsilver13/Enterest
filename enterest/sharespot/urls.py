@@ -15,4 +15,7 @@ urlpatterns = [
     url(r'^series/(?P<series>[\da-zA-Z-]+)/review/$', views.series_review, name='series_review'),
     url(r'^series/(?P<series>[\da-zA-Z-]+)/talk/$', views.series_talk_list, name='series_talk_list'),
     url(r'^series/(?P<series>[\da-zA-Z-]+)/talk/(?P<topic>[\d]+)/$', views.series_talk, name='series_talk'),
+    url(r'^series/(?P<series>[\da-zA-Z-]+)/talk/(?P<topic>[\d]+)/create/$', views.series_talk_create, name='series_talk_create'),
+    url(r'^series/(?P<series>[\da-zA-Z-]+)/talk/(?P<topic>[\d]+)/edit/$', views.series_talk_edit, name='series_talk_edit'),
+    url(r'^series/(?P<series>[\da-zA-Z-]+)/talk/(?P<topic>[\d]+)/delete/$', views.series_talk_delete, name='series_talk_delete'),
 ]
