@@ -14,7 +14,25 @@
 {% block content_place %}
   <div class="place_seatview_wrapper">
     <div class="place_map_section">
-      <div class="place_map"></div>
+      <div class="place_map">
+        <div class="pick_food_navbar">
+          {% for section in space.section_set.all %}
+          <a href="{{ section.pk }}" class="select_nav selected" data-toggle="tab"><div>{{ section.name }}</div></a>
+          {% endfor %}
+        </div>
+        {% for section in space.section_set.all %}
+        <div class="tab-content" style="height: 100%;">
+          <div role="tabpanel" class="tab-pane active" id="" style="height: 100%;">
+            <svg style="width: 100%; height: 100%;" viewBox="0 0 696 800">
+              {% for block in section.block_set.all %}
+              <polygon points="{{ block.coordinate }}" fill="{{ block.get_block_color }}" style="stroke:black;stroke-width:1;">
+              {% endfor %}
+            </svg>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
       <div class="place_map_right">
         <div class="seat_price">
           <div class="seat_price_thead">

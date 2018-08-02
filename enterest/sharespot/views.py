@@ -1,9 +1,7 @@
-from django.db.models import Q, Count
+from django.db.models import Q
 from django.shortcuts import render
 
 from sharespot.models import Division, Place, Space, Series, Ticket, Emotion, EventReview, SeatReview, ShareInfoCategory, ShareInfo, TalkTopic, Talk
-
-import datetime
 
 
 def main(request):
@@ -99,13 +97,7 @@ def place_basic(request, space):
 def place_space(request, space):
     space = Space.objects.get(en_name=space)
     place = space.place
-    now = datetime.datetime.now()
-    if Series.objects.filter(Q(start__lte=now, end__gte=now, space=space)).exists():
-        close_series = Series.objects.get(Q(start__lte=now, end__gte=now, space=space))
-    elif Series.objects.filter(start__gte=now, space=space).exists():
-        close_series = Series.objects.filter(start__gte=now, space=space).order_by('start').first()
-    else:
-        close_series = Series.objects.filter(end__lte=now, space=space).order_by('-end').first()
+    close_series = space.get_close_series()
 
     return render(request, 'sharespot/place_space.html', {
         'place': place,
