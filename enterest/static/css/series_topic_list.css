@@ -1,60 +1,144 @@
-.event_talk_left {
-  width: 340px;
-  border: solid 1px #ebecf0;
-  display: inline-block;
-  vertical-align: top;
-}
-.topic_searchbar {
-  width: 100%;
-  height: 64px;
-  padding: 12px 0 0 16px;
-  border-bottom: solid 1px #ebecf0;
-  /*background-color: #f4f5f7;*/
-}
-.topic_searchbar > input {
-  width: 308px;
-  height: 40px;
-  padding-left: 16px;
-  border: none;
-  border-radius: 4px;
-  background-color: #f4f5f7;
-  /*border: solid 2px #383b41;*/
-}
-.add_topic {
-  border-bottom: solid 1px #ebecf0;
-}
-.add_topic > p {
-  color: #4a90e2;
-  margin: 16px 0 16px 24px;
-}
-.topic_zone {
-  height: 868px;
-  overflow-y: auto;
-}
-.topic_zone > a:hover {
-  text-decoration: none;
-  color: #000;
-}
-.topic_zone div:hover {
-  background-color: #fafafa;
-}
-.topic_zone > hr {
-  margin: 0px 16px;
-  border-top: solid 1px #ebecf0;
+@media (max-width:768px) {
+  .event_talk_left {
+    width: 100%;
+    background-color: #ffffff;
+  }
+  .topic_searchbar {
+    width: 100%;
+    height: 64px;
+    padding: 12px 16px;
+    border-bottom: solid 1px #e6e6e6;
+  }
+  .topic_searchbar > input {
+    width: 100%;
+    height: 40px;
+    padding-left: 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+  }
+  .topic_searchbar > input::placeholder {
+    font-size: 14px;
+    color: rgba(38, 38, 38, 0.7);
+  }
+  .add_topic {
+    border-bottom: solid 1px #e6e6e6;
+    padding-left: 24px;
+  }
+  .add_topic > p {
+    font-family: "나눔바른고딕B";
+    font-size: 14px;
+    color: #bb213c;
+    line-height: 54px;
+    margin: 0;
+  }
+  .topic_zone {
+    padding-bottom: 36px;
+  }
+  .topic_zone > a:hover {
+    text-decoration: none;
+    color: #000;
+  }
+  .topic_zone div:hover {
+    background-color: #fafafa;
+    cursor: pointer;
+  }
+  .topic_zone > hr {
+    margin: 0px 16px;
+    border-top: solid 1px #e6e6e6;
+  }
+
+  .topic {
+    width: 100%;
+    padding: 16px;
+  }
+  .topic > p {
+    font-family: "나눔바른고딕";
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0 0 8px 0;
+  }
+  .topic > h4 {
+    font-family: "나눔바른고딕";
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 1.5;
+    color: rgba(38, 38, 38, 0.35);
+    margin: 0;
+  }
 }
 
-.topic {
-  width: 100%;
-  padding: 16px;
-  /*border-bottom: solid 1px #ebecf0;*/
-}
-.topic > p {
-  font-size: 16px;
-  margin: 0 0 8px 0;
-}
-.topic > h4 {
-  font-size: 12px;
-  font-weight: normal;
-  color: rgba(56, 59, 65, 0.54);
-  margin: 0;
+
+@media (min-width:768px) {
+  .event_talk_left {
+    width: 340px;
+    background-color: #ffffff;
+    border: solid 1px #e6e6e6;
+    display: inline-block;
+    vertical-align: top;
+  }
+  .topic_searchbar {
+    width: 100%;
+    height: 64px;
+    padding: 12px 0 0 16px;
+    border-bottom: solid 1px #e6e6e6;
+  }
+  .topic_searchbar > input {
+    width: 308px;
+    height: 40px;
+    padding-left: 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+  }
+  .topic_searchbar > input::placeholder {
+    font-size: 16px;
+    color: rgba(38, 38, 38, 0.7);
+  }
+  .add_topic {
+    border-bottom: solid 1px #e6e6e6;
+    padding-left: 24px;
+  }
+  .add_topic > p {
+    font-family: "나눔바른고딕B";
+    font-size: 16px;
+    color: #bb213c;
+    line-height: 54px;
+    margin: 0;
+  }
+  .topic_zone {
+    height: 841px;
+    overflow-y: auto;
+  }
+  .topic_zone > a:hover {
+    text-decoration: none;
+    color: #000;
+  }
+  .topic_zone div:hover {
+    background-color: #fafafa;
+    cursor: pointer;
+  }
+  .topic_zone > hr {
+    margin: 0px 16px;
+    border-top: solid 1px #e6e6e6;
+  }
+
+  .topic {
+    width: 100%;
+    padding: 16px;
+  }
+  .topic > p {
+    font-family: "나눔바른고딕";
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0 0 8px 0;
+  }
+  .topic > h4 {
+    font-family: "나눔바른고딕";
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 1.5;
+    color: rgba(38, 38, 38, 0.35);
+    margin: 0;
+  }
 }

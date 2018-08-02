@@ -1,119 +1,133 @@
-.event_talk_content {
-  width: 1100px;
-  margin: 40px auto 120px;
-  padding: 0px 16px;
+#series_waglewagle {
+  color: #262626;
+  border-bottom: solid 2px #262626;
+}
+@media (max-width:768px) {
+  .hide_in_phone {
+    display: none;
+  }
+  .event_talk_content {
+    width: 100%;
 }
 
-
-.event_talk_right {
-  width: 696px;
-  margin-left: 28px;
-  display: inline-block;
-  vertical-align: top;
-}
-.topic_title {
-  padding: 8px 0 16px 0;
-  border-bottom: solid 2px #4a90e2;
-}
-.topic_title > p {
-  font-size: 24px;
-  margin: 0 0 8px 0;
-}
-.topic_title > h4 {
-  font-size: 16px;
-  font-weight: normal;
-  color: rgba(56, 59, 65, 0.54);
-  margin: 0;
-}
-.talks_zone {
-  margin-bottom: 16px;
-}
-.talks {
-  padding-top: 14px;
-  margin-bottom: 10px;
-  float: bottom;
-}
-.talks_profile > p {
-  font-size: 12px;
-  vertical-align: middle;
-  margin:0;
-}
-.talks_profile > p > img {
-  width: 24px;
-  height: 24px;
-  /*background-color: grey;*/
-  vertical-align: middle;
-  margin-right: 8px;
-}
-.talks_profile > p > span {
-  color: rgba(56, 59, 65, 0.54);
-}
-.talks_body {
-  margin-top: 16px;
-}
-.talks_body > p {
-  font-size: 14px;
-  margin: 0;
-}
-.go_first {
-  font-size: 12px;
-  color: blue;
-  text-align: right;
-  padding-right: 16px;
-  cursor: pointer;
-  margin: 0 0 16px;
-}
-.write_ur_talk {
-  width: 100%;
-  height: 128px;
-  background-color: #f4f5f7;
-  padding: 12px 16px 16px;
-}
-.writer_profile > p {
-  font-size: 12px;
-  display: inline-block;
-  vertical-align: middle;
-  margin: 0;
-}
-.writer_profile > p > img {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background-color: grey;
-  vertical-align: middle;
-  margin-right: 8px;
-}
-.writer_profile > p > span {
-  color: blue;
-  margin-left: 8px;
-}
-.writer_profile > h4 {
-  font-size: 12px;
-  color: rgba(56, 59, 65, 0.54);
-  float: right;
-  margin: 5px 0 0;
-}
-.write_zone {
-  margin-top: 12px;
-}
-.write_zone > textarea {
-  width: 596px;
-  height: 64px;
-  resize: none;
-  background-color: #ffffff;
-  border: solid 1px #ebecf0;
-  display: inline-block;
-  vertical-align: middle;
-  padding: 12px;
-  margin: 0;
-}
-.write_zone > button {
-  width: 64px;
-  height: 64px;
-  background-color: #ffffff;
-  color: #4a90e2;
-  border: solid 1px #4a90e2;
-  display: inline-block;
-  vertical-align: middle;
-  margin: 0;
+@media (min-width:768px) {
+  .event_talk_content {
+    width: 1100px;
+    margin: 40px auto 120px;
+    padding: 0px 16px;
+  }
+  .event_talk_right {
+    width: 696px;
+    margin-left: 27px;
+    display: inline-block;
+    vertical-align: top;
+    border: ;
+  }
+  .topic_title {
+    padding: 8px 0 16px 0;
+    border-bottom: solid 2px #4a90e2;
+  }
+  .topic_title > p {
+    font-size: 24px;
+    margin: 0 0 8px 0;
+  }
+  .topic_title > h4 {
+    font-size: 16px;
+    font-weight: normal;
+    color: rgba(56, 59, 65, 0.54);
+    margin: 0;
+  }
+  .talks_zone {
+    margin-bottom: 16px;
+  }
+  .talks {
+    padding-top: 14px;
+    margin-bottom: 10px;
+    float: bottom;
+  }
+  .talks_profile > p {
+    font-size: 12px;
+    display: inline-block;
+    vertical-align: middle;
+    margin:0;
+  }
+  .talks_profile > p > img {
+    width: 24px;
+    height: 24px;
+    /*background-color: grey;*/
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+  .talks_profile > p > span {
+    color: rgba(56, 59, 65, 0.54);
+  }
+  .talks_body {
+    margin-top: 16px;
+  }
+  .talks_body > p {
+    font-size: 14px;
+    margin: 0;
+  }
+  .go_first {
+    font-size: 12px;
+    color: blue;
+    text-align: right;
+    padding-right: 16px;
+    cursor: pointer;
+    margin: 0 0 16px;
+  }
+  .write_ur_talk {
+    width: 100%;
+    height: 128px;
+    background-color: #f4f5f7;
+    padding: 12px 16px 16px;
+  }
+  .writer_profile > p {
+    font-size: 12px;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+  }
+  .writer_profile > p > img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: grey;
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+  .writer_profile > p > span {
+    color: blue;
+    margin-left: 8px;
+  }
+  .writer_profile > h4 {
+    font-size: 12px;
+    color: rgba(56, 59, 65, 0.54);
+    float: right;
+    margin: 5px 0 0;
+  }
+  .write_zone {
+    margin-top: 12px;
+  }
+  .write_zone > textarea {
+    width: 596px;
+    height: 64px;
+    resize: none;
+    background-color: #ffffff;
+    border: solid 1px #ebecf0;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 12px;
+    margin: 0;
+  }
+  .write_zone > button {
+    width: 64px;
+    height: 64px;
+    background-color: #ffffff;
+    color: #4a90e2;
+    border: solid 1px #4a90e2;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+  }
 }

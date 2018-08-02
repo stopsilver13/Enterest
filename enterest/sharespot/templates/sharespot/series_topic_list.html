@@ -4,14 +4,14 @@
 
 <div class="event_talk_left">
   <div class="topic_searchbar">
-    <input placeholder="&#xF002; &nbsp;&nbsp;&nbsp;&nbsp; 이야기거리 찾기" style="font-family:Arial, FontAwesome">
+    <input placeholder="&#xF002; &nbsp;&nbsp;&nbsp;&nbsp; 이야깃거리 찾기" style="font-family:'나눔바른고딕', FontAwesome">
   </div>
   <div class="add_topic">
-    <p> <i class="fas fa-plus"></i> &nbsp; 이야기거리 추가하기 </p>
+    <p> <i class="fas fa-plus"></i> &nbsp; 이야깃거리 추가하기 </p>
   </div>
   <div class="topic_zone">
     {% for tp in topics %}
-    <a href="{% url "sharespot:series_talk" series.en_name tp.pk %}"><div class="topic">
+    <a href="{% url 'sharespot:series_talk' series.en_name tp.pk %}"><div class="topic">
       <p>{{ tp.content }} ( {{ tp.talk_set.count }} ) </p>
       <h4>{{ tp.explain }}</h4>
     </div></a>

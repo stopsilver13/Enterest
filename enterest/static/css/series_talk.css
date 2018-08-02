@@ -1,120 +1,336 @@
-.event_talk_content {
-  width: 1100px;
-  margin: 40px auto 120px;
-  padding: 0px 16px;
+#series_waglewagle {
+  color: #262626;
+  border-bottom: solid 2px #262626;
 }
 
-.event_talk_right {
-  width: 696px;
-  margin-left: 28px;
-  display: inline-block;
-  vertical-align: top;
+@media (max-width:768px) {
+  .base_header,
+  .series_title_zone,
+  .series_nav {
+    display: none;
+  }
+  .event_talk_content {
+    width: 100%;
+  }
+  .event_talk_left {
+    display: none;
+  }
+  .event_talk_right {
+    width: 100%;
+  }
+  .mobile_wagle_header {
+    height: 48px;
+  }
+  .topic_title {
+    border-bottom: solid 2px #bb213c;
+    padding: 12px 16px 16px;
+    margin-bottom: 20px;
+  }
+  .topic_title > p {
+    font-family: "나눔바른고딕B";
+    font-size: 24px;
+    margin: 0 0 8px 0;
+  }
+  .topic_title > h4 {
+    font-family: "나눔바른고딕";
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 1.5;
+    color: rgba(38, 38, 38, 0.35);
+    margin: 0;
+  }
+  .talks_zone {
+    padding: 0 16px;
+    margin-bottom: 16px;
+  }
+  .talks {
+    padding-top: 14px;
+    margin-bottom: 10px;
+  }
+  .talks_profile > p {
+    font-family: "나눔바른고딕";
+    font-size: 12px;
+    display: inline-block;
+    vertical-align: middle;
+    margin:0;
+  }
+  .talks_profile > p > img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+  .talks_profile > p > span {
+    color: rgba(38, 38, 38, 0.35);
+  }
+  .talks_profile > div {
+    float: right;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .talks_profile > div > a {
+    font-family: "나눔바른고딕";
+    font-size: 12px;
+    color: rgba(38, 38, 38, 0.7);
+    text-decoration: none;
+    margin-left: 8px;
+  }
+  .talks_profile > div > a:hove {
+    text-decoration: none;
+  }
+
+  .talks_body {
+    margin-top: 16px;
+  }
+  .talks_body > p {
+    font-family: "나눔바른고딕";
+    font-size: 14px;
+    line-height: 1.7;
+    margin: 0;
+  }
+  .go_first {
+    font-family: "나눔바른고딕";
+    font-size: 12px;
+    color: #bb213c;
+    text-align: right;
+    padding-right: 16px;
+    cursor: pointer;
+    margin: 0 0 16px;
+  }
+  .write_ur_talk {
+    width: 100%;
+    height: 128px;
+    border-top: solid 1px #e6e6e6;
+    padding: 12px 16px 16px;
+  }
+  .writer_profile > p {
+    font-family: "나눔바른고딕";
+    font-size: 12px;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+  }
+  .writer_profile > p > img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+  .writer_profile > p > span {
+    color: #bb213c;
+    margin-left: 8px;
+  }
+  .writer_profile > p > span:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .writer_profile > h4 {
+    font-size: 12px;
+    color: rgba(56, 59, 65, 0.54);
+    float: right;
+    margin: 5px 0 0;
+  }
+  .write_zone {
+    margin-top: 12px;
+    position: relative;
+  }
+  .write_zone > textarea {
+    width: 600px;
+    height: 64px;
+    resize: none;
+    border: solid 1px #e6e6e6;
+    font-family: "나눔바른고딕";
+    font-size: 14px;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 12px;
+    margin: 0;
+  }
+  .write_zone > textarea::placeholder {
+    font-family: "나눔바른고딕";
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(38, 38, 38, 0.35);
+  }
+  .write_zone > button {
+    width: 64px;
+    height: 64px;
+    border: none;
+    background-color: #e6e6e6;
+    color: #ffffff;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+    position: absolute;
+  }
 }
-.topic_title {
-  padding: 8px 0 16px 0;
-  border-bottom: solid 2px #4a90e2;
-}
-.topic_title > p {
-  font-size: 24px;
-  margin: 0 0 8px 0;
-}
-.topic_title > h4 {
-  font-size: 16px;
-  font-weight: normal;
-  color: rgba(56, 59, 65, 0.54);
-  margin: 0;
-}
-.talks_zone {
-  height: 664px;
-  overflow-y: auto;
-  margin-bottom: 16px;
-}
-.talks {
-  padding-top: 14px;
-  margin-bottom: 10px;
-  float: bottom;
-}
-.talks_profile > p {
-  font-size: 12px;
-  vertical-align: middle;
-  margin:0;
-}
-.talks_profile > p > img {
-  width: 24px;
-  height: 24px;
-  /*background-color: grey;*/
-  vertical-align: middle;
-  margin-right: 8px;
-}
-.talks_profile > p > span {
-  color: rgba(56, 59, 65, 0.54);
-}
-.talks_body {
-  margin-top: 16px;
-}
-.talks_body > p {
-  font-size: 14px;
-  margin: 0;
-}
-.go_first {
-  font-size: 12px;
-  color: blue;
-  text-align: right;
-  padding-right: 16px;
-  cursor: pointer;
-  margin: 0 0 16px;
-}
-.write_ur_talk {
-  width: 100%;
-  height: 128px;
-  background-color: #f4f5f7;
-  padding: 12px 16px 16px;
-}
-.writer_profile > p {
-  font-size: 12px;
-  display: inline-block;
-  vertical-align: middle;
-  margin: 0;
-}
-.writer_profile > p > img {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background-color: grey;
-  vertical-align: middle;
-  margin-right: 8px;
-}
-.writer_profile > p > span {
-  color: blue;
-  margin-left: 8px;
-}
-.writer_profile > h4 {
-  font-size: 12px;
-  color: rgba(56, 59, 65, 0.54);
-  float: right;
-  margin: 5px 0 0;
-}
-.write_zone {
-  margin-top: 12px;
-}
-.write_zone > textarea {
-  width: 596px;
-  height: 64px;
-  resize: none;
-  background-color: #ffffff;
-  border: solid 1px #ebecf0;
-  display: inline-block;
-  vertical-align: middle;
-  padding: 12px;
-  margin: 0;
-}
-.write_zone > button {
-  width: 64px;
-  height: 64px;
-  background-color: #ffffff;
-  color: #4a90e2;
-  border: solid 1px #4a90e2;
-  display: inline-block;
-  vertical-align: middle;
-  margin: 0;
+
+
+
+@media (min-width:768px) {
+  .event_talk_content {
+    width: 100%;
+    background-color: #f5f5f5;
+  }
+  .event_talk_content_wrapper {
+    width: 1100px;
+    margin: 0 auto;
+    padding: 40px 16px 120px;
+  }
+  .event_talk_right {
+    width: 696px;
+    background-color: #ffffff;
+    border: solid 1px #e6e6e6;
+    float: right;
+    display: inline-block;
+    vertical-align: top;
+  }
+  .topic_title {
+    border-bottom: solid 2px #bb213c;
+    padding: 12px 16px 16px;
+    margin-bottom: 20px;
+  }
+  .topic_title > p {
+    font-family: "나눔바른고딕B";
+    font-size: 24px;
+    margin: 0 0 8px 0;
+  }
+  .topic_title > h4 {
+    font-family: "나눔바른고딕";
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 1.5;
+    color: rgba(38, 38, 38, 0.35);
+    margin: 0;
+  }
+  .talks_zone {
+    height: 664px;
+    padding: 0 16px;
+    margin-bottom: 16px;
+    overflow-y: auto;
+  }
+  .talks {
+    padding-top: 14px;
+    margin-bottom: 10px;
+  }
+  .talks_profile > p {
+    font-family: "나눔바른고딕";
+    font-size: 12px;
+    display: inline-block;
+    vertical-align: middle;
+    margin:0;
+  }
+  .talks_profile > p > img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+  .talks_profile > p > span {
+    color: rgba(38, 38, 38, 0.35);
+  }
+  .talks_profile > div {
+    float: right;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .talks_profile > div > a {
+    font-family: "나눔바른고딕";
+    font-size: 12px;
+    color: rgba(38, 38, 38, 0.7);
+    text-decoration: none;
+    margin-left: 8px;
+  }
+  .talks_profile > div > a:hove {
+    text-decoration: none;
+  }
+
+  .talks_body {
+    margin-top: 16px;
+  }
+  .talks_body > p {
+    font-family: "나눔바른고딕";
+    font-size: 14px;
+    line-height: 1.7;
+    margin: 0;
+  }
+  .go_first {
+    font-family: "나눔바른고딕";
+    font-size: 12px;
+    color: #bb213c;
+    text-align: right;
+    padding-right: 16px;
+    cursor: pointer;
+    margin: 0 0 16px;
+  }
+  .write_ur_talk {
+    width: 100%;
+    height: 128px;
+    border-top: solid 1px #e6e6e6;
+    padding: 12px 16px 16px;
+  }
+  .writer_profile > p {
+    font-family: "나눔바른고딕";
+    font-size: 12px;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+  }
+  .writer_profile > p > img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+  .writer_profile > p > span {
+    color: #bb213c;
+    margin-left: 8px;
+  }
+  .writer_profile > p > span:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .writer_profile > h4 {
+    font-size: 12px;
+    color: rgba(56, 59, 65, 0.54);
+    float: right;
+    margin: 5px 0 0;
+  }
+  .write_zone {
+    margin-top: 12px;
+    position: relative;
+  }
+  .write_zone > textarea {
+    width: 600px;
+    height: 64px;
+    resize: none;
+    border: solid 1px #e6e6e6;
+    font-family: "나눔바른고딕";
+    font-size: 14px;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 12px;
+    margin: 0;
+  }
+  .write_zone > textarea::placeholder {
+    font-family: "나눔바른고딕";
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(38, 38, 38, 0.35);
+  }
+  .write_zone > button {
+    width: 64px;
+    height: 64px;
+    border: none;
+    background-color: #e6e6e6;
+    color: #ffffff;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+    position: absolute;
+  }
 }

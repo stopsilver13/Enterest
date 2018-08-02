@@ -15,7 +15,7 @@
 
     {% include 'sharespot/series_topic_list.html' with request=request %}
 
-    <div class="event_talk_right">
+    <div class="event_talk_right hide_in_phone">
       {% for talk in talks %}
       <div class="topic_title">
         <p>{{ talk.topic.content }}</p>
