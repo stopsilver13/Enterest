@@ -1,7 +1,11 @@
-from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.conf import settings
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
 
 from sharespot.models import Division, Place, Space, Series, Ticket, Emotion, EventReview, SeatReview, ShareInfoCategory, ShareInfo, TalkTopic, Talk
+
+import json
+import urllib.request
 
 
 def main(request):
@@ -113,6 +117,33 @@ def place_share(request, space):
     share_info = ShareInfo.objects.filter(place=place)
     share_category = ShareInfoCategory.objects.all()
 
+    if request.method == 'GET':
+        config_secret = json.loads(open(settings.CONFIG_SETTINGS_COMMON_FILE).read())
+        client_id = config_secret['naver']['client_id']
+        client_secret = config_secret['naver']['client_secret']
+
+        q = request.GET.get('q')
+        encText = urllib.parse.quote("{}".format(q))
+        url = "https://openapi.naver.com/v1/search/local?query=" + encText  # json 결과
+        local_api_request = urllib.request.Request(url)
+        local_api_request.add_header("X-Naver-Client-Id", client_id)
+        local_api_request.add_header("X-Naver-Client-Secret", client_secret)
+        response = urllib.request.urlopen(local_api_request)
+        rescode = response.getcode()
+        if (rescode == 200):
+            response_body = response.read()
+            result = json.loads(response_body.decode('utf-8'))
+            items = result.get('items')
+
+            return render(request, 'sharespot/place_share.html', {
+                'user': user,
+                'place': place,
+                'space': space,
+                'share_category': share_category,
+                'share_info': share_info,
+                'items': items,
+            })
+
     # TODO: if request.method == 'POST':
 
     return render(request, 'sharespot/place_share.html', {
@@ -122,6 +153,30 @@ def place_share(request, space):
         'share_category': share_category,
         'share_info': share_info,
     })
+
+
+# def place_share_search(request, space):
+#     if request.method == 'GET':
+#         config_secret = json.loads(open(settings.CONFIG_SETTINGS_COMMON_FILE).read())
+#         client_id = config_secret['naver']['client_id']
+#         client_secret = config_secret['naver']['client_secret']
+
+#         q = request.GET.get('q')
+#         encText = urllib.parse.quote("{}".format(q))
+#         url = "https://openapi.naver.com/v1/search/local?query=" + encText  # json 결과
+#         local_api_request = urllib.request.Request(url)
+#         local_api_request.add_header("X-Naver-Client-Id", client_id)
+#         local_api_request.add_header("X-Naver-Client-Secret", client_secret)
+#         response = urllib.request.urlopen(local_api_request)
+#         rescode = response.getcode()
+#         if (rescode == 200):
+#             response_body = response.read()
+#             result = json.loads(response_body.decode('utf-8'))
+#             items = result.get('items')
+
+#             return HttpResponse()
+#         return HttpResponse()
+#     return render(request)
 
 # 정보글 수정/삭제 ajax
 # 댓글 입력/수정/삭제 ajax
@@ -164,13 +219,25 @@ def series_review(request, series):
 
 
 def series_talk_list(request, series):
+    user = request.user
     series = Series.objects.get(en_name=series)
     topics = TalkTopic.objects.filter(series=series)
     talks = Talk.objects.filter(topic__series=series).order_by('-pk')  # 몇개까지 보여줄 것? 페이지네이션? 더보기?
 
-    # 이야기거리 생성
+    if request.method == 'POST':
+        content = request.POST.get('topic_content')
+        explain = request.POST.get('topic_explain')
+
+        TalkTopic.objects.create(
+            user=user,
+            series=series,
+            content=content,
+            explain=explain,
+        )
+        return HttpResponseRedirect(request.path_info)
 
     return render(request, 'sharespot/series_talk_list.html', {
+        'user': user,
         'series': series,
         'topics': topics,
         'talks': talks,
@@ -178,14 +245,26 @@ def series_talk_list(request, series):
 
 
 def series_talk(request, series, topic):
+    user = request.user
     series = Series.objects.get(en_name=series)
     topic = TalkTopic.objects.get(pk=topic)
     topics = TalkTopic.objects.filter(series=series)
     talks = Talk.objects.filter(topic=topic)  # 몇개까지 보여줄 것? 페이지네이션? 더보기?
 
-    # 이야기거리 생성
+    if request.method == 'POST':
+        content = request.POST.get('topic_content')
+        explain = request.POST.get('topic_explain')
+
+        TalkTopic.objects.create(
+            user=user,
+            series=series,
+            content=content,
+            explain=explain,
+        )
+        return HttpResponseRedirect(request.path_info)
 
     return render(request, 'sharespot/series_talk.html', {
+        'user': user,
         'series': series,
         'topic': topic,
         'topics': topics,

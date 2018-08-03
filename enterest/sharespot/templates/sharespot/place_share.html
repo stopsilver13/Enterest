@@ -32,6 +32,18 @@
             </div>
             <button> 등록 </button>
           </div>
+          <form action="" method="GET">
+            <input name="q" placeholder="검색할 단어를 입려하세요">
+            <input type="submit" value="검색">
+          </form>
+          <div>
+          {% for item in items %}
+              <ul>
+                  <div>{{ forloop.counter }}
+                  {{ item.title|safe }} {{ item.address }}</div>
+              </ul>
+          {% endfor %}
+          </div>
         </div>
 
         {% for info in share_info %}

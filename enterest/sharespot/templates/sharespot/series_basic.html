@@ -225,19 +225,19 @@ $(document).ready(function(){
   };
 
 
-  var kia_championsfield = new naver.maps.Map('map', mapOptions);
+  var map = new naver.maps.Map('map', mapOptions);
 
   var marker = new naver.maps.Marker({
     position: new naver.maps.LatLng({{ series.space.place.lat_lon }}),
-    map: kia_championsfield,
+    map: map,
   });
 
   var contentString = [
     '<div class="iw_inner">',
-    '   <h3>서울특별시청</h3>',
-    '   <p>서울특별시 중구 태평로1가 31 | 서울특별시 중구 세종대로 110 서울특별시청<br />',
-    '       02-120 | 공공,사회기관 &gt; 특별,광역시청<br />',
-    '       <a href="http://www.seoul.go.kr" target="_blank">www.seoul.go.kr/</a>',
+    '   <h3>{{ series.space.place.name }}</h3>',
+    '   <p>{{ series.space.place.address }}<br/>',
+    '      {{ series.space.place.contact }}<br/>',
+    '       <a href="{{ series.space.place.website }}" target="_blank">{{ series.space.place.website }}</a>',
     '   </p>',
     '</div>'
   ].join('');
@@ -248,7 +248,7 @@ $(document).ready(function(){
     if (infowindow.getMap()) {
         infowindow.close();
     } else {
-        infowindow.open(kia_championsfield, marker);
+        infowindow.open(map, marker);
     }
   });
 });

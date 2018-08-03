@@ -10,6 +10,8 @@ urlpatterns = [
     url(r'^place/(?P<space>[\da-zA-Z-]+)/basic/$', views.place_basic, name='place_basic'),
     url(r'^place/(?P<space>[\da-zA-Z-]+)/share/$', views.place_share, name='place_share'),
 
+    #url(r'^place/(?P<space>[\da-zA-Z-]+)/share/search$', views.place_share_search, name='place_share_search'),
+
     url(r'^series/list/$', views.series_list, name='series_list'),
     url(r'^series/(?P<series>[\da-zA-Z-]+)/basic/$', views.series_basic, name='series_basic'),
     url(r'^series/(?P<series>[\da-zA-Z-]+)/review/$', views.series_review, name='series_review'),

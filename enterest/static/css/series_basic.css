@@ -392,6 +392,19 @@
     height: 375px;
     margin-top: 16px;
   }
+  .iw_inner {
+    width: 320px;
+    padding: 16px;
+  }
+  .iw_inner > h3 {
+    font-family: "나눔바른고딕B";
+    font-size: 12px;
+  }
+  .iw_inner > p {
+    margin: 0px;
+    font-family: "나눔바른고딕";
+    font-size: 12px;
+  }
 
   .event_etc_info {
     padding-top: 48px;
