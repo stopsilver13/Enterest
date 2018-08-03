@@ -1,0 +1,111 @@
+{% load static %}
+
+<div class="talks" data-pk="{{ talk.pk }}">
+  <div class="talks_profile">
+    <p>
+      {% if talk.anony_name %}
+        <img src="{% static "img/anony.png" %}" alt="">
+        <span class="talks_nickname"> {{ talk.anony_name }} &nbsp;</span>
+      {% else %}
+        <img src="{{ talk.user.profile.img.url }}" alt="">
+        <span class="talks_nickname"> {{ talk.user.profile.nick_name }} &nbsp;</span>
+      {% endif %}
+      <span class="created_at">{{ talk.created_at|date:"Y.m.d f A"}}</span>
+      <span class="report_thistalk">&middot; 신고</span>
+    </p>
+    <div>
+      <a href="{% url 'sharespot:series_talk_edit' series.en_name topic.pk %}" class="edit"> 수정 </a>
+      <a href="{% url 'sharespot:series_talk_delete' series.en_name topic.pk %}" class="delete"> 삭제 </a>
+    </div>
+  </div>
+  <div class="talks_body">
+    <p>{{ talk.content }}</p>
+  </div>
+</div>
+
+<script>
+
+(function() {
+  var talk = $('.talks[data-pk="{{ talk.pk }}"]');
+  var talk_pk = talk.data('pk');
+  var content = talk.find('.talks_body > p');
+
+  var auto_link_content = function() {
+    content.html(content.text().autoLink({target: '_blank'}));
+  }
+
+  auto_link_content();
+
+  // 수정 ajax
+  talk.find('.edit').click(function(e) {
+    var url = $(this).prop('href');
+    var edit_textarea = $('<textarea class="textarea_for_edit"></textarea>').insertAfter(content);
+    var edit_submit_btn = $('<button class="submit_for_edit"> 수정완료 </button>').insertAfter(edit_textarea);
+
+    content.hide();
+    edit_textarea.val(content.text());
+
+    var submit_edited_talk = function() {
+      var data = {
+        'talk_pk': talk_pk,
+        'new_content': talk.find('.textarea_for_edit').val()
+      }
+
+      $.post(url, data)
+        .done(function(r) {
+          edit_textarea.remove();
+          edit_submit_btn.remove();
+
+          var event = $.Event('talk_edited');
+          event.talk_pk = talk_pk;
+          event.r= r;
+          $(document).trigger(event);
+        });
+    }
+
+    edit_submit_btn.click(function(e) {
+      submit_edited_talk();
+    });
+
+    e.preventDefault();
+  });
+
+  $(document).on('talk_edited', function(e) {
+    if( e.talk_pk == talk_pk) {
+      content.text(e.r);
+      auto_link_content();
+      content.show();
+    }
+  });
+
+
+  // 삭제 ajax
+  talk.find('.delete').click(function(e) {
+    var url = $(this).prop('href');
+    var data = {
+      'talk_pk': talk_pk,
+    };
+    if( confirm("삭제하시겠습니까?") ) {
+      $.post(url, data)
+        .done(function(r) {
+          var event = $.Event('talk_deleted');
+          event.talk_pk = r.talk_pk;
+          $(document).trigger(event);
+        })
+    }
+    e.preventDefault();
+  })
+
+  $(document).on('talk_deleted', function(e) {
+    console.log(e.talk_pk);
+    console.log(talk_pk);
+    if( e.talk_pk == talk_pk ) {
+      console.log(e.talk_pk);
+      talk.remove();
+    }
+  });
+
+})();
+
+</script>
+

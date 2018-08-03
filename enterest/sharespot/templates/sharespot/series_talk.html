@@ -8,6 +8,7 @@
 
 {% block head_extra_series %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/series_talk.css' %}">
+<script src="{% static 'js/autolink-min.js' %}"></script>
 {% endblock %}
 
 {% block content_series %}
@@ -29,28 +30,7 @@
         </div>
         <div class="talks_zone">
           {% for talk in talks %}
-          <div class="talks">
-            <div class="talks_profile">
-              <p>
-                {% if talk.anony_name %}
-                  <img src="{% static "img/anony.png" %}" alt="">
-                  <span class="talks_nickname"> {{ talk.anony_name }} &nbsp;</span>
-                {% else %}
-                  <img src="{{ talk.user.profile.img.url }}" alt="">
-                  <span class="talks_nickname"> {{ talk.user.profile.nick_name }} &nbsp;</span>
-                {% endif %}
-                <span class="created_at">{{ talk.created_at|date:"Y.m.d f A"}}</span>
-                <span class="report_thistalk">&middot; 신고</span>
-              </p>
-              <div>
-                <a href="#"> 수정 </a>
-                <a href="#"> 삭제 </a>
-              </div>
-            </div>
-            <div class="talks_body">
-              <p>{{ talk.content }}</p>
-            </div>
-          </div>
+            {% include 'sharespot/talk.html' with request=request series=series topic=topic talk=talk %}
           {% endfor %}
 
         </div>
@@ -71,36 +51,17 @@
 
             <h4 class="hide_in_phone">(!) 신고 5회 누적 시 익명으로 변경이 불가능하오니 유의하시기 바랍니다.</h4>
           </div>
-          <div class="write_zone">
-            <div class="write_zone_wrapper">
-              <textarea placeholder="당신의 생각을 말해주세요."></textarea>
-              <button disabled style="cursor: default"> 등록 </button>
+          <form class="talk_form" action="{% url "sharespot:series_talk_create" series.en_name topic.pk %}" method="POST">
+            <div class="write_zone">
+              <div class="write_zone_wrapper">
+                <textarea name="content" placeholder="당신의 생각을 말해주세요."></textarea>
+                <button type="submit" disabled style="cursor: default"> 등록 </button>
+              </div>
             </div>
-          </div>
-
-          <input type="hidden" name="anony_name" id="anony_name">
+            <input type="hidden" name="anony_name" id="anony_name">
+          </form>
         </div>
       </div>
-
-
-      <div class="talks" id="for_clone" style="display: none">
-        <div class="talks_profile">
-          <p>
-            <img src="" alt="">
-            <span class="talks_nickname"></span>
-            <span class="created_at"></span>
-            <span class="report_thistalk">&middot; 신고</span>
-          </p>
-          <div>
-            <a href="#"> 수정 </a>
-            <a href="#"> 삭제 </a>
-          </div>
-        </div>
-        <div class="talks_body">
-          <p></p>
-        </div>
-      </div>
-
 
 <script>
 $(document).ready(function(){
@@ -184,16 +145,17 @@ $('.writer_profile > p > span').click(function() {
   anony_name = anony1[anony1_random] + " " + anony2[anony2_random];
   $('.writer_nickname').html(anony_name);
   $('#anony_name').val(anony_name);
+
 });
 
 
 // 글쓰기 ajax
-var nickname_in_talk;
+/*var nickname_in_talk;
 var content;
 var created_at;
-var img_src;
+var img_src;*/
 
-$('.write_zone_wrapper > button').click(function(e) {
+/*$('.write_zone_wrapper > button').click(function(e) {
   e.preventDefault();
   var anony_name;
   if( $('#anony_name').val() != "" ) {
@@ -231,7 +193,33 @@ $(document).ajaxComplete(function() {
   if ( document.body.clientWidth >= 768) {
     $('.talks_zone').animate({scrollTop: $('.talks_zone > div.talks').last().offset().top}, 'fast');
   }
-})
+})*/
+
+// 글쓰기 ajax
+$('.write_ur_talk form').submit(function(e) {
+  var url = $(this).attr('action');
+  var data = $(this).serialize();
+
+  $.post(url, data)
+    .done(function(r) {
+      $('.write_zone_wrapper textarea').val('');
+
+      var event = $.Event('talk_created');
+      event.html = r.html;
+      $(document).trigger(event);
+
+    });
+
+    e.preventDefault();
+});
+
+$(document).on('talk_created', function(e) {
+  $('.talks_zone').append(e.html);
+
+  if ( document.body.clientWidth >= 768) {
+    $('.talks_zone').scrollTop($('.talks_zone')[0].scrollHeight);
+  }
+});
 </script>
 
 {% endblock %}

@@ -1,6 +1,7 @@
 from django.conf import settings
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
+from django.template.loader import render_to_string
 
 from sharespot.models import Division, Place, Space, Series, Ticket, Emotion, EventReview, SeatReview, ShareInfoCategory, ShareInfo, TalkTopic, Talk
 
@@ -249,7 +250,7 @@ def series_talk(request, series, topic):
     series = Series.objects.get(en_name=series)
     topic = TalkTopic.objects.get(pk=topic)
     topics = TalkTopic.objects.filter(series=series)
-    talks = Talk.objects.filter(topic=topic)  # 몇개까지 보여줄 것? 페이지네이션? 더보기?
+    talks = Talk.objects.filter(topic=topic).order_by('pk')  # 몇개까지 보여줄 것? 페이지네이션? 더보기?
 
     if request.method == 'POST':
         content = request.POST.get('topic_content')
@@ -274,6 +275,7 @@ def series_talk(request, series, topic):
 
 def series_talk_create(request, series, topic):
     user = request.user
+    series = Series.objects.get(en_name=series)
     topic = TalkTopic.objects.get(pk=topic)
 
     if request.method == 'POST':
@@ -287,7 +289,16 @@ def series_talk_create(request, series, topic):
             content=content,
         )
 
-        return HttpResponse(talk.created_at)
+        html = render_to_string('sharespot/talk.html', {
+            'request': request,
+            'series': series,
+            'topic': topic,
+            'talk': talk,
+        })
+
+        return JsonResponse({
+            'html': html,
+        })
     return render(request)
 
 
@@ -300,19 +311,22 @@ def series_talk_edit(request, series, topic):
         talk.content = new_content
         talk.save()
 
-        return HttpResponse('complete')
+        return HttpResponse(talk.content)
     return render(request)
 
 
 def series_talk_delete(request, series, topic):
-    if request.method == 'GET':
+    if request.method == 'POST':
         talk_pk = request.POST.get('talk_pk')
+        print(talk_pk)
 
         talk = get_object_or_404(Talk, pk=talk_pk)
         talk.delete()
 
-        return HttpResponse('complete')
-    return render(request)
+        return JsonResponse({
+            'talk_pk': talk_pk,
+        })
+
 
 
 # 각 행동에 대해 페이지 리로딩 여부는 생각을 해봐야 할듯
