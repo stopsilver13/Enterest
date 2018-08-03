@@ -1,0 +1,8 @@
+<div class="replies">
+  <div class="replies_upper">
+    <img src="{{ comment.user.profile.img.url }}">
+    <p>{{ comment.user.profile.nick_name }}</p>
+    <h4>{{ comment.created_at|date:"Y.m.d" }}</h4>
+  </div>
+  <p class="replies_body">{{ comment.content }}</p>
+</div>

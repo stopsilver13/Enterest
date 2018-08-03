@@ -1,0 +1,37 @@
+<div class="posts">
+  <div class="posts_wrapper">
+    <div class="posts_header">
+      <div> {{ info.category }} </div>
+      <p> {{ info.name }} <span> {{ info.created_at|date:"Y.m.d" }} </span> </p>
+    </div>
+    <div class="posts_body">
+      <p>{{ info.content }}</p>
+    </div>
+    <div class="posts_img">
+      {% for img in info.image_set.all %}
+        <img src="{{ img.img.url }}">
+      {% endfor %}
+    </div>
+    <div class="posts_footer">
+      <p><i class="far fa-comment"></i> <span> {{ info.shareinfocomment_set.count }} </span></p>
+      <p><i class="far fa-heart"></i> <span> {{ info.count_liked }} </span></p>
+    </div>
+    <div class="posts_reply">
+      <div class="writing_zone">
+        <div class="writing_zone_upper">
+          <img src="{{ user.profile.img.url }}">
+          <p> {{ user.profile.nick_name }} </p>
+          <h4> 익명으로 변경 </h4>
+        </div>
+        <div class="writing_zone_bottom">
+          <textarea placeholder="댓글을 입력하세요."></textarea>
+          <button> 등록 </button>
+        </div>
+      </div>
+
+      {% for comment in info.shareinfocomment_set.all %}
+        {% include 'sharespot/place_share_info_comment.html' with comment=comment %}
+      {% endfor %}
+    </div>
+  </div>
+</div>

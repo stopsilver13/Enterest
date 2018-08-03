@@ -25,72 +25,20 @@
             <div class="input_left">
               <div class="posting_place_info">
                 <div class="place_category"> 분류 선택 </div>
-                <div class="place_name"> 방문 장소,주소 </div>
+                <input class="place_name" placeholder="방문 장소,주소 검색" name="q" data-url="{% url 'sharespot:place_share_search' space.en_name %}">
                 <div class="place_pic"> 사진 </div>
               </div>
               <textarea placeholder="자유롭게 입력해주세요."></textarea>
             </div>
             <button> 등록 </button>
           </div>
-          <form action="" method="GET">
-            <input name="q" placeholder="검색할 단어를 입려하세요">
-            <input type="submit" value="검색">
-          </form>
-          <div>
-          {% for item in items %}
-              <ul>
-                  <div>{{ forloop.counter }}
-                  {{ item.title|safe }} {{ item.address }}</div>
-              </ul>
-          {% endfor %}
+
+          <div id="items_list">
           </div>
         </div>
-
+              {{ item.title|safe }} {{ item.address }}
         {% for info in share_info %}
-        <div class="posts">
-          <div class="posts_wrapper">
-            <div class="posts_header">
-              <div> {{ info.category }} </div>
-              <p> {{ info.name }} <span> {{ info.created_at|date:"Y.m.d" }} </span> </p>
-            </div>
-            <div class="posts_body">
-              <p>{{ info.content }}</p>
-            </div>
-            <div class="posts_img">
-              {% for img in info.image_set.all %}
-                <img src="{{ img.img.url }}">
-              {% endfor %}
-            </div>
-            <div class="posts_footer">
-              <p><i class="far fa-comment"></i> <span> {{ info.shareinfocomment_set.count }} </span></p>
-              <p><i class="far fa-heart"></i> <span> {{ info.count_liked }} </span></p>
-            </div>
-            <div class="posts_reply">
-              <div class="writing_zone">
-                <div class="writing_zone_upper">
-                  <img src="{{ user.profile.img.url }}">
-                  <p> {{ user.profile.nick_name }} </p>
-                  <h4> 익명으로 변경 </h4>
-                </div>
-                <div class="writing_zone_bottom">
-                  <textarea placeholder="댓글을 입력하세요."></textarea>
-                  <button> 등록 </button>
-                </div>
-              </div>
-
-              {% for comment in info.shareinfocomment_set.all %}
-              <div class="replies">
-                <div class="replies_upper">
-                  <img src="{{ comment.user.profile.img.url }}">
-                  <p>{{ comment.user.profile.nick_name }}</p>
-                  <h4>{{ comment.created_at|date:"Y.m.d" }}</h4>
-                </div>
-                <p class="replies_body">{{ comment.content }}</p>
-              </div>
-              {% endfor %}
-            </div>
-          </div>
-        </div>
+          {% include 'sharespot/place_share_info.html' with user=user info=info %}
         {% endfor %}
       </div>
       <div class="map"></div>
@@ -110,6 +58,26 @@ $(function(){
          $("#navi").css("top","");
     }
   })
+})
+
+$('.place_name').keyup(function(e) {
+  var url = $(this).data('url');
+  var data = {
+    q : $(this).val()
+  }
+  if( data.q != "" ) {
+    $.get(url, data)
+      .done(function(items) {
+        $('#items_list').children().each(function(){
+          $(this).remove();
+        });
+        for( var i in items ) {
+          $('#items_list').append($('<div>'+ items[i].title +'</div>'));
+          console.log(items[i]);
+        }
+    })
+  }
+
 })
 </script>
 {% endblock %}

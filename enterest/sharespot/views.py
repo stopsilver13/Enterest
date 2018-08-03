@@ -118,11 +118,107 @@ def place_share(request, space):
     share_info = ShareInfo.objects.filter(place=place)
     share_category = ShareInfoCategory.objects.all()
 
-    if request.method == 'GET':
-        config_secret = json.loads(open(settings.CONFIG_SETTINGS_COMMON_FILE).read())
-        client_id = config_secret['naver']['client_id']
-        client_secret = config_secret['naver']['client_secret']
+    # if request.method == 'GET':
+    #     config_secret = json.loads(open(settings.CONFIG_SETTINGS_COMMON_FILE).read())
+    #     client_id = config_secret['naver']['client_id']
+    #     client_secret = config_secret['naver']['client_secret']
 
+    #     q = request.GET.get('q')
+    #     encText = urllib.parse.quote("{}".format(q))
+    #     url = "https://openapi.naver.com/v1/search/local?query=" + encText  # json 결과
+    #     local_api_request = urllib.request.Request(url)
+    #     local_api_request.add_header("X-Naver-Client-Id", client_id)
+    #     local_api_request.add_header("X-Naver-Client-Secret", client_secret)
+    #     response = urllib.request.urlopen(local_api_request)
+    #     rescode = response.getcode()
+    #     if (rescode == 200):
+    #         response_body = response.read()
+    #         result = json.loads(response_body.decode('utf-8'))
+    #         items = result.get('items')
+
+    #         return render(request, 'sharespot/place_share.html', {
+    #             'user': user,
+    #             'place': place,
+    #             'space': space,
+    #             'share_category': share_category,
+    #             'share_info': share_info,
+    #             'items': items,
+    #         })
+
+    # TODO: if request.method == 'POST':
+
+    return render(request, 'sharespot/place_share.html', {
+        'user': user,
+        'place': place,
+        'space': space,
+        'share_category': share_category,
+        'share_info': share_info,
+    })
+
+
+def place_share_create(request, series, topic):
+    user = request.user
+    series = Series.objects.get(en_name=series)
+    topic = TalkTopic.objects.get(pk=topic)
+
+    if request.method == 'POST':
+        content = request.POST.get('content')
+
+        info = ShareInfo.objects.create(
+            user=user,
+            place=series.space.place,
+            category=category,
+            name=name,
+            address=address,
+            lat_lon=lat_lon,
+            content=content,
+        )
+
+        html = render_to_string('sharespot/talk.html', {
+            'request': request,
+            'series': series,
+            'topic': topic,
+            'talk': talk,
+        })
+
+        return JsonResponse({
+            'html': html,
+        })
+    return render(request)
+
+
+def place_share_edit(request, series, topic):
+    if request.method == 'POST':
+        talk_pk = request.POST.get('talk_pk')
+        new_content = request.POST.get('new_content')
+
+        talk = get_object_or_404(Talk, pk=talk_pk)
+        talk.content = new_content
+        talk.save()
+
+        return HttpResponse(talk.content)
+    return render(request)
+
+
+def place_share_delete(request, series, topic):
+    if request.method == 'POST':
+        talk_pk = request.POST.get('talk_pk')
+        print(talk_pk)
+
+        talk = get_object_or_404(Talk, pk=talk_pk)
+        talk.delete()
+
+        return JsonResponse({
+            'talk_pk': talk_pk,
+        })
+
+
+def place_share_search(request, space):
+    config_secret = json.loads(open(settings.CONFIG_SETTINGS_COMMON_FILE).read())
+    client_id = config_secret['naver']['client_id']
+    client_secret = config_secret['naver']['client_secret']
+
+    if request.method == 'GET':
         q = request.GET.get('q')
         encText = urllib.parse.quote("{}".format(q))
         url = "https://openapi.naver.com/v1/search/local?query=" + encText  # json 결과
@@ -136,48 +232,11 @@ def place_share(request, space):
             result = json.loads(response_body.decode('utf-8'))
             items = result.get('items')
 
-            return render(request, 'sharespot/place_share.html', {
-                'user': user,
-                'place': place,
-                'space': space,
-                'share_category': share_category,
-                'share_info': share_info,
+            return JsonResponse({
                 'items': items,
             })
-
-    # TODO: if request.method == 'POST':
-
-    return render(request, 'sharespot/place_share.html', {
-        'user': user,
-        'place': place,
-        'space': space,
-        'share_category': share_category,
-        'share_info': share_info,
-    })
-
-
-# def place_share_search(request, space):
-#     if request.method == 'GET':
-#         config_secret = json.loads(open(settings.CONFIG_SETTINGS_COMMON_FILE).read())
-#         client_id = config_secret['naver']['client_id']
-#         client_secret = config_secret['naver']['client_secret']
-
-#         q = request.GET.get('q')
-#         encText = urllib.parse.quote("{}".format(q))
-#         url = "https://openapi.naver.com/v1/search/local?query=" + encText  # json 결과
-#         local_api_request = urllib.request.Request(url)
-#         local_api_request.add_header("X-Naver-Client-Id", client_id)
-#         local_api_request.add_header("X-Naver-Client-Secret", client_secret)
-#         response = urllib.request.urlopen(local_api_request)
-#         rescode = response.getcode()
-#         if (rescode == 200):
-#             response_body = response.read()
-#             result = json.loads(response_body.decode('utf-8'))
-#             items = result.get('items')
-
-#             return HttpResponse()
-#         return HttpResponse()
-#     return render(request)
+        return HttpResponse(404)
+    return render(request)
 
 # 정보글 수정/삭제 ajax
 # 댓글 입력/수정/삭제 ajax
@@ -326,7 +385,6 @@ def series_talk_delete(request, series, topic):
         return JsonResponse({
             'talk_pk': talk_pk,
         })
-
 
 
 # 각 행동에 대해 페이지 리로딩 여부는 생각을 해봐야 할듯
