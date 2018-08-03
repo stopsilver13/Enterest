@@ -156,6 +156,7 @@ def place_share(request, space):
     })
 
 
+# ajax 노노
 def place_share_create(request, series, topic):
     user = request.user
     series = Series.objects.get(en_name=series)
@@ -242,7 +243,7 @@ def place_share_search(request, space):
 # 댓글 입력/수정/삭제 ajax
 
 
-def series_list(request):  # ?division= ?place=
+def series_list(request):
     # TODO: 필터링 방식에 따라 변동 가능성 있음
     divisions = Division.objects.all().order_by('pk')
     if 'place' in request.GET:
