@@ -88,6 +88,7 @@
   .talks_profile > p {
     font-family: "나눔바른고딕";
     font-size: 12px;
+    color: #262626;
     display: inline-block;
     vertical-align: middle;
     margin:0;
@@ -99,7 +100,8 @@
     vertical-align: middle;
     margin-right: 8px;
   }
-  .talks_profile > p > span {
+  .created_at,
+  .report_thistalk {
     color: rgba(38, 38, 38, 0.35);
   }
   .talks_profile > div {
@@ -275,6 +277,7 @@
   .talks_profile > p {
     font-family: "나눔바른고딕";
     font-size: 12px;
+    color: #262626;
     display: inline-block;
     vertical-align: middle;
     margin:0;
@@ -286,7 +289,8 @@
     vertical-align: middle;
     margin-right: 8px;
   }
-  .talks_profile > p > span {
+  .created_at,
+  .report_thistalk {
     color: rgba(38, 38, 38, 0.35);
   }
   .talks_profile > div {
@@ -344,11 +348,11 @@
     vertical-align: middle;
     margin-right: 8px;
   }
-  .writer_profile > p > span {
+  .use_anony {
     color: #bb213c;
     margin-left: 8px;
   }
-  .writer_profile > p > span:hover {
+  .use_anony:hover {
     text-decoration: underline;
     cursor: pointer;
   }
