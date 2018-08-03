@@ -17,12 +17,15 @@
 
       <div class="event_talk_right">
         <div class="mobile_wagle_header hide_in_web">
-          <i class="fas fa-arrow-left"></i>
-          <p> {{ series.name }} </p>
+          <a href="{% url 'sharespot:series_talk_list' series.en_name %}"><i class="fas fa-arrow-left"></i></a>
+          <p>  {{ series.name }} </p>
         </div>
         <div class="topic_title">
-          <p>{{ topic.content }}</p>
-          <h4>{{ topic.explain }}</h4>
+          <i class="fas fa-angle-down hide_in_web"></i>
+          <div class="topic_title_text">
+            <p>{{ topic.content }}</p>
+            <h4>{{ topic.explain }}</h4>
+          </div>
         </div>
         <div class="talks_zone">
           {% for talk in talks %}
@@ -31,13 +34,13 @@
               <p>
                 {% if talk.anony_name %}
                   <img src="{% static "img/anony.png" %}" alt="">
-                  {{ talk.anony_name }} &nbsp;
+                  <span class="talks_nickname"> {{ talk.anony_name }} &nbsp;</span>
                 {% else %}
                   <img src="{{ talk.user.profile.img.url }}" alt="">
-                  {{ talk.user.profile.nick_name }} &nbsp;
+                  <span class="talks_nickname"> {{ talk.user.profile.nick_name }} &nbsp;</span>
                 {% endif %}
-                <span>{{ talk.created_at|date:"Y.m.d f A"}}</span>
-                <span>&middot; 신고</span>
+                <span class="created_at">{{ talk.created_at|date:"Y.m.d f A"}}</span>
+                <span class="report_thistalk">&middot; 신고</span>
               </p>
               <div>
                 <a href="#"> 수정 </a>
@@ -50,91 +53,185 @@
           </div>
           {% endfor %}
 
-          <div class="talks">
-            <div class="talks_profile">
-              <p><img src="" alt=""> 닉네임닉네임 <span>18.7.11 4:03 PM </span><span>&middot; 신고</span> </p>
-            </div>
-            <div class="talks_body">
-              <p> 레알 마드리드가 크리스티아누 호날두 공백을 메우기 위해 시동을 걸고 있다. 첼시 에덴 아자르(27) 영입에 1억 5,000만 파운드(약 2,220억 원)를 준비 중이라는 소식이다. 레알 마드리드에서 9년여를 활약한 호날두는 11일(이하 한국 시간) 유벤투스로 둥지를 옮겼다. 레알 마드리드는 구단 홈페이지를 통해 "호날두의 유벤투스 이적에 합의했다"면서 "호날두의 의지에 따라 유벤투스 이적에 동의했다. 우리는 전 세계 최고가 되고 우리 구단을 역사상 최고로 빛나게 한 호날두에게 감사를 표한다"고 이적을 알렸다.</p>
-            </div>
-          </div>
-          <div class="talks">
-            <div class="talks_profile">
-              <p><img src="" alt=""> 닉네임닉네임 <span>18.7.11 4:03 PM </span><span>&middot; 신고</span> </p>
-            </div>
-            <div class="talks_body">
-              <p> 레알 마드리드가 크리스티아누 호날두 공백을 메우기 위해 시동을 걸고 있다. 첼시 에덴 아자르(27) 영입에 1억 5,000만 파운드(약 2,220억 원)를 준비 중이라는 소식이다. </p>
-            </div>
-          </div>
-          <div class="talks">
-            <div class="talks_profile">
-              <p><img src="" alt=""> 닉네임닉네임 <span>18.7.11 4:03 PM </span><span>&middot; 신고</span> </p>
-            </div>
-            <div class="talks_body">
-              <p> 레알 마드리드가 크리스티아누 호날두 공백을 메우기 위해 시동을 걸고 있다. 첼시 에덴 아자르(27) 영입에 1억 5,000만 파운드(약 2,220억 원)를 준비 중이라는 소식이다. 레알 마드리드에서 9년여를 활약한 호날두는 11일(이하 한국 시간) 유벤투스로 둥지를 옮겼다. 레알 마드리드는 구단 홈페이지를 통해 "호날두의 유벤투스 이적에 합의했다"면서 "호날두의 의지에 따라 유벤투스 이적에 동의했다. 우리는 전 세계 최고가 되고 우리 구단을 역사상 최고로 빛나게 한 호날두에게 감사를 표한다"고 이적을 알렸다.</p>
-            </div>
-          </div>
-          <div class="talks">
-            <div class="talks_profile">
-              <p><img src="" alt=""> 닉네임닉네임 <span>18.7.11 4:03 PM </span><span>&middot; 신고</span> </p>
-            </div>
-            <div class="talks_body">
-              <p> 레알 마드리드가 크리스티아누 호날두 공백을 메우기 위해 시동을 걸고 있다. 첼시 에덴 아자르(27) 영입에 1억 5,000만 파운드(약 2,220억 원)를 준비 중이라는 소식이다. 레알 마드리드에서 9년여를 활약한 호날두는 11일(이하 한국 시간) 유벤투스로 둥지를 옮겼다. 레알 마드리드는 구단 홈페이지를 통해 "호날두의 유벤투스 이적에 합의했다"면서 "호날두의 의지에 따라 유벤투스 이적에 동의했다. 우리는 전 세계 최고가 되고 우리 구단을 역사상 최고로 빛나게 한 호날두에게 감사를 표한다"고 이적을 알렸다.</p>
-            </div>
-          </div>
-          <div class="talks">
-            <div class="talks_profile">
-              <p><img src="" alt=""> 닉네임닉네임 <span>18.7.11 4:03 PM </span><span>&middot; 신고</span> </p>
-            </div>
-            <div class="talks_body">
-              <p> 레알 마드리드가 크리스티아누 호날두 공백을 메우기 위해 시동을 걸고 있다. 첼시 에덴 아자르(27) 영입에 1억 5,000만 파운드(약 2,220억 원)를 준비 중이라는 소식이다. 레알 마드리드에서 9년여를 활약한 호날두는 11일(이하 한국 시간) 유벤투스로 둥지를 옮겼다. 레알 마드리드는 구단 홈페이지를 통해 "호날두의 유벤투스 이적에 합의했다"면서 "호날두의 의지에 따라 유벤투스 이적에 동의했다. 우리는 전 세계 최고가 되고 우리 구단을 역사상 최고로 빛나게 한 호날두에게 감사를 표한다"고 이적을 알렸다.</p>
-            </div>
-          </div>
         </div>
-        <p class="go_first"><i class="fas fa-caret-up"></i> 첫글보기</p>
+        <p class="go_first hide_in_phone"><i class="fas fa-caret-up"></i> 첫글보기</p>
+        <div class="mobile_wagle_footer hide_in_web">
+          <div id="mobile_go_first"> 첫글 보기 </div>
+          <div id="go_write"> 글쓰기 </div>
+        </div>
         <div class="write_ur_talk">
           <div class="writer_profile">
-            <p><img src="{{ user.profile.img.url }}" alt=""> {{ user.profile.nick_name }} <span> 익명으로 변경 </span> </p>
+            <p>
+              <img src="{{ user.profile.img.url }}" alt="" class="hide_in_phone">
+              <span class="writer_nickname"> {{ user.profile.nick_name }} </span>
+              <span class="use_anony"> 익명으로 변경 </span>
+            </p>
             <!-- 익명으로 변경 선택시 -->
             <!-- <p><img src="{% static "img/anony.png" %}" alt=""> 랜덤익명생성 <spa임> 닉네임으로 변경 </span> </p> -->
 
-            <h4>(!) 신고 5회 누적 시 익명으로 변경이 불가능하오니 유의하시기 바랍니다.</h4>
+            <h4 class="hide_in_phone">(!) 신고 5회 누적 시 익명으로 변경이 불가능하오니 유의하시기 바랍니다.</h4>
           </div>
           <div class="write_zone">
-            <textarea placeholder="당신의 생각을 말해주세요."></textarea>
-            <button disabled style="cursor: default"> 등록 </button>
+            <div class="write_zone_wrapper">
+              <textarea placeholder="당신의 생각을 말해주세요."></textarea>
+              <button disabled style="cursor: default"> 등록 </button>
+            </div>
           </div>
+
+          <input type="hidden" name="anony_name" id="anony_name">
         </div>
       </div>
-    </div>
-  </div>
+
+
+      <div class="talks" id="for_clone" style="display: none">
+        <div class="talks_profile">
+          <p>
+            <img src="" alt="">
+            <span class="talks_nickname"></span>
+            <span class="created_at"></span>
+            <span class="report_thistalk">&middot; 신고</span>
+          </p>
+          <div>
+            <a href="#"> 수정 </a>
+            <a href="#"> 삭제 </a>
+          </div>
+        </div>
+        <div class="talks_body">
+          <p></p>
+        </div>
+      </div>
 
 
 <script>
 $(document).ready(function(){
-  $('.talks_zone').animate({scrollTop: $('div.talks').last().offset().top}, 'fast');
+  var winwidth = document.body.clientWidth;
+  if ( winwidth >= 768) {
+    $('.talks_zone').animate({scrollTop: $('.talks_zone > div.talks').last().offset().top}, 'fast');
+  }
+});
+
+
+var el, up, ps, totalHeight;
+$('.topic_title > i').click(function() {
+  totalHeight = 0;
+  el = $(this);
+  up = el.parent().children('.topic_title_text');
+  ps = up.find('p');
+  h4 = up.find('h4');
+
+  if ( el.hasClass('rotated') ) {
+    h4.hide();
+    up.css({'height': 40, 'max-height' : 40});
+    el.removeClass('rotated');
+
+  } else {
+    ps.each(function() {
+      totalHeight += $(this).outerHeight() + h4.outerHeight() + 8;
+    });
+
+    up
+      .css({
+        'height' : up.height(),
+        'max-height' : 9999
+      })
+      .animate({
+        "height": totalHeight
+      });
+    h4.show();
+    el.addClass('rotated');
+
+    return false;
+  }
 });
 
 // 첫글보기
 $('.go_first').click(function() {
   $('.talks_zone').animate({scrollTop: 0}, 'fast');
 });
+$('#mobile_go_first').click(function() {
+  $('html, body').animate({scrollTop: 0}, 'fast');
+});
 
 // 등록버튼 활성화 비활성화
 var length;
-$('.write_zone > textarea').keyup(function() {
+$('.write_zone_wrapper > textarea').keyup(function() {
   length = $(this).val();
-  console.log(length)
   if( length != '' ) {
-    $('.write_zone > button')
+    $('.write_zone_wrapper > button')
       .css({'background-color': '#bb213c', 'cursor': 'pointer'})
       .prop('disabled', '')
   } else {
-    $('.write_zone > button')
+    $('.write_zone_wrapper > button')
       .css({'background-color': '#e6e6e6', 'cursor': 'default'})
       .prop('disabled', 'disabled')
   }
 });
+
+// 모바일 글쓰기 버튼
+$('#go_write').click(function() {
+  $(this).parent().hide();
+  $('.write_ur_talk').show();
+});
+
+
+// 익명
+var anony1 = ['빨강','파랑','노랑','초록','보라','검정','하양'];
+var anony2 = ['고양이','강아지','돌고래','코끼리'];
+$('.writer_profile > p > span').click(function() {
+  var anony_name = "";
+  anony1_random = Math.floor(Math.random() * anony1.length);
+  anony2_random = Math.floor(Math.random() * anony2.length);
+  anony_name = anony1[anony1_random] + " " + anony2[anony2_random];
+  $('.writer_nickname').html(anony_name);
+  $('#anony_name').val(anony_name);
+});
+
+
+// 글쓰기 ajax
+var nickname_in_talk;
+var content;
+var created_at;
+var img_src;
+
+$('.write_zone_wrapper > button').click(function(e) {
+  e.preventDefault();
+  var anony_name;
+  if( $('#anony_name').val() != "" ) {
+    anony_name = $('#anony_name').val();
+    img_src = '{% static "img/anony.png" %}';
+  } else {
+    anony_name = "";
+    img_src = '{{ talk.user.profile.img.url }}';
+  }
+  nickname_in_talk = $('.writer_nickname').text();
+  content = $('.write_zone_wrapper > textarea').val();
+  created_at;
+
+  $.ajax({
+    type: 'post',
+    url: 'create/',
+    async: false,
+    data: {'anony_name' : anony_name, 'content' : content},
+    success: function(r) {
+      created_at = r;
+    }
+  });
+});
+
+$(document).ajaxComplete(function() {
+  $('#for_clone > .talks_profile img').prop('src', img_src);
+  $('#for_clone > .talks_profile .talks_nickname').html(nickname_in_talk + '&nbsp;');
+  $('#for_clone > .talks_profile .created_at').html(created_at);
+  $('#for_clone > .talks_body p').html(content);
+  $('#for_clone').clone().appendTo('.talks_zone').show();
+  $('.write_zone_wrapper > textarea').val("");
+  $('.write_zone_wrapper > button')
+    .css({'background-color': '#e6e6e6', 'cursor': 'default'})
+    .prop('disabled', 'disabled');
+  if ( document.body.clientWidth >= 768) {
+    $('.talks_zone').animate({scrollTop: $('.talks_zone > div.talks').last().offset().top}, 'fast');
+  }
+})
 </script>
 
 {% endblock %}

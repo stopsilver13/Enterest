@@ -20,28 +20,66 @@
   }
   .mobile_wagle_header {
     height: 48px;
+    text-align: center;
+    position: relative;
+  }
+  .mobile_wagle_header > a > i {
+    color: #262626;
+    line-height: 48px;
+    position: absolute;
+    left: 16px;
+  }
+  .mobile_wagle_header > p {
+    font-family: "나눔바른고딕B";
+    font-size: 16px;
+    line-height: 48px;
+    margin: 0;
   }
   .topic_title {
     border-bottom: solid 2px #bb213c;
     padding: 12px 16px 16px;
     margin-bottom: 20px;
+    position: relative;
   }
-  .topic_title > p {
+  .topic_title > i {
+    color: rgba(38, 38, 38, 0.7);
+    line-height: 30px;
+    position: absolute;
+    right: 16px;
+  }
+  .rotated {
+    animation: rotated 0.5s;
+    transform: rotateZ(180deg);
+  }
+  @keyframes rotated {
+    0% {
+      transform: rotateZ(0);
+    }
+    100% {
+      transform: rotateZ(180deg);
+    }
+  }
+  .topic_title_text {
+    max-height: 40px;
+    overflow: hidden;
+  }
+  .topic_title_text > p {
     font-family: "나눔바른고딕B";
-    font-size: 24px;
+    font-size: 20px;
+    color: #262626;
     margin: 0 0 8px 0;
   }
-  .topic_title > h4 {
+  .topic_title_text > h4 {
+    display: none;
     font-family: "나눔바른고딕";
-    font-size: 16px;
+    font-size: 12px;
     font-weight: normal;
     line-height: 1.5;
     color: rgba(38, 38, 38, 0.35);
     margin: 0;
   }
   .talks_zone {
-    padding: 0 16px;
-    margin-bottom: 16px;
+    padding: 0 16px 120px;
   }
   .talks {
     padding-top: 14px;
@@ -50,6 +88,7 @@
   .talks_profile > p {
     font-family: "나눔바른고딕";
     font-size: 12px;
+    color: #262626;
     display: inline-block;
     vertical-align: middle;
     margin:0;
@@ -61,7 +100,8 @@
     vertical-align: middle;
     margin-right: 8px;
   }
-  .talks_profile > p > span {
+  .created_at,
+  .report_thistalk {
     color: rgba(38, 38, 38, 0.35);
   }
   .talks_profile > div {
@@ -98,17 +138,36 @@
     cursor: pointer;
     margin: 0 0 16px;
   }
-  .write_ur_talk {
+  .mobile_wagle_footer {
     width: 100%;
-    height: 128px;
-    border-top: solid 1px #e6e6e6;
-    padding: 12px 16px 16px;
+    background-color: #f5f5f5;
+    position: fixed;
+    bottom: 0;
+  }
+  .mobile_wagle_footer > div {
+    width: 49%;
+    font-family: "나눔바른고딕";
+    font-size: 16px;
+    line-height: 56px;
+    text-align: center;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .write_ur_talk {
+    display: none;
+    width: 100%;
+    background-color: #f5f5f5;
+    padding: 12px 8px 8px;
+    position: fixed;
+    bottom: 0;
   }
   .writer_profile > p {
     font-family: "나눔바른고딕";
     font-size: 12px;
+    color: #262626;
     display: inline-block;
     vertical-align: middle;
+    padding-left: 8px;
     margin: 0;
   }
   .writer_profile > p > img {
@@ -126,35 +185,34 @@
     text-decoration: underline;
     cursor: pointer;
   }
-  .writer_profile > h4 {
-    font-size: 12px;
-    color: rgba(56, 59, 65, 0.54);
-    float: right;
-    margin: 5px 0 0;
-  }
   .write_zone {
-    margin-top: 12px;
+    margin: 12px auto 0;
+  }
+  .write_zone_wrapper {
+    width: 359px;
+    margin: 0 auto;
     position: relative;
   }
-  .write_zone > textarea {
-    width: 600px;
+  .write_zone_wrapper > textarea {
+    width: 295px;
     height: 64px;
     resize: none;
     border: solid 1px #e6e6e6;
     font-family: "나눔바른고딕";
     font-size: 14px;
+    color: #262626;
     display: inline-block;
     vertical-align: middle;
     padding: 12px;
     margin: 0;
   }
-  .write_zone > textarea::placeholder {
+  .write_zone_wrapper > textarea::placeholder {
     font-family: "나눔바른고딕";
     font-size: 14px;
     font-weight: 300;
     color: rgba(38, 38, 38, 0.35);
   }
-  .write_zone > button {
+  .write_zone_wrapper > button {
     width: 64px;
     height: 64px;
     border: none;
@@ -192,12 +250,13 @@
     padding: 12px 16px 16px;
     margin-bottom: 20px;
   }
-  .topic_title > p {
+  .topic_title_text > p {
     font-family: "나눔바른고딕B";
     font-size: 24px;
+    color: #262626;
     margin: 0 0 8px 0;
   }
-  .topic_title > h4 {
+  .topic_title_text > h4 {
     font-family: "나눔바른고딕";
     font-size: 16px;
     font-weight: normal;
@@ -218,6 +277,7 @@
   .talks_profile > p {
     font-family: "나눔바른고딕";
     font-size: 12px;
+    color: #262626;
     display: inline-block;
     vertical-align: middle;
     margin:0;
@@ -229,7 +289,8 @@
     vertical-align: middle;
     margin-right: 8px;
   }
-  .talks_profile > p > span {
+  .created_at,
+  .report_thistalk {
     color: rgba(38, 38, 38, 0.35);
   }
   .talks_profile > div {
@@ -275,6 +336,7 @@
   .writer_profile > p {
     font-family: "나눔바른고딕";
     font-size: 12px;
+    color: #262626;
     display: inline-block;
     vertical-align: middle;
     margin: 0;
@@ -286,11 +348,11 @@
     vertical-align: middle;
     margin-right: 8px;
   }
-  .writer_profile > p > span {
+  .use_anony {
     color: #bb213c;
     margin-left: 8px;
   }
-  .writer_profile > p > span:hover {
+  .use_anony:hover {
     text-decoration: underline;
     cursor: pointer;
   }
@@ -300,11 +362,11 @@
     float: right;
     margin: 5px 0 0;
   }
-  .write_zone {
+  .write_zone_wrapper {
     margin-top: 12px;
     position: relative;
   }
-  .write_zone > textarea {
+  .write_zone_wrapper > textarea {
     width: 600px;
     height: 64px;
     resize: none;
@@ -316,13 +378,13 @@
     padding: 12px;
     margin: 0;
   }
-  .write_zone > textarea::placeholder {
+  .write_zone_wrapper > textarea::placeholder {
     font-family: "나눔바른고딕";
     font-size: 14px;
     font-weight: 300;
     color: rgba(38, 38, 38, 0.35);
   }
-  .write_zone > button {
+  .write_zone_wrapper > button {
     width: 64px;
     height: 64px;
     border: none;
