@@ -30,6 +30,8 @@
               </div>
               <textarea placeholder="자유롭게 입력해주세요."></textarea>
             </div>
+            <input type="hidden" name="address">
+            <input type="hidden" name="lat_lon">
             <button> 등록 </button>
           </div>
 
@@ -60,7 +62,22 @@ $(function(){
   })
 })
 
-$('.place_name').keyup(function(e) {
+function throttle(f, delay) {
+  var timer = null;
+  return function() {
+    var context = this;
+    var args = arguments;
+
+    clearTimeout(timer);
+    timer = window.setTimeout(function() {
+      f.apply(context, args);
+    },
+    delay || 500);
+  };
+}
+
+$('.place_name').keyup(throttle(function(e) {
+  $('#items_list').show();
   var url = $(this).data('url');
   var data = {
     q : $(this).val()
@@ -71,13 +88,19 @@ $('.place_name').keyup(function(e) {
         $('#items_list').children().each(function(){
           $(this).remove();
         });
+        var items = items['items'];
         for( var i in items ) {
-          $('#items_list').append($('<div>'+ items[i].title +'</div>'));
-          console.log(items[i]);
+          $('#items_list').append($('<div><span id="title">'+ items[i].title + '</span><span id="address">'+ items[i].address +'</span><span id="lat_lon" style="display:none;">'+ String(items[i].mapx) +','+ String(items[i].mapy) +'</div>'));
         }
+        $('#items_list > div').click(function() {
+          var self = $(this);
+          $('.place_name').val(self.children('span#title').text());
+          $('input[name="address"]').val(self.children('span#address').text());
+          $('input[name="lat_lon"]').val(self.children('span#lat_lon').text());
+          self.parent().hide();
+        });
     })
   }
-
-})
+}));
 </script>
 {% endblock %}
