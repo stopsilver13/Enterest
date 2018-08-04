@@ -668,6 +668,9 @@ class ShareInfoComment(models.Model):
     def __str__(self):
         return self.content
 
+    class Meta:
+        ordering = ('-pk', )
+
 
 # ### 이벤트 > 딥톡 관련 모델 ### #
 

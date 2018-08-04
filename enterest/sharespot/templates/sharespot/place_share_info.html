@@ -15,15 +15,16 @@
       {% endfor %}
     </div>
     <div class="posts_footer">
-      <p><i class="far fa-comment"></i> <span class="comment_count"> {{ info.shareinfocomment_set.count }} </span></p>
+      <p id="comment_count"><i class="far fa-comment"></i> <span class="comment_count"> {{ info.shareinfocomment_set.count }} </span></p>
       <p><i class="far fa-heart"></i> <span class="like_count"> {{ info.count_liked }} </span></p>
     </div>
-    <div class="posts_reply">
+    <div class="posts_reply" style="display: none;">
        <form class="posts_reply_form" action="{% url "sharespot:place_share_comment_create" space.en_name %}" method="POST">
+        {% csrf_token %}
         <div class="writing_zone">
           <div class="writing_zone_upper">
-            <img src="{{ user.profile.img.url }}">
-            <p> {{ user.profile.nick_name }} </p>
+            <img src="{% static 'img/anony.png' %}">
+            <p></p>
             <h4> 익명으로 변경 </h4>
           </div>
           <div class="writing_zone_bottom">
@@ -32,44 +33,88 @@
           </div>
         </div>
       </form>
-
-      {% for comment in info.shareinfocomment_set.all %}
-        {% include 'sharespot/place_share_info_comment.html' with comment=comment %}
-      {% endfor %}
+      <div class="replies_zone">
+        {% for comment in info.shareinfocomment_set.all %}
+          {% include 'sharespot/place_share_info_comment.html' with comment=comment %}
+        {% endfor %}
+      </div>
     </div>
   </div>
 </div>
 
 <script>
-$('.posts_reply form').submit(function(e) {
-  var url = $(this).attr('action');
-  var target = $(this).parent().parent();
-  var info_pk = target.data('pk');
-  var content = $(this).find('.writing_zone_bottom > textarea').val();
-  var anony = $(this).find('.writing_zone_upper > p');
-  var data = {
-    'info_pk' : info_pk,
-    'content' : content,
-    'anony' : anony,
-  }
+(function(){
+  var post = $('.posts[data-pk="{{ info.pk }}"]');
+  var info_pk = post.data('pk');
+  var content = post.find('.writing_zone_bottom > textarea');
+  var anony = post.find('.writing_zone_upper > p');
+  var anony1 = ['하양', '노랑'];
+  var anony2 = ['고양이','코끼리'];
+  var anony_name = "";
+  var user_pk = "{{ user.pk }}";
+  var x = true;
 
-  $.post(url, data)
-    .done(function(r) {
-      target.find('.writing_zone_bottom > textarea').val('');
+  // 익명
+  anony1_random = Math.floor(Math.random() * anony1.length);
+  anony2_random = Math.floor(Math.random() * anony2.length);
+  anony_name = anony1[anony1_random] + " " + anony2[anony2_random];
+  while ( x ) {
+    x = false;
+    post.find('.replies').each(function() {
+      if ( $(this).find('#comment_anony_name').text() == anony_name ) {
+        x = true;
+        anony1_random = Math.floor(Math.random() * anony1.length);
+        anony2_random = Math.floor(Math.random() * anony2.length);
+        anony_name = anony1[anony1_random] + " " + anony2[anony2_random];
+      }
+    })
+  };
+  anony.text(anony_name);
 
-      var event = $.Event('info_comment_created');
-      event.html = r.html;
-      event.count = r.info_comment_count;
-      $(document).trigger(event);
+  // comment 보이기
+  post.find('#comment_count').click(function() {
+    // 익명검사
+    post.find('.replies').each(function() {
+      if( $(this).data('userpk') == user_pk ) {
+        anony_name = $(this).find('#comment_anony_name').text();
+        anony.text(anony_name);
+      }
+    })
+    post.find('.posts_reply').show();
+  })
 
-    });
+  // comment 생성 ajax
+  post.find('.posts_reply_form').submit(function(e) {
+    var url = $(this).attr('action');
+    var data = {
+      'info_pk': info_pk,
+      'content': content.val(),
+      'anony': anony.text(),
+    };
+    $.post(url, data)
+      .done(function(r) {
+        post.find('.writing_zone_bottom > textarea').val('');
 
-    e.preventDefault();
-});
+        var event = $.Event('info_comment_created');
+        event.html = r.html;
+        event.count = r.info_comment_count;
+        event.pk = info_pk;
+        $(document).trigger(event);
 
-$(document).on('info_comment_created', function(e) {
-  $('.posts_reply').append(e.html);
-  target.find('.comment_count').html(e.count)
-});
+      });
+
+      e.preventDefault();
+  });
+
+  $(document).on('info_comment_created', function(e) {
+    if (e.pk === info_pk) {
+      post.find('.replies_zone').prepend(e.html);
+      post.find('.comment_count').html(e.count)
+    }
+  });
+
+
+})();
+
 </script>
 

@@ -1,8 +1,14 @@
+{% load staticfiles %}
+
 <div class="replies" data-userpk="{{ comment.user.pk }}">
   <div class="replies_upper">
-    <img src="{{ comment.user.profile.img.url }}">
-    <p>{{ comment.user.profile.nick_name }}</p>
+    <img src="{% static 'img/anony.png' %}">
+    <p id="comment_anony_name">{{ comment.anony_name }}</p>
     <h4>{{ comment.created_at|date:"Y.m.d" }}</h4>
+    <div>
+      <a href="{% url 'sharespot:place_share_comment_edit' space.en_name %}"> 수정 </a>
+      <a href="{% url 'sharespot:place_share_comment_delete' space.en_name %}"> 삭제 </a>
+    </div>
   </div>
   <p class="replies_body">{{ comment.content }}</p>
 </div>
