@@ -1,14 +1,97 @@
 {% load staticfiles %}
 
-<div class="replies" data-userpk="{{ comment.user.pk }}">
+<div class="replies" data-userpk="{{ comment.user.pk }}" data-pk="{{ comment.pk }}">
   <div class="replies_upper">
     <img src="{% static 'img/anony.png' %}">
     <p id="comment_anony_name">{{ comment.anony_name }}</p>
     <h4>{{ comment.created_at|date:"Y.m.d" }}</h4>
     <div>
-      <a href="{% url 'sharespot:place_share_comment_edit' space.en_name %}"> 수정 </a>
-      <a href="{% url 'sharespot:place_share_comment_delete' space.en_name %}"> 삭제 </a>
+      <a href="{% url 'sharespot:place_share_comment_edit' space.en_name %}" class="edit"> 수정 </a>
+      <a href="{% url 'sharespot:place_share_comment_delete' space.en_name %}" class="delete"> 삭제 </a>
     </div>
   </div>
   <p class="replies_body">{{ comment.content }}</p>
 </div>
+
+<script>
+(function() {
+  var reply = $('.replies[data-pk="{{ comment.pk }}"]');
+  var reply_pk = reply.data('pk');
+  var content = reply.find('.replies_body');
+
+  var auto_link_content = function() {
+    content.html(content.text().autoLink({target: '_blank'}));
+  }
+
+  auto_link_content();
+
+  // 수정 ajax
+  reply.find('.edit').click(function(e) {
+    var url = $(this).prop('href');
+    var edit_textarea = $('<textarea class="textarea_for_edit"></textarea>').insertAfter(content);
+    var edit_submit_btn = $('<button class="submit_for_edit"> 수정완료 </button>').insertAfter(edit_textarea);
+
+    content.hide();
+    edit_textarea.val(content.text());
+
+    var submit_edited_reply = function() {
+      var data = {
+        'comment_pk': reply_pk,
+        'new_content': reply.find('.textarea_for_edit').val()
+      }
+
+      $.post(url, data)
+        .done(function(r) {
+          edit_textarea.remove();
+          edit_submit_btn.remove();
+
+          var event = $.Event('reply_edited');
+          event.reply_pk = reply_pk;
+          event.r= r;
+          $(document).trigger(event);
+        });
+    }
+
+    edit_submit_btn.click(function(e) {
+      submit_edited_reply();
+    });
+
+    e.preventDefault();
+  });
+
+  $(document).on('reply_edited', function(e) {
+    if( e.reply_pk == reply_pk) {
+      content.text(e.r);
+      auto_link_content();
+      content.show();
+    }
+  });
+
+
+  // 삭제 ajax
+  reply.find('.delete').click(function(e) {
+    var url = $(this).prop('href');
+    var data = {
+      'comment_pk': reply_pk,
+    };
+    if( confirm("삭제하시겠습니까?") ) {
+      $.post(url, data)
+        .done(function(r) {
+          var event = $.Event('reply_deleted');
+          event.reply_pk = r.comment_pk;
+          event.count = r.info_comment_count;
+          $(document).trigger(event);
+        })
+    }
+    e.preventDefault();
+  })
+
+  $(document).on('reply_deleted', function(e) {
+    if( e.reply_pk == reply_pk ) {
+      reply.parent().parent().sibling('.posts_footer').find('.comment_count').html(e.count);
+      reply.remove();
+    }
+  });
+
+})();
+</script>
