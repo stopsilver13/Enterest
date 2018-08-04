@@ -97,8 +97,6 @@
   })
 
   $(document).on('talk_deleted', function(e) {
-    console.log(e.talk_pk);
-    console.log(talk_pk);
     if( e.talk_pk == talk_pk ) {
       console.log(e.talk_pk);
       talk.remove();

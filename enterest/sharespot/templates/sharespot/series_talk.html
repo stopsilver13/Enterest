@@ -45,6 +45,7 @@
               <img src="{{ user.profile.img.url }}" alt="" class="hide_in_phone">
               <span class="writer_nickname"> {{ user.profile.nick_name }} </span>
               <span class="use_anony"> 익명으로 변경 </span>
+              <span class="use_nickname" style="display: none"> 닉네임으로 변경 </span>
             </p>
             <!-- 익명으로 변경 선택시 -->
             <!-- <p><img src="{% static "img/anony.png" %}" alt=""> 랜덤익명생성 <spa임> 닉네임으로 변경 </span> </p> -->
@@ -68,6 +69,8 @@ $(document).ready(function(){
   var winwidth = document.body.clientWidth;
   if ( winwidth >= 768) {
     $('.talks_zone').animate({scrollTop: $('.talks_zone > div.talks').last().offset().top}, 'fast');
+  } else {
+    $('html, body').animate({scrollTop: $(document).height()});
   }
 });
 
@@ -131,6 +134,7 @@ $('.write_zone_wrapper > textarea').keyup(function() {
 // 모바일 글쓰기 버튼
 $('#go_write').click(function() {
   $(this).parent().hide();
+  $('.talks_zone').css({'padding-bottom': 120});
   $('.write_ur_talk').show();
 });
 
@@ -138,62 +142,26 @@ $('#go_write').click(function() {
 // 익명
 var anony1 = ['빨강','파랑','노랑','초록','보라','검정','하양'];
 var anony2 = ['고양이','강아지','돌고래','코끼리'];
-$('.writer_profile > p > span').click(function() {
+var nickname = "{{ user.profile.nick_name }}"
+$('.use_anony').click(function() {
   var anony_name = "";
   anony1_random = Math.floor(Math.random() * anony1.length);
   anony2_random = Math.floor(Math.random() * anony2.length);
   anony_name = anony1[anony1_random] + " " + anony2[anony2_random];
   $('.writer_nickname').html(anony_name);
   $('#anony_name').val(anony_name);
-
+  $(this).hide();
+  $('.use_nickname').show();
+  $('.writer_profile > p > img').prop('src', "{% static 'img/anony.png' %}");
 });
-
-
-// 글쓰기 ajax
-/*var nickname_in_talk;
-var content;
-var created_at;
-var img_src;*/
-
-/*$('.write_zone_wrapper > button').click(function(e) {
-  e.preventDefault();
-  var anony_name;
-  if( $('#anony_name').val() != "" ) {
-    anony_name = $('#anony_name').val();
-    img_src = '{% static "img/anony.png" %}';
-  } else {
-    anony_name = "";
-    img_src = '{{ talk.user.profile.img.url }}';
-  }
-  nickname_in_talk = $('.writer_nickname').text();
-  content = $('.write_zone_wrapper > textarea').val();
-  created_at;
-
-  $.ajax({
-    type: 'post',
-    url: 'create/',
-    async: false,
-    data: {'anony_name' : anony_name, 'content' : content},
-    success: function(r) {
-      created_at = r;
-    }
-  });
-});
-
-$(document).ajaxComplete(function() {
-  $('#for_clone > .talks_profile img').prop('src', img_src);
-  $('#for_clone > .talks_profile .talks_nickname').html(nickname_in_talk + '&nbsp;');
-  $('#for_clone > .talks_profile .created_at').html(created_at);
-  $('#for_clone > .talks_body p').html(content);
-  $('#for_clone').clone().appendTo('.talks_zone').show();
-  $('.write_zone_wrapper > textarea').val("");
-  $('.write_zone_wrapper > button')
-    .css({'background-color': '#e6e6e6', 'cursor': 'default'})
-    .prop('disabled', 'disabled');
-  if ( document.body.clientWidth >= 768) {
-    $('.talks_zone').animate({scrollTop: $('.talks_zone > div.talks').last().offset().top}, 'fast');
-  }
-})*/
+$('.use_nickname').click(function() {
+  var anony_name = "";
+  $('.writer_nickname').html(nickname);
+  $('#anony_name').val(anony_name);
+  $(this).hide();
+  $('.use_anony').show();
+    $('.writer_profile > p > img').prop('src', "{{ user.profile.img.url }}");
+})
 
 // 글쓰기 ajax
 $('.write_ur_talk form').submit(function(e) {
