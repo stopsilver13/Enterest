@@ -290,11 +290,11 @@
   }
   .carousel-indicators li {
     width: 8px;
-    height: 8px;
+    height: 4px;
   }
   .carousel-indicators .active {
     width: 10px;
-    height: 10px;
+    height: 5px;
   }
   .event_intro_img {
     width: 340px;
@@ -304,6 +304,9 @@
     display: inline-block;
     vertical-align: middle;
     float: right;
+  }
+  .carousel-item > img {
+    width: 100%;
   }
 
   .event_time_place {
