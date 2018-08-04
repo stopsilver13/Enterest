@@ -55,8 +55,7 @@ $('.posts_reply form').submit(function(e) {
 
   $.post(url, data)
     .done(function(r) {
-      console.log($(this));
-      $('.writing_zone_bottom > textarea').val('');
+      target.find('.writing_zone_bottom > textarea').val('');
 
       var event = $.Event('info_comment_created');
       event.html = r.html;
