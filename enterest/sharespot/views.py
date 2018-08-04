@@ -187,13 +187,13 @@ def place_share_delete(request, series, topic):
         })
 
 
-def place_share_comment_create(request, series, topic):
+def place_share_comment_create(request, space):
     user = request.user
-    series = Series.objects.get(en_name=series)
-    topic = TalkTopic.objects.get(pk=topic)
+    space = Space.objects.get(en_name=space)
 
     if request.method == 'POST':
         info_pk = request.POST.get('info_pk')
+        print(info_pk)
         info = ShareInfo.objects.get(pk=info_pk)
         anony_name = request.POST.get('anony')
         content = request.POST.get('content')
@@ -207,7 +207,7 @@ def place_share_comment_create(request, series, topic):
 
         html = render_to_string('sharespot/place_share_info_comment.html', {
             'request': request,
-            'commnet': info_comment,
+            'comment': info_comment,
         })
 
         info_comment_count = info.shareinfocomment_set.count()
@@ -219,7 +219,7 @@ def place_share_comment_create(request, series, topic):
     return render(request)
 
 
-def place_share_comment_edit(request, series, topic):
+def place_share_comment_edit(request, space):
     if request.method == 'POST':
         comment_pk = request.POST.get('comment_pk')
         new_content = request.POST.get('new_content')
@@ -232,7 +232,7 @@ def place_share_comment_edit(request, series, topic):
     return render(request)
 
 
-def place_share_comment_delete(request, series, topic):
+def place_share_comment_delete(request, space):
     if request.method == 'POST':
         comment_pk = request.POST.get('comment_pk')
 
