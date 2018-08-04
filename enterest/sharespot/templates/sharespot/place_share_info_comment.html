@@ -88,7 +88,8 @@
 
   $(document).on('reply_deleted', function(e) {
     if( e.reply_pk == reply_pk ) {
-      reply.parent().parent().sibling('.posts_footer').find('.comment_count').html(e.count);
+      console.log(e.count);
+      reply.parent().parent().siblings('.posts_footer').find('.comment_count').text(e.count);
       reply.remove();
     }
   });

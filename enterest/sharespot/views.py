@@ -176,7 +176,6 @@ def place_share_comment_create(request, space):
 
     if request.method == 'POST':
         info_pk = request.POST.get('info_pk')
-        print(info_pk)
         info = ShareInfo.objects.get(pk=info_pk)
         anony_name = request.POST.get('anony')
         content = request.POST.get('content')
@@ -190,6 +189,7 @@ def place_share_comment_create(request, space):
 
         html = render_to_string('sharespot/place_share_info_comment.html', {
             'request': request,
+            'space': space,
             'comment': info_comment,
         })
 
@@ -220,10 +220,14 @@ def place_share_comment_delete(request, space):
         comment_pk = request.POST.get('comment_pk')
 
         comment = get_object_or_404(ShareInfoComment, pk=comment_pk)
+        info = comment.share_info
+
         comment.delete()
+        info_comment_count = info.shareinfocomment_set.count()
 
         return JsonResponse({
             'comment_pk': comment_pk,
+            'info_comment_count': info_comment_count,
         })
 
 
