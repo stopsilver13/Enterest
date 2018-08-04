@@ -658,6 +658,7 @@ class ShareInfoImg(models.Model):
 
 class ShareInfoComment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    anony_name = models.CharField(max_length=10, blank=True, null=True)
     share_info = models.ForeignKey(ShareInfo)
     content = models.TextField()
 

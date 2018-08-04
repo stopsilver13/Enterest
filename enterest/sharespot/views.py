@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.template.loader import render_to_string
 
-from sharespot.models import Division, Place, Space, Series, Ticket, Emotion, EventReview, SeatReview, ShareInfoCategory, ShareInfo, TalkTopic, Talk
+from sharespot.models import Division, Place, Space, Series, Ticket, Emotion, EventReview, SeatReview, ShareInfoCategory, ShareInfo, ShareInfoComment, TalkTopic, Talk
 
 import json
 import urllib.request
@@ -118,33 +118,6 @@ def place_share(request, space):
     share_info = ShareInfo.objects.filter(place=place)
     share_category = ShareInfoCategory.objects.all()
 
-    # if request.method == 'GET':
-    #     config_secret = json.loads(open(settings.CONFIG_SETTINGS_COMMON_FILE).read())
-    #     client_id = config_secret['naver']['client_id']
-    #     client_secret = config_secret['naver']['client_secret']
-
-    #     q = request.GET.get('q')
-    #     encText = urllib.parse.quote("{}".format(q))
-    #     url = "https://openapi.naver.com/v1/search/local?query=" + encText  # json 결과
-    #     local_api_request = urllib.request.Request(url)
-    #     local_api_request.add_header("X-Naver-Client-Id", client_id)
-    #     local_api_request.add_header("X-Naver-Client-Secret", client_secret)
-    #     response = urllib.request.urlopen(local_api_request)
-    #     rescode = response.getcode()
-    #     if (rescode == 200):
-    #         response_body = response.read()
-    #         result = json.loads(response_body.decode('utf-8'))
-    #         items = result.get('items')
-
-    #         return render(request, 'sharespot/place_share.html', {
-    #             'user': user,
-    #             'place': place,
-    #             'space': space,
-    #             'share_category': share_category,
-    #             'share_info': share_info,
-    #             'items': items,
-    #         })
-
     # TODO: if request.method == 'POST':
 
     return render(request, 'sharespot/place_share.html', {
@@ -211,6 +184,63 @@ def place_share_delete(request, series, topic):
 
         return JsonResponse({
             'talk_pk': talk_pk,
+        })
+
+
+def place_share_comment_create(request, series, topic):
+    user = request.user
+    series = Series.objects.get(en_name=series)
+    topic = TalkTopic.objects.get(pk=topic)
+
+    if request.method == 'POST':
+        info_pk = request.POST.get('info_pk')
+        info = ShareInfo.objects.get(pk=info_pk)
+        anony_name = request.POST.get('anony')
+        content = request.POST.get('content')
+
+        info_comment = ShareInfoComment.objects.create(
+            user=user,
+            anony_name=anony_name,
+            share_info=info,
+            content=content,
+        )
+
+        html = render_to_string('sharespot/place_share_info_comment.html', {
+            'request': request,
+            'commnet': info_comment,
+        })
+
+        info_comment_count = info.shareinfocomment_set.count()
+
+        return JsonResponse({
+            'html': html,
+            'info_comment_count': info_comment_count,
+        })
+    return render(request)
+
+
+def place_share_comment_edit(request, series, topic):
+    if request.method == 'POST':
+        comment_pk = request.POST.get('comment_pk')
+        new_content = request.POST.get('new_content')
+
+        comment = get_object_or_404(ShareInfoComment, pk=comment_pk)
+        comment.content = new_content
+        comment.save()
+
+        return HttpResponse(comment.content)
+    return render(request)
+
+
+def place_share_comment_delete(request, series, topic):
+    if request.method == 'POST':
+        comment_pk = request.POST.get('comment_pk')
+
+        comment = get_object_or_404(ShareInfoComment, pk=comment_pk)
+        comment.delete()
+
+        return JsonResponse({
+            'comment_pk': comment_pk,
         })
 
 
@@ -378,7 +408,6 @@ def series_talk_edit(request, series, topic):
 def series_talk_delete(request, series, topic):
     if request.method == 'POST':
         talk_pk = request.POST.get('talk_pk')
-        print(talk_pk)
 
         talk = get_object_or_404(Talk, pk=talk_pk)
         talk.delete()
