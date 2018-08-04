@@ -118,7 +118,23 @@ def place_share(request, space):
     share_info = ShareInfo.objects.filter(place=place)
     share_category = ShareInfoCategory.objects.all()
 
-    # TODO: if request.method == 'POST':
+    if request.method == 'POST':
+        category = request.POST.get('category')
+        name = request.POST.get('name')
+        address = request.POST.get('address')
+        lat_lon = request.POST.get('lat_lon')
+        content = request.POST.get('content')
+
+        info = ShareInfo.objects.create(
+            user=user,
+            place=place,
+            category=category,
+            name=name,
+            address=address,
+            lat_lon=lat_lon,
+            content=content,
+        )
+        return HttpResponseRedirect(request.path_info)
 
     return render(request, 'sharespot/place_share.html', {
         'user': user,
@@ -129,61 +145,28 @@ def place_share(request, space):
     })
 
 
-# ajax 노노
-def place_share_create(request, series, topic):
-    user = request.user
-    series = Series.objects.get(en_name=series)
-    topic = TalkTopic.objects.get(pk=topic)
-
+def place_share_edit(request, space):
     if request.method == 'POST':
-        content = request.POST.get('content')
-
-        info = ShareInfo.objects.create(
-            user=user,
-            place=series.space.place,
-            category=category,
-            name=name,
-            address=address,
-            lat_lon=lat_lon,
-            content=content,
-        )
-
-        html = render_to_string('sharespot/talk.html', {
-            'request': request,
-            'series': series,
-            'topic': topic,
-            'talk': talk,
-        })
-
-        return JsonResponse({
-            'html': html,
-        })
-    return render(request)
-
-
-def place_share_edit(request, series, topic):
-    if request.method == 'POST':
-        talk_pk = request.POST.get('talk_pk')
+        info_pk = request.POST.get('info_pk')
         new_content = request.POST.get('new_content')
 
-        talk = get_object_or_404(Talk, pk=talk_pk)
-        talk.content = new_content
-        talk.save()
+        info = get_object_or_404(ShareInfo, pk=info_pk)
+        info.content = new_content
+        info.save()
 
-        return HttpResponse(talk.content)
+        return HttpResponse(info.content)
     return render(request)
 
 
-def place_share_delete(request, series, topic):
+def place_share_delete(request, space):
     if request.method == 'POST':
-        talk_pk = request.POST.get('talk_pk')
-        print(talk_pk)
+        info_pk = request.POST.get('info_pk')
 
-        talk = get_object_or_404(Talk, pk=talk_pk)
-        talk.delete()
+        info = get_object_or_404(ShareInfo, pk=info_pk)
+        info.delete()
 
         return JsonResponse({
-            'talk_pk': talk_pk,
+            'info_pk': info_pk,
         })
 
 
