@@ -1,4 +1,6 @@
-<div class="posts">
+{% load staticfiles %}
+
+<div class="posts" data-pk="{{ info.pk }}">
   <div class="posts_wrapper">
     <div class="posts_header">
       <div> {{ info.category }} </div>
@@ -13,21 +15,23 @@
       {% endfor %}
     </div>
     <div class="posts_footer">
-      <p><i class="far fa-comment"></i> <span> {{ info.shareinfocomment_set.count }} </span></p>
-      <p><i class="far fa-heart"></i> <span> {{ info.count_liked }} </span></p>
+      <p><i class="far fa-comment"></i> <span class="comment_count"> {{ info.shareinfocomment_set.count }} </span></p>
+      <p><i class="far fa-heart"></i> <span class="like_count"> {{ info.count_liked }} </span></p>
     </div>
     <div class="posts_reply">
-      <div class="writing_zone">
-        <div class="writing_zone_upper">
-          <img src="{{ user.profile.img.url }}">
-          <p> {{ user.profile.nick_name }} </p>
-          <h4> 익명으로 변경 </h4>
+       <form class="posts_reply_form" action="{% url "sharespot:place_share_comment_create" space.en_name %}" method="POST">
+        <div class="writing_zone">
+          <div class="writing_zone_upper">
+            <img src="{{ user.profile.img.url }}">
+            <p> {{ user.profile.nick_name }} </p>
+            <h4> 익명으로 변경 </h4>
+          </div>
+          <div class="writing_zone_bottom">
+            <textarea placeholder="댓글을 입력하세요."></textarea>
+            <button> 등록 </button>
+          </div>
         </div>
-        <div class="writing_zone_bottom">
-          <textarea placeholder="댓글을 입력하세요."></textarea>
-          <button> 등록 </button>
-        </div>
-      </div>
+      </form>
 
       {% for comment in info.shareinfocomment_set.all %}
         {% include 'sharespot/place_share_info_comment.html' with comment=comment %}
@@ -35,3 +39,38 @@
     </div>
   </div>
 </div>
+
+<script>
+$('.posts_reply form').submit(function(e) {
+  var url = $(this).attr('action');
+  var target = $(this).parent().parent();
+  var info_pk = target.data('pk');
+  var content = $(this).find('.writing_zone_bottom > textarea').val();
+  var anony = $(this).find('.writing_zone_upper > p');
+  var data = {
+    'info_pk' : info_pk,
+    'content' : content,
+    'anony' : anony,
+  }
+
+  $.post(url, data)
+    .done(function(r) {
+      console.log($(this));
+      $('.writing_zone_bottom > textarea').val('');
+
+      var event = $.Event('info_comment_created');
+      event.html = r.html;
+      event.count = r.info_comment_count;
+      $(document).trigger(event);
+
+    });
+
+    e.preventDefault();
+});
+
+$(document).on('info_comment_created', function(e) {
+  $('.posts_reply').append(e.html);
+  target.find('.comment_count').html(e.count)
+});
+</script>
+
