@@ -14,7 +14,7 @@
 <div class="content">
   <div class="place_title_zone" style="background-image: url({{ place.bg.url }});">
     <div class="place_title_zone_wrapper">
-      <p>{{ space.name }} <i class="far fa-heart"></i> </p>
+      <p>{{ space.name }} <i class="{% if user in space.liker_set.all %}fas{% else %}far{% endif %} fa-star" data-url="{% url 'sharespot:space_like' space.en_name %}"></i> </p>
     </div>
   </div>
 
@@ -31,4 +31,25 @@
   {% endblock %}
 
 </div>
+
+<script>
+$('.fa-star').click(function() {
+  var self = $(this);
+  var url = $(this).data('url');
+  $.post(url)
+    .done(function(r) {
+      if( r == 'complete') {
+        if( self.hasClass('far') ){
+          alert('"{{ space.name }}"이(가) 즐겨찾기에 추가되었습니다.')
+          self.removeClass('far');
+          self.addClass('fas');
+        } else {
+          alert('"{{ space.name }}"이(가) 즐겨찾기에서 제외되었습니다.')
+          self.removeClass('fas');
+          self.addClass('far');
+        }
+      }
+    });
+})
+</script>
 {% endblock %}

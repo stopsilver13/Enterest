@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.db import models
 
 
@@ -33,7 +34,8 @@ class Profile(models.Model):
     )
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL)
-    img = models.ImageField(upload_to=profile_img_name, blank=True, null=True)  # default 지정
+    code = models.CharField(max_length=10)
+    img = models.ImageField(upload_to=profile_img_name, blank=True, null=True)  # 추후에 다시 디폴트 지정
     nick_name = models.CharField(max_length=8, blank=True, null=True)
     sex = models.CharField(
         max_length=10,
@@ -43,6 +45,28 @@ class Profile(models.Model):
     )
     birth = models.DateField(blank=True, null=True)
     phone = models.CharField(max_length=20, blank=True, null=True)
+
+    is_blacklist = models.BooleanField(default=False)
+
+    reported_set = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        related_name='reported_%(class)s_set',
+        blank=True,
+    )
+
+    def count_reported(self):
+        return self.liker_set.count()
+
+    def is_reported_by(self, user):
+        return self.liker_set.filter(pk=user.pk).exists()
+
+    def toggle_report(self, user):
+        reported_before = self.is_reported_by(user)
+        if reported_before:
+            self.reported_set.remove(user)
+        else:
+            self.reported_set.add(user)
+        return not reported_before
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -85,7 +109,7 @@ class RewardHistory(models.Model):
         related_name='reward_history_set',
     )
     reason = models.CharField(max_length=30)
-    amount = models.SmallIntegerField()
+    amount = models.FloatField()
     status = models.CharField(
         max_length=10,
         choices=STATUS_CHOICES,

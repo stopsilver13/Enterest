@@ -5,6 +5,7 @@ from django.template.loader import render_to_string
 
 from sharespot.models import Division, Place, Space, Series, Ticket, Emotion, EventReview, SeatReview, ShareInfoCategory, ShareInfo, ShareInfoComment, TalkTopic, Talk
 
+import datetime
 import json
 import urllib.request
 
@@ -12,7 +13,9 @@ import urllib.request
 def main(request):
     divisions = Division.objects.all()
     places = Place.objects.all()
-    series_all = Series.objects.all()
+
+    now = datetime.datetime.now()
+    series_all = Series.objects.filter(end__gte=now).order_by('start')
 
     return render(request, 'sharespot/main.html', {
         'divisions': divisions,
@@ -88,6 +91,16 @@ def register_review(request):  # ?ticket_id=
 # 블럭 선택하면 그 블럭의 좌석 받아오는 ajax
 
 
+def space_like(request, space):
+    user = request.user
+    space = Space.objects.get(en_name=space)
+
+    if request.method == 'POST':
+        space.toggle_like(user)
+        return HttpResponse('complete')
+    return render(request)
+
+
 def place_basic(request, space):
     # TODO: 날씨
     space = Space.objects.get(en_name=space)
@@ -103,11 +116,13 @@ def place_space(request, space):
     space = Space.objects.get(en_name=space)
     place = space.place
     close_series = space.get_close_series()
+    reviews = space.get_space_review().filter(is_confirmed=True)
 
     return render(request, 'sharespot/place_space.html', {
         'place': place,
         'space': space,
         'close_series': close_series,
+        'reviews': reviews,
     })
 
 
@@ -263,19 +278,30 @@ def place_share_search(request, space):
 def series_list(request):
     # TODO: 필터링 방식에 따라 변동 가능성 있음
     divisions = Division.objects.all().order_by('pk')
+    now = datetime.datetime.now()
     if 'place' in request.GET:
         place = Place.objects.get(en_name=request.GET['place'])
-        series_all = Series.objects.filter(space__place=place)
+        series_all = Series.objects.filter(space__place=place, end__gte=now).order_by('start')
     elif 'division' in request.GET:
         division = Division.objects.get(en_name=request.GET['division'])
-        series_all = Series.objects.filter(division=division)
+        series_all = Series.objects.filter(division=division, end__gte=now).order_by('start')
     else:
-        series_all = Series.objects.all()
+        series_all = Series.objects.all(end__gte=now).order_by('start')
 
     return render(request, 'sharespot/series_list.html', {
         'divisions': divisions,
         'series_all': series_all,
     })
+
+
+def series_like(request, series):
+    user = request.user
+    series = Series.objects.get(en_name=series)
+
+    if request.method == 'POST':
+        series.toggle_like(user)
+        return HttpResponse('complete')
+    return render(request)
 
 
 def series_basic(request, series):
@@ -288,7 +314,7 @@ def series_basic(request, series):
 
 def series_review(request, series):
     series = Series.objects.get(en_name=series)
-    reviews = EventReview.objects.filter(event__series=series)
+    reviews = EventReview.objects.filter(event__series=series, is_confirmed=True)
 
     return render(request, 'sharespot/series_review.html', {
         'series': series,

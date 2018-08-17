@@ -14,7 +14,7 @@
 <div class="content">
   <div class="series_title_zone"> <!--  style="background-image: url({{ series. }})" -->
     <div class="series_title_zone_wrapper">
-      <p>[{{ series.division.name }}] {{ series.name }}<i class="far fa-star"></i></i></p>
+      <p>[{{ series.division.name }}] {{ series.name }}<i class="{% if user in series.liker_set.all %}fas{% else %}far{% endif %} fa-star" data-url="{% url 'sharespot:series_like' series.en_name %}"></i></p>
     </div>
   </div>
 
@@ -35,20 +35,24 @@
 
 
 <script>
-$(document).ready(function(){
-  $('.fa-star').click(function(){
-    var self = $(this);
-    if( self.hasClass('far') ){
-      alert('[{{ series.division.name }}] {{ series.name }}이(가) 즐겨찾기에 추가되었습니다.')
-      self.removeClass('far');
-      self.addClass('fas');
-    } else {
-      alert('[{{ series.division.name }}] {{ series.name }}이(가) 즐겨찾기에서 제외되었습니다.')
-      self.removeClass('fas');
-      self.addClass('far');
-    }
 
-  })
+$('.fa-star').click(function() {
+  var self = $(this);
+  var url = $(this).data('url');
+  $.post(url)
+    .done(function(r) {
+      if( r == 'complete') {
+        if( self.hasClass('far') ){
+          alert('"[{{ series.division.name }}] {{ series.name }}"이(가) 즐겨찾기에 추가되었습니다.')
+          self.removeClass('far');
+          self.addClass('fas');
+        } else {
+          alert('"[{{ series.division.name }}] {{ series.name }}"이(가) 즐겨찾기에서 제외되었습니다.')
+          self.removeClass('fas');
+          self.addClass('far');
+        }
+      }
+    });
 })
 </script>
 {% endblock %}

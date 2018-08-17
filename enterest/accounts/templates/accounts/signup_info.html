@@ -10,44 +10,73 @@
 <div class="content_in">
 <div class="wrapper">
   <div class="signup_title">회원가입</div>
-
+  {% with socialinfo=user.socialaccount_set.first.extra_data %}
   <form action="" method="POST">
   {% csrf_token %}
   <div class="signup_content">
     <div class="email_part">
       <p>이메일</p>
-      <input class="text_input" type="email" name="email" {% if form.email.value != None %} value="{{ form.email.value }}" {% endif %} required>
+      <input class="text_input" type="email" name="email"
+        {% if socialinfo.email %}
+        value="{{ socialinfo.email }}"
+        {% elif socialinfo.kaccount_email %}
+        value="{{ socialinfo.kaccount_email }}"
+        {% endif %}
+      required>
     </div>
     <div class="nickname_part">
       <p>닉네임</p>
-      <input class="text_input" type="text" name="nick_name" required>
+      <input class="text_input" type="text" name="nick_name"
+        {% if socialinfo.nickname %}
+        value="{{ socialinfo.nickname }}"
+        {% elif socialinfo.properties.nickname %}
+        value="{{ socialinfo.properties.nickname }}"
+        {% endif %}
+      required>
     </div>
     <div class="ur_sex_part">
       <p>성별</p>
       <div class="select_ur_sex">
-        <div> 남 </div>
-        <div> 여 </div>
+        <div id="male"> 남 </div>
+        <div id="female"> 여 </div>
+        <input type="text" name="sex" style="display: none;"
+          {% if socialinfo.gender == "F" or socialinfo.gender == "female" or socialinfo.properties.gender == "female" %}
+          value="female"
+          {% elif socialinfo.gender == "M" or socialinfo.gender == "male" or socialinfo.properties.gender == "male" %}
+          value="male"
+          {% endif %}
+        >
       </div>
     </div>
     <div class="birthday_part">
       <p>생년월일</p>
       <div class="select_section">
-        <select class="sel_year" name="year">
+        <select class="sel_year" name="year" required>
           <option value="">-</option>
           {% for num in year %}
           <option value="{{ num }}">{{ num }}</option>
           {% endfor %}
         </select>
         <h class="year_month_day">년</h>
-        <select class="sel_month_day" name="month">
+        <select class="sel_month_day" name="month" required>
+          {% if socialinfo.birthday %}
+          <option value="{{ socialinfo.birthday|slice:"0:2" }}">{{ socialinfo.birthday|slice:"0:2" }}</option>
+          {% else %}
           <option value="">-</option>
+          {% endif %}
+
           {% for num in month %}
           <option value="{{ num }}">{{ num }}</option>
           {% endfor %}
         </select>
         <h class="year_month_day">월</h>
-        <select class="sel_month_day"  name="day">
+        <select class="sel_month_day"  name="day" required>
+          {% if socialinfo.birthday %}
+          <option value="{{ socialinfo.birthday|slice:"3:5" }}">{{ socialinfo.birthday|slice:"3:5" }}</option>
+          {% else %}
           <option value="">-</option>
+          {% endif %}
+
           {% for num in day %}
           <option value="{{ num }}">{{ num }}</option>
           {% endfor %}
@@ -76,6 +105,20 @@
     <button class="go_signup">회원가입</button>
   </div>
   </form>
+  {% endwith %}
+
 </div>
 </div>
+
+<script>
+  var social_auto_sex = $('.select_ur_sex').find('input').val();
+  $('.select_ur_sex').find('div#'+social_auto_sex).addClass('selected_sex');
+
+  $('.select_ur_sex > div').click(function() {
+    var selected_sex = $(this).attr('id');
+    $(this).siblings('input').val(selected_sex);
+    $(this).addClass('selected_sex');
+    $(this).siblings('div').removeClass('selected_sex');
+  })
+</script>
 {% endblock %}

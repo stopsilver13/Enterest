@@ -41,6 +41,19 @@ admin.site.register(Category)
 admin.site.register(Division)
 
 
+class SeatImgInline(admin.StackedInline):
+    model = SeatImg
+    fieldsets = (
+        (None, {
+            'fields': (
+                ('seat', 'user', 'img', 'status', 'badge_set', 'is_confirmed'),
+                ('history', 'review'),
+            )
+        }),
+    )
+    max_num = 5
+
+
 @admin.register(Place)
 class PlaceAdmin(admin.ModelAdmin):
     list_display = ['name', 'en_name', 'lat_lon']
@@ -77,6 +90,7 @@ class SeatLevelAdmin(admin.ModelAdmin):
 
 @admin.register(Seat)
 class SeatAdmin(admin.ModelAdmin):
+    inlines = [SeatImgInline]
     list_display = ['block', 'level', 'name']
     list_display_link = ['name']
     list_filter = ['block__section__space']

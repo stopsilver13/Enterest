@@ -232,4 +232,7 @@
     width: 320px;
     margin-bottom: 56px;
   }
+  .selected_sex {
+    background-color: #b70000;
+  }
 }

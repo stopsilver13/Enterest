@@ -1,6 +1,7 @@
 from collections import Counter
 
 from django.conf import settings
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.db import models
 from django.db.models import Q
 
@@ -58,8 +59,8 @@ class ThankMixinModel(models.Model):
             self.thanked_set.add(user)
             reward_history = RewardHistory.objects.create(
                 user=self.ticket.user,
-                reason='내 리뷰에 대한 {}님의 감사표현'.format(user),  # 추후 정해야함
-                amount=10,  # 추후 정해야함
+                reason='내 리뷰에 대한 {}님의 땡큐'.format(user),
+                amount=0.5,
             )
             reward_history.status = 'complete'
             reward_history.save()
@@ -102,8 +103,8 @@ class Place(models.Model):
         ('Gwangju', '광주'),
         ('Ulsan', '울산'),
         ('Gangwon', '강원'),
-        ('ChungchungN', '충북'),
-        ('ChungchungS', '충남'),
+        ('ChungcheongN', '충북'),
+        ('ChungcheongS', '충남'),
         ('GyeongsangN', '경북'),
         ('GyeongsangS', '경남'),
         ('JeonlaN', '전북'),
@@ -120,7 +121,7 @@ class Place(models.Model):
         choices=REGION_CHOICES,
     )
     address = models.CharField(max_length=100)
-    lat_lon = models.CharField(max_length=20)  # float로 할까 고민되지만 일단 위도경도 묶어서 캐릭터로
+    lat_lon = models.CharField(max_length=20)
     contact = models.CharField(max_length=20, blank=True, null=True)
     website = models.CharField(max_length=50, blank=True, null=True)
     explain = models.TextField(blank=True, null=True)
@@ -151,7 +152,7 @@ class Space(LikeMixinModel):
         return SeatReview.objects.filter(seat__block__section__space=self)
 
     def get_space_view_star(self):
-        avg_dict = SeatReview.objects.filter(seat__block__section__space=self).aggregate(models.Avg('view_star'))  # 성능 의심되긴 함
+        avg_dict = SeatReview.objects.filter(seat__block__section__space=self).aggregate(models.Avg('view_star'))
 
         if avg_dict['view_star__avg'] is None:
             return 0.0
@@ -165,7 +166,7 @@ class Space(LikeMixinModel):
         return star_num_list
 
     def get_space_real_star(self):
-        avg_dict = SeatReview.objects.filter(seat__block__section__space=self).aggregate(models.Avg('real_star'))  # 성능 의심되긴 함
+        avg_dict = SeatReview.objects.filter(seat__block__section__space=self).aggregate(models.Avg('real_star'))
 
         if avg_dict['real_star__avg'] is None:
             return 0.0
@@ -233,7 +234,7 @@ class Block(models.Model):
         return SeatReview.objects.filter(seat__block__section__space=self)
 
     def get_space_view_star(self):
-        avg_dict = SeatReview.objects.filter(seat__block__section__space=self).aggregate(models.Avg('view_star'))  # 성능 의심되긴 함
+        avg_dict = SeatReview.objects.filter(seat__block__section__space=self).aggregate(models.Avg('view_star'))
 
         if avg_dict['view_star__avg'] is None:
             return 0.0
@@ -247,7 +248,7 @@ class Block(models.Model):
         return star_num_list
 
     def get_space_real_star(self):
-        avg_dict = SeatReview.objects.filter(seat__block__section__space=self).aggregate(models.Avg('real_star'))  # 성능 의심되긴 함
+        avg_dict = SeatReview.objects.filter(seat__block__section__space=self).aggregate(models.Avg('real_star'))
 
         if avg_dict['real_star__avg'] is None:
             return 0.0
@@ -293,7 +294,7 @@ class Seat(models.Model):
 
 
 def seat_img_name(instance, filename):
-    return '/'.join(['seat/img', instance.seat.block.section.space.place.name, instance.seat.block.section.space.name, instance.seat.block.section.name, instance.seat.block.name, filename])
+    return '/'.join(['seat/img', instance.seat.block.section.space.place.name, instance.seat.block.section.space.name, instance.seat.block.section.name, instance.seat.block.name, instance.seat.name, filename])
 
 
 class SeatImg(models.Model):
@@ -388,7 +389,7 @@ class Series(LikeMixinModel):
         return EventReview.objects.filter(event__series=self)
 
     def get_series_star(self):
-        avg_dict = EventReview.objects.filter(event__series=self).aggregate(models.Avg('total_star'))  # 성능 의심되긴 함
+        avg_dict = EventReview.objects.filter(event__series=self).aggregate(models.Avg('total_star'))
 
         if avg_dict['total_star__avg'] is None:
             return 0.0
@@ -464,7 +465,7 @@ class Appear(LikeMixinModel):
     division_set = models.ManyToManyField(Division)
     is_team = models.BooleanField(default=False)
     role = models.CharField(max_length=20, blank=True, null=True)
-    img = models.ImageField(upload_to='Appear/', blank=True, null=True)  # default 지정
+    img = models.ImageField(upload_to='Appear/', blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -496,7 +497,7 @@ class TicketImg(models.Model):
         blank=True,
         null=True,
     )
-    img = models.ImageField(upload_to='TicketImg/%Y/%m/%d', blank=True, null=True)  # default는 기본 이미지 아놔 경로수정안함
+    img = models.ImageField(upload_to='TicketImg/%Y/%m/%d', blank=True, null=True)
 
     def __str__(self):
         img_name = self.ticket.user.username + ' -' + str(self.ticket.pk)
@@ -633,11 +634,11 @@ class ShareInfo(LikeMixinModel):
         null=True,
     )
     place = models.ForeignKey(Place)
-    category = models.ForeignKey(ShareInfoCategory)  # ManyToMany랑 고민됨
+    category = models.ForeignKey(ShareInfoCategory)
 
     name = models.CharField(max_length=30)
     address = models.CharField(max_length=100, blank=True, null=True)
-    lat_lon = models.CharField(max_length=20, blank=True, null=True)  # float로 할까 고민되지만 일단 위도경도 묶어서 캐릭터로
+    lat_lon = models.CharField(max_length=20, blank=True, null=True)
     content = models.TextField()
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -687,7 +688,7 @@ class TalkTopic(models.Model):
         topic_name = self.series.name + ' - ' + self.content
         return topic_name
 
-    @property  # 이렇게 해도 되나 모름...
+    @property
     def is_joined(self, user):
         result = Talk.objects.filter(user=user, topic=self).exists()
         return result

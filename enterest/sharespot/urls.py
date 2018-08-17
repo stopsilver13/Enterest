@@ -7,7 +7,7 @@ urlpatterns = [
 
     url(r'^place/(?P<space>[\da-zA-Z-]+)/$', views.place_space, name='place_space'),
     # 장소/좌석뷰 - 블럭
-
+    url(r'^place/(?P<space>[\da-zA-Z-]+)/like/$', views.space_like, name='space_like'),
     url(r'^place/(?P<space>[\da-zA-Z-]+)/basic/$', views.place_basic, name='place_basic'),
     url(r'^place/(?P<space>[\da-zA-Z-]+)/share/$', views.place_share, name='place_share'),
 
@@ -24,6 +24,8 @@ urlpatterns = [
     url(r'^place/(?P<space>[\da-zA-Z-]+)/share/search/$', views.place_share_search, name='place_share_search'),
 
     url(r'^series/list/$', views.series_list, name='series_list'),
+
+    url(r'^series/(?P<series>[\da-zA-Z-]+)/like/$', views.series_like, name='series_like'),
     url(r'^series/(?P<series>[\da-zA-Z-]+)/basic/$', views.series_basic, name='series_basic'),
     url(r'^series/(?P<series>[\da-zA-Z-]+)/review/$', views.series_review, name='series_review'),
 

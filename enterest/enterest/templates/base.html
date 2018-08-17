@@ -75,16 +75,37 @@
         {% if user.is_authenticated %}
         <a class="base_header_register_review" href="{% url "sharespot:register_review" %}">리뷰/사진등록</a>
 
-        <a class="base_header_username" href="{% url "logout" %}?next={{ request.path }}">로그아웃</a>
+        <!-- <a class="base_header_username" href="{% url "logout" %}?next={{ request.path }}">로그아웃</a> -->
 
-        <a class="base_header_username" href="{% url "myticket" %}">
+        <!-- <a class="base_header_username" href="{% url "myticket" %}">
           {% if user.profile %}
           <p>{{ user.profile.nick_name }}</p>
           <img src="{{ user.profile.img.url }}" alt="">
           {% else %}
           <p>{{ user.username }}</p>
           {% endif %}
-        </a>
+        </a> -->
+
+        <li class="base_header_username nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {% if user.profile %}
+              <p>{{ user.profile.nick_name }}</p>
+              <img src="{{ user.profile.img.url }}" alt="">
+            {% else %}
+              <p>{{ user.username }}</p>
+            {% endif %}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="{% url "myticket" %}">내 티켓</a>
+            <a class="dropdown-item" href="{% url "mylike" %}">즐겨찾기</a>
+            <a class="dropdown-item" href="{% url "mywriting" %}">바로가기</a>
+            <a class="dropdown-item" href="{% url "myreward" %}">내 티끌</a>
+            <a class="dropdown-item" href="{% url "myinfo" %}">내 정보</a>
+            <a class="dropdown-item" href="{% url "myticket" %}">FAQ</a>
+            <a class="dropdown-item" href="{% url "faqlist" %}?next={{ request.path }}" style="color: rgba(0,0,0,0.54);">로그아웃</a>
+          </div>
+        </li>
+
         {% else %}
         <a class="base_header_nologin" href="{% url "login" %}?next={{ request.path }}">로그인</a>
         <a class="base_header_nologin" href="{% url "signup" %}?next={{ request.path }}">회원가입</a>

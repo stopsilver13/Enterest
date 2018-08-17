@@ -16,8 +16,12 @@ from accounts.models import (
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ['user', 'nick_name', 'sex', 'birth', 'created_at']
+    list_display = ['user', 'nick_name', 'sex', 'birth', 'report_count', 'is_blacklist', 'created_at']
+    list_editable = ['is_blacklist']
     list_display_link = ['user', 'nick_name']
+
+    def report_count(self, obj):
+        return obj.count_reported()
 
 
 @admin.register(UserReward)

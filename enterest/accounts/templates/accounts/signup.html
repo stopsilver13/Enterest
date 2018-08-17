@@ -45,6 +45,7 @@
             {% endfor %}
           </div>
         {% endif %}
+        <p class="unmatch" style="display: none;"> 비밀번호가 일치하지 않습니다. </p>
       </div>
 
       <div class="agreement_part">
@@ -106,6 +107,16 @@ $(document).ready(function(){
       $('.go_next').css('background-color', '#eeeeee')
       $('.go_next').prop('disabled', "disabled")
       $('#agree_all').prop('checked', false)
+    }
+  })
+
+  $('input[name="password2"]').keyup(function() {
+
+    var pwd = $('input[name="password1"]').val();
+    if( pwd == $(this).val() ) {
+      $('.unmatch').hide();
+    } else {
+      $('.unmatch').show();
     }
   })
 })

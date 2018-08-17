@@ -25,7 +25,9 @@
   font-size: 24px;
   margin-left: 20px;
 }
-
+.fas {
+  color: #f35966;
+}
 
 .place_nav {
   width: 100%;
@@ -45,3 +47,4 @@
   display: inline-block;
   margin: 0 26px 0 16px;
 }
+

@@ -3,7 +3,7 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/series_set.css' %}">
 
 {% for series in series_all %}
-  <div class="series_set">
+  <div class="series_set" data-start="{{ series.start|date:'Ym' }}" data-end="{{ series.end|date:'Ym' }}" data-region="{{ series.space.place.region }}" data-space_pk="{{ series.space.pk }}">
     <div class="series_pic" style="background-image: url({{ series.image_set.first.img.url }});">
       <div style="background-color: {{ series.division.main_color }}">{{ series.division.name }}</div>
     </div>

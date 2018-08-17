@@ -3,6 +3,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import login as auth_login
+from django.utils.crypto import get_random_string
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
@@ -42,6 +43,7 @@ def signup_info(request):
     day = [x for x in range(1, 32)]
 
     if request.method == 'POST':
+        code = get_random_string(length=5) + '-' + str(user.pk)
         email = request.POST.get('email')
         nick_name = request.POST.get('nick_name')
         sex = request.POST.get('sex')
@@ -51,7 +53,18 @@ def signup_info(request):
         user.email = email
         user.save()
 
-        Profile.objects.create(user=user, nick_name=nick_name, sex=sex, birth=birth, phone=phone)
+        Profile.objects.create(user=user, code=code, nick_name=nick_name, sex=sex, birth=birth, phone=phone)
+
+        friend_code = request.POST.get('friend_code')
+
+        if Profile.objects.get(code=friend_code).exists():
+            friend = Profile.objects.get(code=friend_code).user
+            RewardHistory.objects.create(
+                user=friend,
+                reason='{}님의 추천코드 입력'.format(user.username),
+                amount=10,
+                status='complete',
+            )
 
         return redirect(request.GET.get('next', '/'))
 

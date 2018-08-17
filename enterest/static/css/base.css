@@ -120,10 +120,15 @@ body {
   .base_header_right {
     float: right;
     margin: 8px 16px 0px 0px;
+    font-family: '나눔바른고딕B';
+    font-size: 14px;
   }
   .base_header_right > a:hover {
     text-decoration: none;
     color: #000;
+  }
+  .base_header_right a:hover {
+    text-decoration: none;
   }
   .base_header_register_review {
     font-size: 14px;
@@ -137,10 +142,15 @@ body {
     text-decoration: none;
     display: inline-block;
     vertical-align: middle;
-    margin-left: 32px;
+  }
+  .base_header_username.nav-item {
+    margin: 0px;
+    margin-left: 24px;
   }
   .base_header_username p {
+    font-family: '나눔바른고딕B';
     font-size: 14px;
+    color: #000;
     display: inline-block;
     vertical-align: middle;
     margin: 0px;
@@ -152,6 +162,10 @@ body {
     display: inline-block;
     vertical-align: middle;
     margin-left: 16px;
+  }
+  .base_header_username > .dropdown-menu > a {
+    font-family: '나눔바른고딕';
+    font-size: 12px;
   }
   .base_header_nologin {
     margin-left: 32px;
