@@ -55,10 +55,10 @@ class Profile(models.Model):
     )
 
     def count_reported(self):
-        return self.liker_set.count()
+        return self.reported_set.count()
 
     def is_reported_by(self, user):
-        return self.liker_set.filter(pk=user.pk).exists()
+        return self.reported_set.filter(pk=user.pk).exists()
 
     def toggle_report(self, user):
         reported_before = self.is_reported_by(user)

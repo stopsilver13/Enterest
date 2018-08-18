@@ -14,7 +14,11 @@
 <div class="content">
   <div class="userpage_title_zone">
     <div class="userpage_title_zone_wrapper">
+      {% if user.profile.img %}
       <img src="{{ user.profile.img.url }}" alt="">
+      {% else %}
+      <img src="{% static 'img/anony.png' %}" alt="">
+      {% endif %}
       <p>{{ user.profile.nick_name }}</p>
     </div>
   </div>

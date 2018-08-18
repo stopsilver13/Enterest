@@ -12,23 +12,52 @@
 
 {% block content %}
 <div class="content">
-   <div class="main_title_zone">
+  <div class="main_title_zone">
     <div class="main_title_zone_wrapper">
-      <p> 내게 알맞는 좌석, 공연을 찾아보세요! </p>
-      <h4> 간단한 서비스 설명 멘트 </h4>
-      <div>
+      <p>세상의 모든 뷰, ShareSpot</p>
+      <h4>당신의 좌석뷰와 리뷰를 공유해주세요!<br class="hide_in_web">쉐어스팟이 모두의 좌석뷰와 리뷰를 모아드립니다. <br><span class="hide_in_phone">여러분의 실패없고 깊이있는 문화생활을 응원합니다.</span></h4>
+      <!-- <div>
         <div><i class="fas fa-search"></i></div>
         <input type="text" name="" placeholder="장소/공연 검색">
+      </div> -->
+      <button class="go_write_review">리뷰쓰고 티끌 받으러 가기</button>
+    </div>
+  </div>
+  <div class="reward_promotion">
+    <div class="reward_promotion_wrapper">
+      <p> 관람하신 공연/경기의 리뷰를 남겨주세요! </p>
+      <div class="reward_explanation">
+        <div class="reward_promo_set">
+          <div class="reward_explan_img"></div>
+          <div class="reward_explan_set">
+            <p>홍익인간</p>
+            <h4>당신의 리뷰가 널리 팬들을 이롭게 합니다.</h4>
+          </div>
+        </div>
+        <div class="reward_promo_set">
+          <div class="reward_explan_img"></div>
+          <div class="reward_explan_set">
+            <p>티끌모아 태산</p>
+            <h4>당신의 작은 리뷰가 모이고 모이면 기프티콘이 됩니다.</h4>
+          </div>
+        </div>
+        <div class="reward_promo_set">
+          <div class="reward_explan_img"></div>
+          <div class="reward_explan_set">
+            <p>고생없이 낙이온다</p>
+            <h4>간단히 리뷰만 써도 당신의 온라인 티켓이 기록됩니다.</h4>
+          </div>
+        </div>
       </div>
+      <!-- <button> 리뷰/사진 등록 </button> -->
     </div>
   </div>
 
-  <div class="main_banner_zone">
+  <!-- <div class="main_banner_zone"></div> -->
 
-  </div>
   <div class="navbar_outer">
     <nav class="navbar navbar-expand">
-      <span class="navbar-brand"> 장소 바로가기 </span>
+      <span class="navbar-brand">좌석뷰 바로가기</span>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
           {% for division in divisions %}
@@ -45,28 +74,6 @@
             </li>
             {% endif %}
           {% endfor %}
-
-
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              콘서트장
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </li>
-           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              극장
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </li>
         </ul>
       </div>
     </nav>
@@ -76,7 +83,7 @@
     <div class="main_content_wrapper">
       <div class="eventlist_section">
         <p> 전체 </p>
-        <h3 class="hide_in_web"> 모두 보기  <i class="fas fa-chevron-right"></i> </h4>
+        <h3 class="hide_in_web"> 모두 보기 </h4>
         <div class="eventlist_section_list">
           {% include 'sharespot/series_set.html' with request=request %}
         </div>
@@ -97,31 +104,7 @@
       {% endfor %}
     </div>
 
-    <div class="reward_promotion">
-      <div class="reward_promotion_wrapper">
-        <p> 관람하신 이벤트의 리뷰를 남겨주세요! </p>
-        <div class="reward_explanation">
-          <div class="reward_promo_set">
-            <div></div>
-            <p> 리워드 설명 </p>
-            <h4> 리뷰/사진 등록에 있는 촉진문구 </h4>
-          </div>
-          <div class="reward_promo_set">
-            <div></div>
-            <p> 리워드 설명 </p>
-            <h4> 리뷰/사진 등록에 있는 촉진문구 </h4>
-          </div>
-          <!-- <div class="reward_promo_set">
-            <div></div>
-            <p> 리워드 설명 </p>
-            <h4> 리뷰/사진 등록에 있는 촉진문구 </h4>
-          </div> -->
-        </div>
-        <button> 리뷰/사진 등록 </button>
-      </div>
-    </div>
-
-    <div class="numbers hide_in_phone">
+    <!-- <div class="numbers hide_in_phone">
       <div class="numbers_wrapper">
         <p> Numbers </p>
         <div class="numbers_explanation">
@@ -143,7 +126,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
 </div>
 

@@ -35,6 +35,8 @@ body {
     text-align: center;
     display: inline-block;
     vertical-align: middle;
+    color: #bb213c;
+    font-family: '나눔바른고딕B';
   }
   .base_header_brand > img {
     width: 32px;
@@ -81,19 +83,21 @@ body {
   .base_header_brand {
     float: left;
     margin-left: 16px;
+    font-family: '나눔바른고딕B';
   }
   .base_header_brand > a:hover {
     text-decoration: none;
-    color: #000;
+    color: #bb213c;
   }
   .base_header_brand a {
     text-decoration: none;
     cursor: pointer;
+    color: #bb213c;
   }
   .base_header_brand img {
     width: 48px;
     height: 48px;
-    background-color: black;
+    background-color: gray;
     display: inline-block;
     vertical-align: middle;
   }
@@ -105,21 +109,19 @@ body {
   }
 
   .base_header_search {
-    width: 360px;
     text-align: center;
     display: inline-block;
   }
   .base_header_search input{
-    width: 356px;
-    height: 28px;
+    width: 360px;
+    height: 32px;
     text-align: center;
-    border: solid 1px #eee;
+    border: none;
     margin-top: 8px;
+    background-color: #f4f5f7
   }
-
   .base_header_right {
     float: right;
-    margin: 8px 16px 0px 0px;
     font-family: '나눔바른고딕B';
     font-size: 14px;
   }
@@ -131,8 +133,9 @@ body {
     text-decoration: none;
   }
   .base_header_register_review {
+    height: 48px;
     font-size: 14px;
-    line-height: 2.29;
+    line-height: 48px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -145,7 +148,7 @@ body {
   }
   .base_header_username.nav-item {
     margin: 0px;
-    margin-left: 24px;
+    margin-left: 16px;
   }
   .base_header_username p {
     font-family: '나눔바른고딕B';
@@ -162,6 +165,9 @@ body {
     display: inline-block;
     vertical-align: middle;
     margin-left: 16px;
+  }
+  .base_header_username > .dropdown-toggle::after {
+    display: none;
   }
   .base_header_username > .dropdown-menu > a {
     font-family: '나눔바른고딕';

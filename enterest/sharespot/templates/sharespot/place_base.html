@@ -5,6 +5,8 @@
 {% block head_extra %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/place_base.css' %}">
 
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=SeKYIswoSWFlblzvLR07"></script>
+
   {% block head_extra_place %}
   {% endblock %}
 
@@ -20,10 +22,10 @@
 
   <div class="place_nav">
     <div class="place_nav_wrapper">
-      <a href="{% url "sharespot:place_space" space.en_name %}"><div class="place_nav_component" style="border-bottom: solid 1px black;">좌석뷰</div></a>
-      <a href="{% url "sharespot:place_basic" space.en_name %}"><div class="place_nav_component">기본정보</div></a>
-      <a href="{% url "sharespot:place_share" space.en_name %}"><div class="place_nav_component">관련정보</div></a>
-      <a href="{% url "sharespot:series_list" %}?place={{ place.en_name }}"><div class="place_nav_component">이벤트정보</div></a>
+      <a href="{% url "sharespot:place_space" space.en_name %}"><div class="place_nav_component" id="place_space_view">좌석뷰</div></a>
+      <a href="{% url "sharespot:place_basic" space.en_name %}"><div class="place_nav_component" id="place_basic_info">기본정보</div></a>
+      <a href="{% url "sharespot:place_share" space.en_name %}"><div class="place_nav_component" id="place_share_info">관련정보</div></a>
+      <a href="{% url "sharespot:series_list" %}?place={{ place.en_name }}"><div class="place_nav_component" id="place_event_info">이벤트정보</div></a>
     </div>
   </div>
 

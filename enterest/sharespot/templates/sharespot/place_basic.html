@@ -15,19 +15,63 @@
   <div class="place_content">
     <div class="place_content_wrapper">
       <div class="place_basic_info">
-        <p><i class="fas fa-info-circle"></i> {{ place.address }}</p>
-        <p><i class="fas fa-info-circle"></i> {{ place.contact }}</p>
-        <p><i class="fas fa-info-circle"></i> {{ place.website }}</p>
-        <p><i class="fas fa-info-circle"></i>
+        <i class="fas fa-map-marker-alt"></i><p>{{ place.address }}</p>
+        <i class="fas fa-phone fa-flip-horizontal"></i><p>{{ place.contact }}</p>
+        <i class="fas fa-globe-asia"></i><p>{{ place.website }}</p>
+        <i class="fas fa-info-circle"></i><p>
           {% for words in place.split_explain %}
             {{ words }}<br>
           {% endfor %}
         </p>
-        <div class="place_basic_info_map"></div>
       </div>
 
-      <div class="place_weather"></div>
+      <div class="place_basic_info_map" id="map"></div>
     </div>
   </div>
+
+<script>
+$(document).ready(function(){
+  // 지도
+  var mapOptions = {
+    center: new naver.maps.LatLng({{ place.lat_lon }}),
+    zoom: 11,
+    scaleControl: true,
+    zoomControl: true,
+    zoomControlOptions: {
+      style: naver.maps.ZoomControlStyle.SMALL,
+      position: naver.maps.Position.TOP_RIGHT
+    },
+    scrollWheel: false,
+  };
+
+
+  var map = new naver.maps.Map('map', mapOptions);
+
+  var marker = new naver.maps.Marker({
+    position: new naver.maps.LatLng({{ place.lat_lon }}),
+    map: map,
+  });
+
+  var contentString = [
+    '<div class="iw_inner">',
+    '   <h3>{{ place.name }}</h3>',
+    '   <p>{{ place.address }}<br/>',
+    '      {{ place.contact }}<br/>',
+    '       <a href="{{ place.website }}" target="_blank">{{ place.website }}</a>',
+    '   </p>',
+    '</div>'
+  ].join('');
+
+  var infowindow = new naver.maps.InfoWindow({ content: contentString });
+
+  naver.maps.Event.addListener(marker, "click", function(e) {
+    if (infowindow.getMap()) {
+        infowindow.close();
+    } else {
+        infowindow.open(map, marker);
+    }
+  });
+});
+</script>
 
 {% endblock %}

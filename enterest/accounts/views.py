@@ -57,7 +57,7 @@ def signup_info(request):
 
         friend_code = request.POST.get('friend_code')
 
-        if Profile.objects.get(code=friend_code).exists():
+        if Profile.objects.filter(code=friend_code).exists():
             friend = Profile.objects.get(code=friend_code).user
             RewardHistory.objects.create(
                 user=friend,
