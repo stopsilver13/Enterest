@@ -1,3 +1,52 @@
+@media (max-width:768px) {
+  .place_content {
+    width: 100%;
+  }
+  .place_content_wrapper {
+    min-height: 480px;
+    margin: 28px auto 0;
+    padding: 0px 16px;
+  }
+  .place_basic_info {
+    width: 518px;
+    margin-left: 8px;
+  }
+  .place_basic_info i {
+    font-size: 22px;
+    color: #262626;
+    margin-right: 16px;
+    vertical-align: top;
+  }
+  .place_basic_info p {
+    display: inline-block;
+    font-family: '나눔바른고딕';
+    font-size: 14px;
+    margin-bottom: 24px;
+    vertical-align: top;
+  }
+  .place_basic_info_map {
+    width: 100%;
+    height: 248px;
+  }
+  .iw_inner {
+    width: 320px;
+    padding: 16px;
+  }
+  .iw_inner > h3 {
+    font-family: "나눔바른고딕B";
+    font-size: 12px;
+  }
+  .iw_inner > p {
+    margin: 0px;
+    font-family: "나눔바른고딕";
+    font-size: 12px;
+  }
+
+  #place_basic_info {
+    color: #262626 !important;
+    border-bottom: solid 2px #262626 !important;
+  }
+}
 @media (min-width:768px) {
   .place_content {
     width: 100%;
@@ -18,6 +67,15 @@
   .place_basic_info i {
     font-size: 22px;
     color: #262626;
+    margin-right: 24px;
+    vertical-align: top;
+  }
+  .place_basic_info p {
+    display: inline-block;
+    font-family: '나눔바른고딕';
+    font-size: 16px;
+    margin-bottom: 20px;
+    vertical-align: top;
   }
   .place_basic_info_map {
     width: 518px;

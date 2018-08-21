@@ -15,14 +15,9 @@
   <div class="place_content">
     <div class="place_content_wrapper">
       <div class="place_basic_info">
-        <i class="fas fa-map-marker-alt"></i><p>{{ place.address }}</p>
-        <i class="fas fa-phone fa-flip-horizontal"></i><p>{{ place.contact }}</p>
-        <i class="fas fa-globe-asia"></i><p>{{ place.website }}</p>
-        <i class="fas fa-info-circle"></i><p>
-          {% for words in place.split_explain %}
-            {{ words }}<br>
-          {% endfor %}
-        </p>
+        <i class="fas fa-map-marker-alt"></i><p>{{ place.address }}</p><br>
+        <i class="fas fa-phone fa-flip-horizontal"></i><p>{{ place.contact }}</p><br>
+        <i class="fas fa-globe-asia"></i><p>{{ place.website }}</p><br>
       </div>
 
       <div class="place_basic_info_map" id="map"></div>

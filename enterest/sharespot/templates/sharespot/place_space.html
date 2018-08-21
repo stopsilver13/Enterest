@@ -15,25 +15,66 @@
   <div class="place_seatview_wrapper">
     <div class="place_map_section">
       <div class="place_map">
-        <div class="pick_food_navbar">
+        <div class="section_nav">
+          <ul class="nav nav-tabs">
+            {% for section in space.section_set.all %}
+              {% if forloop.first %}
+              <li class="active select_nav"><a data-toggle="tab" href="#section-{{ section.pk }}" class="active show"><div>{{ section.name }}</div></a></li>
+              {% else %}
+              <li class="select_nav"><a data-toggle="tab" href="#section-{{ section.pk }}"><div>{{ section.name }}</div></a></li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+
+        <div class="tab-content"">
           {% for section in space.section_set.all %}
-          <a href="{{ section.pk }}" class="select_nav selected" data-toggle="tab"><div>{{ section.name }}</div></a>
+            {% if forloop.first %}
+            <div id="section-{{ section.pk }}" class="tab-pane fade in active show">
+              <svg style="width: 100%;" viewBox="0 0 696 758" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                {% for block in section.block_set.all %}
+                {% with block.get_block_main_level as main_level %}
+                <polygon points="{{ block.coordinate }}"" fill="{{ main_level.color }}" style="stroke:black;stroke-width:1;" onmouseover="this.style.fill='{{ main_level.hover_color }}'" onmouseout="this.style.fill=''"></polygon>
+                {% endwith %}
+                {% endfor %}
+              </svg>
+            </div>
+            {% else %}
+            <div id="section-{{ section.pk }}" class="tab-pane fade" style="height: 100%;">
+              <svg style="width: 100%;" viewBox="0 0 696 758">
+                {% for block in section.block_set.all %}
+                <polygon points="{{ block.coordinate }}" fill="{{ block.get_block_color }}" style="stroke:black;stroke-width:1;"></polygon>
+                {% endfor %}
+              </svg>
+            </div>
+            {% endif %}
           {% endfor %}
         </div>
-        {% for section in space.section_set.all %}
-        <div class="tab-content" style="height: 100%;">
-          <div role="tabpanel" class="tab-pane active" id="" style="height: 100%;">
-            <svg style="width: 100%; height: 100%;" viewBox="0 0 696 800">
-              {% for block in section.block_set.all %}
-              <polygon points="{{ block.coordinate }}" fill="{{ block.get_block_color }}" style="stroke:black;stroke-width:1;">
-              {% endfor %}
-            </svg>
-          </div>
-        </div>
-        {% endfor %}
       </div>
 
       <div class="place_map_right">
+        <div class="event_at_place">
+          <li class="nav-item dropdown">
+            현재시리즈
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">변경</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              {% for series in space.series_set.all %}
+              <a class="dropdown-item" href="{% url "sharespot:place_space" space.en_name %}?series={{ series.en_name }}">{{ series.name }}</a>
+              {% endfor %}
+            </div>
+          </li>
+          <div class="event_at_place_set">
+            <div class="event_at_place_pic" style="background-image: url({{ close_series.image_set.first.img.url }});">
+              <div>{{ close_series.division.name }}</div>
+            </div>
+            <div class="event_at_place_set_wrapper">
+              <p class="event_at_place_title">{{ close_series.name }}</p>
+              <p class="event_at_place_info">{{ close_series.start|date:"Y.m.d."}} ~ {{ close_series.end|date:"Y.m.d."}} {{ close_series.space.name }} </p>
+              <div class="event_at_place_rating"></div>
+              <h4 class="event_at_place_reviews">{{ close_series.get_series_star }} ( {{ close_series.get_series_review_count }} )</h4>
+            </div>
+          </div>
+        </div>
         <div class="seat_price">
           <div class="seat_price_thead">
             <div class="price_thead_level"> 좌석등급 </div>
@@ -50,73 +91,6 @@
               <div class="block_oneword_intro">{{ level.explain }}</div>
             </div>
             {% endfor %}
-            <div class="seat_price_tr">
-              <div class="price_tbody_level">
-                <div class="block_level_color" style="background-color: red;"></div>
-                레드지정석
-              </div>
-              <div class="price_tbody_price"> 114,000 </div>
-              <div class="price_tbody_price"> 114,000 </div>
-              <div class="block_oneword_intro">응원열기가 뜨거운 좌석으로, 예매난이도가 높습니다!</div>
-            </div>
-            <div class="seat_price_tr">
-              <div class="price_tbody_level">
-                <div class="block_level_color" style="background-color: red;"></div>
-                레드지정석
-              </div>
-              <div class="price_tbody_price"> 114,000 </div>
-              <div class="price_tbody_price"> 114,000 </div>
-              <div class="block_oneword_intro">응원열기가 뜨거운 좌석으로, 예매난이도가 높습니다!</div>
-            </div>
-            <div class="seat_price_tr">
-              <div class="price_tbody_level">
-                <div class="block_level_color" style="background-color: red;"></div>
-                레드지정석
-              </div>
-              <div class="price_tbody_price"> 114,000 </div>
-              <div class="price_tbody_price"> 114,000 </div>
-              <div class="block_oneword_intro">응원열기가 뜨거운 좌석으로, 예매난이도가 높습니다!</div>
-            </div>
-            <div class="seat_price_tr">
-              <div class="price_tbody_level">
-                <div class="block_level_color" style="background-color: red;"></div>
-                레드지정석
-              </div>
-              <div class="price_tbody_price"> 114,000 </div>
-              <div class="price_tbody_price"> 114,000 </div>
-              <div class="block_oneword_intro">응원열기가 뜨거운 좌석으로, 예매난이도가 높습니다!</div>
-            </div>
-            <div class="seat_price_tr">
-              <div class="price_tbody_level">
-                <div class="block_level_color" style="background-color: red;"></div>
-                레드지정석
-              </div>
-              <div class="price_tbody_price"> 114,000 </div>
-              <div class="price_tbody_price"> 114,000 </div>
-              <div class="block_oneword_intro">응원열기가 뜨거운 좌석으로, 예매난이도가 높습니다!</div>
-            </div>
-            <div class="seat_price_tr">
-              <div class="price_tbody_level">
-                <div class="block_level_color" style="background-color: red;"></div>
-                레드지정석
-              </div>
-              <div class="price_tbody_price"> 114,000 </div>
-              <div class="price_tbody_price"> 114,000 </div>
-              <div class="block_oneword_intro">응원열기가 뜨거운 좌석으로, 예매난이도가 높습니다!</div>
-            </div>
-          </div>
-        </div>
-        <div class="event_at_place">
-          <div class="event_at_place_set">
-            <div class="event_at_place_pic" style="background-image: url({{ close_series.image_set.first.img.url }});">
-              <div>{{ close_series.division.name }}</div>
-            </div>
-            <div class="event_at_place_set_wrapper">
-              <p class="event_at_place_title">{{ close_series.name }}</p>
-              <p class="event_at_place_info">{{ close_series.start|date:"Y.m.d."}} ~ {{ close_series.end|date:"Y.m.d."}} {{ close_series.space.name }} </p>
-              <div class="event_at_place_rating"></div>
-              <h4 class="event_at_place_reviews">{{ close_series.get_series_star }} ( {{ close_series.get_series_review_count }} )</h4>
-            </div>
           </div>
         </div>
       </div>
@@ -130,7 +104,7 @@
       <div class="place_total_rating">
         <div class="place_total_rating_header">
           <p> 전체 평점 <span>( {{ space.get_space_review.count|intcomma }} )</span> </p>
-          <div class="go_rate"> 평가 등록 </div>
+          <button class="go_rate"> 평가 등록 </button>
         </div>
         <div class="event_review_rating">
           <h4 class="which_rating"> 시야 </h4>
@@ -192,7 +166,7 @@
             </div>
           </div>
           <div class="seat_info_in_review">
-            {{ review.seat.level.name }}<br>{{ review.seat.block.name }} 블럭 {{ review.seat.name }} 번
+            {{ review.seat.block.name }} 블럭 {{ review.seat.name }} 번
           </div>
           <div class="reviews_rating_zone">
             <div class="which_rating_in_review">
@@ -213,7 +187,7 @@
             {% endif %}
           </div>
           <div class="reviews_footer">
-            <i class="far fa-heart"></i>
+            <img src="{% static 'img/icon/thank_icon.png' %}" alt="">
             <p>{{ review.count_thanked }}</p>
           </div>
         </div>
@@ -235,7 +209,7 @@
             </div>
           </div>
           <div class="seat_info_in_review">
-            레드지정석<br>315블럭 31-1번
+            315블럭 31-1번
           </div>
           <div class="reviews_rating_zone">
             <div class="which_rating_in_review">
@@ -253,7 +227,7 @@
             <h4> 더보기 </h4>
           </div>
           <div class="reviews_footer">
-            <i class="far fa-heart"></i>
+            <img src="{% static 'img/icon/thank_icon.png' %}" alt="">
             <p>  7 </p>
           </div>
         </div>
@@ -273,7 +247,7 @@
             </div>
           </div>
           <div class="seat_info_in_review">
-            레드지정석<br>315블럭 31-1번
+            315블럭 31-1번
           </div>
           <div class="reviews_rating_zone">
             <div class="which_rating_in_review">
@@ -289,7 +263,7 @@
             <p> 섹시하고 섹시하다! 재즈와 함께 흥이 절로 났던 공연이었습니다. 살인이라는 무거운 이야기이지만 결코 극은 무겁지 않고 벨마와 록시 외 배우들의 연기 그리고 오케스트라가 무대 위에 있다는 특이점, 많은 볼거리, 빠른 전개, 관객과의 호흡 등 왜 이렇게 사랑받는지 알게되었습니다. 벨마 역의 최정원배우님은 갈라쇼나 다른 공연에서 올댓재즈 많이 들어봤지만 극과 함께 어우러진 올댓재즈는 정말 최고였습니다. 무대에서 논다는게 이런거구나.. 했습니다. 그리고 슬픈 씬도 아닌데 갑자기 뭔가 벅차오르는게 팍팍한 일상 속에 내가 시카고를 보고 있는 지금이 너무 행복해서였는지 갑자기 눈물이 흘렀습니다ㅠㅠ.. 주변 사람들에게 시카고 꼭 보라고 추천하고 있습니다</p>
           </div>
           <div class="reviews_footer">
-            <i class="far fa-heart"></i>
+            <img src="{% static 'img/icon/thank_icon.png' %}" alt="">
             <p>  7 </p>
           </div>
         </div>
@@ -297,4 +271,11 @@
       </div>
     </div>
   </div>
+
+<script>
+  $('.select_nav').click(function() {
+      $('div.section_nav li.active').removeClass("active");
+      $(this).addClass("active");
+    });
+</script>
 {% endblock %}

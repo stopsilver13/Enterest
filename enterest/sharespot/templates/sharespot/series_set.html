@@ -9,7 +9,7 @@
     </div>
     <div class="series_set_wrapper">
       <p class="series_title">{{ series.name }}</p>
-      <p class="series_info">{{ series.start|date:"Y.m.d."}} ~ {{ series.end|date:"Y.m.d."}} <br> {{ series.space.name }} </p>
+      <p class="series_info">{{ series.start|date:"Y.m.d"}} ~ {{ series.end|date:"Y.m.d"}} <br> {{ series.space.name }} </p>
       <div class="series_rating_reviews">
         <div></div>
         <h4>{{ series.get_series_star }} ( {{ series.get_series_review.count }} )</h4>

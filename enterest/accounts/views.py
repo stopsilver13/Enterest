@@ -2,9 +2,10 @@ from django.conf import settings
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from django.contrib.auth.views import login as auth_login
 from django.utils.crypto import get_random_string
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 
 from sharespot.models import Series, Ticket, TalkTopic
@@ -142,6 +143,19 @@ def user_delete(request):
     user.delete()
 
     return redirect('/')
+
+
+def report_user(request, writer):
+    user = request.user
+    writer = User.objects.get(pk=writer)
+
+    if request.method == 'POST':
+        writer.profile.toggle_report(user)
+        if user in writer.profile.reported_set.all():
+            return HttpResponse('complete')
+        else:
+            return HttpResponse('canceled')
+    return render(request)
 
 
 @login_required

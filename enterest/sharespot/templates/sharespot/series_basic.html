@@ -165,7 +165,11 @@
           <div class="actor_introduction">
             {% for appear in series.get_series_appear %}
             <div class="actor_info">
+              {% if appear.img %}
               <div class="actor_pic" style="background-image: url({{ appear.img.url }})"></div>
+              {% else %}
+              <div class="actor_pic" style="background-image: url({% static 'img/anony.png' %})"></div>
+              {% endif %}
               <p>{{ appear.name }}</p>
             </div>
             {% endfor %}

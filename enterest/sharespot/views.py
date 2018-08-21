@@ -3,7 +3,9 @@ from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.template.loader import render_to_string
 
-from sharespot.models import Division, Place, Space, Series, Ticket, Emotion, EventReview, SeatReview, ShareInfoCategory, ShareInfo, ShareInfoComment, TalkTopic, Talk
+from accounts.forms import ImageUploadForm
+
+from sharespot.models import Division, Place, Space, Series, Ticket, Emotion, EventReview, SeatReview, ShareInfoCategory, ShareInfo, ShareInfoImg, ShareInfoComment, TalkTopic, Talk
 
 import datetime
 import json
@@ -115,7 +117,10 @@ def place_basic(request, space):
 def place_space(request, space):
     space = Space.objects.get(en_name=space)
     place = space.place
-    close_series = space.get_close_series()
+    if 'series' in request.GET:
+        close_series = Series.objects.get(en_name=request.GET['series'])
+    else:
+        close_series = space.get_close_series()
     reviews = space.get_space_review().filter(is_confirmed=True)
 
     return render(request, 'sharespot/place_space.html', {
@@ -135,7 +140,8 @@ def place_share(request, space):
 
     if request.method == 'POST':
         category = request.POST.get('category')
-        name = request.POST.get('name')
+        category = ShareInfoCategory.objects.get(pk=category)
+        name = request.POST.get('q')
         address = request.POST.get('address')
         lat_lon = request.POST.get('lat_lon')
         content = request.POST.get('content')
@@ -149,6 +155,13 @@ def place_share(request, space):
             lat_lon=lat_lon,
             content=content,
         )
+
+        form = ImageUploadForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            img = form.cleaned_data['image']
+            ShareInfoImg.objects.create(info=info, img=img)
+
         return HttpResponseRedirect(request.path_info)
 
     return render(request, 'sharespot/place_share.html', {

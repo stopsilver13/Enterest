@@ -4,11 +4,16 @@
   <div class="replies_upper">
     <img src="{% static 'img/anony.png' %}">
     <p id="comment_anony_name">{{ comment.anony_name }}</p>
-    <h4>{{ comment.created_at|date:"Y.m.d" }}</h4>
-    <div>
+    <h4>{{ comment.created_at|date:"y.m.d g:i A" }}
+
+      <span data-url="{% url 'report_user' comment.user.pk %}?next={{ request.path }}" class="reported_yet" onclick="return confirm({% if request.user in comment.user.profile.reported_set.all %}'신고를 취소하시겠습니까?'{% else %}'신고 하시겠습니까?'{% endif %})"> &#183; {% if request.user in comment.user.profile.reported_set.all %}신고취소{% else %}신고{% endif %}</span>
+    </h4>
+    {% if request.user == comment.user %}
+    <div class="comment_edit_delete">
       <a href="{% url 'sharespot:place_share_comment_edit' space.en_name %}" class="edit"> 수정 </a>
       <a href="{% url 'sharespot:place_share_comment_delete' space.en_name %}" class="delete"> 삭제 </a>
     </div>
+    {% endif %}
   </div>
   <p class="replies_body">{{ comment.content }}</p>
 </div>
@@ -88,8 +93,7 @@
 
   $(document).on('reply_deleted', function(e) {
     if( e.reply_pk == reply_pk ) {
-      console.log(e.count);
-      reply.parent().parent().siblings('.posts_footer').find('.comment_count').text(e.count);
+      reply.parent().parent().parent().find('.comment_count').html(e.count);
       reply.remove();
     }
   });

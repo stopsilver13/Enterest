@@ -204,18 +204,36 @@ class Section(models.Model):
 class Block(models.Model):
     section = models.ForeignKey(Section)
     name = models.CharField(max_length=20)
-    coordinate = models.CharField(max_length=60)
+    coordinate = models.CharField(max_length=120)
 
     def __str__(self):
         block_name = self.section.space.name + '-' + self.name
         return block_name
+
+    def get_block_main_level(self):
+        series = self.section.space.get_close_series()
+        all_seat = Seat.objects.none()
+
+        for level in series.seatlevel_set.all():
+            all_seat |= level.seat_set.all()
+
+        level_list = all_seat.filter(block=self).values_list('level__pk', flat=True)
+
+        if len(level_list) == 0:
+            main_level = series.seatlevel_set.get(name='미사용')
+
+        else:
+            main_level_pk = Counter(level_list).most_common(1)[0][0]
+            main_level = SeatLevel.objects.get(pk=main_level_pk)
+
+        return main_level
 
     def get_block_color(self):
         series = self.section.space.get_close_series()
         all_seat = Seat.objects.none()
 
         for level in series.seatlevel_set.all():
-            all_seat |= level.seat_set
+            all_seat |= level.seat_set.all()
 
         level_list = all_seat.filter(block=self).values_list('level__pk', flat=True)
 
@@ -269,6 +287,7 @@ class SeatLevel(models.Model):
     note = models.CharField(max_length=100, blank=True, null=True)  # 어드민용
     price = models.PositiveIntegerField(default=0)
     color = models.CharField(max_length=10)
+    hover_color = models.CharField(max_length=10, blank=True, null=True)
 
     def __str__(self):
         level_name = self.space.name + '-' + self.name
@@ -333,8 +352,9 @@ class SeatImg(models.Model):
         super().save(*args, **kwargs)
         if self.is_confirmed:
             super().save(*args, **kwargs)
-            self.history.status = 'complete'
-            self.history.save()
+            if self.history:
+                self.history.status = 'complete'
+                self.history.save()
 
     def delete(self, *args, **kwargs):
         super().delete(*args, **kwargs)
@@ -406,7 +426,7 @@ class Series(LikeMixinModel):
         events = self.event_set.values_list('pk', flat=True)
         appears = Appear.objects.none()
         for event in events:
-            appears |= Event.objects.get(pk=event).appear_set
+            appears |= Event.objects.get(pk=event).appear_set.all()
 
         return appears.distinct()
 
@@ -554,9 +574,9 @@ class EventReview(ThankMixinModel):
         super().save(*args, **kwargs)
         if self.is_confirmed:
             super().save(*args, **kwargs)
-
-            self.history.status = 'complete'
-            self.history.save()
+            if self.history:
+                self.history.status = 'complete'
+                self.history.save()
 
     def delete(self, *args, **kwargs):
         super().delete(*args, **kwargs)
@@ -599,9 +619,9 @@ class SeatReview(ThankMixinModel):
         super().save(*args, **kwargs)
         if self.is_confirmed:
             super().save(*args, **kwargs)
-
-            self.history.status = 'complete'
-            self.history.save()
+            if self.history:
+                self.history.status = 'complete'
+                self.history.save()
 
     def delete(self, *args, **kwargs):
         super().delete(*args, **kwargs)
@@ -670,7 +690,7 @@ class ShareInfoComment(models.Model):
         return self.content
 
     class Meta:
-        ordering = ('-pk', )
+        ordering = ('pk', )
 
 
 # ### 이벤트 > 딥톡 관련 모델 ### #

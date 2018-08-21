@@ -17,5 +17,6 @@ urlpatterns = [
     url(r'^myinfo/check/pw/$', views.checking_pw, name='checking_pw'),  # 비밀번호 확인 ajax
     url(r'^faq/$', views.faqlist, name='faqlist'),
 
+    url(r'^report/(?P<writer>[\d]+)/$', views.report_user, name='report_user'),
     url(r'^user/delete/$', views.user_delete, name='user_delete'),
 ]

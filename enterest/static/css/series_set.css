@@ -9,25 +9,25 @@
   }
   .series_pic {
     height: 110px;
-    padding: 8px 0 0 8px;
+    padding: 4px 0 0 8px;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
   }
   .series_pic > div {
-    /*width: 40px;*/
+    min-width: 40px;
     height: 16px;
     padding: 0px 4px;
     background-color: #7ed321;
     display: inline-block;
     text-align: center;
-    font-family: "나눔바른고딕B";
-    font-size: 10px;
+    font-family: "나눔바른고딕";
+    font-size: 8px;
     line-height: 16px;
     color: #ffffff;
   }
   .series_set_wrapper {
-    padding: 8px 8px 12px;
+    padding: 8px;
   }
   .series_title {
     font-family: "나눔바른고딕B";
@@ -44,7 +44,7 @@
     margin: 0;
   }
   .series_rating_reviews {
-    margin: 16px 0 8px 0;
+    margin: 8px 0;
   }
   .series_rating_reviews > div {
     width: 64px;
@@ -55,21 +55,21 @@
   }
   .series_rating_reviews > h4 {
     font-family: "나눔바른고딕";
-    font-size: 12px;
+    font-size: 11px;
     display: inline-block;
     vertical-align: middle;
     margin: 0 0 0 8px;
   }
   .series_seat_info,
   .series_event_info {
-    width: 69px;
-    height: 32px;
+    width: 70px;
+    height: 30px;
     border-radius: 4px;
-    border: solid 1px #4a90e2;
-    font-size: 12px;
-    font-weight: bold;
-    color: #4a90e2;
-    line-height: 27px;
+    border: solid 1px #bb213c;
+    font-family: "나눔바른고딕B";
+    font-size: 10px;
+    color: #bb213c;
+    line-height: 30px;
     text-align: center;
     display: inline-block;
     vertical-align: middle;
@@ -95,7 +95,7 @@
     background-position: center;
   }
   .series_pic > div {
-    /*width: 64px;*/
+    min-width: 64px;
     height: 24px;
     padding: 0px 8px;
     background-color: #7ed321;
@@ -118,13 +118,12 @@
   .series_info {
     font-family: "나눔바른고딕";
     font-size: 12px;
-    letter-spacing: 0.2px;
     text-align: left;
-    color: rgba(56, 59, 65, 0.54);
-    margin: 0 0 16px 0;
+    color: rgba(38, 38, 38, 0.7);
+    margin: 0 0 12px 0;
   }
   .series_rating_reviews {
-    margin: 16px 0 16px 0;
+    margin-bottom: 20px;
   }
   .series_rating_reviews > div {
     width: 64px;
@@ -146,13 +145,13 @@
   }
   .series_seat_info,
   .series_event_info {
-    width: 104px;
-    height: 40px;
+    width: 106px;
+    height: 38px;
     border-radius: 4px;
-    border: solid 1px #4a90e2;
+    border: solid 1px #bb213c;
     font-size: 12px;
     font-weight: bold;
-    color: #4a90e2;
+    color: #bb213c;
     line-height: 40px;
     text-align: center;
     display: inline-block;
@@ -160,6 +159,7 @@
   }
   .series_seat_info {
     float: right;
+    margin-left: 8px;
   }
 }
 

@@ -12,8 +12,53 @@
 {% endblock %}
 
 {% block content_place %}
+<script>
+ function preview_image(event) {
+  var reader = new FileReader();
+  reader.onload = function() {
+    var output = document.getElementById('output_img');
+    output.src = reader.result;
+  }
+  reader.readAsDataURL(event.target.files[0]);
+ }
+</script>
+
   <div class="place_around_content">
     <div class="place_around_content_wrapper">
+
+      <div class="posting_input_section">
+        <p>정보 등록하기</p>
+
+        <form action="" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="input_box">
+            <div class="input_left">
+              <div class="posting_place_info">
+                <select class="place_category" name="category">
+                  <option value="">분류선택</option>
+                  {% for category in share_category %}
+                  <option value="{{ category.pk }}">{{ category.name }}</option>
+                  {% endfor %}
+                </select><input class="place_name" placeholder="&#xf041; &nbsp; 방문 장소,주소 검색" name="q" data-url="{% url 'sharespot:place_share_search' space.en_name %}" style="font-family:Arial, FontAwesome"><label for="file" class="place_pic"> 사진 </label>
+              </div>
+              <textarea name="content" placeholder="자유롭게 입력해주세요."></textarea><button class="hide_in_web"> 등록 </button>
+              <input id="file" type="file" accept="image/*" name="image" onchange="preview_image(event)">
+              <div class="place_pic_preview" id="place_pic_preview">
+                <img src="" id="output_img">
+              </div>
+            </div>
+            <input type="hidden" name="address">
+            <input type="hidden" name="lat_lon">
+          </div><button class="hide_in_phone"> 등록 </button>
+        </form>
+
+        <div id="items_list">
+        </div>
+
+        <div class="map" id="map"></div>
+      </div>
+
+
       <div class="posting_zone">
         <div class="posting_zone_nav">
           <div class="posting_zone_nav_compenent selected"> 전체 </div>
@@ -21,35 +66,71 @@
             <div class="posting_zone_nav_compenent"> {{ category.name }} </div>
           {% endfor %}
         </div>
-        <div class="posting_input_section">
-          <div class="input_box">
-            <div class="input_left">
-              <div class="posting_place_info">
-                <div class="place_category"> 분류 선택 </div>
-                <input class="place_name" placeholder="방문 장소,주소 검색" name="q" data-url="{% url 'sharespot:place_share_search' space.en_name %}">
-                <div class="place_pic"> 사진 </div>
-              </div>
-              <textarea placeholder="자유롭게 입력해주세요."></textarea>
-            </div>
-            <input type="hidden" name="address">
-            <input type="hidden" name="lat_lon">
-            <button> 등록 </button>
-          </div>
 
-          <div id="items_list">
-          </div>
-        </div>
-              {{ item.title|safe }} {{ item.address }}
         {% for info in share_info %}
           {% include 'sharespot/place_share_info.html' with user=user info=info %}
         {% endfor %}
       </div>
-      <div class="map"></div>
     </div>
   </div>
 
 
 <script>
+// 댓글 신고
+$('.replies_upper > h4 > span').click(function() {
+  var self = $(this);
+  var url = $(this).data('url');
+  $.post(url)
+    .done(function(r) {
+      if( r == 'complete') {
+        self.html('&#183; 신고취소');
+      } else {
+        self.html('&#183; 신고')
+      }
+    });
+})
+
+// 지도
+var mapOptions = {
+  center: new naver.maps.LatLng({{ place.lat_lon }}),
+  zoom: 11,
+  scaleControl: true,
+  zoomControl: true,
+  zoomControlOptions: {
+    style: naver.maps.ZoomControlStyle.SMALL,
+    position: naver.maps.Position.TOP_RIGHT
+  },
+  scrollWheel: false,
+};
+
+
+var map = new naver.maps.Map('map', mapOptions);
+
+var marker = new naver.maps.Marker({
+  position: new naver.maps.LatLng({{ place.lat_lon }}),
+  map: map,
+});
+
+var contentString = [
+  '<div class="iw_inner">',
+  '   <h3>{{ place.name }}</h3>',
+  '   <p>{{ place.address }}<br/>',
+  '      {{ place.contact }}<br/>',
+  '       <a href="{{ place.website }}" target="_blank">{{ place.website }}</a>',
+  '   </p>',
+  '</div>'
+].join('');
+
+var infowindow = new naver.maps.InfoWindow({ content: contentString });
+
+naver.maps.Event.addListener(marker, "click", function(e) {
+  if (infowindow.getMap()) {
+      infowindow.close();
+  } else {
+      infowindow.open(map, marker);
+  }
+});
+
 $(function(){
   var map_position = $('.map').offset().top;
   $(window).scroll(function(){

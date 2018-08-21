@@ -15,30 +15,30 @@
       {% endfor %}
     </div>
     <div class="posts_footer">
-      <p id="comment_count"><i class="far fa-comment"></i> <span class="comment_count"> {{ info.shareinfocomment_set.count }} </span></p>
-      <p><i class="far fa-heart"></i> <span class="like_count"> {{ info.count_liked }} </span></p>
+      <p id="comment_count"><i class="far fa-comment"></i><span class="comment_count"> {{ info.shareinfocomment_set.count }} </span></p>
+      <img src="{% static 'img/icon/thank_icon.png' %}" alt=""><p><span class="like_count"> {{ info.count_liked }} </span></p>
     </div>
-    <div class="posts_reply" style="display: none;">
-       <form class="posts_reply_form" action="{% url "sharespot:place_share_comment_create" space.en_name %}" method="POST">
-        {% csrf_token %}
-        <div class="writing_zone">
-          <div class="writing_zone_upper">
-            <img src="{% static 'img/anony.png' %}">
-            <p></p>
-            <h4> 익명으로 변경 </h4>
-          </div>
-          <div class="writing_zone_bottom">
-            <textarea placeholder="댓글을 입력하세요."></textarea>
-            <button> 등록 </button>
-          </div>
+  </div>
+  <div class="posts_reply" style="display: none;">
+    <div class="replies_zone">
+      {% for comment in info.shareinfocomment_set.all %}
+        {% include 'sharespot/place_share_info_comment.html' with comment=comment %}
+      {% endfor %}
+    </div>
+    <form class="posts_reply_form" action="{% url "sharespot:place_share_comment_create" space.en_name %}" method="POST">
+      {% csrf_token %}
+      <div class="writing_zone">
+        <div class="writing_zone_upper">
+          <img src="{% static 'img/anony.png' %}">
+          <p></p>
+          <h4> 익명으로 변경 </h4>
         </div>
-      </form>
-      <div class="replies_zone">
-        {% for comment in info.shareinfocomment_set.all %}
-          {% include 'sharespot/place_share_info_comment.html' with comment=comment %}
-        {% endfor %}
+        <div class="writing_zone_bottom">
+          <textarea placeholder="댓글을 입력하세요. (익명)"></textarea>
+          <button> 등록 </button>
+        </div>
       </div>
-    </div>
+    </form>
   </div>
 </div>
 
@@ -108,7 +108,7 @@
 
   $(document).on('info_comment_created', function(e) {
     if (e.pk === info_pk) {
-      post.find('.replies_zone').prepend(e.html);
+      post.find('.replies_zone').append(e.html);
       post.find('.comment_count').html(e.count)
     }
   });
