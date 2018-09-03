@@ -5,18 +5,18 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.views import login as auth_login
 from django.utils.crypto import get_random_string
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 from sharespot.models import Series, Ticket, TalkTopic
-from accounts.models import Profile, RewardHistory, Gift, GiftRequest, FAQCategory
+from accounts.models import Membership, MembershipCard, Profile, UserReward, RewardHistory, Gift, GiftRequest, FAQCategory
 
 from accounts.forms import ImageUploadForm
 
 from allauth.socialaccount.models import SocialApp
 from allauth.socialaccount.templatetags.socialaccount import get_providers
 
-import datetime
+from datetime import datetime, timedelta
 
 
 def signup(request):
@@ -28,6 +28,7 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+
             return redirect('/accounts/signup/info/?next='+request.GET.get('next', '/'))
 
     return render(request, 'accounts/signup.html')
@@ -66,6 +67,15 @@ def signup_info(request):
                 amount=10,
                 status='complete',
             )
+
+        UserReward.objects.create(user=user)
+
+        # basic 멤버십 60일 무료
+        MembershipCard.objects.create(
+            user=user,
+            membership=Membership.objects.get(level='basic'),
+            expiration=datetime.now() + timedelta(days=60),
+        )
 
         return redirect(request.GET.get('next', '/'))
 
@@ -172,7 +182,7 @@ def myticket(request):
 @login_required
 def mylike(request):
     user = request.user
-    now = datetime.datetime.now()
+    now = datetime.now()
 
     # 관심 appear들의 다가오는 이벤트를 한 쿼리셋으로 묶기; 방법이 구린거 같아서 추후 성능보고 좀더 고민 ㅠ.ㅠ
     appear_series = []
@@ -221,12 +231,12 @@ def myreward(request):
         gift = Gift.objects.get(pk=request.POST.get('gift'))
 
         # 교환권 요청 및 리워드 사용 히스토리 생성
-        GiftRequest.objects.create(user=user, gift=gift)
-        RewardHistory.objects.create(
+        history = RewardHistory.objects.create(
             user=user,
             reason=gift.name + ' 교환',
             amount=gift.price*(-1),
         )
+        GiftRequest.objects.create(user=user, gift=gift, history=history)
 
         return redirect(request.path)
 

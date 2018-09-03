@@ -1,0 +1,377 @@
+{% load static %}
+<style>
+@media (max-width: 768px) {
+  .modal-dialog {
+    margin: 0px auto 0px;
+  }
+  .modal-content {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 0px;
+  }
+  .modal-header {
+    display: block;
+    height: 60px;
+    padding: 12px 16px;
+    background-color: #bb213c;
+    border-radius: 0px;
+    text-align: center;
+  }
+  .modal-header > h3 {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0px;
+    margin-right: 8px;
+    font-family: '나눔바른고딕';
+    font-size: 16px;
+    color: #ffffff;
+    line-height: 36px;
+  }
+  .modal-header > h5 {
+    display: inline-block;
+    vertical-align: middle;
+    font-family: '나눔바른고딕L';
+    font-size: 12px;
+    color: #ffffff;
+    line-height: 36px;
+  }
+  .modal-header > .register_review {
+    height: 24px;
+    margin: 6px 0px;
+    padding: 0px 8px;
+    background-color: #bb123c;
+    border-radius: 2px;
+    border: solid 1px #ffffff;
+    float: right;
+    font-family: '나눔바른고딕';
+    font-size: 12px;
+    color: #ffffff;
+  }
+  .modal-header > .close {
+    padding: 14px 52px 14px 0px;
+    color: #fff;
+    font-size: 20px;
+    line-height: 32px;
+    text-shadow: none;
+    float: left;
+  }
+  .modal-body {
+    padding: 0px;
+  }
+  .modal-body > .modal-body-left {
+    width: 100%;
+  }
+  .seat_img_carousel {
+    width: 100%;
+  }
+  .seat_img_carousel img {
+    width: 100%;
+  }
+  .seat_img_carousel .carousel-item > div {
+    display: inline-block;
+    height: 24px;
+    padding: 0px 16px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    margin-left: 16px;
+    background-color: #bb213c;
+    color: #ffffff;
+    font-family: '나눔바른고딕L';
+    font-size: 12px;
+    text-align: center;
+    line-height: 24px;
+  }
+  .modal-body-left > p {
+    display: inline-block;
+    position: relative;
+    bottom: 40px;
+    margin: 0px;
+    margin-right: 16px;
+    font-family: '나눔바른고딕';
+    font-size: 12px;
+    color: rgba(38, 38, 38, 0.35);
+    line-height: 24px;
+    float: right;
+  }
+  .modal-body > .modal-body-right {
+    width: 100%;
+    height: 360px;
+    background-color: #f5f5f5;
+  }
+  .no-review {
+    padding-top: 160px;
+    color: rgba(38, 38, 38, 0.7);
+    text-align: center;
+  }
+}
+@media (min-width: 768px) {
+  .modal-dialog {
+    max-width: 920px;
+    height: 639px;
+    margin: 50px auto 0px;
+  }
+  .modal-content {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  .modal-header {
+    display: block;
+    height: 64px;
+    padding: 16px 24px;
+    background-color: #bb213c;
+  }
+  .modal-header > h3 {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0px;
+    margin-right: 16px;
+    font-family: '나눔바른고딕';
+    font-size: 24px;
+    color: #ffffff;
+    line-height: 32px;
+  }
+  .modal-header > h5 {
+    display: inline-block;
+    vertical-align: middle;
+    font-family: '나눔바른고딕L';
+    font-size: 16px;
+    color: #ffffff;
+    line-height: 32px;
+  }
+  .modal-header > .register_review {
+    width: 102px;
+    height: 32px;
+    margin-right: 20px;
+    background-color: #bb123c;
+    border-radius: 2px;
+    border: solid 1px #ffffff;
+    float: right;
+    font-family: '나눔바른고딕';
+    font-size: 12px;
+    color: #ffffff;
+  }
+  .modal-header > .close {
+    font-size: 28px;
+    color: #fff;
+    line-height: 32px;
+    text-shadow: none;
+    float: right;
+  }
+  .modal-body {
+    padding: 24px 24px 0px;
+  }
+  .modal-body > .modal-body-left {
+    width: 480px;
+    display: inline-block;
+  }
+  .seat_img_carousel {
+    width: 100%;
+    height: 360px;
+  }
+  .seat_img_carousel img {
+    width: 100%;
+  }
+  .seat_img_carousel .carousel-item > div {
+    display: inline-block;
+    height: 24px;
+    padding: 0px 16px;
+    margin-top: 16px;
+    margin-right: 8px;
+    background-color: #bb213c;
+    color: #ffffff;
+    font-family: '나눔바른고딕L';
+    font-size: 12px;
+    text-align: center;
+    line-height: 24px;
+  }
+  .modal-body-left > p {
+    display: inline-block;
+    margin: 0px;
+    margin-top: 16px;
+    font-family: '나눔바른고딕';
+    font-size: 12px;
+    color: rgba(38, 38, 38, 0.35);
+    float: right;
+  }
+  .modal-body > .modal-body-right {
+    width: 360px;
+    height: 526px;
+    display: inline-block;
+    margin-left: 32px;
+    float: right;
+  }
+  .no-review {
+    text-align: center;
+    color: rgba(38, 38, 38, 0.7);
+    padding-top: 100px;
+    border: solid 1px #e6e6e6;
+  }
+}
+</style>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>{{ seat.row }}열 {{ seat.name }}</h3> <h5 class="modal-title" id="exampleModalLabel">{{ seat.block.name }}블럭 &#183; {{ seat.level.name }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <i class="fas fa-times"></i>
+        </button>
+        <button class="register_review">리뷰등록</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-body-left">
+          <div id="seatCarousel" class="carousel slide seat_img_carousel" data-ride="carousel" data-interval="10000">
+            <div class="carousel-inner">
+              {% for img in seat.image_set.all %}
+                {% if forloop.first %}
+                <div class="carousel-item active">
+                  <img src="{{ img.img.url }}">
+                  {% for badge in img.badge_set.all %}
+                    <div style="background-color: {{ badge.color }}">{{ badge.name }}</div>
+                  {% endfor %}
+                </div>
+                {% else %}
+                <div class="carousel-item">
+                  <img src="{{ img.img.url }}">
+                  {% for badge in img.badge_set.all %}
+                    <div style="background-color: {{ badge.color }}">{{ badge.name }}</div>
+                  {% endfor %}
+                </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+
+            <a class="carousel-control-prev" href="#seatCarousel" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#seatCarousel" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+
+          </div>
+
+          <p>좌석뷰 {{ seat.image_set.count }}장 &#183; 리뷰 {{ seat.seatreview_set.count }}개</p>
+        </div>
+
+        {% if reviews %}
+        <div class="modal-body-right seat_review_section_body">
+          {% for review in reviews %}
+          <div class="seat_reviews">
+            <div class="reviews_header">
+              <div class="reviews_user_info">
+                {% if review.anony_name %}
+                <div class="reviews_user_pic" style="background-image: url({% static "img/anony.png" %}) "></div>
+                {% else %}
+                 {% if review.ticket.user.profile.img %}
+                  <div class="reviews_user_pic" style="background-image: url({{ review.ticket.user.profile.img.url }}) "></div>
+                  {% else %}
+                  <div class="reviews_user_pic" style="background-image: url({% static "img/anony.png" %}) "></div>
+                  {% endif %}
+                {% endif %}
+                <div class="reviews_user_profile">
+                  {% if review.anony_name %}
+                    <p>{{ review.anony_name }}</p>
+                  {% else %}
+                    <p>{{ review.ticket.user.profile.nick_name }}</p>
+                  {% endif %}
+                  <h4>{{ review.created_at|date:"Y년 m월 d일" }}</h4>
+                </div>
+              </div>
+              <div class="reviews_user_badge">
+                {% for badge in review.badge_set.all %}
+                  <div style="background-color: {{ badge.color }};">{{ badge.name }}</div>
+                {% endfor %}
+              </div>
+            </div>
+            <div class="reviews_rating_zone">
+              <div class="which_rating_in_review">
+                <p> 시야 </p>
+                <div class="review-rating" data-rating={{ review.view_star }}></div>
+              </div>
+              <div class="which_rating_in_review">
+                <p> 현장열기 </p>
+                <div class="review-rating" data-rating={{ review.real_star }}></div>
+              </div>
+            </div>
+
+            <div class="reviews_body">
+              {% if review.content %}
+              <p>{{ review.content }}</p>
+              <!-- <h4> 더보기 </h4> -->
+              {% endif %}
+            </div>
+            <div class="reviews_footer">
+              {% if user in review.thanked_set.all %}
+              <img id="fin"  src='https://s3.ap-northeast-2.amazonaws.com/enterest-s3/static/img/icon/thank_icon_fin.png' alt="" >
+              {% else %}
+              <img id="fin_yet" src='https://s3.ap-northeast-2.amazonaws.com/enterest-s3/static/img/icon/thank_icon.png' alt="" data-review={{ review.pk }} data-url={% url 'sharespot:review_thanks' %}>
+              <div class="thank_info">
+                <h4>이 리뷰가 도움이 되었다면 땡큐!</h4>
+                <p>정성스러운 리뷰에 땡큐를 눌러주세요. 땡큐를 누르시면 리뷰 작성자에게 0.5 티끌이 적립됩니다.</p>
+              </div>
+              <img id="fin" style="display: none;" src='https://s3.ap-northeast-2.amazonaws.com/enterest-s3/static/img/icon/thank_icon_fin.png' alt="" >
+              {% endif %}
+              <p>{{ review.count_thanked }}</p>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% else %}
+        <div class="modal-body-right no-review">
+          등록된 리뷰가 없습니다 ㅠ.ㅠ
+        </div>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+  <script>
+     $('#exampleModal').modal("show");
+     $(".review-rating").starRating({
+        strokeColor: '#ffca3a',
+        strokeWidth: 32,
+        starSize: 16,
+        hoverColor: '#ffca3a',
+        activeColor: '#ffca3a',
+        emptyColor: '#ffffff',
+        useGradient: false,
+        readOnly: true
+    });
+
+    $('.reviews_footer > img').mouseover(function() {
+        $(this).parent().find('.thank_info').attr('style', 'display: inline-block;');
+      })
+    $('.reviews_footer > img').mouseout(function() {
+      $(this).parent().find('.thank_info').attr('style', '');
+    })
+
+     $('.reviews_footer > img').click(function() {
+      if ($(this).attr('src')=='https://s3.ap-northeast-2.amazonaws.com/enterest-s3/static/img/icon/thank_icon.png') {
+        var self = $(this);
+        var url = self.data('url');
+        var review = self.data('review');
+        var seat = 'True';
+        var data = {
+          'review': review,
+          'seat': seat,
+        }
+        $.post(url, data)
+          .done(function(r) {
+            self.attr('style', 'display: none;');
+            self.parent().find('#fin').attr('style', '');
+            self.parent().find('p').text(r);
+          })
+      } else {
+        alert("이미 땡큐한 리뷰입니다 :)");
+      }
+    });
+  </script>
+</div>
+
+
+

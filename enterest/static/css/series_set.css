@@ -46,19 +46,21 @@
   .series_rating_reviews {
     margin: 8px 0;
   }
+  .jq-star-svg {
+      padding: 1px;
+      vertical-align: top;
+  }
   .series_rating_reviews > div {
-    width: 64px;
     height: 12px;
-    background-color: grey;
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: top;
   }
   .series_rating_reviews > h4 {
     font-family: "나눔바른고딕";
     font-size: 11px;
     display: inline-block;
-    vertical-align: middle;
-    margin: 0 0 0 8px;
+    vertical-align: top;
+    margin: 2px 0 0 4px;
   }
   .series_seat_info,
   .series_event_info {
@@ -122,23 +124,23 @@
     color: rgba(38, 38, 38, 0.7);
     margin: 0 0 12px 0;
   }
-  .series_rating_reviews {
-    margin-bottom: 20px;
+
+  .jq-star-svg {
+      padding: 1px;
+      vertical-align: top;
   }
   .series_rating_reviews > div {
-    width: 64px;
     height: 12px;
-    background-color: grey;
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: top;
     margin: 0 8px 0 0;
   }
   .series_rating_reviews > h4 {
     font-family: "나눔바른고딕";
     font-size: 12px;
     display: inline-block;
-    vertical-align: middle;
-    margin: 0 0 0 8px;
+    vertical-align: top;
+    margin: 1px 0 0 0;
   }
   .series_get_info {
     margin-top: 12px;

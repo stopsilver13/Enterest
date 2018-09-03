@@ -1,0 +1,4 @@
+<option value="">선택</option>
+{% for object in object_list %}
+  <option value="{{ object.pk|default:object }}">{{ object }}</option>
+{% endfor %}

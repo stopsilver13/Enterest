@@ -1,6 +1,8 @@
 from django.contrib import admin
 
 from accounts.models import (
+    Membership,
+    MembershipCard,
     Profile,
     UserReward,
     RewardHistory,
@@ -12,6 +14,9 @@ from accounts.models import (
     FAQCategory,
     FAQuestion,
 )
+
+admin.site.register(Membership)
+admin.site.register(MembershipCard)
 
 
 @admin.register(Profile)

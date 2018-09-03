@@ -52,7 +52,7 @@ class ThankMixinModel(models.Model):
         return self.thanked_set.filter(pk=user.pk).exists()
 
     def say_thank(self, user):
-        thanked_before = self.is_liked_by(user)
+        thanked_before = self.is_thanked_by(user)
         if thanked_before:
             return thanked_before
         else:
@@ -220,7 +220,7 @@ class Block(models.Model):
         level_list = all_seat.filter(block=self).values_list('level__pk', flat=True)
 
         if len(level_list) == 0:
-            main_level = series.seatlevel_set.get(name='미사용')
+            main_level = SeatLevel.objects.filter(name='미사용').first()
 
         else:
             main_level_pk = Counter(level_list).most_common(1)[0][0]
@@ -228,31 +228,32 @@ class Block(models.Model):
 
         return main_level
 
-    def get_block_color(self):
-        series = self.section.space.get_close_series()
-        all_seat = Seat.objects.none()
+    def get_text_x_coordinate(self):
+        all_coor = self.coordinate.split(' ')
+        x_coor = []
 
-        for level in series.seatlevel_set.all():
-            all_seat |= level.seat_set.all()
+        for coor in all_coor:
+            x_coor.append(float(coor.split(',')[0]))
 
-        level_list = all_seat.filter(block=self).values_list('level__pk', flat=True)
+        return sum(x_coor) / float(len(x_coor))
 
-        if len(level_list) == 0:
-            main_color = '#fff'  # 좌석이 없는 블럭 색: 일단 흰색으로
+    def get_text_y_coordinate(self):
+        all_coor = self.coordinate.split(' ')
+        y_coor = []
 
-        else:
-            main_level_pk = Counter(level_list).most_common(1)[0][0]
-            main_color = SeatLevel.objects.get(pk=main_level_pk).color
-        return main_color
+        for coor in all_coor:
+            y_coor.append(float(coor.split(',')[1]))
 
-    def get_space_view_count(self):
-        return SeatImg.objects.filter(seat__block__section__space=self).count()
+        return sum(y_coor) / float(len(y_coor))
 
-    def get_space_review(self):
-        return SeatReview.objects.filter(seat__block__section__space=self)
+    def get_block_view(self):
+        return SeatImg.objects.filter(seat__block=self)
 
-    def get_space_view_star(self):
-        avg_dict = SeatReview.objects.filter(seat__block__section__space=self).aggregate(models.Avg('view_star'))
+    def get_block_review(self):
+        return SeatReview.objects.filter(seat__block=self)
+
+    def get_block_view_star(self):
+        avg_dict = SeatReview.objects.filter(seat__block=self).aggregate(models.Avg('view_star'))
 
         if avg_dict['view_star__avg'] is None:
             return 0.0
@@ -262,11 +263,11 @@ class Block(models.Model):
     def get_view_star_num(self):
         star_num_list = []
         for i in range(1, 6):
-            star_num_list.append(SeatReview.objects.filter(seat__block__section__space=self, view_star=i).count())
+            star_num_list.append(SeatReview.objects.filter(seat__block=self, view_star=i).count())
         return star_num_list
 
-    def get_space_real_star(self):
-        avg_dict = SeatReview.objects.filter(seat__block__section__space=self).aggregate(models.Avg('real_star'))
+    def get_block_real_star(self):
+        avg_dict = SeatReview.objects.filter(seat__block=self).aggregate(models.Avg('real_star'))
 
         if avg_dict['real_star__avg'] is None:
             return 0.0
@@ -276,8 +277,21 @@ class Block(models.Model):
     def get_real_star_num(self):
         star_num_list = []
         for i in range(1, 6):
-            star_num_list.append(SeatReview.objects.filter(seat__block__section__space=self, real_star=i).count())
+            star_num_list.append(SeatReview.objects.filter(seat__block=self, real_star=i).count())
         return star_num_list
+
+    def get_cavas_viewbox(self):
+        max_col = Seat.objects.filter(block=self).aggregate(models.Max('col'))
+        max_x = max_col['col__max'] * 24
+        x_size = max(max_x, 696)-8
+
+        max_row = Seat.objects.filter(block=self).aggregate(models.Max('row'))
+        max_y = max_row['row__max'] * 24
+        y_size = max(max_y, 704)
+
+        viewbox_size = "0 0 {} {}".format(x_size, y_size)
+
+        return viewbox_size
 
 
 class SeatLevel(models.Model):
@@ -292,6 +306,9 @@ class SeatLevel(models.Model):
     def __str__(self):
         level_name = self.space.name + '-' + self.name
         return level_name
+
+    class Meta:
+        ordering = ('pk', )
 
 
 class Seat(models.Model):
@@ -308,12 +325,44 @@ class Seat(models.Model):
     height = models.PositiveSmallIntegerField(default=1)
 
     def __str__(self):
-        seat_name = self.block.name + '-' + self.name
+        seat_name = self.row_real + '-' + self.name
         return seat_name
+
+    def get_coordinate(self):
+        up_left_x = 24*(self.col-1)
+        up_left_y = 24*(self.row-1)
+
+        coordinate = str(up_left_x) + ',' + str(up_left_y) + ' ' + str(up_left_x+(16*self.width)+(8*(self.width-1))) + ',' + str(up_left_y) + ' ' + str(up_left_x+(16*self.width)+(8*(self.width-1))) + ',' + str(up_left_y+(16*self.height)+(8*(self.height-1))) + ' ' + str(up_left_x) + ',' + str(up_left_y+(16*self.height)+(8*(self.height-1)))
+        return coordinate
+
+    def get_seat_view(self):
+        return SeatImg.objects.filter(seat=self)
+
+    def get_seat_review(self):
+        return SeatReview.objects.filter(seat=self)
+
+    def get_seat_view_star(self):
+        avg_dict = SeatReview.objects.filter(seat=self).aggregate(models.Avg('view_star'))
+
+        if avg_dict['view_star__avg'] is None:
+            return 0.0
+        else:
+            return avg_dict['view_star__avg']
+
+    def get_space_real_star(self):
+        avg_dict = SeatReview.objects.filter(seat__block__section__space=self).aggregate(models.Avg('real_star'))
+
+        if avg_dict['real_star__avg'] is None:
+            return 0.0
+        else:
+            return avg_dict['real_star__avg']
+
+    class Meta:
+        ordering = ('row', 'name')
 
 
 def seat_img_name(instance, filename):
-    return '/'.join(['seat/img', instance.seat.block.section.space.place.name, instance.seat.block.section.space.name, instance.seat.block.section.name, instance.seat.block.name, instance.seat.name, filename])
+    return '/'.join(['Seat/img', instance.seat.block.section.space.place.name, instance.seat.block.section.space.name, instance.seat.block.section.name, instance.seat.block.name, instance.seat.name, filename])
 
 
 class SeatImg(models.Model):
@@ -361,6 +410,9 @@ class SeatImg(models.Model):
         if self.history:
             self.history.delete()
 
+    class Meta:
+        ordering = ('pk', )
+
 
 class SeatImgBadge(models.Model):
     name = models.CharField(max_length=10)
@@ -384,6 +436,13 @@ class Structure(models.Model):
     def __str__(self):
         structure_name = self.block.name + '-' + self.name
         return structure_name
+
+    def get_coordinate(self):
+        up_left_x = 24*(self.col-1)
+        up_left_y = 24*(self.row-1)
+
+        coordinate = str(up_left_x) + ',' + str(up_left_y) + ' ' + str(up_left_x+(16*self.width)+(8*(self.width-1))) + ',' + str(up_left_y) + ' ' + str(up_left_x+(16*self.width)+(8*(self.width-1))) + ',' + str(up_left_y+(16*self.height)+(8*(self.height-1))) + ' ' + str(up_left_x) + ',' + str(up_left_y+(16*self.height)+(8*(self.height-1)))
+        return coordinate
 
 
 # ### 이벤트/공연/경기 관련 모델 ### #
@@ -472,7 +531,7 @@ class Event(models.Model):
     appear_set = models.ManyToManyField('Appear')
 
     def __str__(self):
-        event_name = self.series.name + '-' + str(self.start.strftime("%Y. %m. %d."))
+        event_name = self.series.name + '-' + str(self.start.strftime("%Y.%m.%d."))
         return event_name
 
     def get_event_star(self):

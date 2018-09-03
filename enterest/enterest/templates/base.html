@@ -3,13 +3,37 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-124564625-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-124564625-1');
+  </script>
+
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="naver-site-verification" content="0de4a15439ad9b4b7f82afee15dd12c4a48bb1a5"/>
   <link rel="canonical" href="">
   <meta name="robots" content="follow">
-  <meta name="description" content="">
+  <meta name="description" content="잠실주경기장 등 콘서트 시야 제공">
+
+  <link rel="canonical" href="http://concertjango.com">
+  <meta name="robots" content="follow">
+  <meta name="description" content="잠실주경기장 등 콘서트 시야 제공">
+
+  {% block fb_share_meta %}
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="콘서트장고">
+  <meta property="og:description" content="잠실주경기장 등 콘서트 시야 제공">
+  <!-- <meta property="og:image" content="https://s3.ap-northeast-2.amazonaws.com/enterest-s3/static/img/logo/logo_simple.png"> -->
+
+  <meta property="og:url" content="http://concertjango.com">
+  <meta property="og:url" content="http://www.concertjango.com">
+  {% endblock %}
+  <link rel="icon" href="https://s3.ap-northeast-2.amazonaws.com/enterest-s3/static/img/logo/tab_logo.png">
 
   <link rel="stylesheet" href="{% static 'css/base.css' %}">
   <!-- font awesome -->
@@ -33,26 +57,51 @@
   <style>
     @font-face {
         font-family: "나눔바른고딕";
-          src: url("{% static "fonts/NanumBarunGothic.ttf" %}");
-        }
+        src: url("{% static 'fonts/NanumBarunGothic.ttf' %}");
+    }
     @font-face {
         font-family: "나눔바른고딕B";
-        src: url("{% static "fonts/NanumBarunGothicBold.ttf" %}");
+        src: url("{% static 'fonts/NanumBarunGothicBold.ttf' %}");
     }
     @font-face {
         font-family: "나눔바른고딕L";
-        src: url("{% static "fonts/NanumBarunGothicLight.ttf" %}");
+        src: url("{% static 'fonts/NanumBarunGothicLight.ttf' %}");
     }
     @media (max-width: 768px) {
         .hide_in_phone {
-            display: none;
+          display: none;
+        }
+        #loaderImage {
+          position: absolute;
+          top: 40%;
+          left: 35%;
+          z-index: 100;
         }
     }
     @media (min-width: 768px) {
         .hide_in_web {
-            display: none;
+          display: none;
+        }
+        #loaderImage {
+          position: absolute;
+          top: 40%;
+          left: 45%;
+          z-index: 100;
         }
     }
+
+    #loading {
+     width: 100%;
+     height: 100%;
+     top: 0px;
+     left: 0px;
+     position: fixed;
+     display: block;
+     opacity: 0.7;
+     background-color: #fff;
+     z-index: 99;
+     text-align: center; }
+
   </style>
 
   {% block head_extra %}
@@ -60,13 +109,15 @@
 
 </head>
 <body>
-  <div class="base_header hide_in_phone">
+  <div id="loading"><div id="loaderImage"></div></div>
+
+  <div class="base_header">
     <div class="base_header_wrapper">
       <div class="base_header_brand">
-        <a href="{% url "sharespot:main" %}"><img src="" alt="">
-        <p>ShareSpot</p></a>
+        <a href="{% url "sharespot:main" %}"><img src="{% static 'img/logo/logo.png' %}" alt="">
+        <!-- <p>ShareSpot</p> --></a>
       </div>
-      <form class="base_header_search">
+      <form class="base_header_search hide_in_phone">
         <input name="search" placeholder="&#xF002; &nbsp;&nbsp; 검색" style="font-family:Arial, FontAwesome">
       </form>
       <div class="base_header_right">
@@ -84,28 +135,29 @@
               {% endif %}
             {% else %}
               <p>{{ user.username }}</p>
+              <img src="{% static 'img/anony.png' %}" alt="">
             {% endif %}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="{% url "myticket" %}">내 티켓</a>
+            <!-- <a class="dropdown-item" href="{% url "myticket" %}">내 티켓</a> -->
             <a class="dropdown-item" href="{% url "mylike" %}">즐겨찾기</a>
-            <a class="dropdown-item" href="{% url "mywriting" %}">바로가기</a>
+            <!-- <a class="dropdown-item" href="{% url "mywriting" %}">바로가기</a> -->
             <a class="dropdown-item" href="{% url "myreward" %}">내 티끌</a>
             <a class="dropdown-item" href="{% url "myinfo" %}">내 정보</a>
-            <a class="dropdown-item" href="{% url "faqlist" %}">FAQ</a>
+            <!-- <a class="dropdown-item" href="{% url "faqlist" %}">FAQ</a> -->
             <a class="dropdown-item" href="{% url "logout" %}?next={{ request.path }}" style="color: rgba(0,0,0,0.54);">로그아웃</a>
           </div>
         </li>
 
         {% else %}
         <a class="base_header_nologin" href="{% url "login" %}?next={{ request.path }}">로그인</a>
-        <a class="base_header_nologin" href="{% url "signup" %}?next={{ request.path }}">회원가입</a>
+        <!-- <a class="base_header_nologin" href="{% url "signup" %}?next={{ request.path }}">회원가입</a> -->
         {% endif %}
       </div>
     </div>
   </div>
 
-  <div class="base_header hide_in_web">
+  <!-- <div class="base_header hide_in_web">
     <div class="base_header_wrapper">
 
       <div class="base_header_menu_bar"></div>
@@ -118,12 +170,88 @@
         <div></div>
       </div>
     </div>
-  </div>
+  </div> -->
   {% block content %}
   {% endblock %}
 
 
-  <div class="footer"></div>
+  <div class="footer">
+    <div class="footer_in">
+      <p><a href="mailto:yagujango@gmil.com">이메일</a> &nbsp;&nbsp; <a href="https://www.facebook.com/%EC%BD%98%EC%84%9C%ED%8A%B8%EC%9E%A5%EA%B3%A0-concertjango-716621542044122/">페이스북</a></p>
+      <p>주식회사 엔터레스트 &nbsp;&nbsp; 대표 : 정지은 &nbsp;&nbsp; 사업자등록번호 : 659-87-00856</p>
+      <p>Copyright&copy; 2018 CONCERTJANGO ALL RIGHTS RESERVED.</p>
+    </div>
+  </div>
+
+<script type="text/javascript">
+  $(window).on('load', function(){
+    $('#loading').hide();
+  });
+
+  var cSpeed=11;
+  var cWidth=128;
+  var cHeight=60;
+  var cTotalFrames=19;
+  var cFrameWidth=128;
+  var cImageSrc='{% static "img/icon/sprites.gif" %}';
+
+  var cImageTimeout=false;
+  var cIndex=0;
+  var cXpos=0;
+  var cPreloaderTimeout=false;
+  var SECONDS_BETWEEN_FRAMES=0;
+
+  function startAnimation(){
+
+    document.getElementById('loaderImage').style.backgroundImage='url('+cImageSrc+')';
+    document.getElementById('loaderImage').style.width=cWidth+'px';
+    document.getElementById('loaderImage').style.height=cHeight+'px';
+
+    //FPS = Math.round(100/(maxSpeed+2-speed));
+    FPS = Math.round(100/cSpeed);
+    SECONDS_BETWEEN_FRAMES = 1 / FPS;
+
+    cPreloaderTimeout=setTimeout('continueAnimation()', SECONDS_BETWEEN_FRAMES/1000);
+
+  }
+
+  function continueAnimation(){
+
+    cXpos += cFrameWidth;
+    //increase the index so we know which frame of our animation we are currently on
+    cIndex += 1;
+
+    //if our cIndex is higher than our total number of frames, we're at the end and should restart
+    if (cIndex >= cTotalFrames) {
+      cXpos =0;
+      cIndex=0;
+    }
+
+    if(document.getElementById('loaderImage'))
+      document.getElementById('loaderImage').style.backgroundPosition=(-cXpos)+'px 0';
+
+    cPreloaderTimeout=setTimeout('continueAnimation()', SECONDS_BETWEEN_FRAMES*1000);
+  }
+
+  function stopAnimation(){//stops animation
+    clearTimeout(cPreloaderTimeout);
+    cPreloaderTimeout=false;
+  }
+
+  function imageLoader(s, fun)//Pre-loads the sprites image
+  {
+    clearTimeout(cImageTimeout);
+    cImageTimeout=0;
+    genImage = new Image();
+    genImage.onload=function (){cImageTimeout=setTimeout(fun, 0)};
+    genImage.onerror=new Function('alert(\'Could not load the image\')');
+    genImage.src=s;
+  }
+
+  //The following code starts the animation
+  new imageLoader(cImageSrc, 'startAnimation()');
+</script>
+
 
 </body>
 </html>

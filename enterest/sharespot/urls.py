@@ -4,9 +4,14 @@ from django.conf.urls import url
 urlpatterns = [
     url(r'^$', views.main, name='main'),
     url(r'^register/review/$', views.register_review, name='register_review'),
+    url(r'^register/review/date/$', views.get_date_list, name='get_date_list'),
+    url(r'^register/review/time/$', views.get_time_list, name='get_time_list'),
+    url(r'^register/review/seat/$', views.get_seat_list, name='get_seat_list'),
+    url(r'^review/thanks/$', views.review_thanks, name='review_thanks'),
 
     url(r'^place/(?P<space>[\da-zA-Z-]+)/$', views.place_space, name='place_space'),
-    # 장소/좌석뷰 - 블럭
+    url(r'^place/(?P<space>[\da-zA-Z-]+)/block/$', views.place_space_block, name='place_space_block'),
+    url(r'^place/(?P<space>[\da-zA-Z-]+)/seat/$', views.place_space_seat, name='place_space_seat'),
     url(r'^place/(?P<space>[\da-zA-Z-]+)/like/$', views.space_like, name='space_like'),
     url(r'^place/(?P<space>[\da-zA-Z-]+)/basic/$', views.place_basic, name='place_basic'),
     url(r'^place/(?P<space>[\da-zA-Z-]+)/share/$', views.place_share, name='place_share'),

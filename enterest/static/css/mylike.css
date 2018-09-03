@@ -1,7 +1,10 @@
+#mylike_nav {
+  color: #262626 !important;
+  border-bottom: solid 2px #262626 !important;
+}
 @media (max-width:768px) {
   .user_scrap_content {
     width: 100%;
-    background-color: #f4f5f7;
   }
   .user_scrap_content_wrapper {
     width: 100%;
@@ -84,7 +87,6 @@
   .user_scrap_content {
     width: 100%;
     min-height: 800px;
-    background-color: #f4f5f7;
   }
   .user_scrap_content_wrapper {
     width: 1100px;

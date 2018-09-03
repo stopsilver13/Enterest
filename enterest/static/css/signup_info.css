@@ -144,6 +144,23 @@
     padding-left: 5.55%;
     padding-right: 5.55%;
   }
+  .select_ur_sex {
+    width: 100%;
+    height: 48px;
+    margin-top: 8px;
+  }
+  .select_ur_sex > div {
+    width: 50%;
+    border: solid 1px #eeeeee;
+    font-family: "나눔바른고딕";
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.38);
+    line-height: 48px;
+    text-align: center;
+    display: inline-block;
+    vertical-align: center;
+    float: left;
+  }
   .text_input {
     width: 100%;
     height: 48px;
@@ -176,6 +193,10 @@
   .go_signup {
     width: 100%;
     margin-bottom: 80px;
+  }
+  .selected_sex {
+    border: solid 1px #bb213c !important;
+    color: #000 !important;
   }
 }
 
@@ -233,6 +254,7 @@
     margin-bottom: 56px;
   }
   .selected_sex {
-    background-color: #b70000;
+    border: solid 1px #bb213c !important;
+    color: #000  !important;
   }
 }

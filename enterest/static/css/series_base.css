@@ -1,18 +1,16 @@
 @media (max-width:768px) {
   .series_title_zone {
     width: 100%;
-    min-width: 375px;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     background-color: grey;
     background-blend-mode: screen;
-    padding: 44px 0 20px;
   }
   .series_title_zone_wrapper {
-    width: 375px;
+    width: 100%;
     margin: 0 auto 0;
-    padding-left: 16px;
+    padding: 52px 0 20px 16px;
     background-image: linear-gradient(to right, rgba(26, 0, 4, 0.8), rgba(0, 0, 0, 0.5));
   }
   .series_title_zone_wrapper > p {
@@ -22,7 +20,7 @@
     margin: 0;
   }
   .series_title_zone_wrapper > p > i {
-    font-size: 16px;
+    font-size: 24px;
     margin-left: 12px;
   }
   .fas {

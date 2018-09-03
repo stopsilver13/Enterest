@@ -1,15 +1,26 @@
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.template.loader import render_to_string
 
 from accounts.forms import ImageUploadForm
+from accounts.models import RewardHistory
 
-from sharespot.models import Division, Place, Space, Series, Ticket, Emotion, EventReview, SeatReview, ShareInfoCategory, ShareInfo, ShareInfoImg, ShareInfoComment, TalkTopic, Talk
+from sharespot.forms import SeatImgUploadForm
+from sharespot.models import Division, Place, Space, Block, Seat, SeatImg, Series, Ticket, Emotion, EventReview, SeatReview, ShareInfoCategory, ShareInfo, ShareInfoImg, ShareInfoComment, TalkTopic, Talk
 
 import datetime
 import json
 import urllib.request
+
+
+def robots(request):
+    return render(request, 'sharespot/robots.txt')
+
+
+def sitemap(request):
+    return render(request, 'sharespot/sitemap.xml')
 
 
 def main(request):
@@ -17,7 +28,8 @@ def main(request):
     places = Place.objects.all()
 
     now = datetime.datetime.now()
-    series_all = Series.objects.filter(end__gte=now).order_by('start')
+    # series_all = Series.objects.filter(end__gte=now).order_by('start')
+    series_all = Series.objects.all()
 
     return render(request, 'sharespot/main.html', {
         'divisions': divisions,
@@ -39,45 +51,132 @@ def register_review(request):  # ?ticket_id=
     if request.method == 'POST':
         # TODO: 이미지 저장, 이미지/리뷰 리워드 지급
         user = request.user
-        event = request.POST.get('event')  # 추후수정
-        seat = request.POST.get('seat')  # 추후수정
-        total_star = request.POST.get('total_star')
-        view_star = request.POST.get('view_star')
-        real_star = request.POST.get('real_star')
-        anony_name = request.POST.get('anony_name').exists()
+        series_pk = request.POST.get('series')
+        series = Series.objects.get(pk=series_pk)
+        event_date = request.POST.get('date')
+        event_time = request.POST.get('time')
+        event = series.event_set.get(start=event_date+' '+event_time)
+        total_star = request.POST.get('rating_series')
+        event_content = request.POST.get('event_comment')
+        get_emotion_set = request.POST.get('emotion_set')
 
-        picked_emotions = request.POST.get('emotions').split(',')  # 추후수정; 문자열로 받아서 split 할 계획
-
-        ticket_exist = Ticket.objects.get(user=user, event_review__event=event).exists()
-
-        if ticket_exist:
-            ticket = Ticket.objects.get(user=user, event_review__event=event)
-            # TODO: ticket 정보 업데이트
-        else:
-            ticket = Ticket.objects.create(user=user)
-            event_review = EventReview.objects.create(
-                ticket=ticket,
-                event=event,
-                total_star=total_star,
+        if event_content != "":
+            event_reward = RewardHistory.objects.create(
+                user=user,
+                reason="{} 리뷰글 작성".format(series.name),
+                amount=5,
             )
-            for item in picked_emotions:
-                emotion = Emotion.objects.get(name=item)
+        else:
+            event_reward = None
+
+        emotion_set = get_emotion_set.split(',')
+
+        space_pk = request.POST.get('space')
+        space = Space.objects.get(pk=space_pk)
+        block_name = request.POST.get('block')
+        block = Block.objects.get(section__space=space, name=block_name)
+
+        all_seat = Seat.objects.none()
+
+        for level in series.seatlevel_set.all():
+            all_seat |= level.seat_set.all()
+
+        seat_pk = request.POST.get('seat')
+
+        seat = all_seat.get(block=block, pk=seat_pk)
+
+        view_star = request.POST.get('rating_view')
+        real_star = request.POST.get('rating_real')
+        seat_content = request.POST.get('seat_comment')
+
+        if seat_content != "":
+            seat_reward = RewardHistory.objects.create(
+                user=user,
+                reason="{} {} 리뷰글 작성".format(space.name, seat),
+                amount=5,
+            )
+        else:
+            seat_reward = None
+
+        # anony_name = request.POST.get('anony_name').exists()
+
+        ticket = Ticket.objects.create(user=user)
+
+        event_review = EventReview.objects.create(
+            ticket=ticket,
+            history=event_reward,
+            event=event,
+            total_star=total_star,
+            content=event_content,
+        )
+
+        seat_review = SeatReview.objects.create(
+            ticket=ticket,
+            history=seat_reward,
+            seat=seat,
+            view_star=view_star,
+            real_star=real_star,
+            content=seat_content,
+        )
+
+        event_review.save()
+        seat_review.save()
+
+        for item in emotion_set:
+            if item != '':
+                emotion = Emotion.objects.get(name=item.strip())
                 event_review.emotion_set.add(emotion)
 
-            event_review.save()
+        event_review.save()
+        seat_review.save()
 
-            seat_review = SeatReview.objects.create(
-                ticket=ticket,
+        form = SeatImgUploadForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            seat_img1 = SeatImg.objects.create(
                 seat=seat,
-                view_star=view_star,
-                real_star=real_star,
+                user=user,
+                history=seat_reward,
+                review=seat_review,
+                img=form.cleaned_data['image1'],
+                status=request.POST.get('img_option1'),
             )
+            seat_img1.history = RewardHistory.objects.create(
+                user=user,
+                reason="{} {} 좌석뷰 등록".format(space.name, seat),
+                amount=10,
+            )
+            seat_img1.save()
 
-            if anony_name.exists():  # 입력 닉네임 여부에 따라 리뷰 닉네임 여부 결정
-                event_review.nick_name = anony_name
-                seat_review.nick_name = anony_name
-                event_review.save()
-                seat_review.save()
+            if form.cleaned_data['image2']:
+                seat_img2 = SeatImg.objects.create(
+                    seat=seat,
+                    user=user,
+                    history=seat_reward,
+                    review=seat_review,
+                    img=form.cleaned_data['image2'],
+                    status=request.POST.get('img_option2'),
+                )
+                seat_img2.save()
+
+            if form.cleaned_data['image3']:
+                seat_img3 = SeatImg.objects.create(
+                    seat=seat,
+                    user=user,
+                    history=seat_reward,
+                    review=seat_review,
+                    img=form.cleaned_data['image3'],
+                    status=request.POST.get('img_option3'),
+                )
+                seat_img3.save()
+
+        # if anony_name.exists():
+        #     event_review.nick_name = anony_name
+        #     seat_review.nick_name = anony_name
+        #     event_review.save()
+        #     seat_review.save()
+
+        return redirect(request.GET.get('next', '/'))
 
     series_all = Series.objects.all()
     emotions = Emotion.objects.all()
@@ -91,6 +190,96 @@ def register_review(request):  # ?ticket_id=
 # 공연/경기가 입력되면 그 시리즈의 날짜 set과 해당 장소+그 장소의 블럭 받아오는 ajax
 # 공연/경기날짜가 입력되면 해당 공연과 시간 set 받아오는 ajax
 # 블럭 선택하면 그 블럭의 좌석 받아오는 ajax
+
+
+def get_date_list(request):
+    series_pk = request.GET.get('series_pk')
+    series = Series.objects.get(pk=series_pk)
+    data = series.event_set \
+        .extra(select={'datestr': "to_char(start, 'YYYY-MM-DD')"}) \
+        .values_list('datestr', flat=True) \
+        .distinct()
+
+    html = render_to_string('sharespot/option_list.html', {
+        'request': request,
+        'object_list': data,
+    })
+
+    space = series.space
+    blocks = Block.objects.filter(section__space=space) \
+        .values_list('name', flat=True) \
+        .distinct()
+
+    block_html = render_to_string('sharespot/option_list.html', {
+        'request': request,
+        'object_list': blocks,
+    })
+
+    return JsonResponse({
+        'html': html,
+        'space': space.name,
+        'space_pk': space.pk,
+        'block_html': block_html
+    })
+
+
+def get_time_list(request):
+    series_pk = request.GET.get('series_pk')
+    series = Series.objects.get(pk=series_pk)
+    series_date = request.GET.get('series_date')
+    data = series.event_set.filter(start__date=series_date) \
+        .extra(select={'datestr': "to_char(start, 'HH24:MI')"}) \
+        .values_list('datestr', flat=True) \
+        .distinct()
+
+    html = render_to_string('sharespot/option_list.html', {
+        'request': request,
+        'object_list': data,
+    })
+    return JsonResponse({
+        'html': html,
+    })
+
+
+def get_seat_list(request):
+    series_pk = request.GET.get('series_pk')
+    series = Series.objects.get(pk=series_pk)
+
+    space = request.GET.get('space')
+    space = Space.objects.get(pk=space)
+    block = request.GET.get('block')
+    block = Block.objects.get(section__space=space, name=block)
+
+    all_seat = Seat.objects.none()
+
+    for level in series.seatlevel_set.all():
+        all_seat |= level.seat_set.filter(block=block)
+
+    data = all_seat.distinct()
+
+    html = render_to_string('sharespot/option_list.html', {
+        'request': request,
+        'object_list': data,
+    })
+    return JsonResponse({
+        'html': html,
+    })
+
+
+def review_thanks(request):
+    user = request.user
+    review_pk = request.POST.get('review')
+
+    if 'seat' in request.POST:
+        review = SeatReview.objects.get(pk=review_pk)
+    elif 'event' in request.POST:
+        review = EventReview.objects.get(pk=review_pk)
+    else:
+        pass
+
+    review.say_thank(user)
+
+    return HttpResponse(review.count_thanked())
 
 
 def space_like(request, space):
@@ -114,7 +303,9 @@ def place_basic(request, space):
     })
 
 
+@login_required
 def place_space(request, space):
+    user = request.user
     space = Space.objects.get(en_name=space)
     place = space.place
     if 'series' in request.GET:
@@ -124,6 +315,7 @@ def place_space(request, space):
     reviews = space.get_space_review().filter(is_confirmed=True)
 
     return render(request, 'sharespot/place_space.html', {
+        'user': user,
         'place': place,
         'space': space,
         'close_series': close_series,
@@ -131,6 +323,68 @@ def place_space(request, space):
     })
 
 
+def place_space_block(request, space):
+    user = request.user
+    space = Space.objects.get(en_name=space)
+
+    if request.method == 'POST':
+        block_pk = request.POST.get('pk')
+        block = Block.objects.get(pk=block_pk)
+        series_pk = request.POST.get('series_pk')
+        series = Series.objects.get(pk=series_pk)
+        all_seat = Seat.objects.none()
+
+        for level in series.seatlevel_set.all():
+            all_seat |= level.seat_set.all()
+
+        all_seat = all_seat.all().filter(block=block)
+
+        html = render_to_string('sharespot/place_space_block.html', {
+            'request': request,
+            'space': space,
+            'block': block,
+            'all_seat': all_seat,
+        })
+
+        reviews = block.get_block_review().filter(is_confirmed=True)
+
+        info_html = render_to_string('sharespot/place_space_block_info.html', {
+            'request': request,
+            'user': user,
+            'block': block,
+            'reviews': reviews,
+        })
+
+        return JsonResponse({
+            'html': html,
+            'info_html': info_html,
+        })
+    return render(request)
+
+
+def place_space_seat(request, space):
+    user = request.user
+    space = Space.objects.get(en_name=space)
+
+    if request.method == 'POST':
+        seat_pk = request.POST.get('pk')
+        seat = Seat.objects.get(pk=seat_pk)
+        reviews = SeatReview.objects.filter(seat=seat)
+
+        html = render_to_string('sharespot/place_space_seat.html', {
+            'request': request,
+            'user': user,
+            'seat': seat,
+            'reviews': reviews,
+        })
+
+        return JsonResponse({
+            'html': html,
+        })
+    return render(request)
+
+
+@login_required
 def place_share(request, space):
     user = request.user
     space = Space.objects.get(en_name=space)

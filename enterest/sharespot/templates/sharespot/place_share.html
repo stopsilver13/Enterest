@@ -62,14 +62,17 @@
       <div class="posting_zone">
         <div class="posting_zone_nav">
           <div class="posting_zone_nav_compenent selected"> 전체 </div>
-          {% for category in share_category %}
+          <!-- {% for category in share_category %}
             <div class="posting_zone_nav_compenent"> {{ category.name }} </div>
-          {% endfor %}
+          {% endfor %} -->
         </div>
-
-        {% for info in share_info %}
-          {% include 'sharespot/place_share_info.html' with user=user info=info %}
-        {% endfor %}
+        {% if share_info %}
+          {% for info in share_info %}
+            {% include 'sharespot/place_share_info.html' with user=user info=info %}
+          {% endfor %}
+        {% else %}
+            <div class="no_share"> 등록된 주변 정보가 없습니다. <br> {{ place.name }} 주변의 먹거리, 놀거리 등 꿀팁을 공유해주세요! </div>
+        {% endif %}
       </div>
     </div>
   </div>

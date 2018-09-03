@@ -1,0 +1,62 @@
+<div class="block_map">
+  <div class="block_map_upper">
+    <div class="go_place_map"><i class="fas fa-arrow-left"></i> &nbsp; 전체 배치도</div><p>색칠된 좌석을 클릭하시면 좌석별 뷰/리뷰를 보실 수 있습니다.</p>
+    <div class="block_map_index">
+      <div class="index_rect" style="background-color: #cccccc;"></div>
+      <p class="no_evaluate">정보없음</p>
+      <div class="index_rect" style="background-color: #995d81;"></div>
+      <p class="no_evaluate">좌석뷰 있음</p>
+      <!-- <p><i class="far fa-frown"></i></p>
+      <div class="index_rect" style="background-color: #f78154;"></div>
+      <div class="index_rect" style="background-color: #f2c14e;"></div>
+      <div class="index_rect" style="background-color: #a1cf6b;"></div>
+      <div class="index_rect" style="background-color: #5fad56;"></div>
+      <p><i class="far fa-smile"></i></p> -->
+    </div>
+  </div>
+  <div class="block_map_lower">
+    <svg style="width: 100%;" viewBox="{{ block.get_cavas_viewbox }}" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      {% for seat in all_seat %}
+      <polygon points="{{ seat.get_coordinate }}" {% if seat.image_set.exists %} class="exist_info" fill="#995d81"  onmouseover="this.style.fill='red'" onmouseout="this.style.fill=''" {% else %} fill="#cccccc" {% endif %} data-url="{% url "sharespot:place_space_seat" space.en_name %}" data-pk="{{ seat.pk }}"></polygon>
+      {% endfor %}
+      {% for structure in block.structure_set.all %}
+      <polygon points="{{ structure.get_coordinate }}" style="stroke:#cccccc;stroke-width:1;" fill="#fff"></polygon>
+      {% endfor %}
+    </svg>
+  </div>
+
+  <script>
+  (function(){
+    $('.block_map').find('.exist_info').click(function(){
+      var url = $(this).data('url');
+      var pk = $(this).data('pk');
+      var data = {
+        'pk': pk,
+      };
+
+      $.post(url, data)
+        .done(function(r) {
+          var event = $.Event('place_space_seat');
+          event.html = r.html;
+          $(document).trigger(event);
+        });
+    });
+
+    $(document).on('place_space_seat', function(e) {
+      $('.modal').remove();
+      $('.modal-backdrop').remove();
+      $('.place_map_section').append(e.html);
+    });
+
+
+    $('.go_place_map').click(function(){
+      $('.block_map').remove();
+      $('.place_map_section').find('.place_map').attr('style', '');
+
+      $('.block_rating_section').remove();
+      $('.block_review_section').remove();
+      $('.place_info_section').children().attr('style', '');
+    })
+  })();
+  </script>
+</div>

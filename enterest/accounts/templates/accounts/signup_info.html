@@ -84,7 +84,7 @@
         <h class="year_month_day">일</h>
       </div>
     </div>
-    <div class="user_interest">
+    <!-- <div class="user_interest">
       <p> 관심태그 </p>
       <h4>혹시 찾으시는 관심태그가 없으시다면, 문의를 통해 말씀해주시면 바로 등록해드리도록 하겠습니다 :-) </h4>
       <div class="user_interest_wrapper">
@@ -97,10 +97,10 @@
           <div class="selected_interest"> 기아 타이거즈 <i class="fas fa-times"></i></div>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="user_phone">
       <p class="section_title"> 휴대폰 번호 </p>
-      <input type="tel" name="phone" placeholder="01012341234">
+      <input type="tel" name="phone" placeholder="01012341234" required>
     </div>
     <button class="go_signup">회원가입</button>
   </div>
@@ -111,14 +111,14 @@
 </div>
 
 <script>
-  var social_auto_sex = $('.select_ur_sex').find('input').val();
-  $('.select_ur_sex').find('div#'+social_auto_sex).addClass('selected_sex');
-
   $('.select_ur_sex > div').click(function() {
     var selected_sex = $(this).attr('id');
     $(this).siblings('input').val(selected_sex);
     $(this).addClass('selected_sex');
     $(this).siblings('div').removeClass('selected_sex');
   })
+
+  var social_auto_sex = $('.select_ur_sex').find('input').val();
+  $('.select_ur_sex').find('div#'+social_auto_sex).addClass('selected_sex');
 </script>
 {% endblock %}

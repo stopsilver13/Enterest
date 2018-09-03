@@ -11,6 +11,9 @@
 <link href="{% static 'css/fullcalendar.min.css' %}" rel='stylesheet' />
 <link href="{% static 'css/fullcalendar.print.min.css' %}" rel='stylesheet' media='print' />
 <link rel="stylesheet" type="text/css" href="{% static 'css/series_basic.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/star-rating-svg.css' %}">
+
+<script src="{% static 'js/jquery.star-rating-svg.js' %}"></script>
 <script src="{% static 'js/moment.min.js' %}"></script>
 <script src="{% static 'js/fullcalendar.min.js' %}"></script>
 <script src="{% static 'js/jquery.rwdImageMaps.min.js' %}"></script>
@@ -49,11 +52,11 @@
       listDayAltFormat: false,
       monthNames: [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월' ],
       dayNames: [ '일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일' ],
-      dayNamesShort: [ '일', '월', '화', '수', '목', '금', '토' ],
+      dayNamesShort: [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ],
       buttonText: {
         today:    '오늘',
-        month:    '월별보기',
-        list:     '목록보기'
+        month:    '월별',
+        list:     '목록'
       },
       timeFormat: 'H:mm',
       navLinks: true, // can click day/week names to navigate views
@@ -77,7 +80,7 @@
     <div class="event_content_wrapper">
       <div class="event_introduction">
         <div class="event_intro_text">
-          <p>“ {{ series.intro_title }} ”</p>
+          <p>{{ series.intro_title }}</p>
           <h4>
             {% for words in series.split_intro_content %}
               {{ words }} <br>
@@ -124,11 +127,6 @@
       <div class="event_time_place">
         <div class="event_time">
           <p> 날짜 및 시간 </p>
-          <!-- <div>
-            {% for event in series.event_set.all %}
-              {{ event.start }}
-            {% endfor %}
-          </div> -->
           <div id='calendar'></div>
         </div>
         <div class="event_place">
@@ -141,11 +139,11 @@
               <div class="e_place_rating">
                 <div class="e_place_view_rating">
                   <label>시야</label>
-                  <div>{{ series.space.get_space_view_star }}</div>
+                  <div class="space-rating" data-rating={{ series.space.get_space_view_star }}></div>
                 </div>
                 <div class="e_place_excitement_rating">
                   <label>현장열기</label>
-                  <div>{{ series.space.get_space_real_star }}</div>
+                  <div class="space-rating" data-rating={{ series.space.get_space_real_star }}></div>
                 </div>
               </div>
               <div class="e_place_review">
@@ -217,6 +215,17 @@
 
 
 <script>
+
+  $(".space-rating").starRating({
+        strokeColor: '#ffca3a',
+        strokeWidth: 32,
+        starSize: 14,
+        hoverColor: '#ffca3a',
+        activeColor: '#ffca3a',
+        emptyColor: '#ffffff',
+        useGradient: false,
+        readOnly: true
+    });
 $(document).ready(function(){
   // 캐러셀
   $('.carousel').carousel({

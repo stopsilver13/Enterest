@@ -19,8 +19,12 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.shortcuts import redirect
 
+from sharespot import views as sharespot_views
+
 urlpatterns = [
     url(r'^$', lambda request: redirect('sharespot:main')),
+    url(r'^robots.txt$', sharespot_views.robots),
+    url(r'^sitemap.xml$', sharespot_views.sitemap),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('accounts.urls')),
     url(r'^accounts/', include('allauth.urls')),

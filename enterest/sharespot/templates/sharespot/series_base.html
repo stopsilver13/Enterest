@@ -14,7 +14,7 @@
 <div class="content">
   <div class="series_title_zone" style="background-image: url({{ series.image_set.first.img.url }})">
     <div class="series_title_zone_wrapper">
-      <p>[{{ series.division.name }}] {{ series.name }}<i class="{% if user in series.liker_set.all %}fas{% else %}far{% endif %} fa-star" data-url="{% url 'sharespot:series_like' series.en_name %}"></i></p>
+      <p>{{ series.name }}<i class="{% if user in series.liker_set.all %}fas{% else %}far{% endif %} fa-star" data-url="{% url 'sharespot:series_like' series.en_name %}"></i></p>
     </div>
   </div>
 

@@ -54,6 +54,34 @@ class SeatImgInline(admin.StackedInline):
     max_num = 5
 
 
+class EventReviewInline(admin.StackedInline):
+    model = EventReview
+    fieldsets = (
+        (None, {
+            'fields': (
+                'ticket',
+                'history',
+                ('event', 'total_star', 'content'),
+                ('emotion_set', 'badge_set', 'anony_name', 'is_confirmed'),
+            ),
+        }),
+    )
+
+
+class SeatReviewInline(admin.StackedInline):
+    model = SeatReview
+    fieldsets = (
+        (None, {
+            'fields': (
+                'ticket',
+                'history',
+                ('seat', 'view_star', 'real_star', 'content'),
+                ('badge_set', 'anony_name', 'is_confirmed'),
+            ),
+        }),
+    )
+
+
 @admin.register(Place)
 class PlaceAdmin(admin.ModelAdmin):
     list_display = ['name', 'en_name', 'lat_lon']
@@ -91,14 +119,14 @@ class SeatLevelAdmin(admin.ModelAdmin):
 @admin.register(Seat)
 class SeatAdmin(admin.ModelAdmin):
     inlines = [SeatImgInline]
-    list_display = ['block', 'level', 'name']
+    list_display = ['block', 'level', 'row_real', 'name']
     list_display_link = ['name']
     list_filter = ['block__section__space']
 
 
 @admin.register(SeatImg)
 class SeatImgAdmin(admin.ModelAdmin):
-    list_display = ['seat', 'user', 'status', 'is_confirmed']
+    list_display = ['seat', 'user', 'status', 'img', 'is_confirmed']
     list_display_link = ['seat', 'user']
     list_editable = ['is_confirmed']
     list_filter = ['seat__block__section__space', 'is_confirmed']
@@ -109,7 +137,7 @@ admin.site.register(SeatImgBadge)
 
 @admin.register(Structure)
 class StructureAdmin(admin.ModelAdmin):
-    list_display = ['block', 'name']
+    list_display = ['block', 'row', 'col', 'name']
     list_display_link = ['name']
     list_filter = ['block__section__space']
 
@@ -140,6 +168,7 @@ class AppearAdmin(admin.ModelAdmin):
 
 @admin.register(Ticket)
 class TicketAdmin(admin.ModelAdmin):
+    inlines = [EventReviewInline, SeatReviewInline]
     list_display = ['user', 'created_at', 'updated_at']
 
 

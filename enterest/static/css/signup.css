@@ -138,6 +138,13 @@
   background-color: #fff;
   border: none;
 }
+.signup_content p.unmatch {
+  padding: 8px;
+  color: #d0021b;
+  font-family: "나눔바른고딕";
+  font-size: 11px;
+  text-align: right;
+}
 
 @media(max-width: 768px) {
   .signup_title {

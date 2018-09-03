@@ -32,6 +32,8 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '.ap-northeast-2.compute.amazonaws.com',
+    '.concertjango.com',
+    '.naver.com',
 ]
 
 
@@ -149,13 +151,13 @@ SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -168,7 +170,7 @@ STATICFILES_DIRS = [
     STATIC_DIR,
 ]
 
-STATIC_ROOT = os.path.join(ROOT_DIR, 'static')
+STATIC_ROOT = os.path.join(ROOT_DIR, 'staticfiles')
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -187,3 +189,5 @@ config_secret = json.loads(open(CONFIG_SETTINGS_COMMON_FILE).read())
 AWS_ACCESS_KEY_ID = config_secret['aws']['access_key_id']
 AWS_SECRET_ACCESS_KEY = config_secret['aws']['secret_access_key']
 AWS_STORAGE_BUCKET_NAME = config_secret['aws']['s3_bucket_name']
+AWS_S3_HOST = 's3.ap-northeast-2.amazonaws.com'
+AWS_QUERYSTRING_AUTH = False

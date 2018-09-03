@@ -8,103 +8,536 @@
 
 {% block head_extra %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/register_review.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/star-rating-svg.css' %}">
+
+<script src="{% static 'js/jquery.star-rating-svg.js' %}"></script>
+
+<style>
+  @media (max-width: 768px) {
+    .modal-dialog {
+      max-width: 100%;
+      height: 334px;
+      margin: 80px auto 0px;
+    }
+    .modal-content {
+      width: 344px;
+      height: 100%;
+      border-radius: 0px;
+      margin: auto;
+    }
+    .modal-header {
+      display: block;
+      height: 60px;
+      padding: 12px 16px;
+      border-bottom: solid 2px #f18f01;
+    }
+    .modal-header > h5 {
+      display: inline-block;
+      font-size: 12px;
+      font-family: '나눔바른고딕';
+    }
+    .modal-header > div {
+      width: 62px;
+      height: 34px;
+      border: none;
+      border-radius: 2px;
+      background-color: #f18f01;
+      line-height: 34px;
+      text-align: center;
+      font-size: 10px;
+      float: right;
+      color: #ffffff;
+      cursor: pointer;
+    }
+    .modal-body {
+      height: 272px;
+      padding: 0px;
+      overflow: auto;
+    }
+    .modal-body > div {
+      display: inline-block;
+      width: 171px;
+      height: 32px;
+      line-height: 32px;
+      font-size: 12px;
+      font-family: '나눔바른고딕';
+      text-align: center;
+      color: rgba(38, 38, 38, 0.7);
+    }
+    .modal-body > div.add_emotion {
+      color: #f18f01;
+    }
+    .modal-body > div.add_emotion:hover {
+      background-color: #ffffff;
+    }
+    .modal-body > div.selected {
+      border: solid 1px #f18f10;
+    }
+  }
+  @media (min-width: 768px) {
+    .modal-dialog {
+      max-width: 482px;
+      height: 306px;
+      margin: 148px auto 0px;
+    }
+    .modal-content {
+      width: 100%;
+      height: 100%;
+      border-radius: 0px;
+    }
+    .modal-header {
+      display: block;
+      height: 34px;
+      padding: 4px 8px;
+      border-bottom: solid 2px #f18f01;
+    }
+    .modal-header > h5 {
+      display: inline-block;
+      font-size: 12px;
+      font-family: '나눔바른고딕';
+      line-height: 24px;
+    }
+    .modal-header > div {
+      width: 62px;
+      height: 24px;
+      border: none;
+      border-radius: 2px;
+      background-color: #f18f01;
+      line-height: 24px;
+      text-align: center;
+      font-size: 10px;
+      float: right;
+      color: #ffffff;
+      cursor: pointer;
+    }
+    .modal-body {
+      height: 272px;
+      padding: 0px;
+      overflow: auto;
+    }
+    .modal-body > div {
+      display: inline-block;
+      width: 160px;
+      height: 32px;
+      line-height: 32px;
+      font-size: 12px;
+      font-family: '나눔바른고딕';
+      text-align: center;
+      color: rgba(38, 38, 38, 0.7);
+    }
+    .modal-body > div:hover {
+      background-color: #f5f5f5;
+    }
+    .modal-body > div.add_emotion {
+      color: #f18f01;
+    }
+    .modal-body > div.add_emotion:hover {
+      background-color: #ffffff;
+    }
+    .modal-body > div.selected {
+      border: solid 1px #f18f10;
+    }
+  }
+</style>
+
 {% endblock %}
 
 {% block content %}
+<script>
+  function preview_image1(event) {
+    var reader = new FileReader();
+    reader.onload = function() {
+      var output = document.getElementById('output_img1');
+      output.style = "background-image: url("+reader.result+")";
+    }
+    reader.readAsDataURL(event.target.files[0]);
+  }
+  function preview_image2(event) {
+    var reader = new FileReader();
+    reader.onload = function() {
+      var output = document.getElementById('output_img2');
+      output.style = "background-image: url("+reader.result+")";
+    }
+    reader.readAsDataURL(event.target.files[0]);
+  }
+  function preview_image3(event) {
+    var reader = new FileReader();
+    reader.onload = function() {
+      var output = document.getElementById('output_img3');
+      output.style = "background-image: url("+reader.result+")";
+    }
+    reader.readAsDataURL(event.target.files[0]);
+  }
+</script>
 
 <div class="content">
-  <div class="register_review_title_zone">
-    <div class="register_review_title_zone_wrapper">
-      <p>리뷰/사진등록</p>
-    </div>
-  </div>
-
-  <div class="register_review_banner">
-  </div>
-
-  <div class="register_review_content">
-    <div class="event_review">
-      <p> 공연/경기 </p>
-      <div class="ur_event_info">
-        <div class="select_event">
-          <p class="label"> 공연/경기 정보 </p>
-          <select></select>
-        </div>
-        <div class="select_event_time">
-          <p class="label"> 방문날짜 </p>
-          <select></select>
-        </div>
-      </div>
-      <div class="ur_event_evaluation">
-        <div class="ur_event_rating">
-          <p class="label"> 종합평가 </p>
-          <div></div>
-        </div>
-        <textarea class="ur_event_comment" placeholder="공연에 대한 후기, 구성 등 자유롭게 적어주세요!" style="resize:none;"></textarea>
-      </div>
-      <div class="ur_event_emotion">
-        <p class="label">감정태그</p>
-        <div class="event_emotion_wrapper">
-          <button>입력</button>
-          <div class="selected_emotion_zone">
-            <div class="selected_emotion"> 소름끼치는 <i class="fas fa-times"></i></div>
-            <div class="selected_emotion"> 기분이 묘한 <i class="fas fa-times"></i></div>
-            <div class="selected_emotion"> 이거 유저가 추가 가능함? <i class="fas fa-times"></i></div>
-            <div class="selected_emotion"> 말도 안되는 <i class="fas fa-times"></i></div>
-            <div class="selected_emotion"> 온몸에 전율이 흐르는 <i class="fas fa-times"></i></div>
-          </div>
-        </div>
+  <form actin="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="register_review_title_zone">
+      <div class="register_review_title_zone_wrapper">
+        <i class="fas fa-times hide_in_web"></i>
+        <p>리뷰 &#183; 티켓 등록</p>
+        <input class="hide_in_web" type="submit" value="등록">
       </div>
     </div>
 
+    <!-- <div class="register_review_banner">
+    </div> -->
 
-    <div class="seat_review">
-      <p> 좌석 정보/평가 </p>
-      <div class="ur_seat_info">
-        <div class="select_place">
-          <p class="label"> 장소 </p>
-          <select></select>
+    <div class="register_review_content">
+      <div class="register_review_right">
+        <div class="will_get_tickle">
+          <img src="{% static 'img/icon/thank_icon.png' %}" alt="">
+          모두 작성 시 <span>20</span> 티끌 적립 예정
+          <p>조금만 더 화이팅!</p>
         </div>
-        <div class="select_block_and_seat">
-          <div class="select_block">
-            <p class="label"> 블럭 </p>
-            <select></select>
+        <div class="tickle_info_intro hide_in_web"> 티끌이란? <i class="fas fa-angle-right"></i></div>
+        <div class="tickle_info">
+          <div class="what_is_tickle">
+            <h3>티끌이란?</h3>
+            <p>콘서트고 활동을 통해 얻을 수 있는 <strong>리워드</strong>로 <br> 티끌샵에서 현금처럼 사용하실 수 있습니다.</p>
           </div>
-          <div class="select_seat">
-            <p class="label"> (열)-좌석 </p>
-            <select></select>
+          <div class="how_to_get">
+            <h3>티끌은 어떻게 모을 수 있나요?</h3>
+            <img src="{% static 'img/icon/thank_icon.png' %}" alt="">
+            <div>
+              <h5>공연/경기를 보고 오셨나요?</h5>
+              <p>리뷰 등록 시 최대 <img src="{% static 'img/icon/single_tickle.png' %}" alt="">20</p>
+            </div><br>
+            <img src="{% static 'img/icon/thank_icon.png' %}" alt="">
+            <div>
+              <h5>함께하는 콘서트고</h5>
+              <p>친구 초대 시 <img src="{% static 'img/icon/single_tickle.png' %}" alt="">10</p>
+            </div><br>
+            <img src="{% static 'img/icon/thank_icon.png' %}" alt="">
+            <div>
+              <h5>내 리뷰가 도움이 되었네요!</h5>
+              <p>1 땡큐 당 <img src="{% static 'img/icon/single_tickle.png' %}" alt="">0.5</p>
+            </div>
+          </div>
+          <div class="tickle_result">
+            <h3>티끌모아 태산!</h3>
+            <img src="{% static 'img/icon/tickle_to_reward.png' %}" alt="">
+            <p>열심히 모으신 티끌은 <br> 티끌샵에서 <strong>기프티콘</strong>으로 교환하세요!</p>
           </div>
         </div>
       </div>
 
-      <div class="seat_view_pic">
-      </div>
-
-      <div class="ur_seat_evaluation">
-        <div class="ur_seat_rating">
-          <div class="view_rating">
-            <p class="label"> 시야 </p>
-            <div></div>
+      <div class="register_review_left">
+        <div class="event_review">
+          <p> 공연/경기 </p>
+          <div class="ur_event_info">
+            <div class="select_event">
+              <p class="label"> 공연/경기 정보 </p>
+              <select name="series" data-url="{% url 'sharespot:get_date_list' %}" required>
+                <option value="">선택</option>
+                {% for series in series_all %}
+                <option value="{{ series.pk }}">{{ series.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="select_event_time">
+              <p class="label"> 방문날짜 </p>
+              <select id="date" name="date" data-url="{% url 'sharespot:get_time_list' %}" required></select>
+              <select id="time" name="time" required></select>
+            </div>
           </div>
-          <div class="excitement_rating">
-            <p class="label"> 현장열기 </p>
-            <div></div>
+          <div class="ur_event_evaluation">
+            <div class="ur_event_rating">
+              <p class="label"> 종합평가 </p>
+              <div class="rating_series"></div>
+              <input type="hidden" name="rating_series" id="clicked_rating_series">
+              <div class="howmuch_tickle">
+                <img src="{% static 'img/icon/single_tickle.png' %}" alt="">
+                5 적립
+              </div>
+            </div>
+            <textarea class="ur_event_comment" name="event_comment" placeholder="[선택] 공연에 대한 느낌, 구성 등 후기를 자유롭게 적어주세요!" style="resize:none;"></textarea>
+          </div>
+          <div class="ur_event_emotion">
+            <p class="label">[선택] 감정태그</p>
+            <div class="event_emotion_wrapper">
+              <button type="button" class="btn" data-toggle="modal" data-target="#exampleModalLong">
+                선택
+              </button>
+
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLongTitle">선택하실 감정태그를 <strong>모두</strong> 누르신 후<br class="hide_in_web">완료 버튼을 눌러주세요.</h5>
+                      <div data-dismiss="modal" aria-label="Close">완료</div>
+                      <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button> -->
+                    </div>
+                    <div class="modal-body">
+                      <div class="add_emotion"><i class="fas fa-plus"></i> &nbsp;&nbsp; 새 태그 추가하기
+                      {% for e in emotions %}
+                        </div><div>{{ e.name }}
+                      {% endfor %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="selected_emotion_zone"></div>
+              <input type="text" id="emotion_set" name="emotion_set" style="display: none;">
+            </div>
           </div>
         </div>
-        <textarea class="ur_seat_comment" placeholder="좌석에 대한 간단한 리뷰, 꿀팁 등 자유롭게 적어주세요!" style="resize:none;"></textarea>
+
+
+        <div class="seat_review">
+          <p> 좌석 정보/평가 </p>
+          <div class="ur_seat_info">
+            <div class="select_place">
+              <p class="label"> 장소 </p>
+              <select id="space" name="space" required></select>
+            </div>
+            <div class="select_block">
+              <p class="label"> 블럭 </p>
+              <select id="block" name="block" data-url="{% url 'sharespot:get_seat_list' %}" required></select>
+            </div>
+            <div class="select_seat">
+              <p class="label"> 열-좌석 </p>
+              <select id="seat" name="seat" required></select>
+            </div>
+
+            <div class="standing_inform">
+              <ul>
+                <li>스탠딩은 매번 바뀌므로 콘서트장고 표준 구역을 사용합니다.</li>
+                <li>다음 표준 구역 그림을 참고하셔서 <span>촬영한 위치와 가장 유사한 위치의 블럭</span>을 골라주시면 됩니다.</li>
+              </ul>
+            </div>
+            <img src="{% static 'img/standing_sample.png' %}" alt="">
+          </div>
+
+          <div class="ur_seat_img">
+            <p class="label">[선택] 좌석뷰</p>
+            <div class="howmuch_tickle">
+              <img src="{% static 'img/icon/single_tickle.png' %}" alt="">
+              10 적립
+            </div> <br>
+            <input id="file1" type="file" accept="image/*" name="image1" onchange="preview_image1(event)" style="display: none;">
+            <label class="seat_view_pic" for="file1" id="output_img1">업로드1</label>
+            <input id="file2" type="file" accept="image/*" name="image2" onchange="preview_image2(event)" style="display: none;">
+            <label class="seat_view_pic" for="file2" id="output_img2">업로드2</label>
+            <input id="file3" type="file" accept="image/*" name="image3" onchange="preview_image3(event)" style="display: none;">
+            <label class="seat_view_pic" for="file3" id="output_img3">업로드3</label>
+
+            <div class="seat_img_option">
+              <p class="label">업로드1</p>
+              <input type="radio" id="option_11" name="img_option1" value="none" checked>
+              <label for="option_11"><span></span>해당사항 없음</label>
+              <input type="radio" id="option_12" name="img_option1" value="normalize">
+              <label for="option_12"><span></span>줌 기준 준수</label>
+              <input type="radio" id="option_13" name="img_option1" value="nozoom">
+              <label for="option_13"><span></span>NO ZOOM</label>
+              <p class="label">업로드2</p>
+              <input type="radio" id="option_21" name="img_option2" value="none" checked>
+              <label for="option_21"><span></span>해당사항 없음</label>
+              <input type="radio" id="option_22" name="img_option2" value="normalize">
+              <label for="option_22"><span></span>줌 기준 준수</label>
+              <input type="radio" id="option_23" name="img_option2" value="nozoom">
+              <label for="option_23"><span></span>NO ZOOM</label>
+              <p class="label">업로드3</p>
+              <input type="radio" id="option_31" name="img_option3" value="none" checked>
+              <label for="option_31"><span></span>해당사항 없음</label>
+              <input type="radio" id="option_32" name="img_option3" value="normalize">
+              <label for="option_32"><span></span>줌 기준 준수</label>
+              <input type="radio" id="option_33" name="img_option3" value="nozoom">
+              <label for="option_33"><span></span>NO ZOOM</label>
+              <p>** 줌 기준이란? 약 1.4배 정도의 콘서트장고 줌 기준입니다.</p>
+            </div>
+          </div>
+
+          <div class="ur_seat_evaluation">
+            <div class="ur_seat_rating">
+              <div class="view_rating">
+                <p class="label"> 시야 </p>
+                <div class="rating_view"></div>
+                <input type="hidden" name="rating_view" id="clicked_rating_view">
+              </div>
+              <div class="excitement_rating">
+                <p class="label"> 현장열기 </p>
+                <div class="rating_real"></div>
+                <input type="hidden" name="rating_real" id="clicked_rating_real">
+              </div>
+              <div class="howmuch_tickle">
+                <img src="{% static 'img/icon/single_tickle.png' %}" alt="">
+                5 적립
+              </div>
+            </div>
+            <textarea class="ur_seat_comment" name="seat_comment" placeholder="[선택] 좌석에 대한 리뷰, 꿀팁 등 후기를 자유롭게 적어주세요!" style="resize:none;"></textarea>
+          </div>
+        </div>
+
+        <div class="agreement">
+          <input type="checkbox" id="review_agreement" name="review_agreement" value="review_agreement"><span class="checkmark"></span>
+          <label>작성한 내용은 실제 경험에 기반하였으며, 쉐어스팟이 이를 서비스에 활용할 수 있음에 동의합니다. </label>
+          <p>콘서트장고는 좌석을 예매하실 때 많은 유저분들께 도움이 될 수 있도록 작성해주신 내용을 서비스(좌석뷰, 마케팅 등)에 이용할 예정입니다. 내용에 거짓이 포함되어 있을 경우 운영자에 의해 삭제될 수 있습니다. </p>
+        </div>
+        <div class="btn_wrapper">
+          <button class="register" disabled> 등록 </button>
+        </div>
       </div>
     </div>
-
-
-    <div class="agreement">
-      <input type="checkbox" name="review_agreement" value="review_agreement">
-      <label>작성한 내용은 실제 경험에 기반하였으며, 쉐어스팟이 이를 서비스에 활용할 수 있음에 동의합니다. </label>
-      <p>ShareSpot은 좌석을 예매하실 때 많은 유저분들께 도움이 될 수 있도록 작성해주신 내용을 서비스(좌석뷰, 마케팅 등)에 이용할 예정입니다. 내용에 거짓이 포함되어 있을 경우 운영자에 의해 삭제될 수 있습니다. </p>
-    </div>
-    <div class="btn_wrapper">
-      <button class="register"> 등록 </button>
-    </div>
-  </div>
+  </form>
 </div>
+
+<script>
+
+  $(".rating_series").starRating({
+      initialRating: 0,
+      useFullStars: true,
+      strokeColor: '#ffca3a',
+      strokeWidth: 32,
+      starSize: 32,
+      hoverColor: '#ffca3a',
+      activeColor: '#ffca3a',
+      ratedColor: '#ffca3a',
+      fill: '#ffca3a',
+      emptyColor: '#ffffff',
+      useGradient: false,
+      disableAfterRate: false,
+      callback: function(currentRating, $el){
+        $('#clicked_rating_series').val(currentRating);
+      }
+  });
+  $(".rating_view").starRating({
+      initialRating: 0,
+      useFullStars: true,
+      strokeColor: '#ffca3a',
+      strokeWidth: 32,
+      starSize: 32,
+      hoverColor: '#ffca3a',
+      activeColor: '#ffca3a',
+      ratedColor: '#ffca3a',
+      fill: '#ffca3a',
+      emptyColor: '#ffffff',
+      useGradient: false,
+      disableAfterRate: false,
+      callback: function(currentRating, $el){
+        $('#clicked_rating_view').val(currentRating);
+      }
+  });
+  $(".rating_real").starRating({
+      initialRating: 0,
+      useFullStars: true,
+      strokeColor: '#ffca3a',
+      strokeWidth: 32,
+      starSize: 32,
+      hoverColor: '#ffca3a',
+      activeColor: '#ffca3a',
+      ratedColor: '#ffca3a',
+      fill: '#ffca3a',
+      emptyColor: '#ffffff',
+      useGradient: false,
+      disableAfterRate: false,
+      callback: function(currentRating, $el){
+        $('#clicked_rating_real').val(currentRating);
+      }
+  });
+
+
+  var series_select = $('.select_event').find('select[name="series"]')
+  var series_date_select = $('.select_event_time').find('select[name="date"]')
+  var series_time_select = $('.select_event_time').find('select[name="time"]')
+
+  var space_select = $('.select_place').find('select[name="space"]')
+  var block_select = $('.select_block').find('select[name="block"]')
+  var seat_select = $('.select_seat').find('select[name="seat"]')
+
+  series_select.change(function(e) {
+    var url = $(this).data('url');
+    var data = {
+      'series_pk':$(this).val(),
+    }
+
+    $.get(url, data)
+      .done(function(r) {
+        series_date_select.html(r.html);
+        space_select.html('<option value='+r.space_pk+'>'+r.space+'</option>');
+        block_select.html(r.block_html);
+      });
+  });
+  series_date_select.change(function(e) {
+    var url = $(this).data('url');
+    var data = {
+      'series_pk':series_select.val(),
+      'series_date':$(this).val(),
+    }
+
+    $.get(url, data)
+      .done(function(r) {
+        series_time_select.html(r.html);
+      });
+  });
+  block_select.change(function(e) {
+    var url = $(this).data('url');
+    var data = {
+      'series_pk': series_select.val(),
+      'space': space_select.val(),
+      'block': block_select.val(),
+    }
+    console.log(block_select.val())
+
+    $.get(url, data)
+      .done(function(r) {
+        seat_select.html(r.html);
+      });
+  });
+
+  $('.modal-body > div').not('.add_emotion').click(function() {
+    if($(this).hasClass('selected')) {
+      $(this).removeClass('selected');
+    } else {
+      $(this).addClass('selected')
+    }
+  })
+
+  $('.modal-header > div').click(function() {
+    $('#myModal').modal('hide');
+
+    var e_list = "";
+    $('input#emotion_set').val("");
+    $('.selected_emotion_zone').children().remove();
+    $('.selected').each(function() {
+      var e = $(this).text();
+      $('.selected_emotion_zone').append('<div class="selected_emotion">'+e+'</div>');
+      e_list = e_list + e + ',';
+      console.log(e_list);
+    })
+    $('input#emotion_set').val(e_list);
+  })
+
+  $('.tickle_info_intro').click(function(){
+
+    if( $(this).hasClass('open') ) {
+      $('.tickle_info').css('display', 'none');
+      $(this).removeClass('open');
+    } else {
+      console.log('123')
+      $('.tickle_info').css('display', 'block');
+      $(this).addClass('open');
+    }
+  })
+
+  $('#review_agreement').click(function(){
+    if( $('#review_agreement').prop('checked') ) {
+      $('.register').css('background-color', '#f18f01');
+      $('.register').css('color', '#ffffff');
+      $('.register').prop('disabled', "");
+    } else {
+      $('.register').css('background-color', '#e6e6e6');
+      $('.register').css('color', 'rgba(38,38,38,0.7)');
+      $('.register').prop('disabled', "disabled");
+    }
+  })
+
+</script>
 
 {% endblock %}

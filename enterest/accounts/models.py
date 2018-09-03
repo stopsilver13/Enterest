@@ -135,6 +135,9 @@ class RewardHistory(models.Model):
             self.user.reward.reward += (self.amount)*(-1)
             self.user.reward.save()
 
+    def __str__(self):
+        return self.user.username + '-' + self.reason
+
 # on_delete 이용해서 리뷰 삭제되면 히스토리도 삭제되고, 삭제시 해당 과정을 거꾸로 (적립이면 사용, 사용이면 적립) 하도록?
 
 

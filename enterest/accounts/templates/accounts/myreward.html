@@ -18,8 +18,8 @@
     <div class="user_reward_content_wrapper">
       <div class="my_rewards">
         <div class="my_rewards_header">
-          <p> 내 티끌 <span> {{ user.reward.reward }} </span> </p>
-          <button> 티끌모으기 </button>
+          <p> 내 티끌 <img src="{% static 'img/icon/single_tickle.png' %}" alt=""> <span> {{ user.reward.reward }} </span> </p>
+          <button onclick="window.location.href='{% url "sharespot:register_review" %}'"> 티끌모으기 </button>
         </div>
         <div class="my_rewards_table">
           <div class="table_head">
@@ -56,156 +56,93 @@
               <div class="reward_status">{{ history.get_status_display }}</div>
             </div>
             {% endfor %}
-            <div class="table_body">
-              <div class="reward_get_use"> 적립 </div>
-              <div class="reward_date"> 2018/06/02 </div>
-              <div class="reward_source"> 공연 리뷰 작성 </div>
-              <div class="reward_amount" style="text-align: right;"> +100 </div>
-              <div class="reward_status"> 지급완료 </div>
-            </div>
-            <div class="table_body">
-              <div class="reward_get_use"> 적립 </div>
-              <div class="reward_date"> 2018/06/02 </div>
-              <div class="reward_source"> 공연 리뷰 작성 </div>
-              <div class="reward_amount" style="text-align: right;"> +100 </div>
-              <div class="reward_status"> 지급완료 </div>
-            </div>
-            <div class="table_body">
-              <div class="reward_get_use"> 적립 </div>
-              <div class="reward_date"> 2018/06/02 </div>
-              <div class="reward_source"> 공연 리뷰 작성 </div>
-              <div class="reward_amount" style="text-align: right;"> +100 </div>
-              <div class="reward_status"> 지급완료 </div>
-            </div>
-            <div class="table_body">
-              <div class="reward_get_use"> 적립 </div>
-              <div class="reward_date"> 2018/06/02 </div>
-              <div class="reward_source"> 공연 리뷰 작성 </div>
-              <div class="reward_amount" style="text-align: right;"> +100 </div>
-              <div class="reward_status"> 지급완료 </div>
-            </div>
-            <div class="table_body">
-              <div class="reward_get_use"> 적립 </div>
-              <div class="reward_date"> 2018/06/02 </div>
-              <div class="reward_source"> 공연 리뷰 작성 </div>
-              <div class="reward_amount" style="text-align: right;"> +100 </div>
-              <div class="reward_status"> 지급완료 </div>
-            </div>
-            <div class="table_body">
-              <div class="reward_get_use"> 적립 </div>
-              <div class="reward_date"> 2018/06/02 </div>
-              <div class="reward_source"> 공연 리뷰 작성 </div>
-              <div class="reward_amount" style="text-align: right;"> +100 </div>
-              <div class="reward_status"> 지급완료 </div>
-            </div>
-            <div class="table_body">
-              <div class="reward_get_use"> 적립 </div>
-              <div class="reward_date"> 2018/06/02 </div>
-              <div class="reward_source"> 공연 리뷰 작성 </div>
-              <div class="reward_amount" style="text-align: right;"> +100 </div>
-              <div class="reward_status"> 지급완료 </div>
-            </div>
-            <div class="table_body">
-              <div class="reward_get_use"> 적립 </div>
-              <div class="reward_date"> 2018/06/02 </div>
-              <div class="reward_source"> 공연 리뷰 작성 </div>
-              <div class="reward_amount" style="text-align: right;"> +100 </div>
-              <div class="reward_status"> 지급완료 </div>
-            </div>
-            <div class="table_body">
-              <div class="reward_get_use"> 적립 </div>
-              <div class="reward_date"> 2018/06/02 </div>
-              <div class="reward_source"> 공연 리뷰 작성 </div>
-              <div class="reward_amount" style="text-align: right;"> +100 </div>
-              <div class="reward_status"> 지급완료 </div>
-            </div>
           </div>
         </div>
       </div>
 
-      <div class="how_to_get_reward">
-
+      <div class="register_review_right">
+        <div class="tickle_info_intro hide_in_web">티끌은 어떻게 모을 수 있나요?<i class="fas fa-angle-right"></i></div>
+        <div class="tickle_info">
+          <div class="what_is_tickle">
+            <h3>티끌이란?</h3>
+            <p>콘서트고 활동을 통해 얻을 수 있는 <strong>리워드</strong>로 <br> 티끌샵에서 현금처럼 사용하실 수 있습니다.</p>
+          </div>
+          <div class="how_to_get">
+            <h3>티끌은 어떻게 모을 수 있나요?</h3>
+            <img src="{% static 'img/icon/thank_icon.png' %}" alt="">
+            <div>
+              <h5>공연/경기를 보고 오셨나요?</h5>
+              <p>리뷰 등록 시 최대 <img src="{% static 'img/icon/single_tickle.png' %}" alt="">20</p>
+            </div><br>
+            <img src="{% static 'img/icon/thank_icon.png' %}" alt="">
+            <div>
+              <h5>함께하는 콘서트고</h5>
+              <p>친구 초대 시 <img src="{% static 'img/icon/single_tickle.png' %}" alt="">10</p>
+            </div><br>
+            <img src="{% static 'img/icon/thank_icon.png' %}" alt="">
+            <div>
+              <h5>내 리뷰가 도움이 되었네요!</h5>
+              <p>1 땡큐 당 <img src="{% static 'img/icon/single_tickle.png' %}" alt="">0.5</p>
+            </div>
+          </div>
+          <div class="tickle_result">
+            <h3>티끌모아 태산!</h3>
+            <img src="{% static 'img/icon/tickle_to_reward.png' %}" alt="">
+            <p>열심히 모으신 티끌은 <br> 티끌샵에서 <strong>기프티콘</strong>으로 교환하세요!</p>
+          </div>
+        </div>
       </div>
     </div>
 
 
     <div class="reward_shop">
-      <p> 티끌 모아 태산 <span> 교환하시고자 하는 상품을 눌러주세요 :-) </span></p>
+      <p> 티끌샵 <span> 교환하시고자 하는 상품을 눌러주세요 :-) </span></p>
       {% for gift in gifts %}
-      <div class="reward_item" id="gift-{{ gift.pk }}">
+      <div class="reward_item" data-toggle="modal" data-target="#gift-{{ gift.pk }}">
         <div class="reward_item_img" style="background-image: url({{ gift.img.url }})"></div>
         <p class="reward_item_store">{{ gift.category }}</p>
         <p class="reward_item_name">{{ gift.name }}</p>
-        <p class="reward_item_price">{{ gift.price|intcomma }}</p>
+        <p class="reward_item_price"><img src="{% static 'img/icon/single_tickle.png' %}" alt="">{{ gift.price|intcomma }}</p>
       </div>
-      {% endfor %}
-      <div class="reward_item">
-        <div class="reward_item_img"></div>
-        <p class="reward_item_store"> 스타벅스 </p>
-        <p class="reward_item_name"> 아메리카노(Tall) </p>
-        <p class="reward_item_price">1,000</p>
-      </div>
-      <div class="reward_item">
-        <div class="reward_item_img"></div>
-        <p class="reward_item_store"> 스타벅스 </p>
-        <p class="reward_item_name"> 아메리카노(Tall) </p>
-        <p class="reward_item_price"> 1,000 </p>
-      </div>
-      <div class="reward_item">
-        <div class="reward_item_img"></div>
-        <p class="reward_item_store"> 스타벅스 </p>
-        <p class="reward_item_name"> 아메리카노(Tall) </p>
-        <p class="reward_item_price"> 1,000 </p>
-      </div>
-      <div class="reward_item">
-        <div class="reward_item_img"></div>
-        <p class="reward_item_store"> 스타벅스 </p>
-        <p class="reward_item_name"> 아메리카노(Tall) </p>
-        <p class="reward_item_price"> 1,000 </p>
-      </div>
-      <div class="reward_item">
-        <div class="reward_item_img"></div>
-        <p class="reward_item_store"> 스타벅스 </p>
-        <p class="reward_item_name"> 아메리카노(Tall) </p>
-        <p class="reward_item_price"> 1,000 </p>
-      </div>
-    </div>
 
-    <div class="modal fade" id="ticket_modal" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-body">
-            <a data-dismiss="modal"><img class="modal_close" src="{{ gift.img.url }}"></a>
-            <p> 교환권 신청 </p>
-            <div class="modal_item">
-              <img src="{% static 'img/icedamericano.jpg' %}">
-              <h3>{{ gift.category }}</h3>
-              <h4>{{ gift.name }}</h4>
-              <p>{{ gift.price|intcomma }} 사용 </p>
-            </div>
-            <form action="" method="POST">
-              {% csrf_token %}
-              <input type="text" name="gift" value="{{ gift.pk }}" style="display: none;">
-              <div class="user_contact">
-                <p> 교환권을 받으실 전화번호를 확인해주세요. </p>
-                <input type="text" name="phone" value="{{ user.profile.phone }}" required>
+      <div class="modal fade" id="gift-{{ gift.pk }}" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+              <a data-dismiss="modal"><img class="modal_close" src="{{ gift.img.url }}"></a>
+              <p> 교환권 신청 </p>
+              <div class="modal_item">
+                <img src="{{ gift.img.url }}">
+                <h3>{{ gift.category }}</h3>
+                <h4>{{ gift.name }}</h4>
+                <p>{{ gift.price|intcomma }} 사용 </p>
               </div>
-              <div class="apply_zone">
-                <p> 신청 후에는 상품 변경, 환불이 불가능합니다. </p>
-                <button data-dismiss="modal" class="cancel"> 취소 </button>
-                <button class="apply"> 신청 </button>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <div class="precautions">
-              <p> 유의사항 및 조건 <i class="fas fa-angle-down"></i></p>
-              <h4> 매장별 재고 상황에 따라 구매가 어려운 경우에는 동일 가격 이상의 타음료로 교환이 가능합니다. 유효기간 이내 사용가능하며, 최초 유효기간 만료후에는 결제금액의 90% 환불이 가능합니다. </h4>
+              <form action="" method="POST">
+                {% csrf_token %}
+                <input type="text" name="gift" value="{{ gift.pk }}" style="display: none;">
+                <div class="user_contact">
+                  <p> 교환권을 받으실 전화번호를 확인해주세요. </p>
+                  <input type="text" name="phone" value="{{ user.profile.phone }}" required>
+                </div>
+                <div class="apply_zone">
+                  <p> 신청 후에는 상품 변경, 환불이 불가능합니다. </p>
+                  <button data-dismiss="modal" class="cancel"> 취소 </button>
+                  <button class="apply"> 신청 </button>
+                </div>
+              </form>
             </div>
+            <div class="modal-footer">
+              <div class="precautions">
+                <p> 유의사항 및 조건 <i class="fas fa-angle-down"></i></p>
+                <h4> 매장별 재고 상황에 따라 구매가 어려운 경우에는 동일 가격 이상의 타음료로 교환이 가능합니다. 유효기간 이내 사용가능하며, 최초 유효기간 만료후에는 결제금액의 90% 환불이 가능합니다. </h4>
+              </div>
 
+            </div>
           </div>
         </div>
       </div>
+
+      {% endfor %}
     </div>
   </div>
 
@@ -214,6 +151,18 @@
 $(document).ready(function(){
   $('#gift-1').click(function(){
     $('.modal').modal();
+  })
+
+  $('.tickle_info_intro').click(function(){
+
+    if( $(this).hasClass('open') ) {
+      $('.tickle_info').css('display', 'none');
+      $(this).removeClass('open');
+    } else {
+      console.log('123')
+      $('.tickle_info').css('display', 'block');
+      $(this).addClass('open');
+    }
   })
 })
 </script>

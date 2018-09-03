@@ -4,7 +4,7 @@ a:-webkit-any-link {
 body {
   margin: none;
 }
-@media (max-width: 768px) {
+@media(max-width: 768px) {
   .hide_in_phone {
     display: none;
   }
@@ -19,51 +19,130 @@ body {
     margin: 0px auto 0px;
     text-align: center;
   }
-  .base_header_menu_bar {
-    width: 32px;
-    height: 32px;
-    background-color: black;
-    float: left;
-    display: inline-block;
-    vertical-align: middle;
-  }
    .base_header_wrapper > a {
     text-decoration: none;
     cursor: pointer;
   }
   .base_header_brand {
-    text-align: center;
-    display: inline-block;
-    vertical-align: middle;
-    color: #bb213c;
+    float: left;
     font-family: '나눔바른고딕B';
   }
-  .base_header_brand > img {
-    width: 32px;
+  .base_header_brand > a:hover {
+    text-decoration: none;
+    color: #bb213c;
+  }
+  .base_header_brand a {
+    text-decoration: none;
+    cursor: pointer;
+    color: #bb213c;
+  }
+  .base_header_brand img {
     height: 32px;
-    background-color: black;
     display: inline-block;
     vertical-align: middle;
   }
-  .base_header_brand > p {
+  .base_header_brand p {
     font-size: 24px;
-    line-height: 32px;
     display: inline-block;
-    vertical-align: middle;
     margin: 0px 0px 0px 16px;
-
+    vertical-align: middle;
   }
 
   .base_header_right {
     float: right;
+    font-family: '나눔바른고딕B';
+    font-size: 14px;
   }
-  .base_header_right > div {
+  .base_header_right > a:hover {
+    text-decoration: none;
+    color: #000;
+  }
+  .base_header_right a:hover {
+    text-decoration: none;
+  }
+  .base_header_register_review {
+    height: 32px;
+    font-size: 14px;
+    line-height: 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .base_header_username {
+    text-decoration: none;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .base_header_username.nav-item {
+    margin: 0px;
+    margin-left: 16px;
+  }
+  .base_header_username.nav-item > a {
+    padding: 0px;
+  }
+  .base_header_username p {
+    font-family: '나눔바른고딕B';
+    font-size: 14px;
+    line-height: 32px;
+    color: #000;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0px;
+    margin-right: 16px;
+  }
+  .base_header_username img {
     width: 32px;
     height: 32px;
-    background-color: black;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .base_header_username > .dropdown-toggle::after {
+    display: none;
+  }
+  .base_header_username > .dropdown-menu {
+    transform: translate3d(-60px, 32px, 0px) !important;
+  }
+  .base_header_username > .dropdown-menu > a {
+    font-family: '나눔바른고딕';
+    font-size: 12px;
+  }
+  .base_header_nologin {
+    margin-left: 16px;
+    font-size: 14px;
+    line-height: 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .footer {
+    color: #ffffff;
+    background-color: #3f3f3f;
+    font-size: 10px;
+    font-family: '나눔바른고딕L';
+  }
+  .footer_in {
+    width: 100%;
+    margin: 0px auto;
+    padding: 20px 16px 8px;
+  }
+  .footer_in > p {
+    margin-bottom: 12px;
+  }
+  .footer_in a {
+    font-size: 12px;
+    color: #ffffff;
+    text-decoration: underline;
+  }
+  .footer_in a:hover {
+    color: #ffffff;
+    text-decoration: underline;
   }
 }
-@media (min-width: 768px) {
+@media(min-width: 768px) {
   .hide_in_web {
     display: none;
   }
@@ -95,9 +174,7 @@ body {
     color: #bb213c;
   }
   .base_header_brand img {
-    width: 48px;
     height: 48px;
-    background-color: gray;
     display: inline-block;
     vertical-align: middle;
   }
@@ -181,5 +258,28 @@ body {
     text-decoration: none;
     display: inline-block;
     vertical-align: middle;
+  }
+
+  .footer {
+    color: #ffffff;
+    background-color: #3f3f3f;
+    font-size: 12px;
+    font-family: '나눔바른고딕L';
+  }
+  .footer_in {
+    width: 1100px;
+    margin: 0px auto;
+    padding: 20px 16px 8px;
+  }
+  .footer_in > p {
+    margin-bottom: 12px;
+  }
+  .footer_in a {
+    color: #ffffff;
+    text-decoration: underline;
+  }
+  .footer_in a:hover {
+    color: #ffffff;
+    text-decoration: underline;
   }
 }

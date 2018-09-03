@@ -24,8 +24,8 @@
     <div class="place_nav_wrapper">
       <a href="{% url "sharespot:place_space" space.en_name %}"><div class="place_nav_component" id="place_space_view">좌석뷰</div></a>
       <a href="{% url "sharespot:place_basic" space.en_name %}"><div class="place_nav_component" id="place_basic_info">기본정보</div></a>
-      <a href="{% url "sharespot:place_share" space.en_name %}"><div class="place_nav_component" id="place_share_info">관련정보</div></a>
-      <a href="{% url "sharespot:series_list" %}?place={{ place.en_name }}"><div class="place_nav_component" id="place_event_info">이벤트정보</div></a>
+      <a href="{% url "sharespot:place_share" space.en_name %}"><div class="place_nav_component" id="place_share_info">주변정보</div></a>
+      <!-- <a href="{% url "sharespot:series_list" %}?place={{ place.en_name }}"><div class="place_nav_component" id="place_event_info">경기/공연</div></a> -->
     </div>
   </div>
 

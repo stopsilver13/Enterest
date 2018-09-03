@@ -9,11 +9,14 @@
 
 {% block head_extra_place %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/place_space.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/star-rating-svg.css' %}">
+
+<script src="{% static 'js/jquery.star-rating-svg.js' %}"></script>
 {% endblock %}
 
 {% block content_place %}
   <div class="place_seatview_wrapper">
-    <div class="place_map_section">
+    <div class="place_map_section" data-series="{{ close_series.pk }}">
       <div class="place_map">
         <div class="section_nav">
           <ul class="nav nav-tabs">
@@ -34,7 +37,8 @@
               <svg style="width: 100%;" viewBox="0 0 696 758" version="1.1" xmlns="http://www.w3.org/2000/svg">
                 {% for block in section.block_set.all %}
                 {% with block.get_block_main_level as main_level %}
-                <polygon points="{{ block.coordinate }}"" fill="{{ main_level.color }}" style="stroke:black;stroke-width:1;" onmouseover="this.style.fill='{{ main_level.hover_color }}'" onmouseout="this.style.fill=''"></polygon>
+                <polygon points="{{ block.coordinate }}"" fill="{{ main_level.color }}" style="stroke:black;stroke-width:1;" onmouseover="this.style.fill='{{ main_level.hover_color }}'" onmouseout="this.style.fill=''" data-url="{% url "sharespot:place_space_block" space.en_name %}" data-pk="{{ block.pk }}"></polygon>
+                <text x="{{ block.get_text_x_coordinate }}" y="{{ block.get_text_y_coordinate }}" dy="4" text-anchor="middle" fill="black" font-size="12" data-url="{% url "sharespot:place_space_block" space.en_name %}" data-pk="{{ block.pk }}">{{ block.name }}</text>
                 {% endwith %}
                 {% endfor %}
               </svg>
@@ -65,13 +69,13 @@
           </li>
           <div class="event_at_place_set">
             <div class="event_at_place_pic" style="background-image: url({{ close_series.image_set.first.img.url }});">
-              <div>{{ close_series.division.name }}</div>
+              <div style="background-color: {{ close_series.division.color }};">{{ close_series.division.name }}</div>
             </div>
             <div class="event_at_place_set_wrapper">
               <p class="event_at_place_title">{{ close_series.name }}</p>
               <p class="event_at_place_info">{{ close_series.start|date:"Y.m.d."}} ~ {{ close_series.end|date:"Y.m.d."}} {{ close_series.space.name }} </p>
-              <div class="event_at_place_rating"></div>
-              <h4 class="event_at_place_reviews">{{ close_series.get_series_star }} ( {{ close_series.get_series_review_count }} )</h4>
+              <div class="event_at_place_rating"><div class="my-rating" data-rating={{ series.get_series_star }}></div></div>
+              <h4 class="event_at_place_reviews">{{ close_series.get_series_star|floatformat }} ( {{ close_series.get_series_review.count }} )</h4>
             </div>
           </div>
         </div>
@@ -96,186 +100,237 @@
       </div>
     </div>
 
-    <div class="place_rating_section">
-      <div class="howmany_views_reviews">
-        <p class="place_name">{{ space.name }}</p>
-        <p class="count_views_reviews"> 좌석뷰 {{ space.get_space_view_count|intcomma }} 장 ・ 리뷰 {{ space.get_space_review.count|intcomma }} 개 </p>
-      </div>
-      <div class="place_total_rating">
-        <div class="place_total_rating_header">
-          <p> 전체 평점 <span>( {{ space.get_space_review.count|intcomma }} )</span> </p>
-          <button class="go_rate"> 평가 등록 </button>
+    <div class="place_info_section">
+      <div class="place_rating_section">
+        <div class="howmany_views_reviews">
+          <p class="place_name">{{ space.name }}</p>
+          <p class="count_views_reviews"> 좌석뷰 {{ space.get_space_view_count|intcomma }} 장 ・ 리뷰 {{ space.get_space_review.count|intcomma }} 개 </p>
         </div>
-        <div class="event_review_rating">
-          <h4 class="which_rating"> 시야 </h4>
-          <div class="total_rating_zone">
-            <p>{{ space.get_space_view_star|intcomma }}</p>
-            <div></div>
+        <div class="place_total_rating">
+          <div class="place_total_rating_header">
+            <p> 전체 평점 <span>( {{ space.get_space_review.count|intcomma }} )</span> </p>
+            <button class="go_rate" onclick="window.location.href='{% url "sharespot:register_review" %}'"> 평가 등록 </button>
           </div>
-          <div class="star_graph">
-            {% for num in space.get_view_star_num %}
-              {{ num }}
-            {% endfor %}
+          <div class="event_review_rating">
+            <h4 class="which_rating"> 시야 </h4>
+            <div class="total_rating_zone">
+              <p>{{ space.get_space_view_star|floatformat }}</p>
+              <div class="space-rating" data-rating={{ space.get_space_view_star }}></div>
+            </div>
+            <div class="star_graph">
+              <!-- {% for num in space.get_view_star_num %}
+                {{ num }}
+              {% endfor %} -->
+              별점 분포 준비중입니다.
+            </div>
+          </div>
+          <div class="event_review_rating">
+            <h4 class="which_rating"> 현장열기 </h4>
+            <div class="total_rating_zone">
+              <p>{{ space.get_space_real_star|floatformat }}</p>
+              <div class="space-rating" data-rating={{ space.get_space_real_star }}></div>
+            </div>
+            <div class="star_graph">
+              <!-- {% for num in space.get_real_star_num %}
+                {{ num }}
+              {% endfor %} -->
+              별점 분포 준비중입니다.
+            </div>
           </div>
         </div>
-        <div class="event_review_rating">
-          <h4 class="which_rating"> 현장열기 </h4>
-          <div class="total_rating_zone">
-            <p>{{ space.get_space_real_star|intcomma }}</p>
-            <div></div>
-          </div>
-          <div class="star_graph">
-            {% for num in space.get_real_star_num %}
-              {{ num }}
-            {% endfor %}
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="place_review_section">
-      <div class="place_review_section_header">
-        <p> 전체 리뷰 <span>( {{ space.get_space_review.count|intcomma }} )</span> </p>
-        <div class="go_rate"> 리뷰 등록 </div>
       </div>
 
+      <div class="place_review_section">
+        <div class="place_review_section_header">
+          <p> 전체 리뷰 <span>( {{ space.get_space_review.count|intcomma }} )</span> </p>
+          <button class="go_rate" onclick="window.location.href='{% url "sharespot:register_review" %}'"> 리뷰 등록 </button>
+        </div>
 
-      <div class="place_review_section_body">
-        {% for review in reviews %}
-        <div class="place_reviews">
-          <div class="reviews_header">
-            <div class="reviews_user_info">
-              {% if review.anony_name %}
-              <div class="reviews_user_pic" style="background-image: url({% static "img/anony.png" %}) "></div>
-              {% else %}
-              <div class="reviews_user_pic" style="background-image: url({{ review.ticket.user.profile.img.url }}) "></div>
-              {% endif %}
-              <div class="reviews_user_profile">
+        {% if reviews %}
+        <div class="place_review_section_body">
+          {% for review in reviews %}
+          <div class="place_reviews">
+            <div class="reviews_header">
+              <div class="reviews_user_info">
                 {% if review.anony_name %}
-                  <p>{{ review.anony_name }}</p>
+                <div class="reviews_user_pic" style="background-image: url({% static "img/anony.png" %}) "></div>
                 {% else %}
-                  <p>{{ review.ticket.user.profile.nick_name }}</p>
+                 {% if review.ticket.user.profile.img %}
+                  <div class="reviews_user_pic" style="background-image: url({{ review.ticket.user.profile.img.url }}) "></div>
+                  {% else %}
+                  <div class="reviews_user_pic" style="background-image: url({% static "img/anony.png" %}) "></div>
+                  {% endif %}
                 {% endif %}
-                <h4>{{ review.created_at|date:"Y년 m월 d일" }}</h4>
+                <div class="reviews_user_profile">
+                  {% if review.anony_name %}
+                    <p>{{ review.anony_name }}</p>
+                  {% else %}
+                    <p>{{ review.ticket.user.profile.nick_name }}</p>
+                  {% endif %}
+                  <h4>{{ review.created_at|date:"Y년 m월 d일" }}</h4>
+                </div>
+              </div>
+              <div class="reviews_user_badge">
+                {% for badge in review.badge_set.all %}
+                  <div style="background-color: {{ badge.color }};">{{ badge.name }}</div>
+                {% endfor %}
               </div>
             </div>
-            <div class="reviews_user_badge">
-              {% for badge in review.badge_set.all %}
-                <div style="background-color: {{ badge.color }};">{{ badge.name }}</div>
-              {% endfor %}
+            <div class="seat_info_in_review">
+              {{ review.seat.block.name }} 블럭 {{ review.seat.row_real }}-{{ review.seat.name }} 번
             </div>
-          </div>
-          <div class="seat_info_in_review">
-            {{ review.seat.block.name }} 블럭 {{ review.seat.name }} 번
-          </div>
-          <div class="reviews_rating_zone">
-            <div class="which_rating_in_review">
-              <p> 시야 </p>
-              <div>{{ review.view_star }}</div>
-            </div>
-            <div class="which_rating_in_review">
-              <p> 현장열기 </p>
-              <div>{{ review.real_star }}</div>
-            </div>
-          </div>
-
-          <div class="reviews_body">
-            <img src="{{ review.seatimg_set.first.img.url }}" alt="">
-            {% if review.content %}
-            <p>{{ review.content }}</p>
-            <h4> 더보기 </h4>
-            {% endif %}
-          </div>
-          <div class="reviews_footer">
-            <img src="{% static 'img/icon/thank_icon.png' %}" alt="">
-            <p>{{ review.count_thanked }}</p>
-          </div>
-        </div>
-        {% endfor %}
-
-
-        <div class="place_reviews">
-          <div class="reviews_header">
-            <div class="reviews_user_info">
-              <div class="reviews_user_pic"></div>
-              <div class="reviews_user_profile">
-                <p> 유저닉네임 </p>
-                <h4> 2018년 6월 19일 </h4>
+            <div class="reviews_rating_zone">
+              <div class="which_rating_in_review">
+                <p> 시야 </p>
+                <div class="review-rating" data-rating={{ review.view_star }}></div>
+              </div>
+              <div class="which_rating_in_review">
+                <p> 현장열기 </p>
+                <div class="review-rating" data-rating={{ review.real_star }}></div>
               </div>
             </div>
-            <div class="reviews_user_badge">
-              <div> 우수 </div>
-              <div> 우수 </div>
-            </div>
-          </div>
-          <div class="seat_info_in_review">
-            315블럭 31-1번
-          </div>
-          <div class="reviews_rating_zone">
-            <div class="which_rating_in_review">
-              <p> 시야 </p>
-              <div></div>
-            </div>
-            <div class="which_rating_in_review">
-              <p> 현장열기 </p>
-              <div></div>
-            </div>
-          </div>
-          <div class="reviews_body">
-            <img src="example.jpg" alt="">
-            <p> 섹시하고 섹시하다! 재즈와 함께 흥이 절로 났던 공연이었습니다. 살인이라는 무거운 이야기이지만 결코 극은 무겁지 않고 벨마와 록시 외 배우들의 연기 그리고 오케스트라가 무대 위에 있다는 특이점, 많은 볼거리, 빠른 전개, 관객과 </p>
-            <h4> 더보기 </h4>
-          </div>
-          <div class="reviews_footer">
-            <img src="{% static 'img/icon/thank_icon.png' %}" alt="">
-            <p>  7 </p>
-          </div>
-        </div>
 
-        <div class="place_reviews">
-          <div class="reviews_header">
-            <div class="reviews_user_info">
-              <div class="reviews_user_pic"></div>
-              <div class="reviews_user_profile">
-                <p> 유저닉네임 </p>
-                <h4> 2018년 6월 19일 </h4>
+            <div class="reviews_body">
+              <img src="{{ review.seatimg_set.first.img.url }}" alt="">
+              {% if review.content %}
+              <p>{{ review.content }}</p>
+              <!-- <h4> 더보기 </h4> -->
+              {% endif %}
+            </div>
+            <div class="reviews_footer">
+              {% if user in review.thanked_set.all %}
+              <img id="fin"  src='https://s3.ap-northeast-2.amazonaws.com/enterest-s3/static/img/icon/thank_icon_fin.png' alt="" >
+              {% else %}
+              <img id="fin_yet" src='https://s3.ap-northeast-2.amazonaws.com/enterest-s3/static/img/icon/thank_icon.png' alt="" data-review={{ review.pk }} data-url={% url 'sharespot:review_thanks' %}>
+              <div class="thank_info">
+                <h4>이 리뷰가 도움이 되었다면 땡큐!</h4>
+                <p>정성스러운 리뷰에 땡큐를 눌러주세요. 땡큐를 누르시면 리뷰 작성자에게 0.5 티끌이 적립됩니다.</p>
               </div>
-            </div>
-            <div class="reviews_user_badge">
-              <div> 우수 </div>
-              <div> 우수 </div>
-            </div>
-          </div>
-          <div class="seat_info_in_review">
-            315블럭 31-1번
-          </div>
-          <div class="reviews_rating_zone">
-            <div class="which_rating_in_review">
-              <p> 시야 </p>
-              <div></div>
-            </div>
-            <div class="which_rating_in_review">
-              <p> 현장열기 </p>
-              <div></div>
+              <img id="fin" style="display: none;" src='https://s3.ap-northeast-2.amazonaws.com/enterest-s3/static/img/icon/thank_icon_fin.png' alt="" >
+              {% endif %}
+              <p>{{ review.count_thanked }}</p>
             </div>
           </div>
-          <div class="reviews_body">
-            <p> 섹시하고 섹시하다! 재즈와 함께 흥이 절로 났던 공연이었습니다. 살인이라는 무거운 이야기이지만 결코 극은 무겁지 않고 벨마와 록시 외 배우들의 연기 그리고 오케스트라가 무대 위에 있다는 특이점, 많은 볼거리, 빠른 전개, 관객과의 호흡 등 왜 이렇게 사랑받는지 알게되었습니다. 벨마 역의 최정원배우님은 갈라쇼나 다른 공연에서 올댓재즈 많이 들어봤지만 극과 함께 어우러진 올댓재즈는 정말 최고였습니다. 무대에서 논다는게 이런거구나.. 했습니다. 그리고 슬픈 씬도 아닌데 갑자기 뭔가 벅차오르는게 팍팍한 일상 속에 내가 시카고를 보고 있는 지금이 너무 행복해서였는지 갑자기 눈물이 흘렀습니다ㅠㅠ.. 주변 사람들에게 시카고 꼭 보라고 추천하고 있습니다</p>
-          </div>
-          <div class="reviews_footer">
-            <img src="{% static 'img/icon/thank_icon.png' %}" alt="">
-            <p>  7 </p>
-          </div>
+          {% endfor %}
         </div>
-
+        {% else %}
+          <div class="no_review"> 등록된 리뷰가 없습니다. <br> 콘서트 관람후 리뷰를 작성해주세요 :-) </div>
+        {% endif %}
       </div>
     </div>
   </div>
 
 <script>
+(function(){
+  $(".my-rating").starRating({
+      strokeColor: '#ffca3a',
+      strokeWidth: 32,
+      starSize: 14,
+      hoverColor: '#ffca3a',
+      activeColor: '#ffca3a',
+      emptyColor: '#ffffff',
+      useGradient: false,
+      readOnly: true
+  });
+  $(".space-rating").starRating({
+      strokeColor: '#bb213c',
+      strokeWidth: 32,
+      starSize: 24,
+      hoverColor: '#bb213c',
+      activeColor: '#bb213c',
+      emptyColor: '#ffffff',
+      useGradient: false,
+      readOnly: true
+  });
+  $(".review-rating").starRating({
+      strokeColor: '#ffca3a',
+      strokeWidth: 32,
+      starSize: 24,
+      hoverColor: '#ffca3a',
+      activeColor: '#ffca3a',
+      emptyColor: '#ffffff',
+      useGradient: false,
+      readOnly: true
+  });
+
+  $('polygon').click(function(){
+    var url = $(this).data('url');
+    var pk = $(this).data('pk');
+    var series = $('.place_map_section').data('series');
+    var data = {
+      'pk': pk,
+      'series_pk': series,
+    };
+    $('#loading').show();
+
+    $.post(url, data)
+      .done(function(r) {
+        var event = $.Event('place_space_block');
+        event.html = r.html;
+        event.info_html = r.info_html;
+        $(document).trigger(event);
+      });
+  });
+
+  $('svg > text').click(function(){
+    var url = $(this).data('url');
+    var pk = $(this).data('pk');
+    var series = $('.place_map_section').data('series');
+    var data = {
+      'pk': pk,
+      'series_pk': series,
+    };
+    $('#loading').show();
+
+    $.post(url, data)
+      .done(function(r) {
+        var event = $.Event('place_space_block');
+        event.html = r.html;
+        event.info_html = r.info_html;
+        $(document).trigger(event);
+      });
+  });
+
+  $(document).on('place_space_block', function(e) {
+    $('.place_map_section').find('.place_map').attr('style', 'display: none;');
+    $('.place_info_section').children().attr('style', 'display: none;');
+    $('.place_map_section').prepend(e.html);
+    $('.place_info_section').append(e.info_html);
+    $('#loading').hide();
+  });
+
+  $('.reviews_footer > img').mouseover(function() {
+    $(this).parent().find('.thank_info').attr('style', 'display: inline-block;');
+  })
+  $('.reviews_footer > img').mouseout(function() {
+    $(this).parent().find('.thank_info').attr('style', '');
+  })
+
+  $('.reviews_footer > img').click(function() {
+    if ($(this).attr('src')=='https://s3.ap-northeast-2.amazonaws.com/enterest-s3/static/img/icon/thank_icon.png') {
+      var self = $(this);
+      var url = self.data('url');
+      var review = self.data('review');
+      var seat = 'True';
+      var data = {
+        'review': review,
+        'seat': seat,
+      }
+      $.post(url, data)
+        .done(function(r) {
+          self.attr('style', 'display: none;');
+          self.parent().find('#fin').attr('style', '');
+          self.parent().find('p').text(r);
+        })
+    } else {
+      alert("이미 땡큐한 리뷰입니다 :)");
+    }
+  });
+
   $('.select_nav').click(function() {
       $('div.section_nav li.active').removeClass("active");
       $(this).addClass("active");
     });
+})();
 </script>
 {% endblock %}
