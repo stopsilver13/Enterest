@@ -118,10 +118,29 @@
               <div class="space-rating" data-rating={{ space.get_space_view_star }}></div>
             </div>
             <div class="star_graph">
-              <!-- {% for num in space.get_view_star_num %}
-                {{ num }}
-              {% endfor %} -->
-              별점 분포 준비중입니다.
+              <div class="progress_index">
+                <div><i class="fas fa-star"></i> &nbsp; 5</div>
+                <div><i class="fas fa-star"></i> &nbsp; 4</div>
+                <div><i class="fas fa-star"></i> &nbsp; 3</div>
+                <div><i class="fas fa-star"></i> &nbsp; 2</div>
+                <div><i class="fas fa-star"></i> &nbsp; 1</div>
+              </div>
+              <div class="progress_graph">
+                {% for num in space.get_view_star_num %}
+                <div class="progress">
+                  <div class="progress-bar" id="v-bar-{{ forloop.counter }}" role="progressbar" aria-valuenow="{{ num }}"
+                  aria-valuemin="0" aria-valuemax="{{ reviews.count }}">
+                    <span class="sr-only"></span>
+                  </div>
+                  <script>
+                    var valuenow = Number( {{ num }} );
+                    var valuemax = Number( {{ reviews.count }} );
+                    var width = valuenow/valuemax;
+                    $('#v-bar-{{ forloop.counter }}').css('width', width*100+'%');
+                  </script>
+                </div>
+                {% endfor %}
+              </div>
             </div>
           </div>
           <div class="event_review_rating">
@@ -131,10 +150,29 @@
               <div class="space-rating" data-rating={{ space.get_space_real_star }}></div>
             </div>
             <div class="star_graph">
-              <!-- {% for num in space.get_real_star_num %}
-                {{ num }}
-              {% endfor %} -->
-              별점 분포 준비중입니다.
+              <div class="progress_index">
+                <div><i class="fas fa-star"></i> &nbsp; 5</div>
+                <div><i class="fas fa-star"></i> &nbsp; 4</div>
+                <div><i class="fas fa-star"></i> &nbsp; 3</div>
+                <div><i class="fas fa-star"></i> &nbsp; 2</div>
+                <div><i class="fas fa-star"></i> &nbsp; 1</div>
+              </div>
+              <div class="progress_graph">
+                {% for num in space.get_real_star_num %}
+                <div class="progress">
+                  <div class="progress-bar" id="r-bar-{{ forloop.counter }}" role="progressbar" aria-valuenow="{{ num }}"
+                  aria-valuemin="0" aria-valuemax="{{ reviews.count }}">
+                    <span class="sr-only"></span>
+                  </div>
+                  <script>
+                    var valuenow = Number( {{ num }} );
+                    var valuemax = Number( {{ reviews.count }} );
+                    var width = valuenow/valuemax;
+                    $('#r-bar-{{ forloop.counter }}').css('width', width*100+'%');
+                  </script>
+                </div>
+                {% endfor %}
+              </div>
             </div>
           </div>
         </div>

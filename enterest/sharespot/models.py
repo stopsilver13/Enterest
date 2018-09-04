@@ -163,7 +163,7 @@ class Space(LikeMixinModel):
         star_num_list = []
         for i in range(1, 6):
             star_num_list.append(SeatReview.objects.filter(seat__block__section__space=self, view_star=i).count())
-        return star_num_list
+        return star_num_list[::-1]
 
     def get_space_real_star(self):
         avg_dict = SeatReview.objects.filter(seat__block__section__space=self).aggregate(models.Avg('real_star'))
@@ -177,7 +177,7 @@ class Space(LikeMixinModel):
         star_num_list = []
         for i in range(1, 6):
             star_num_list.append(SeatReview.objects.filter(seat__block__section__space=self, real_star=i).count())
-        return star_num_list
+        return star_num_list[::-1]
 
     def get_close_series(self):
         now = datetime.datetime.now()
@@ -264,7 +264,7 @@ class Block(models.Model):
         star_num_list = []
         for i in range(1, 6):
             star_num_list.append(SeatReview.objects.filter(seat__block=self, view_star=i).count())
-        return star_num_list
+        return star_num_list[::-1]
 
     def get_block_real_star(self):
         avg_dict = SeatReview.objects.filter(seat__block=self).aggregate(models.Avg('real_star'))
@@ -278,7 +278,7 @@ class Block(models.Model):
         star_num_list = []
         for i in range(1, 6):
             star_num_list.append(SeatReview.objects.filter(seat__block=self, real_star=i).count())
-        return star_num_list
+        return star_num_list[::-1]
 
     def get_cavas_viewbox(self):
         max_col = Seat.objects.filter(block=self).aggregate(models.Max('col'))
@@ -479,7 +479,8 @@ class Series(LikeMixinModel):
         star_num_list = []
         for i in range(1, 6):
             star_num_list.append(EventReview.objects.filter(event__series=self, total_star=i).count())
-        return star_num_list
+
+        return star_num_list[::-1]
 
     def get_series_appear(self):
         events = self.event_set.values_list('pk', flat=True)

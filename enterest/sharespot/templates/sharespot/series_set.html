@@ -18,8 +18,8 @@
         <h4>{{ series.get_series_star|floatformat }} ( {{ series.get_series_review.count }} )</h4>
       </div>
       <div class="series_get_info">
-        <!-- <a href="{% url "sharespot:series_basic" series.en_name %}"><div class="series_event_info"> 공연 정보 </div></a> -->
-        <div class="series_event_info" onclick="alert('준비중입니다!');" style="cursor: pointer;"> 공연 정보 </div>
+        <a href="{% url "sharespot:series_basic" series.en_name %}"><div class="series_event_info"> 공연 정보 </div></a>
+        <!-- <div class="series_event_info" onclick="alert('준비중입니다!');" style="cursor: pointer;"> 공연 정보 </div> -->
         <a href="{% url "sharespot:place_space" series.space.en_name %}"><div class="series_seat_info"> 좌석 정보 </div></a>
       </div>
     </div>

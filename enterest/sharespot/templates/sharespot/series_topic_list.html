@@ -6,9 +6,31 @@
   <div class="topic_searchbar">
     <input placeholder="&#xF002; &nbsp;&nbsp;&nbsp;&nbsp; 이야깃거리 찾기" style="font-family:'나눔바른고딕', FontAwesome">
   </div>
-  <div class="add_topic">
+  <div class="add_topic" data-toggle="modal" data-target="#exampleModal">
     <p> <i class="fas fa-plus"></i> &nbsp; 이야깃거리 추가하기 </p>
   </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form action="" method="POST">
+          {% csrf_token %}
+          <div class="modal-body">
+            <i class="fas fa-times" data-dismiss="modal" aria-label="Close"></i>
+            <p>추가할 이야깃거리</p>
+            <textarea name="topic_content" maxlength="50" placeholder="예) 이 장면에 대해 어떻게 생각하세요? (50자 이내)"></textarea>
+
+            <p>이야깃거리를 간단하게 소개해주세요.</p>
+            <textarea name="topic_explain" maxlength="100" placeholder="예) 뭔가 다른 공연과는 좀 독특하다고 생각이 되어서요. (100자 이내)"></textarea>
+
+            <button type="submit">추가하기</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <div class="topic_zone">
     {% for tp in topics %}
     <a href="{% url 'sharespot:series_talk' series.en_name tp.pk %}"><div class="topic">
@@ -17,37 +39,5 @@
     </div></a>
     <hr>
     {% endfor %}
-
-
-    <div class="topic">
-      <p> 마지막 장면에 대해서 어떻게 분석, 해석 하셨어요? (104) </p>
-      <h4> 간단한 설명을 쓰는 부분 저는 이렇게 해석했는데 다른 분들의 생각은 어떤지 궁금합니다. </h4>
-    </div>
-    <hr>
-    <div class="topic">
-      <p> 어떤 인물이 가장 기억에 남으세요? (104) </p>
-      <h4> 간단한 설명을 쓰는 부분 </h4>
-    </div>
-    <hr>
-    <div class="topic">
-      <p> 어떤 인물이 가장 기억에 남으세요? (104) </p>
-      <h4> 간단한 설명을 쓰는 부분 </h4>
-    </div>
-    <hr>
-    <div class="topic">
-      <p> 어떤 인물이 가장 기억에 남으세요? (104) </p>
-      <h4> 간단한 설명을 쓰는 부분 </h4>
-    </div>
-    <hr>
-    <div class="topic">
-      <p> 마지막 장면에 대해서 어떻게 분석, 해석 하셨어요? (104) </p>
-      <h4> 간단한 설명을 쓰는 부분 저는 이렇게 해석했는데 다른 분들의 생각은 어떤지 궁금합니다. </h4>
-    </div>
-    <hr>
-    <div class="topic">
-      <p> 마지막 장면에 대해서 어떻게 분석, 해석 하셨어요? (104) </p>
-      <h4> 간단한 설명을 쓰는 부분 저는 이렇게 해석했는데 다른 분들의 생각은 어떤지 궁금합니다. </h4>
-    </div>
-    <hr>
   </div>
 </div>

@@ -1,3 +1,59 @@
+.modal-dialog {
+  width: 304px;
+  margin: 100px auto 0px;
+}
+.modal-content {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+.modal-header {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  border: none;
+  float: right;
+}
+.modal-body {
+  padding: 12px;
+}
+.modal-body > i {
+  cursor: pointer;
+  font-size: 16px;
+  color: #676767;
+  float: right;
+}
+.modal-body > p {
+  margin: 12px 0 8px;
+  font-size: 12px;
+  font-family: '나눔바른고딕';
+  color: rgba(38, 38, 38, 0.7);
+}
+.modal-body > textarea {
+  width: 100%;
+  height: 120px;
+  padding: 10px;
+  border-radius: 2px;
+  border: solid 1px #e6e6e6;
+  font-size: 14px;
+  font-family: '나눔바른고딕L';
+  resize: none;
+}
+.modal-body > textarea::placeholder {
+  color: rgba(38, 38, 38, 0.35);
+}
+.modal-body > button {
+  width: 100%;
+  height: 56px;
+  border: none;
+  border-radius: 2px;
+  background-color: #bb213c;
+  color: #ffffff;
+  font-family: '나눔바른고딕B';
+  font-size: 16px;
+  margin-top: 28px;
+}
+
 @media (max-width:768px) {
   .event_talk_left {
     width: 100%;
@@ -24,6 +80,7 @@
   .add_topic {
     border-bottom: solid 1px #e6e6e6;
     padding-left: 24px;
+    cursor: pointer;
   }
   .add_topic > p {
     font-family: "나눔바른고딕B";
@@ -33,6 +90,7 @@
     margin: 0;
   }
   .topic_zone {
+    min-height: 400px;
     padding-bottom: 36px;
   }
   .topic_zone > a:hover {
@@ -98,6 +156,7 @@
   .add_topic {
     border-bottom: solid 1px #e6e6e6;
     padding-left: 24px;
+    cursor: pointer;
   }
   .add_topic > p {
     font-family: "나눔바른고딕B";

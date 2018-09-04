@@ -83,6 +83,7 @@
     margin: 0;
   }
   .talks_zone {
+    min-height: 600px;
     padding: 0 16px 60px;
   }
   .talks {
@@ -228,6 +229,9 @@
     vertical-align: middle;
     margin: 0;
     position: absolute;
+  }
+  .footer {
+    display: none;
   }
 }
 

@@ -553,7 +553,7 @@ def series_list(request):
         division = Division.objects.get(en_name=request.GET['division'])
         series_all = Series.objects.filter(division=division, end__gte=now).order_by('start')
     else:
-        series_all = Series.objects.all(end__gte=now).order_by('start')
+        series_all = Series.objects.filter().order_by('start')
 
     return render(request, 'sharespot/series_list.html', {
         'divisions': divisions,
