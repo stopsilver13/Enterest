@@ -27,7 +27,7 @@ CONFIG_SETTINGS_COMMON_FILE = os.path.join(CONFIG_SECRET_DIR, 'settings_common.j
 SECRET_KEY = '#q8^sj0w+ii(4e69f(*g_0tj*r%2!9mbieg*-im(tjf%z5(i12'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     'localhost',
@@ -178,11 +178,11 @@ MEDIA_URL = '/media/'
 
 
 # S3 Storage
-# DEFAULT_FILE_STORAGE = 'enterest.storages.MediaStorage'
-# STATICFILES_STORAGE = 'enterest.storages.StaticStorage'
+DEFAULT_FILE_STORAGE = 'enterest.storages.MediaStorage'
+STATICFILES_STORAGE = 'enterest.storages.StaticStorage'
 
-# MEDIAFILES_LOCATION = 'media'
-# STATICFILES_LOCATION = 'static'
+MEDIAFILES_LOCATION = 'media'
+STATICFILES_LOCATION = 'static'
 
 # AWS access
 config_secret = json.loads(open(CONFIG_SETTINGS_COMMON_FILE).read())

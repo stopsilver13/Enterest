@@ -37,8 +37,8 @@ def signup(request):
 def signup_info(request):
     user = request.user
     has_profile = Profile.objects.filter(user=user).exists()
-    if has_profile:
-        return redirect(request.GET.get('next', '/'))
+    # if has_profile:
+    #     return redirect(request.GET.get('next', '/'))
 
     year = [x for x in range(2017, 1950, -1)]
     month = [x for x in range(1, 13)]

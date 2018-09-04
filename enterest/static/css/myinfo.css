@@ -57,6 +57,9 @@
     color: rgba(0, 0, 0, 0.87);
     margin: 16px 0 0 0;
   }
+  .user_id > h4 > span {
+    color: #f18f01;
+  }
   .user_pwd {
     margin-top: 32px;
   }
@@ -182,8 +185,9 @@
   .save {
     width: 320px;
     height: 64px;
-    border-radius: 8px;
-    background-color: #4a90e2;
+    border: none;
+    border-radius: 2px;
+    background-color: #f18f01;
     font-family: "나눔바른고딕";
     font-size: 16px;
     color: #ffffff;
@@ -197,7 +201,7 @@
     width: 664px;
     border: solid 1px #ebecf0;
     padding: 24px 40px;
-    margin: 40px auto 0;
+    margin: 40px auto;
   }
   .section_title {
     font-family: "나눔바른고딕B";
@@ -257,6 +261,9 @@
     font-weight: normal;
     color: rgba(0, 0, 0, 0.87);
     margin: 16px 0 0 0;
+  }
+  .user_id > h4 > span {
+    color: #f18f01;
   }
   .user_pwd {
     margin-top: 36px;
@@ -385,8 +392,9 @@
   .save {
     width: 320px;
     height: 64px;
-    border-radius: 8px;
-    background-color: #4a90e2;
+    border: none;
+    border-radius: 2px;
+    background-color: #f18f01;
     font-family: "나눔바른고딕";
     font-size: 16px;
     color: #ffffff;

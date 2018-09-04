@@ -1,5 +1,9 @@
+select, button, input {
+  -moz-appearance: none;
+  -webkit-appearance:none;
+  appearance: none;
+}
 .signup_title {
-    background-color: #fafafa;
     text-align: center;
     color: rgba(0, 0, 0, 0.38);
     font-family: "나눔바른고딕";
@@ -9,7 +13,7 @@
     font-family: "나눔바른고딕";
     font-size: 12px;
     text-align: left;
-    color: rgba(0, 0, 0, 0.87);
+    color: rgba(38, 38, 38, 0.7);
     margin-bottom: 0px;
 }
 .email_part {
@@ -19,12 +23,11 @@
     margin-top: 16px;
 }
 .select_ur_sex {
-  width: 320px;
   height: 48px;
   margin-top: 8px;
 }
 .select_ur_sex > div {
-  width: 155px;
+  width: 170px;
   border: solid 1px #eeeeee;
   font-family: "나눔바른고딕";
   font-size: 14px;
@@ -35,7 +38,7 @@
   vertical-align: center;
 }
 .birthday_part {
-    margin-top: 32px;
+    margin-top: 16px;
 }
 .select_section {
     margin-top: 8px;
@@ -49,7 +52,6 @@
 }
 .birthday_part select {
     display: inline-block;
-    border: solid 1px #eeeeee;
     background-color: #fff;
 }
 .user_interest {
@@ -104,11 +106,9 @@
 .user_phone > p {
   font-family: "나눔바른고딕";
   font-size: 12px;
-  color: rgba(0, 0, 0, 0.87);
   margin: 0;
 }
-.user_phone > input[name='phone'] {
-  width: 320px;
+.user_phone > input {
   height: 48px;
   font-family: "나눔바른고딕";
   font-size: 16px;
@@ -119,23 +119,27 @@
 }
 
 .go_signup {
-  height: 56px;
-  border-radius: 3px;
-  background-color: #b70000;
-  font-family: "나눔바른고딕B";
+  height: 64px;
+  border-radius: 2px;
+  background-color: #f18f01;
+  font-family: "나눔바른고딕";
   font-size: 16px;
   text-align: center;
   color: #ffffff;
-  margin-top: 48px;
+  margin-top: 40px;
   border: none;
 }
 
 @media(max-width: 768px) {
   .signup_title {
-    height: 48px;
     font-size: 18px;
     padding-top: 14px;
     margin-top: 8px;
+  }
+  .signup_title > img {
+    width: 40px;
+    display: block;
+    margin: 0px auto 16px;
   }
   .nickname_part {
     margin-top: 16px;
@@ -144,13 +148,25 @@
     padding-left: 5.55%;
     padding-right: 5.55%;
   }
-  .select_ur_sex {
+  .text_input {
     width: 100%;
     height: 48px;
+    border-radius: 2px;
+    border: solid 1px #e6e6e6;
     margin-top: 8px;
+    padding-left: 8px;
+  }
+  .myteam_part select,
+  .address_part select {
+    width: 100%;
+    height: 48px;
+    border: solid 1px #eeeeee;
+    background-color: #fff;
+    margin-top: 8px;
+    padding-left: 8px;
   }
   .select_ur_sex > div {
-    width: 50%;
+    width: 49%;
     border: solid 1px #eeeeee;
     font-family: "나눔바른고딕";
     font-size: 14px;
@@ -159,102 +175,117 @@
     text-align: center;
     display: inline-block;
     vertical-align: center;
-    float: left;
-  }
-  .text_input {
-    width: 100%;
-    height: 48px;
-    border: solid 1px #eeeeee;
-    margin-top: 8px;
-    padding-left: 8px;
-  }
-  .myteam_part select,
-  .address_part select {
-    width: 100%;
-    height: 48px;
-    border: solid 1px #eeeeee;
-    background-color: #fff;
-    margin-top: 8px;
-    padding-left: 8px;
   }
   .sel_year {
     width: 28%;
     height: 48px;
     margin-right: 6px;
     padding-left: 8px;
+    border-radius: 2px !important;
+    border: solid 1px #e6e6e6;
   }
   .sel_month_day {
-    width: 22%;
+    width: 23%;
     height: 48px;
     margin-left: 7px;
     margin-right: 6px;
     padding-left: 8px;
+    border-radius: 2px !important;
+    border: solid 1px #e6e6e6;
+  }
+  .nickname_part {
+    margin-top: 16px;
+  }
+  .user_phone > input {
+    width: 100%;
   }
   .go_signup {
     width: 100%;
-    margin-bottom: 80px;
+    margin-bottom: 56px;
   }
   .selected_sex {
-    border: solid 1px #bb213c !important;
-    color: #000 !important;
+    border: solid 1px #f18f01 !important;
+    color: #000  !important;
   }
 }
 
 @media(min-width: 768px) {
   .wrapper {
     width: 500px;
-    box-shadow: 0 1px 4px 0 #eeeeee;
     margin: auto;
     margin-bottom: 50px;
     margin-top: 48px;
   }
   .signup_title {
-    height: 72px;
     font-size: 24px;
-    padding-top: 20px;
+  }
+  .signup_title > img {
+    width: 64px;
+    display: block;
+    margin: 0px auto 16px;
   }
   .signup_content {
-    padding-left: 90px;
-    padding-right: 90px;
+    margin-top: 48px;
+    padding-left: 78px;
+    padding-right: 78px;
   }
   .text_input {
-    width: 320px;
+    width: 343px;
     height: 48px;
-    border: solid 1px #eeeeee;
+    border-radius: 2px;
+    border: solid 1px #e6e6e6;
     margin-top: 8px;
     padding-left: 8px;
   }
   .myteam_part select,
   .address_part select {
-    width: 320px;
+    width: 343px;
     height: 48px;
     border: solid 1px #eeeeee;
     background-color: #fff;
     margin-top: 8px;
     padding-left: 8px;
   }
+  .select_ur_sex > div {
+    width: 170px;
+    border: solid 1px #eeeeee;
+    font-family: "나눔바른고딕";
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.38);
+    line-height: 48px;
+    text-align: center;
+    display: inline-block;
+    vertical-align: center;
+  }
   .sel_year {
-    width: 90px;
+    width: 92px;
     height: 48px;
     margin-right: 6px;
     padding-left: 8px;
+    border-radius: 2px !important;
+    border: solid 1px #e6e6e6;
   }
   .sel_month_day {
-    width: 70px;
+    width: 80px;
     height: 48px;
     margin-left: 7px;
     margin-right: 6px;
     padding-left: 8px;
+    border-radius: 2px !important;
+    border: solid 1px #e6e6e6;
   }
   .nickname_part {
-    margin-top: 24px;
+    margin-top: 16px;
+  }
+  .user_phone > input {
+    width: 343px;
   }
   .go_signup {
-    width: 320px;
+    width: 343px;
     margin-bottom: 56px;
   }
   .selected_sex {
-    border: solid 1px #bb213c !important;
+    border: solid 1px #f18f01 !important;
     color: #000  !important;
   }
 }

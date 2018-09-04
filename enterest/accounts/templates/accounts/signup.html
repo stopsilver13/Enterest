@@ -10,7 +10,9 @@
 
 {% block content %}
 <div class="wrapper">
-  <div class="signup_title">회원가입</div>
+  <div class="signup_title">
+    <img src="{% static 'img/logo/logo_simple.png' %}" alt="">
+  </div>
   <div class="signup_content">
 
     <form action="" method="POST">
@@ -28,7 +30,7 @@
         {% endif %}
       </div>
       <div class="password_part">
-        <p>비밀번호 <span>* 알파벳/숫자를 모두 포함하여 8자 이상 입력해주세요.</span></p>
+        <p>비밀번호<br><span>알파벳/숫자를 모두 포함하여 8자 이상</span></p>
         <input class="text_input" type="password" placeholder="비밀번호" name="password1" {% if form.password1.value != None %} value="{{ form.password1.value }}" {% endif %} required>
         {% if form.password.errors %}
           <div class="error_msg alert alert-danger">
@@ -55,7 +57,7 @@
         </div>
         <div class="agree_detail">
           <input type="checkbox" id="access_term" name="access_term">
-          <label for="access_term">(필수) 쉐어스팟 이용약관 동의</label>
+          <label for="access_term">(필수) 공연장고 이용약관 동의</label>
           <a href="" class="agreement_content">자세히 보기</a>
           <br>
           <input type="checkbox" id="personal_info" name="personal_info">
@@ -77,7 +79,7 @@ $(document).ready(function(){
     if( $('#agree_all').prop('checked') ) {
       $('#access_term').prop('checked', true);
       $('#personal_info').prop('checked', true);
-      $('.go_next').css('background-color', '#b70000');
+      $('.go_next').css('background-color', '#f18f01');
       $('.go_next').prop('disabled', "")
     } else {
       $('#access_term').prop('checked', false);
@@ -89,7 +91,7 @@ $(document).ready(function(){
 
   $('#personal_info').click(function(){
     if( $('#access_term').prop('checked') && $('#personal_info').prop('checked') ) {
-      $('.go_next').css('background-color', '#b70000')
+      $('.go_next').css('background-color', '#f18f01')
       $('.go_next').prop('disabled', "")
       $('#agree_all').prop('checked', true);
     } else {
@@ -100,7 +102,7 @@ $(document).ready(function(){
   })
   $('#access_term').click(function(){
     if( $('#personal_info').prop('checked') && $('#access_term').prop('checked') ) {
-      $('.go_next').css('background-color', '#b70000')
+      $('.go_next').css('background-color', '#f18f01')
       $('.go_next').prop('disabled', "")
       $('#agree_all').prop('checked', true);
     } else {

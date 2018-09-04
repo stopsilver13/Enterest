@@ -11,7 +11,9 @@
 
 
   <div class="login_content">
-    <div class="login_title"> 로그인 </div>
+    <div class="login_title">
+      <img src="{% static 'img/logo/logo_simple.png' %}" alt="">
+    </div>
     {% if form.errors %}
       <div class="error_msg alert alert-danger">
         아이디와 비밀번호를 확인해주세요!

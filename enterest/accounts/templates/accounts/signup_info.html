@@ -9,7 +9,9 @@
 {% block content %}
 <div class="content_in">
 <div class="wrapper">
-  <div class="signup_title">회원가입</div>
+  <div class="signup_title">
+    <img src="{% static 'img/logo/logo_simple.png' %}" alt="">
+  </div>
   {% with socialinfo=user.socialaccount_set.first.extra_data %}
   <form action="" method="POST">
   {% csrf_token %}
@@ -37,8 +39,8 @@
     <div class="ur_sex_part">
       <p>성별</p>
       <div class="select_ur_sex">
-        <div id="male"> 남 </div>
-        <div id="female"> 여 </div>
+        <div id="male"> 남성 </div>
+        <div id="female"> 여성 </div>
         <input type="text" name="sex" style="display: none;"
           {% if socialinfo.gender == "F" or socialinfo.gender == "female" or socialinfo.properties.gender == "female" %}
           value="female"
@@ -100,7 +102,11 @@
     </div> -->
     <div class="user_phone">
       <p class="section_title"> 휴대폰 번호 </p>
-      <input type="tel" name="phone" placeholder="01012341234" required>
+      <input type="tel" name="phone" required>
+    </div>
+    <div class="user_phone">
+      <p class="section_title"> [선택] 친구 추천코드 </p>
+      <input type="tel" name="friend_code">
     </div>
     <button class="go_signup">회원가입</button>
   </div>
